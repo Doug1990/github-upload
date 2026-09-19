@@ -590,6 +590,17 @@
   @media (max-width: 720px) { .descent-figure { display: none; } }
   .hud-btn.muted { color: #6E7689; }
 
+  /* Dezenter Hinweis: erscheint nur, wenn jemand scrollt, ohne dass Ton schon
+     freigeschaltet ist (reines Scrollen zählt bei Browsern nicht als Geste dafür). */
+  .tone-hint {
+    position: absolute; right: 0; bottom: calc(100% + 10px); white-space: nowrap;
+    font-size: 11.5px; color: #C7CAD6; background: #141B2Bcc; border: 1px solid #2A3145;
+    border-radius: 999px; padding: 7px 13px; backdrop-filter: blur(6px); cursor: pointer;
+    opacity: 0; transform: translateY(4px); pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .tone-hint.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
   .station-stage {
     position: fixed; inset: 0; z-index: 50;
     display: flex; align-items: flex-end; justify-content: center;
@@ -654,6 +665,7 @@
 
 <!-- ============ Seitenleiste: Ton & Farbschema, immer erreichbar ============ -->
 <div class="side-hud" id="sideHud">
+  <div class="tone-hint sans" id="toneHint">🔈 Klicken für Ton</div>
   <button type="button" class="hud-btn sans active-tone" id="hudMuteBtn" title="Ton stumm schalten / anschalten">♪ Ton an</button>
   <div class="theme-switch" id="themeSwitch" role="group" aria-label="Farbschema wählen">
     <button type="button" class="theme-dot active" data-theme="blue" aria-label="Blau"></button>
@@ -1384,10 +1396,29 @@ function markInteracted() {
     }
     if (pending) return;
     pending = true;
-    requestAnimationFrame(() => { pending = false; });
+    // Nicht pro Frame erneut versuchen (spammt bei Dauer-Scrollen nur Chromes
+    // Autoplay-Warnung in die Konsole) — ein Versuch pro Sekunde reicht.
+    setTimeout(() => { pending = false; }, 1000);
     markInteracted();
   };
   EVENTS.forEach(ev => window.addEventListener(ev, kick, { passive: true }));
+})();
+
+// Dezenter Hinweis für Desktop-Mausrad-Scroller: sobald jemand scrollt, ohne dass
+// Ton schon lief, kurz "Klicken für Ton" einblenden — verschwindet wieder, sobald
+// der AudioContext tatsächlich läuft.
+(function toneHint() {
+  const hint = document.getElementById('toneHint');
+  if (!hint) return;
+  let hasScrolled = false;
+  const markScrolled = () => { hasScrolled = true; };
+  window.addEventListener('wheel', markScrolled, { passive: true, once: true });
+  window.addEventListener('scroll', markScrolled, { passive: true, once: true });
+  hint.addEventListener('click', markInteracted);
+  setInterval(() => {
+    const unlocked = !!(toneCtx && toneCtx.state === 'running');
+    hint.classList.toggle('visible', hasScrolled && toneEnabled && !unlocked);
+  }, 400);
 })();
 
 function handleActivityClick(id) {
