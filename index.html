@@ -1034,7 +1034,8 @@ const ACTIVITIES = [
   { id: 'bahn', label: 'Bahn fahren', accent: '#D9A87F', connects: ['phys', 'kult', 'digi'],
     text: 'Gleise, Fahrplan, Leitstelle, Fahrdienst. Funktioniert nur, weil hunderte Menschen im Schichtbetrieb arbeiten — und weil sich alle darauf verlassen, dass es funktioniert.',
     kette: [
-      { ebene: "phys", ding: "Das Gleis, auf dem du stehst", zahl: "Rheinbahn, gegründet 1896", traeger: "Rheinbahn", quelleUrl: "https://www.rheinbahn.de/unternehmen" },
+      { ebene: "phys", ding: "Das Gleis, auf dem du stehst", zahl: "Rheinbahn, gegründet 1896", traeger: "Rheinbahn", quelleUrl: "https://www.rheinbahn.de/unternehmen",
+        zukunft: { fortschritt: 100, was: "Die neue U81 zum Flughafen ist am 4. September 2026 eröffnet worden — nach rund sieben Jahren Bauzeit, rund 336 Millionen Euro und einer 438 Meter langen Brücke über die Nordstern-Bahn.", offen: "Fertig ist damit erst der erste Bauabschnitt bis zum Flughafen-Terminal — ob und wann weitere Netzausbauten folgen, ist offen.", quelleUrl: "https://www.duesseldorf.de/medienportal/pressedienst-einzelansicht/pld/u81-offizielle-eroeffnung-am-4-september" } },
       { ebene: "kult", ding: "Der Fahrdienst", zahl: "Rund 3.590 Beschäftigte, im Schichtbetrieb", traeger: "Rheinbahn", quelleUrl: "https://www.rheinbahn.de/unternehmen", tier: 1,
         zukunft: { fortschritt: 30, was: "Über 70 Elektrobusse sollen 2027 im Einsatz sein, dazu ein neuer E-Bus-Betriebshof in Heerdt.", offen: "Das ist ein Teil der Busflotte — die Bahnen liefen schon länger elektrisch, viele Buslinien noch nicht.", quelleUrl: "https://www.zughalt.de/2026/03/rheinbahn-beschafft-75-elektrobusse/" } },
       { ebene: "digi", ding: "Die Leitstelle", zahl: "Sieht das ganze Netz und greift in Sekunden ein", traeger: "Rheinbahn", tier: 1 },
@@ -1063,7 +1064,8 @@ const ACTIVITIES = [
         { ding: 'Dass du selbst hinkommst', zahl: 'Und danach rechtzeitig zur Arbeit' },
       ] },
       { name: 'Menschen', ebene: 'kult', teile: [
-        { ding: 'Die Fachkräfte in der Gruppe', zahl: 'In NRW faktisch 1:3,7 bei U3, 1:7,6 bei Ü3', traeger: "Kita-Träger", quelleUrl: 'https://kitazentrale.de/bundesland/nordrhein-westfalen/' },
+        { ding: 'Die Fachkräfte in der Gruppe', zahl: 'In NRW faktisch 1:3,7 bei U3, 1:7,6 bei Ü3', traeger: "Kita-Träger", quelleUrl: 'https://kitazentrale.de/bundesland/nordrhein-westfalen/',
+          zukunft: { fortschritt: 58, was: "Zum Kita-Jahr 2026/2027 stehen in Düsseldorf rund 27.500 Betreuungsplätze bereit, neun weitere Kitas eröffnen neu — die Versorgungsquote für unter Dreijährige liegt bei rund 58 Prozent, vier Punkte mehr als im Vorjahr.", offen: "Für Kinder ab drei Jahren liegt die Quote zwar über 100 Prozent, aber mehr Plätze allein reichen nicht: Ohne genug Fachkräfte bleibt jede neue Gruppe auf dem Papier.", quelleUrl: "https://www.duesseldorf.de/aktuelles/news/detailansicht/newsdetail/neues-kita-jahr-2026-2027-mehr-plaetze-qualitaet-und-chancengerechtigkeit" } },
         { ding: 'Die Leitung', zahl: 'Freistellung je Gruppe nach § 29 KiBiz — Dienstplan, Aufsicht, Elterngespräche', traeger: "Kita-Träger", quelleUrl: 'https://kitazentrale.de/bundesland/nordrhein-westfalen/' },
         { ding: 'Eine Vertretung für den Krankheitsfall', zahl: 'Das Glied, das am häufigsten fehlt', traeger: "Kita-Träger" },
         { ding: 'Küche und Reinigung', zahl: 'Wird selten mitgezählt, fehlt aber sofort auf', traeger: "Kita-Träger" },
