@@ -1369,17 +1369,25 @@ function markInteracted() {
 }
 
 // Browser lassen Ton erst nach einer echten Nutzer-Geste zu — es gibt keinen Weg,
-// das komplett zu umgehen. Das hier fängt aber die frühestmögliche Geste ab,
-// egal wo auf der Seite, statt erst zu warten, bis man tief im Tool klickt.
+// das komplett zu umgehen. "wheel"/"scroll" zählen dabei NICHT als gültige Geste
+// (anders als Klick/Tastatur/Touch-Ende), das Freischalten schlägt bei ihnen also
+// still fehl. Wichtig deshalb: einen fehlgeschlagenen Versuch nicht mit den Listenern
+// für die echten Gesten wegwerfen — sonst bleibt der Ton für den Rest des Besuchs aus,
+// nur weil die erste Interaktion ein Scroll war.
 (function startAmbientOnFirstGesture() {
-  // "wheel" deckt Mausrad und Trackpad-Scrollen ab (z. B. MacBook) — nicht jeder Browser
-  // wertet das als vollwertige Geste für Audiofreigabe, aber es kostet nichts, es zu versuchen.
-  const EVENTS = ['pointerdown', 'keydown', 'touchstart', 'wheel'];
+  const EVENTS = ['pointerdown', 'mousedown', 'keydown', 'touchend', 'wheel', 'scroll'];
+  let pending = false;
   const kick = () => {
+    if (toneCtx && toneCtx.state === 'running') {
+      EVENTS.forEach(ev => window.removeEventListener(ev, kick));
+      return;
+    }
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => { pending = false; });
     markInteracted();
-    EVENTS.forEach(ev => window.removeEventListener(ev, kick));
   };
-  EVENTS.forEach(ev => window.addEventListener(ev, kick, { once: true, passive: true }));
+  EVENTS.forEach(ev => window.addEventListener(ev, kick, { passive: true }));
 })();
 
 function handleActivityClick(id) {
@@ -4151,8 +4159,12 @@ function personalStrand(label) {
     });
   }
   if (hudMuteBtn) hudMuteBtn.addEventListener('click', () => {
+    // Der Klick selbst ist eine gültige Geste fürs Audio-Unlock — das immer versuchen,
+    // nicht nur wenn dabei auf "an" umgeschaltet wird (sonst schaltet der allererste
+    // Klick, der ja meist von "an" auf "aus" geht, den Ton nie frei).
+    ensureAmbient();
+    if (toneCtx) toneCtx.resume();
     toneEnabled = !toneEnabled;
-    if (toneEnabled) { ensureAmbient(); if (toneCtx) toneCtx.resume(); }
     updateAmbient();
     syncToneButtons();
   });
