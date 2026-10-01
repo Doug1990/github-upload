@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skizze: Düsseldorf als Infrastruktur-Karte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --accent: #4FC3D9; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; color: #E8E6E0;
+    background: linear-gradient(180deg, #1B2740 0%, #131c2e 30%, #0B1220 100%);
+    font-family: 'Fraunces', Georgia, serif;
+  }
+  .sans { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; }
+  main { max-width: 1040px; margin: 0 auto; padding: 36px 16px 56px; text-align: center; }
+  .eyebrow { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #8892A6; margin: 0 0 10px; }
+  h1 { font-weight: 500; font-size: clamp(26px, 4.5vw, 40px); line-height: 1.15; margin: 0 0 12px; text-wrap: balance; }
+  .lead { font-size: 14px; line-height: 1.65; color: #A9AFC0; max-width: 520px; margin: 0 auto 22px; }
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 0 6px; }
+  .chip {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; padding: 7px 15px; border-radius: 999px;
+    border: 1px solid #3A4155; background: transparent; color: #C7CAD6; cursor: pointer;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .chip:hover { border-color: #5b6580; }
+  .chip.on { border-color: var(--accent); color: var(--accent); background: rgba(79,195,217,.12); }
+  .chip.reset { border-style: dashed; color: #8892A6; }
+  svg { width: 100%; height: auto; display: block; margin: 8px auto 0; overflow: visible; }
+
+  .slab-top { fill: #17233a; stroke: #2a3752; stroke-width: 1; }
+  .slab-side-l { fill: #0f1829; }
+  .slab-side-r { fill: #0c1423; }
+  .grid { stroke: #22304a; stroke-width: .6; fill: none; }
+  .rhein { fill: none; stroke: #1d4a66; stroke-linecap: round; stroke-linejoin: round; }
+  .rhein-hi { fill: none; stroke: #2c6f93; stroke-width: 1.4; stroke-linecap: round; stroke-dasharray: 2 14; animation: flow 6s linear infinite; opacity: .6; }
+  .green { fill: #1e3a2a; stroke: #2c5a3e; stroke-width: 1; opacity: .85; }
+  .district { font-family: 'IBM Plex Sans', sans-serif; font-size: 9.5px; letter-spacing: .22em; fill: #3a4a68; text-transform: uppercase; }
+
+  .node { transition: opacity .5s; opacity: .38; cursor: pointer; }
+  .node .face-t, .node .face-l, .node .face-r { transition: fill .5s, filter .5s; }
+  .node.lit { opacity: 1; }
+  .node text { font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; fill: #E8E6E0; opacity: 0; transition: opacity .4s; paint-order: stroke; stroke: #0B1220; stroke-width: 3.5px; stroke-linejoin: round; }
+  .node.lit text, .node:hover text, .node:focus text { opacity: 1; }
+  .node:hover { opacity: .85; }
+  .node.lit:hover { opacity: 1; }
+  .node .halo { transition: opacity .5s; }
+
+  .edge { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-dasharray: 3 7; opacity: 0; transition: opacity .6s; animation: flow 1.6s linear infinite; }
+  .edge.lit { opacity: .9; }
+  .edge-base { fill: none; stroke: #2a3752; stroke-width: 1; opacity: .5; }
+
+  .you circle.core { fill: #FFE3B0; }
+  .you .ring { fill: none; stroke: #F2C48D; stroke-width: 1.4; animation: ring 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  .you text { font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; fill: #FFE3B0; font-weight: 500; paint-order: stroke; stroke: #0B1220; stroke-width: 3.5px; }
+
+  @keyframes flow { to { stroke-dashoffset: -20; } }
+  @keyframes pulse { 0%,100% { opacity: .55; } 50% { opacity: 1; } }
+  @keyframes ring { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.4); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .edge, .rhein-hi, .you .ring { animation: none; } }
+
+  .legend { max-width: 560px; margin: 18px auto 0; text-align: left; min-height: 120px; }
+  .legend p.empty { text-align: center; color: #6E7689; font-size: 13px; margin: 18px 0; }
+  .legend h2 { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #8892A6; font-weight: 500; margin: 0 0 8px; font-family: 'IBM Plex Sans', sans-serif; }
+  .legend ul { list-style: none; margin: 0; padding: 0; }
+  .legend li { display: flex; gap: 10px; align-items: baseline; font-size: 13.5px; line-height: 1.5; padding: 5px 0; border-bottom: 1px solid #1f2a40; font-family: 'IBM Plex Sans', sans-serif; color: #C7CAD6; }
+  .legend li i { flex: none; width: 9px; height: 9px; border-radius: 50%; transform: translateY(0); }
+  .legend li b { font-weight: 500; color: #E8E6E0; }
+  .legend li .n { margin-left: auto; font-size: 11.5px; color: #8892A6; white-space: nowrap; }
+  .layers { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 14px; font-size: 11.5px; color: #8892A6; font-family: 'IBM Plex Sans', sans-serif; }
+  .layers span { display: inline-flex; align-items: center; gap: 6px; }
+  .layers i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+  .note { font-size: 11.5px; color: #6E7689; max-width: 480px; margin: 22px auto 0; line-height: 1.6; }
+  a { color: #8892A6; }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow sans">Skizze · Düsseldorf</p>
+  <h1>Was leuchtet, wenn du etwas tust?</h1>
+  <p class="lead sans">Tipp an, was du heute gemacht hast. Auf der Karte gehen die Stellen an, an denen das hängt. Mehrere Dinge zusammen gehen auch, dann leuchten gemeinsame Stellen stärker.</p>
+
+  <div class="chips" id="chips"></div>
+
+  <svg id="map" viewBox="0 0 1000 600" role="img" aria-label="Isometrische, stark vereinfachte Karte von Düsseldorf mit Infrastruktur-Standorten, die je nach gewählter Tätigkeit aufleuchten"></svg>
+
+  <div class="layers" id="layers"></div>
+  <div class="legend" id="legend"></div>
+
+  <p class="note sans">Skizze, Standorte schematisch und nicht maßstabsgetreu. Die Inhalte stammen aus <a href="index.html">der Hauptseite</a>. Diese Seite ist KI-generiert.</p>
+</main>
+
+<script>
+(function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  const LAYER = {
+    kult: { name: 'Kulturell', c: '#7B5EA8', g: '#B39DDB' },
+    digi: { name: 'Digital',   c: '#4A9B9B', g: '#7FCFCF' },
+    phys: { name: 'Physisch',  c: '#8B6844', g: '#E0B97E' },
+    bio:  { name: 'Biologisch',c: '#3D5A3D', g: '#8FD9A8' },
+  };
+
+  // Karte: x = Ost, y = Süd (0..100). Der Rhein läuft von Süd nach Nord, die Stadt liegt überwiegend östlich.
+  const NODES = {
+    rhein:     { n: 'Der Rhein',                     e: 'bio',  x: 47, y: 56, w: 5, h: 3 },
+    kies:      { n: 'Kies- und Sandschichten',       e: 'phys', x: 52, y: 70, w: 4, h: 2 },
+    flehe:     { n: 'Wasserwerk Flehe',              e: 'phys', x: 55, y: 77, w: 7, h: 9 },
+    holthausen:{ n: 'Wasserwerk Holthausen',         e: 'phys', x: 68, y: 89, w: 6, h: 8 },
+    staad:     { n: 'Wasserwerk Am Staad',           e: 'phys', x: 48, y: 14, w: 6, h: 8 },
+    netz:      { n: 'Leitungsnetz',                  e: 'phys', x: 62, y: 62, w: 4, h: 3 },
+    lausward:  { n: 'Kraftwerk Lausward',            e: 'phys', x: 49, y: 63, w: 7, h: 22 },
+    flingern:  { n: 'Heizkraftwerk Flingern',        e: 'phys', x: 70, y: 46, w: 6, h: 14 },
+    hbf:       { n: 'Hauptbahnhof und Gleise',       e: 'phys', x: 62, y: 53, w: 9, h: 5 },
+    flughafen: { n: 'Flughafen, U81',                e: 'phys', x: 80, y: 8,  w: 10, h: 5 },
+    leitstelle:{ n: 'Rheinbahn-Leitstelle',          e: 'digi', x: 73, y: 59, w: 5, h: 10 },
+    rz:        { n: 'Rechenzentren (Region)',        e: 'digi', x: 84, y: 40, w: 8, h: 12 },
+    glasfaser: { n: 'Glasfaser-Knoten',              e: 'digi', x: 60, y: 41, w: 4, h: 6 },
+    radnetz:   { n: 'Radhauptnetz',                  e: 'phys', x: 66, y: 34, w: 5, h: 2 },
+    ampel:     { n: 'Ampelsteuerung',                e: 'digi', x: 57, y: 47, w: 3, h: 9 },
+    rat:       { n: 'Rathaus, Rat und Bezirke',      e: 'kult', x: 55, y: 38, w: 6, h: 9 },
+    kita:      { n: 'Kita im Viertel',               e: 'kult', x: 66, y: 69, w: 5, h: 5 },
+    hofgarten: { n: 'Hofgarten, Rheinwiesen',        e: 'bio',  x: 54, y: 29, w: 8, h: 2 },
+    wald:      { n: 'Grafenberger Wald',             e: 'bio',  x: 84, y: 26, w: 9, h: 3 },
+    schicht:   { n: 'Schichtdienst und Ehrenamt',    e: 'kult', x: 76, y: 74, w: 4, h: 6 },
+  };
+  const YOU = { x: 63, y: 72 };
+  // Standorte etwas auseinanderziehen, damit die Beschriftungen nicht übereinanderliegen
+  const SP = v => Math.max(6, Math.min(94, 50 + (v - 50) * 1.55));
+  Object.values(NODES).forEach(n => { n.x = SP(n.x); n.y = SP(n.y); });
+  YOU.x = SP(YOU.x); YOU.y = SP(YOU.y);
+
+  const ACTS = [
+    { id: 'duschen', l: 'Duschen', edges: [['rhein','kies'],['kies','flehe'],['flehe','netz'],['netz','you'],['lausward','you']],
+      txt: { rhein: 'Liefert das Rohwasser', kies: 'Filtert, bevor ein Mensch es anfasst', flehe: 'In Betrieb seit 1870', netz: 'Über 2.300 km', lausward: 'Macht das Wasser warm' } },
+    { id: 'kaffee', l: 'Kaffee kochen', edges: [['flehe','netz'],['netz','you'],['lausward','you'],['rz','you']],
+      txt: { flehe: 'Wasser aus dem Hahn', netz: 'Bis in die Küche', lausward: 'Strom für die Maschine', rz: 'Lieferkette der Bohne' } },
+    { id: 'bahn', l: 'Bahn fahren', edges: [['lausward','hbf'],['leitstelle','hbf'],['hbf','flughafen'],['hbf','you'],['schicht','hbf']],
+      txt: { lausward: 'Strom für die Bahn', leitstelle: 'Sieht das ganze Netz', hbf: 'Gleise seit 1896', flughafen: 'Neue U81 seit September 2026', schicht: 'Rund 3.590 Beschäftigte' } },
+    { id: 'rad', l: 'Radfahren', edges: [['rat','radnetz'],['radnetz','hofgarten'],['ampel','radnetz'],['radnetz','you']],
+      txt: { rat: 'Ratsbeschluss von 2000', radnetz: 'Über 300 km Hauptnetz', ampel: 'Grünpfeile fürs Rad', hofgarten: 'Der Weg dorthin' } },
+    { id: 'zocken', l: 'Zocken', edges: [['glasfaser','you'],['rz','glasfaser'],['lausward','rz'],['lausward','you']],
+      txt: { glasfaser: 'Latenz unter 50 ms', rz: 'Läuft rund um die Uhr', lausward: 'Strom für beide Seiten' } },
+    { id: 'ki', l: 'Eine KI fragen', edges: [['glasfaser','you'],['rz','glasfaser'],['lausward','rz'],['rhein','rz'],['rat','rz']],
+      txt: { glasfaser: 'Die Leitung zu dir', rz: 'Rechnen und Kühlen', lausward: 'Der Strom dafür', rhein: 'Wasser für die Kühlung', rat: 'Datenschutz und Regeln' } },
+    { id: 'kita', l: 'Kind in die Kita bringen', edges: [['kita','you'],['rat','kita'],['hbf','kita'],['schicht','kita'],['flehe','kita'],['lausward','kita']],
+      txt: { kita: 'Raum, Menschen und Regeln gleichzeitig', rat: 'Platzvergabe', hbf: 'Der Weg dorthin', schicht: 'Fachkräfte und Vertretung', flehe: 'Wasser', lausward: 'Wärme' } },
+  ];
+
+  // --- Projektion ---
+  const KX = 4.7, KY = 2.35, CX = 500, CY = 70;
+  const P = (x, y, z = 0) => [CX + (x - y) * KX, CY + (x + y) * KY - z];
+  const pts = a => a.map(p => p.map(v => v.toFixed(1)).join(',')).join(' ');
+  const el = (t, a = {}, parent) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); if (parent) parent.appendChild(n); return n; };
+
+  const svg = document.getElementById('map');
+
+  // Filter für Glühen
+  const defs = el('defs', {}, svg);
+  const f = el('filter', { id: 'glow', x: '-60%', y: '-60%', width: '220%', height: '220%' }, defs);
+  el('feGaussianBlur', { stdDeviation: 5, result: 'b' }, f);
+  const fm = el('feMerge', {}, f); el('feMergeNode', { in: 'b' }, fm); el('feMergeNode', { in: 'SourceGraphic' }, fm);
+
+  // Platte
+  const D = 16;
+  const c = [P(0,0), P(100,0), P(100,100), P(0,100)];
+  el('polygon', { class: 'slab-side-l', points: pts([c[3], c[2], [c[2][0], c[2][1]+D], [c[3][0], c[3][1]+D]]) }, svg);
+  el('polygon', { class: 'slab-side-r', points: pts([c[2], c[1], [c[1][0], c[1][1]+D], [c[2][0], c[2][1]+D]]) }, svg);
+  el('polygon', { class: 'slab-top', points: pts(c) }, svg);
+  for (let i = 10; i < 100; i += 10) {
+    el('polyline', { class: 'grid', points: pts([P(i,0), P(i,100)]) }, svg);
+    el('polyline', { class: 'grid', points: pts([P(0,i), P(100,i)]) }, svg);
+  }
+
+  // Grünflächen (stark vereinfacht)
+  const patch = (cx, cy, rx, ry) => { const a = []; for (let i = 0; i < 14; i++) { const t = i / 14 * Math.PI * 2; a.push(P(cx + Math.cos(t) * rx, cy + Math.sin(t) * ry)); } el('polygon', { class: 'green', points: pts(a) }, svg); };
+  patch(88, 22, 9, 6); patch(60, 22, 8, 3.5); patch(80, 90, 8, 4);
+
+  // Rhein als Band
+  const river = [[63,100],[58,86],[52,72],[46,58],[44,44],[45,30],[49,16],[55,0]];
+  const rp = river.map(([x, y]) => P(Math.max(0, Math.min(100, 50 + (x - 50) * 1.55)), Math.max(0, Math.min(100, 50 + (y - 50) * 1.55))));
+  const d = rp.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  el('path', { class: 'rhein', d, 'stroke-width': 30 }, svg);
+  el('path', { class: 'rhein-hi', d }, svg);
+
+  // Stadtteil-Beschriftung
+  [['Oberkassel', 18, 52], ['Altstadt', 66, 34], ['Flingern', 88, 50], ['Süden', 56, 94], ['Norden', 44, 6]].forEach(([t, x, y]) => {
+    const [px, py] = P(x, y); const tx = el('text', { class: 'district', x: px, y: py, 'text-anchor': 'middle' }, svg); tx.textContent = t;
+  });
+
+  // Alle möglichen Leitungen als schwacher Untergrund, aktive darüber
+  const edgeKeys = {};
+  ACTS.forEach(a => a.edges.forEach(([p, q]) => { edgeKeys[p < q ? p + '|' + q : q + '|' + p] = [p, q]; }));
+  const pos = id => id === 'you' ? P(YOU.x, YOU.y, 6) : P(NODES[id].x, NODES[id].y, NODES[id].h * 0.55);
+  const arc = (p, q) => { const a = pos(p), b = pos(q); const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2 - Math.hypot(a[0] - b[0], a[1] - b[1]) * 0.18; return `M${a[0].toFixed(1)} ${a[1].toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${b[0].toFixed(1)} ${b[1].toFixed(1)}`; };
+  const edgeEls = {};
+  Object.entries(edgeKeys).forEach(([k, [p, q]]) => {
+    el('path', { class: 'edge-base', d: arc(p, q) }, svg);
+    edgeEls[k] = el('path', { class: 'edge', d: arc(p, q) }, svg);
+  });
+
+  // Knoten, von hinten nach vorne sortiert
+  const nodeEls = {};
+  Object.entries(NODES).sort((a, b) => (a[1].x + a[1].y) - (b[1].x + b[1].y)).forEach(([id, n]) => {
+    const L = LAYER[n.e];
+    const g = el('g', { class: 'node', tabindex: 0, 'data-id': id }, svg);
+    const hw = n.w / 2;
+    const base = [P(n.x - hw, n.y - hw), P(n.x + hw, n.y - hw), P(n.x + hw, n.y + hw), P(n.x - hw, n.y + hw)];
+    const top = [P(n.x - hw, n.y - hw, n.h), P(n.x + hw, n.y - hw, n.h), P(n.x + hw, n.y + hw, n.h), P(n.x - hw, n.y + hw, n.h)];
+    const halo = el('ellipse', { class: 'halo', cx: P(n.x, n.y)[0], cy: P(n.x, n.y)[1] - n.h * 0.3, rx: n.w * KX * 0.9 + 6, ry: n.w * KY * 1.2 + 6, fill: L.g, style: 'opacity:0', filter: 'url(#glow)' }, g);
+    halo.style.mixBlendMode = 'screen';
+    el('polygon', { class: 'face-l', points: pts([base[3], base[2], top[2], top[3]]), fill: L.c, 'data-k': 'l' }, g);
+    el('polygon', { class: 'face-r', points: pts([base[2], base[1], top[1], top[2]]), fill: L.c, 'data-k': 'r' }, g);
+    el('polygon', { class: 'face-t', points: pts(top), fill: L.g, 'data-k': 't' }, g);
+    const lp = P(n.x, n.y, n.h + 6);
+    const t = el('text', { x: lp[0], y: lp[1] - 4, 'text-anchor': 'middle' }, g); t.textContent = n.n;
+    nodeEls[id] = { g };
+    el('title', {}, g).textContent = n.n;
+  });
+
+  // Du
+  const yp = P(YOU.x, YOU.y, 6);
+  const you = el('g', { class: 'you' }, svg);
+  el('circle', { class: 'ring', cx: yp[0], cy: yp[1], r: 7 }, you);
+  el('circle', { class: 'core', cx: yp[0], cy: yp[1], r: 5 }, you);
+  const yt = el('text', { x: yp[0] + 12, y: yp[1] + 4 }, you); yt.textContent = 'Du';
+
+  // --- UI ---
+  const chips = document.getElementById('chips');
+  const legend = document.getElementById('legend');
+  const on = new Set();
+  ACTS.forEach(a => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.textContent = a.l;
+    b.addEventListener('click', () => { on.has(a.id) ? on.delete(a.id) : on.add(a.id); b.classList.toggle('on', on.has(a.id)); render(); });
+    chips.appendChild(b); a.btn = b;
+  });
+  const rs = document.createElement('button');
+  rs.className = 'chip reset'; rs.type = 'button'; rs.textContent = 'Zurücksetzen';
+  rs.addEventListener('click', () => { on.clear(); ACTS.forEach(a => a.btn.classList.remove('on')); render(); });
+  chips.appendChild(rs);
+
+  document.getElementById('layers').innerHTML = Object.values(LAYER).map(l => `<span><i style="background:${l.g}"></i>${l.name}</span>`).join('');
+
+  function render() {
+    const count = {}, notes = {}, ekeys = new Set();
+    ACTS.filter(a => on.has(a.id)).forEach(a => {
+      a.edges.forEach(([p, q]) => {
+        ekeys.add(p < q ? p + '|' + q : q + '|' + p);
+        [p, q].forEach(id => { if (id !== 'you') { count[id] = (count[id] || 0) + 1; } });
+      });
+      Object.entries(a.txt).forEach(([id, t]) => { (notes[id] = notes[id] || new Set()).add(t); });
+    });
+    // Zählung pro Tätigkeit statt pro Leitung
+    const perAct = {};
+    ACTS.filter(a => on.has(a.id)).forEach(a => {
+      new Set(a.edges.flat().filter(i => i !== 'you')).forEach(id => { perAct[id] = (perAct[id] || 0) + 1; });
+    });
+    Object.entries(nodeEls).forEach(([id, o]) => {
+      const k = perAct[id] || 0;
+      o.g.classList.toggle('lit', k > 0);
+      const halo = o.g.querySelector('.halo');
+      halo.style.opacity = k ? Math.min(0.4 + k * 0.25, 1) : 0;
+    });
+    Object.entries(edgeEls).forEach(([k, e]) => e.classList.toggle('lit', ekeys.has(k)));
+
+    // Legende
+    if (!on.size) { legend.innerHTML = '<p class="empty sans">Noch nichts gewählt.</p>'; return; }
+    const rows = Object.keys(perAct).sort((a, b) => perAct[b] - perAct[a] || NODES[a].n.localeCompare(NODES[b].n));
+    legend.innerHTML = '<h2>Was dafür gerade mitläuft</h2><ul>' + rows.map(id => {
+      const n = NODES[id];
+      return `<li><i style="background:${LAYER[n.e].g}"></i><span><b>${n.n}</b>${notes[id] ? ' · ' + [...notes[id]].join(' / ') : ''}</span>${perAct[id] > 1 ? `<span class="n">${perAct[id]} Dinge gleichzeitig</span>` : ''}</li>`;
+    }).join('') + '</ul>';
+  }
+  render();
+  // Startzustand: erste Tätigkeit vorwählen, damit man sofort etwas sieht
+  ACTS[0].btn.click();
+})();
+</script>
+</body>
+</html>
