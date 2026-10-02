@@ -180,6 +180,36 @@
   .dna-ch .bits { font-size: 9.5px; color: #6E7689; margin-top: 3px; letter-spacing: 0.04em; }
   .dna-sum { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 12px; }
 
+  /* Evolution (.evo) */
+  .evo-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 14px; }
+  .evo-step { background: rgba(255,255,255,0.03); border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.55; color: #C7CAD6; }
+  .evo-step b { display: block; font-family: 'Fraunces', serif; font-weight: 500; font-size: 16px; color: var(--ink); margin-bottom: 2px; }
+  .evo-step em { display: block; font-style: normal; color: var(--gold); font-size: 12px; margin-top: 4px; }
+  .evo-env { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 14px; font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: var(--muted); margin: 0 2px 8px; }
+  .evo-env b { color: var(--gold); font-weight: 600; }
+  .evo-canvas { display: block; width: 100%; border-radius: 10px; }
+  #evoPop { aspect-ratio: 16 / 7; background: radial-gradient(ellipse at 50% 40%, rgba(var(--accent-rgb),0.07), rgba(10,19,16,0.5) 80%); border: 1px solid #25332c; }
+  #evoChart { aspect-ratio: 16 / 6.6; margin-top: 12px; }
+  .evo-sliders { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 26px; margin-top: 14px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); }
+  .evo-sliders label { display: block; }
+  .evo-sliders .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .evo-sliders output { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500; }
+  .evo-sliders input[type=range] { width: 100%; accent-color: var(--accent); margin: 0; }
+  .evo-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .evo-btns .btn[hidden] { display: none; }
+  .evo-btns .btn:disabled { opacity: 0.4; cursor: default; border-color: #3A4A42; color: var(--ink); }
+  .evo-btns .primary { border-color: var(--accent); color: var(--accent); }
+  .evo-btns .warn:hover { border-color: var(--coral); color: var(--coral); }
+  .evo-legend i.line { width: 16px; height: 3px; border-radius: 2px; vertical-align: 3px; }
+  .evo-legend b { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+  @media (max-width: 640px) {
+    .evo-steps, .evo-sliders { grid-template-columns: 1fr; }
+    #evoPop { aspect-ratio: 1 / 1; }
+    #evoChart { aspect-ratio: 4 / 3; }
+    #evoPanel .stat { padding: 9px 9px; }
+    #evoPanel .stat span { font-size: 17px; white-space: nowrap; }
+  }
+
   /* Schluss */
   .closing { text-align: center; padding: 90px 22px 60px; max-width: 640px; }
   .closing p { font-size: clamp(17px, 2.6vw, 22px); color: #C7CAD6; line-height: 1.6; margin: 0 0 14px; }
@@ -451,6 +481,49 @@
       <p class="infra">In der Stadt: Puffer und Reserven kosten Geld und retten im Ernstfall den Betrieb.</p>
     </article>
   </div>
+</section>
+
+<!-- 3b. Evolution -->
+<section class="sec reveal" id="evolution">
+  <h2>Ohne Bauamt: Was sich bewährt, bleibt.</h2>
+  <p class="lead">Stell dir jede Zelle als Stadtviertel vor. Reicht die Versorgung nicht oder hält die Mauer nicht, ist das Viertel bald weg. Die übrigen bauen weiter, mit kleinen Zufällen im Bauplan. Niemand entwirft das Ergebnis. Drehe an den Reglern und sieh, was sich durchsetzt.</p>
+  <div class="evo-steps">
+    <div class="evo-step"><b>Variation</b>Beim Kopieren schleichen sich kleine Fehler ein. Keine Zelle gleicht der anderen.<em>Stadt: Jedes Viertel wird etwas anders gebaut.</em></div>
+    <div class="evo-step"><b>Auswahl</b>Wer mit Hunger oder Gift schlechter zurechtkommt, stirbt häufiger.<em>Stadt: Ohne Versorgung wird ein Viertel aufgegeben.</em></div>
+    <div class="evo-step"><b>Vererbung</b>Wer bleibt, gibt seinen Bauplan weiter, samt kleinen Abweichungen.<em>Stadt: Was funktioniert, wird nachgebaut.</em></div>
+  </div>
+  <div class="panel" id="evoPanel">
+    <div class="evo-env"><span>Umwelt: <b id="evoEnvName">Hungerzeit</b></span><span>Jeder Kreis ist eine Zelle, leere Punkte sind freie Grundstücke.</span></div>
+    <canvas id="evoPop" class="evo-canvas" role="img" aria-label="Population aus Zellen, die sich über Generationen anpassen."></canvas>
+    <div class="stats" aria-live="off">
+      <div class="stat"><small>Generation</small><span id="evoGen">0</span></div>
+      <div class="stat"><small>Population</small><span id="evoPopN">0</span></div>
+      <div class="stat"><small>Ø Fitness</small><span id="evoFit">0 %</span></div>
+    </div>
+    <canvas id="evoChart" class="evo-canvas" role="img" aria-label="Diagramm: Durchschnittliche Energieeffizienz, Membrandichte und Fitness über die Generationen."></canvas>
+    <div class="legend evo-legend">
+      <span><i class="line" style="background:#F2C46B"></i>Energieeffizienz (Kraftwerk) <b id="evoLe">0 %</b></span>
+      <span><i class="line" style="background:#7FD9A8"></i>Membrandichte (Stadtmauer) <b id="evoLm">0 %</b></span>
+      <span><i class="line" style="background:#4FC3D9"></i>Fitness</span>
+      <span><i style="background:rgba(232,230,224,0.25)"></i>Population im Verhältnis zum Platz</span>
+    </div>
+    <div class="evo-sliders">
+      <label for="evoMut"><span class="row"><span>Mutationsrate</span><output id="evoMutO" for="evoMut">15 %</output></span><input type="range" id="evoMut" min="0" max="40" value="15" aria-label="Mutationsrate in Prozent"></label>
+      <label for="evoCap"><span class="row"><span>Populationsgröße (Platz)</span><output id="evoCapO" for="evoCap">140</output></span><input type="range" id="evoCap" min="40" max="200" step="10" value="140" aria-label="Populationsgröße, maximale Zahl an Zellen"></label>
+      <label for="evoFood"><span class="row"><span>Nahrungsknappheit</span><output id="evoFoodO" for="evoFood">70 %</output></span><input type="range" id="evoFood" min="0" max="100" value="70" aria-label="Nahrungsknappheit in Prozent"></label>
+      <label for="evoStress"><span class="row"><span>Umweltstress (Gift, Hitze)</span><output id="evoStressO" for="evoStress">15 %</output></span><input type="range" id="evoStress" min="0" max="100" value="15" aria-label="Umweltstress in Prozent"></label>
+    </div>
+    <div class="evo-btns">
+      <button type="button" class="btn primary" id="evoPlay" aria-label="Simulation pausieren oder fortsetzen">Pause</button>
+      <button type="button" class="btn" id="evoStep" aria-label="Eine Generation weiter">Nächste Generation</button>
+      <button type="button" class="btn" id="evoStep10" aria-label="Zehn Generationen weiter" hidden>10 Generationen</button>
+      <button type="button" class="btn" id="evoEnv" aria-label="Umwelt wechseln">Umwelt wechseln</button>
+      <button type="button" class="btn warn" id="evoCat" aria-label="Katastrophe: ein großer Teil der Zellen stirbt zufällig">Katastrophe</button>
+      <button type="button" class="btn" id="evoReset" aria-label="Zurücksetzen">Zurücksetzen</button>
+    </div>
+    <p class="status" id="evoStatus" aria-live="polite"></p>
+  </div>
+  <p class="note">Stark vereinfacht: Es gibt nur zwei Merkmale, die Zellen teilen sich ungeschlechtlich, und Auswahl heißt hier allein Überleben. Eine dickere Mauer kostet Energie, deshalb gibt es keine Lösung, die in jeder Lage die beste ist. Echte Evolution braucht viel mehr Merkmale und sehr viel mehr Zeit. Der Zufall läuft mit festem Startwert, ein Neustart verläuft also immer gleich.</p>
 </section>
 
 <!-- 4. Information -->
@@ -1025,6 +1098,397 @@
     $('dnaSum').textContent = txt ? (txt.length + ' Zeichen = ' + bytes.length + ' Byte = ' + total + ' Basen. Zum Vergleich: Das menschliche Genom hat rund 3 Milliarden Basen.') : 'Tippe etwas ein.';
   }
   $('dnaIn').addEventListener('input', dna); dna();
+})();
+
+// --- Evolution ---
+(function () {
+  'use strict';
+  var cvP = document.getElementById('evoPop'), cvC = document.getElementById('evoChart');
+  if (!cvP || !cvC || !cvP.getContext) return;
+  var xP = cvP.getContext('2d'), xC = cvC.getContext('2d');
+  function $(id) { return document.getElementById(id); }
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var SANS = "'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif";
+  var STEP_MS = 950, ANIM_MS = 650, SD = 0.09, BIRTHS = 2, MAXH = 1500;
+
+  // Umwelten: Knappheit s, Stress t (0 bis 1)
+  var ENVS = [
+    { name: 'Hungerzeit', s: 0.7, t: 0.15, why: 'Nahrung ist knapp, deshalb gewinnen sparsame Kraftwerke.' },
+    { name: 'Giftwelle', s: 0.2, t: 0.7, why: 'Gift und Hitze setzen zu, deshalb gewinnen dichte Mauern.' },
+    { name: 'Enge Zeiten', s: 0.55, t: 0.45, why: 'Beides drückt, die Auswahl muss einen Kompromiss finden.' },
+    { name: 'Überfluss', s: 0.05, t: 0.05, why: 'Kaum Druck, fast jedes Viertel überlebt.' }
+  ];
+  var CATASTROPHE_KILL = 0.65;
+
+  // Zufall mit festem Startwert, damit ein Neustart gleich verläuft
+  var seedState = 7;
+  function rng() {
+    seedState = (seedState + 0x6D2B79F5) | 0;
+    var t = Math.imul(seedState ^ (seedState >>> 15), 1 | seedState);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  }
+  function gauss() { return Math.sqrt(-2 * Math.log(1 - rng())) * Math.cos(6.283185307 * rng()); }
+  function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
+
+  var S = { s: 0.7, t: 0.15, mut: 0.15, cap: 140, envIdx: 0, custom: false };
+  var slots = [], ghosts = [], hist = [], marks = [];
+  var gen = 0, extinct = false, running = false, visible = false, started = false;
+  var tAnim = 1, animStart = 0, lastStep = 0, raf = 0;
+  var msg = '', msgUntil = -1, lastLabelGen = -1;
+
+  // Fitness: Energie aus Nahrung (Effizienz hilft bei Knappheit), Mauer kostet Energie und schützt vor Stress
+  function fit(c) { return (1 - S.s * (1 - c.e)) * (1 - 0.3 * c.m) * (1 - S.t * (1 - c.m)); }
+  function surv(w) { return Math.min(1, 1.3 * Math.pow(w, 1.2)); }
+
+  // ---- Layout (Grundstücke) ----
+  var W = 0, H = 0, dpr = 1, pos = [], R = 10;
+  function layout() {
+    var n = S.cap, asp = W / H;
+    var cols = Math.max(4, Math.round(Math.sqrt(n * asp))), rows = Math.ceil(n / cols);
+    var cw = W / cols, ch = H / rows;
+    R = Math.min(cw, ch) * 0.36;
+    pos = [];
+    for (var i = 0; i < n; i++) {
+      var c = i % cols, r = Math.floor(i / cols);
+      var jx = (hash(i * 2 + 1) - 0.5) * 0.18 * cw, jy = (hash(i * 2 + 2) - 0.5) * 0.18 * ch;
+      var off = (r % 2) * 0.25 * cw - 0.125 * cw;
+      pos.push({ x: (c + 0.5) * cw + off + jx, y: (r + 0.5) * ch + jy });
+    }
+  }
+  function hash(k) { var x = Math.sin(k * 127.1) * 43758.5453; return x - Math.floor(x); }
+
+  function sizeCanvas(cv, cx) {
+    var w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return null;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var pw = Math.round(w * dpr), ph = Math.round(h * dpr);
+    if (cv.width !== pw || cv.height !== ph) { cv.width = pw; cv.height = ph; }
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    return { w: w, h: h };
+  }
+
+  // ---- Modell ----
+  function reset() {
+    seedState = 7; gen = 0; extinct = false; ghosts = []; hist = []; marks = [];
+    slots = [];
+    for (var i = 0; i < S.cap; i++) slots.push(null);
+    var order = shuffled(S.cap);
+    for (var k = 0; k < S.cap; k++) slots[order[k]] = { e: clamp01(0.28 + 0.06 * gauss()), m: clamp01(0.28 + 0.06 * gauss()), fresh: false };
+    msg = ''; msgUntil = -1;
+    record(); tAnim = 1;
+  }
+  function shuffled(n) {
+    var a = [], i, j, t;
+    for (i = 0; i < n; i++) a.push(i);
+    for (i = n - 1; i > 0; i--) { j = Math.floor(rng() * (i + 1)); t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+  function stats() {
+    var n = 0, e = 0, m = 0, w = 0;
+    for (var i = 0; i < slots.length; i++) { var c = slots[i]; if (!c) continue; n++; e += c.e; m += c.m; w += fit(c); }
+    return n ? { n: n, e: e / n, m: m / n, w: w / n } : { n: 0, e: 0, m: 0, w: 0 };
+  }
+  function record() {
+    var s = stats();
+    hist.push({ g: gen, n: s.n, e: s.e, m: s.m, w: s.w });
+    if (hist.length > MAXH) hist.splice(0, 200);
+  }
+  function nearestFree(free, p) {
+    var best = -1, bd = 1e12;
+    for (var k = 0; k < free.length; k++) {
+      var q = pos[free[k]], dx = q.x - p.x, dy = q.y - p.y, d = dx * dx + dy * dy + rng() * R * R * 2;
+      if (d < bd) { bd = d; best = k; }
+    }
+    return best;
+  }
+  function step() {
+    if (extinct) return;
+    var i, c;
+    for (i = 0; i < slots.length; i++) if (slots[i]) slots[i].fresh = false;
+    ghosts = [];
+    var parents = [];
+    for (i = 0; i < slots.length; i++) {
+      c = slots[i]; if (!c) continue;
+      if (rng() < surv(fit(c))) parents.push(i); else { ghosts.push({ c: c, i: i }); slots[i] = null; }
+    }
+    gen++;
+    if (!parents.length) { extinct = true; running = false; record(); tAnim = 0; animStart = performance.now(); updateUI(); return; }
+    var free = [];
+    for (i = 0; i < slots.length; i++) if (!slots[i]) free.push(i);
+    var order = shuffled(parents.length);
+    for (var b = 0; b < BIRTHS && free.length; b++) {
+      for (var k = 0; k < order.length && free.length; k++) {
+        var pi = parents[order[k]], par = slots[pi];
+        var idx = nearestFree(free, pos[pi]), si = free.splice(idx, 1)[0];
+        slots[si] = {
+          e: rng() < S.mut ? clamp01(par.e + SD * gauss()) : par.e,
+          m: rng() < S.mut ? clamp01(par.m + SD * gauss()) : par.m,
+          fresh: true
+        };
+      }
+    }
+    record();
+    tAnim = reduce ? 1 : 0; animStart = performance.now();
+    updateUI();
+  }
+  function catastrophe() {
+    if (extinct) return;
+    for (var i = 0; i < slots.length; i++) slots[i] && slots[i].fresh && (slots[i].fresh = false);
+    ghosts = [];
+    for (i = 0; i < slots.length; i++) if (slots[i] && rng() < CATASTROPHE_KILL) { ghosts.push({ c: slots[i], i: i }); slots[i] = null; }
+    marks.push({ g: gen, label: 'Katastrophe' });
+    record();
+    if (!stats().n) { extinct = true; running = false; }
+    setMsg('Katastrophe: Die meisten Viertel sind weg. Wer übrig ist, baut neu auf. Vielfalt gibt es nur noch aus dem Rest.', gen + 8);
+    tAnim = reduce ? 1 : 0; animStart = performance.now();
+    updateUI();
+  }
+  function setEnv(idx) {
+    var e = ENVS[idx];
+    S.envIdx = idx; S.custom = false; S.s = e.s; S.t = e.t;
+    $('evoFood').value = Math.round(e.s * 100); $('evoStress').value = Math.round(e.t * 100);
+    marks.push({ g: gen, label: e.name });
+    record();
+    setMsg('Umwelt gewechselt: ' + e.name + '. ' + e.why + ' Die Fitness fällt, weil die Zellen an die alte Lage angepasst sind.', gen + 8);
+    syncSliders(); updateUI(); kick();
+  }
+  function setMsg(m, until) { msg = m; msgUntil = until; }
+
+  // ---- Texte ----
+  function pct(v) { return Math.round(v * 100) + ' %'; }
+  function statusText() {
+    var s = stats();
+    if (extinct) return 'Alle Viertel sind verschwunden. Der Druck war zu hoch oder die Vielfalt zu klein. Zurücksetzen und mit weniger Druck oder mehr Mutation noch einmal versuchen.';
+    if (msg && gen <= msgUntil) return msg;
+    var calm = S.s < 0.2 && S.t < 0.2;
+    if (calm) return 'Kaum Druck: Fast jedes Viertel überlebt. Die Merkmale schwanken nur noch zufällig, es gibt keine Richtung.';
+    var sd = spread();
+    if (S.mut === 0 && sd < 0.025) return 'Ohne Mutation gibt es keine neuen Varianten. Die Auswahl hat aufgebraucht, was am Anfang da war.';
+    if (S.mut === 0) return 'Ohne Mutation kann die Auswahl nur aus dem wählen, was schon da ist. Irgendwann ist Schluss.';
+    if (S.s > S.t + 0.2) return 'Nahrung ist knapp, also setzen sich sparsame Kraftwerke durch. Energieeffizienz im Schnitt: ' + pct(s.e) + '.';
+    if (S.t > S.s + 0.2) return 'Der Stress ist hoch, also setzen sich dichtere Mauern durch. Membrandichte im Schnitt: ' + pct(s.m) + '.';
+    return 'Beides drückt. Eine dicke Mauer kostet Energie, ein sparsames Kraftwerk schützt nicht. Die Auswahl sucht einen Mittelweg.';
+  }
+  function spread() {
+    var s = stats(), v = 0, n = 0;
+    for (var i = 0; i < slots.length; i++) { var c = slots[i]; if (!c) continue; v += (c.e - s.e) * (c.e - s.e) + (c.m - s.m) * (c.m - s.m); n++; }
+    return n ? Math.sqrt(v / n) : 0;
+  }
+  function updateUI() {
+    var s = stats();
+    $('evoGen').textContent = gen;
+    $('evoPopN').textContent = s.n + ' / ' + S.cap;
+    $('evoFit').textContent = pct(s.w);
+    $('evoLe').textContent = pct(s.e); $('evoLm').textContent = pct(s.m);
+    $('evoEnvName').textContent = S.custom ? 'eigene Einstellung' : ENVS[S.envIdx].name;
+    $('evoStatus').textContent = statusText();
+    $('evoStep').disabled = extinct; $('evoStep10').disabled = extinct; $('evoCat').disabled = extinct;
+    $('evoPlay').disabled = extinct;
+    if (gen !== lastLabelGen && (gen % 5 === 0 || extinct)) {
+      lastLabelGen = gen;
+      var al = 'Population aus ' + s.n + ' Zellen in Generation ' + gen + '. Durchschnittlich ' + pct(s.e) + ' Energieeffizienz, ' + pct(s.m) + ' Membrandichte, ' + pct(s.w) + ' Fitness.';
+      cvP.setAttribute('aria-label', al);
+      cvC.setAttribute('aria-label', 'Diagramm über ' + gen + ' Generationen. ' + al);
+    }
+  }
+  function syncSliders() {
+    $('evoMutO').textContent = Math.round(S.mut * 100) + ' %';
+    $('evoCapO').textContent = S.cap;
+    $('evoFoodO').textContent = Math.round(S.s * 100) + ' %';
+    $('evoStressO').textContent = Math.round(S.t * 100) + ' %';
+    $('evoMut').setAttribute('aria-valuetext', Math.round(S.mut * 100) + ' Prozent');
+    $('evoFood').setAttribute('aria-valuetext', Math.round(S.s * 100) + ' Prozent');
+    $('evoStress').setAttribute('aria-valuetext', Math.round(S.t * 100) + ' Prozent');
+    $('evoCap').setAttribute('aria-valuetext', S.cap + ' Zellen');
+  }
+
+  // ---- Zeichnen: Population ----
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function cellColor(e) {
+    return 'rgb(' + Math.round(lerp(64, 244, e)) + ',' + Math.round(lerp(98, 198, e)) + ',' + Math.round(lerp(112, 104, e)) + ')';
+  }
+  function drawCell(x, y, r, c, a, dying) {
+    if (r < 0.5 || a <= 0.01) return;
+    xP.globalAlpha = a;
+    var g = xP.createRadialGradient(x - r * 0.35, y - r * 0.4, r * 0.1, x, y, r);
+    g.addColorStop(0, dying ? '#FF8A65' : lighten(c.e));
+    g.addColorStop(1, dying ? '#6B3F2A' : cellColor(c.e));
+    xP.fillStyle = g;
+    xP.beginPath(); xP.arc(x, y, r, 0, 6.2832); xP.fill();
+    var lw = r * (0.06 + 0.3 * c.m);
+    xP.lineWidth = lw;
+    xP.strokeStyle = 'rgba(127,217,168,' + (0.22 + 0.75 * c.m).toFixed(2) + ')';
+    xP.beginPath(); xP.arc(x, y, r - lw / 2, 0, 6.2832); xP.stroke();
+    xP.fillStyle = 'rgba(10,19,16,0.32)';
+    xP.beginPath(); xP.arc(x + r * 0.08, y + r * 0.05, r * 0.22, 0, 6.2832); xP.fill();
+    xP.globalAlpha = 1;
+  }
+  function lighten(e) {
+    return 'rgb(' + Math.round(lerp(120, 255, e)) + ',' + Math.round(lerp(150, 232, e)) + ',' + Math.round(lerp(160, 160, e)) + ')';
+  }
+  function ease(t) { return 1 - Math.pow(1 - t, 3); }
+  function drawPop() {
+    var d = sizeCanvas(cvP, xP);
+    if (!d) return;
+    if (d.w !== W || d.h !== H || pos.length !== S.cap) { W = d.w; H = d.h; layout(); }
+    xP.clearRect(0, 0, W, H);
+    var k = ease(tAnim), i, p, c;
+    xP.fillStyle = 'rgba(232,230,224,0.13)';
+    for (i = 0; i < slots.length; i++) {
+      if (slots[i]) continue;
+      p = pos[i]; xP.beginPath(); xP.arc(p.x, p.y, 1.6, 0, 6.2832); xP.fill();
+    }
+    for (i = 0; i < ghosts.length; i++) {
+      var gh = ghosts[i]; p = pos[gh.i]; if (!p) continue;
+      drawCell(p.x, p.y, R * (1 - 0.5 * k), gh.c, (1 - k) * 0.9, true);
+    }
+    for (i = 0; i < slots.length; i++) {
+      c = slots[i]; if (!c) continue;
+      p = pos[i];
+      if (c.fresh) drawCell(p.x, p.y, R * (0.25 + 0.75 * k), c, 0.3 + 0.7 * k, false);
+      else drawCell(p.x, p.y, R, c, 1, false);
+    }
+  }
+
+  // ---- Zeichnen: Diagramm ----
+  var CW = 0, CH = 0;
+  function drawChart() {
+    var d = sizeCanvas(cvC, xC);
+    if (!d) return;
+    CW = d.w; CH = d.h;
+    var narrow = CW < 480;
+    var L = narrow ? 30 : 38, Rr = 10, T = 14, B = 40;
+    var pw = CW - L - Rr, ph = CH - T - B;
+    xC.clearRect(0, 0, CW, CH);
+    xC.font = (narrow ? 10.5 : 11.5) + 'px ' + SANS;
+    var g0 = hist[0].g, g1 = Math.max(g0 + 60, hist[hist.length - 1].g);
+    function X(g) { return L + (g - g0) / (g1 - g0) * pw; }
+    function Y(v) { return T + (1 - v) * ph; }
+    var v;
+    xC.lineWidth = 1; xC.textAlign = 'right'; xC.textBaseline = 'middle';
+    for (v = 0; v <= 1.001; v += 0.25) {
+      xC.strokeStyle = v === 0 ? 'rgba(232,230,224,0.28)' : 'rgba(232,230,224,0.08)';
+      xC.beginPath(); xC.moveTo(L, Y(v) + 0.5); xC.lineTo(L + pw, Y(v) + 0.5); xC.stroke();
+      xC.fillStyle = '#8892A6'; xC.fillText(Math.round(v * 100) + '', L - 6, Y(v));
+    }
+    xC.textAlign = 'center'; xC.textBaseline = 'top'; xC.fillStyle = '#8892A6';
+    var stepG = (g1 - g0) > 400 ? 100 : (g1 - g0) > 160 ? 50 : (g1 - g0) > 80 ? 20 : 10;
+    for (var g = Math.ceil(g0 / stepG) * stepG; g <= g1; g += stepG) xC.fillText(g, X(g), T + ph + 7);
+    xC.textAlign = 'center'; xC.fillText('Generation (Skala links: Prozent)', L + pw / 2, T + ph + 22);
+    // Population als Fläche
+    xC.beginPath(); xC.moveTo(X(hist[0].g), Y(0));
+    hist.forEach(function (h) { xC.lineTo(X(h.g), Y(h.n / S.cap > 1 ? 1 : h.n / S.cap)); });
+    xC.lineTo(X(hist[hist.length - 1].g), Y(0)); xC.closePath();
+    xC.fillStyle = 'rgba(232,230,224,0.09)'; xC.fill();
+    // Markierungen
+    xC.setLineDash([3, 4]); xC.lineWidth = 1;
+    marks.forEach(function (m) {
+      if (m.g < g0) return;
+      var x = X(m.g);
+      xC.strokeStyle = 'rgba(255,138,101,0.65)';
+      xC.beginPath(); xC.moveTo(x + 0.5, T); xC.lineTo(x + 0.5, T + ph); xC.stroke();
+    });
+    xC.setLineDash([]);
+    xC.textBaseline = 'top'; xC.font = (narrow ? 10 : 11) + 'px ' + SANS; xC.fillStyle = '#FFB59E';
+    var lastLabelX = -1e9;
+    marks.forEach(function (m) {
+      if (m.g < g0) return;
+      var x = X(m.g), w = xC.measureText(m.label).width, right = x + w + 8 > L + pw;
+      if (Math.abs(x - lastLabelX) < w + 10 && !right) { return; }
+      xC.textAlign = right ? 'right' : 'left';
+      xC.fillText(m.label, right ? x - 4 : x + 4, T + 2);
+      lastLabelX = x;
+    });
+    // Linien
+    function line(key, color, width, dash) {
+      xC.beginPath();
+      hist.forEach(function (h, i) { var x = X(h.g), y = Y(h[key]); i ? xC.lineTo(x, y) : xC.moveTo(x, y); });
+      xC.strokeStyle = color; xC.lineWidth = width; xC.lineJoin = 'round'; xC.setLineDash(dash || []); xC.stroke(); xC.setLineDash([]);
+    }
+    line('w', '#4FC3D9', 1.8, [5, 4]);
+    line('m', '#7FD9A8', 2.2);
+    line('e', '#F2C46B', 2.2);
+    var last = hist[hist.length - 1];
+    [['e', '#F2C46B'], ['m', '#7FD9A8'], ['w', '#4FC3D9']].forEach(function (p) {
+      xC.fillStyle = p[1]; xC.beginPath(); xC.arc(X(last.g), Y(last[p[0]]), 3.2, 0, 6.2832); xC.fill();
+    });
+  }
+
+  // ---- Schleife ----
+  function draw() { drawPop(); drawChart(); }
+  function frame(ts) {
+    raf = 0;
+    if (!visible) return;
+    var need = false;
+    if (running && !extinct && !reduce && ts - lastStep >= STEP_MS) { step(); lastStep = ts; animStart = ts; }
+    if (tAnim < 1) { tAnim = Math.min(1, (ts - animStart) / ANIM_MS); need = true; }
+    draw();
+    if ((running && !extinct) || need) raf = requestAnimationFrame(frame);
+  }
+  function kick() {
+    if (!visible) return;
+    if (reduce) { tAnim = 1; draw(); return; }
+    if (!raf) raf = requestAnimationFrame(frame);
+  }
+
+  // ---- Bedienung ----
+  function setRunning(r) {
+    running = r && !extinct;
+    $('evoPlay').textContent = running ? 'Pause' : 'Start';
+    $('evoPlay').setAttribute('aria-pressed', String(running));
+    if (running) { lastStep = performance.now(); kick(); }
+  }
+  $('evoPlay').addEventListener('click', function () { setRunning(!running); });
+  $('evoStep').addEventListener('click', function () { setRunning(false); step(); kick(); });
+  $('evoStep10').addEventListener('click', function () { for (var i = 0; i < 10 && !extinct; i++) step(); tAnim = 1; kick(); });
+  $('evoEnv').addEventListener('click', function () { setEnv((S.envIdx + 1) % ENVS.length); });
+  $('evoCat').addEventListener('click', function () { catastrophe(); kick(); });
+  $('evoReset').addEventListener('click', function () {
+    S.s = ENVS[0].s; S.t = ENVS[0].t; S.envIdx = 0; S.custom = false;
+    $('evoFood').value = Math.round(S.s * 100); $('evoStress').value = Math.round(S.t * 100);
+    reset(); syncSliders(); updateUI();
+    if (!reduce) setRunning(true); else kick();
+  });
+  $('evoMut').addEventListener('input', function (e) { S.mut = +e.target.value / 100; syncSliders(); updateUI(); });
+  function envInput() {
+    S.s = +$('evoFood').value / 100; S.t = +$('evoStress').value / 100; S.custom = true;
+    hist[hist.length - 1].w = stats().w;
+    syncSliders(); updateUI(); kick();
+  }
+  $('evoFood').addEventListener('input', envInput);
+  $('evoStress').addEventListener('input', envInput);
+  $('evoCap').addEventListener('input', function (e) {
+    var cap = +e.target.value, cells = [], i;
+    for (i = 0; i < slots.length; i++) if (slots[i]) { slots[i].fresh = false; cells.push(slots[i]); }
+    S.cap = cap; ghosts = [];
+    if (cells.length > cap) { var o = shuffled(cells.length); cells = o.slice(0, cap).map(function (j) { return cells[j]; }); }
+    slots = []; for (i = 0; i < cap; i++) slots.push(null);
+    var order = shuffled(cap);
+    cells.forEach(function (c, k) { slots[order[k]] = c; });
+    layout(); syncSliders(); hist[hist.length - 1].n = cells.length; updateUI(); tAnim = 1; kick();
+  });
+
+  if (reduce) {
+    $('evoPlay').hidden = true; $('evoStep10').hidden = false;
+    $('evoStep').classList.add('primary');
+  }
+
+  // ---- Start, Sichtbarkeit, Größe ----
+  reset(); syncSliders(); updateUI();
+  if ('ResizeObserver' in window) new ResizeObserver(function () { if (visible) draw(); }).observe($('evoPanel'));
+  else window.addEventListener('resize', function () { if (visible) draw(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (visible) draw(); });
+  function onVis(v) {
+    visible = v;
+    if (v) {
+      if (!started) { started = true; if (!reduce) setRunning(true); }
+      else if (running) lastStep = performance.now();
+      draw(); kick();
+    }
+  }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { onVis(es[0].isIntersecting); }, { threshold: 0.15 }).observe($('evoPanel'));
+  else onVis(true);
 })();
 
 // --- Teilung ---
