@@ -13,16 +13,18 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 
 ## Offen
 
-1. **Mobil-Test der Zell-Seite.** `zelle.html` bei 360, 390 und 768 px prüfen: Zell-Zoom, Beschriftungen, Info-Karte, Turbine, Evolution, Ton-Schalter. Überlappungen, abgeschnittene Texte, zu kleine Tippflächen (mindestens 44 px) und horizontales Scrollen beheben.
-2. **Verlinkung zwischen den Seiten.** Startseite, Zell-Seite und Kartenskizze sauber verbinden: Rückweg von `zelle.html` zur Startseite, Footer-Links einheitlich auf allen Seiten, Link auf `karte-skizze.html` von der Startseite prüfen. Keine toten Links.
-3. **Weitere Abschnitte für `zelle.html`.** Pro Abschnitt ein eigener PR, im Stil der bestehenden Abschnitte (Stadt-Bild, interaktive Grafik, ehrlicher Hinweis zur Vereinfachung). Kandidaten:
-   - Zellteilung als Stadtgründung (Verdopplung des Bauplans, Aufteilung der Infrastruktur)
+1. **Weitere Abschnitte für `zelle.html`.** Pro Abschnitt ein eigener PR, im Stil der bestehenden Abschnitte (Stadt-Bild, interaktive Grafik, ehrlicher Hinweis zur Vereinfachung). Kandidaten:
    - Signale zwischen Zellen als Postsystem (Hormone, Nervenimpulse)
    - Immunsystem als Stadtwache
-4. **Barrierefreiheit.** Kontraste, Fokusreihenfolge, Screenreader-Texte, Reduced Motion über alle Seiten prüfen. Bekannte Kleinigkeiten: Start/Pause-Button in der Evolution doppelt beschriftet, Ton-Schalter nach Seitencache-Rücksprung.
+2. **Mobil-Test der neuen Abschnitte.** Evolution, Teilung und Ton-Schalter bei 360, 390 und 768 px prüfen (die Zell-Grafik ist bereits geprüft). Auf echtem Gerät testen, soweit möglich.
+3. **Barrierefreiheit.** Kontraste, Fokusreihenfolge, Screenreader-Texte, Reduced Motion über alle Seiten prüfen. Bekannte Kleinigkeiten: Start/Pause-Button in der Evolution doppelt beschriftet, Ton-Schalter nach Seitencache-Rücksprung.
 
 ## Erledigt
 
 - Zelle als Stadt mit ATP-Turbine (#3)
 - Überarbeitete Zelle mit Zoom und Stoffflüssen (#5)
 - Lokale Schriften (#6)
+- Evolutions-Simulator (#8), Sound (#7), Fix geteilte Variablen (#9)
+- Mobil-Verbesserungen Zell-Seite (#11), Verlinkung und Rechtliches auf der Karte (#12)
+- Zellteilung als Stadtgründung (#13)
+- Ton für Evolution und Teilung

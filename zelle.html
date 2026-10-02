@@ -2035,7 +2035,7 @@
     n.connect(nf); nf.connect(ng); ng.connect(out); n.start(); nl.start();
     bed = { filters: filters, out: out };
   }
-  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, dna: 640 };
+  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, teilung: 540 };
   function updateBed() {
     if (!bed) return;
     var base = (BED_BRIGHT[section] || 500) + (zoomed ? 140 : 0) + (cityMode ? 90 : 0), t = ctx.currentTime;
@@ -2156,11 +2156,11 @@
       es.forEach(function (e) { ratio[e.target.id || 'hero'] = e.intersectionRatio; });
       var best = 'hero', max = -1;
       Object.keys(ratio).forEach(function (k) { if (ratio[k] > max) { max = ratio[k]; best = k; } });
-      var next = best === 'stadt' || best === 'kraftwerk' || best === 'robust' || best === 'dna' ? best : 'hero';
+      var next = BED_BRIGHT[best] && best !== 'hero' ? best : 'hero';
       if (next !== section) { section = next; updateBed(); }
     }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
     var h = document.querySelector('.hero'); if (h) io.observe(h);
-    ['stadt', 'kraftwerk', 'robust', 'dna'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
+    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'teilung'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
   }
   var BASE_TONE = { A: 293.66, C: 369.99, G: 440.0, T: 493.88 }, BASE_ORDER = ['A', 'C', 'G', 'T'];
   function watchDna() {
@@ -2172,6 +2172,63 @@
         note(BASE_TONE[b], { dur: 0.5, attack: 0.012, peak: 0.028, delay: i * 0.075, pan: (i % 2 ? 0.2 : -0.2) });
       });
     });
+  }
+
+  // ---- Evolution: Generationen ticken, Umweltwechsel und Katastrophe klingen ----
+  var PENTA = [293.66, 329.63, 369.99, 440.0, 493.88, 587.33];
+  function watchEvolution() {
+    var gen = $('evoGen'), fitEl = $('evoFit'), panel = $('evoPanel');
+    if (!gen || !fitEl || !panel) return;
+    var evoVisible = false, lastGen = parseInt(gen.textContent, 10) || 0, lastTick = 0;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { evoVisible = es[0].isIntersecting; }, { threshold: 0.15 }).observe(panel);
+    }
+    new MutationObserver(function () {
+      var g = parseInt(gen.textContent, 10) || 0, now = ctx ? ctx.currentTime : 0;
+      var up = g > lastGen; lastGen = g;
+      if (!up || !evoVisible || !live() || now - lastTick < 0.15) return;
+      lastTick = now;
+      var fit = parseFloat(fitEl.textContent) || 0, f = PENTA[Math.min(PENTA.length - 1, Math.floor(fit / 18))];
+      note(f, { dur: 0.6, attack: 0.01, peak: 0.02, lp: 1800, pan: rnd(-0.25, 0.25) });
+    }).observe(gen, { childList: true, characterData: true, subtree: true });
+    $('evoCat').addEventListener('click', function () {
+      note(180, { type: 'triangle', dur: 1.0, attack: 0.01, peak: 0.05, to: 60, lp: 800 });
+      note(98, { dur: 1.4, attack: 0.01, peak: 0.07, to: 46 });
+    });
+    $('evoEnv').addEventListener('click', function () {
+      note(247, { dur: 0.6, attack: 0.02, peak: 0.04 });
+      note(311, { dur: 0.8, attack: 0.02, peak: 0.04, delay: 0.12 });
+    });
+    $('evoReset').addEventListener('click', function () { note(196, { dur: 0.8, attack: 0.03, peak: 0.04, to: 294 }); });
+  }
+
+  // ---- Teilung: jeder Schritt eine Stufe, Kopierfehler dissonant, Reparatur löst auf ----
+  function watchTeilung() {
+    var steps = $('teilSteps'), fault = $('teilFault');
+    if (!steps) return;
+    var lastStep = -1, lastAt = 0;
+    new MutationObserver(function () {
+      var btns = steps.querySelectorAll('button'), cur = -1;
+      for (var i = 0; i < btns.length; i++) if (btns[i].getAttribute('aria-current') === 'step') cur = i;
+      if (cur < 0 || cur === lastStep) return;
+      var first = lastStep < 0; lastStep = cur;
+      var now = ctx ? ctx.currentTime : 0;
+      if (first || !live() || now - lastAt < 0.12) return;
+      lastAt = now;
+      var f = PENTA[Math.min(PENTA.length - 1, cur)];
+      note(f, { dur: 0.9, attack: 0.02, peak: 0.04, lp: 2000 });
+      if (cur === btns.length - 1) note(f * 1.5, { dur: 1.2, attack: 0.03, peak: 0.03, delay: 0.1, lp: 2000 });
+    }).observe(steps, { attributes: true, attributeFilter: ['aria-current'], subtree: true });
+    if (fault) {
+      var was = fault.getAttribute('aria-pressed') === 'true';
+      new MutationObserver(function () {
+        var now = fault.getAttribute('aria-pressed') === 'true';
+        if (now === was) return;
+        was = now;
+        if (now) { note(220, { type: 'triangle', dur: 0.9, attack: 0.01, peak: 0.04, lp: 1200 }); note(233, { type: 'triangle', dur: 0.9, attack: 0.01, peak: 0.04, lp: 1200 }); }
+        else { note(293.66, { dur: 0.9, attack: 0.03, peak: 0.045 }); note(440, { dur: 0.9, attack: 0.03, peak: 0.03, delay: 0.1 }); }
+      }).observe(fault, { attributes: true, attributeFilter: ['aria-pressed'] });
+    }
   }
 
   // ---- Ein/Aus, Sichtbarkeit, Aufräumen ----
@@ -2232,7 +2289,7 @@
   });
   timers.upd = setInterval(function () { if (built && live()) updateTurbine(); }, 120);
 
-  watchCell(); watchTurbine(); watchSections(); watchDna();
+  watchCell(); watchTurbine(); watchSections(); watchDna(); watchEvolution(); watchTeilung();
 })();
 </script>
 </body>
