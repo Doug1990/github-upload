@@ -104,10 +104,26 @@
 
   .note { font-size: 11.5px; color: #6E7689; max-width: 520px; margin: 26px auto 0; line-height: 1.6; text-align: center; }
   a { color: #8892A6; }
+
+  .topnav { margin: 0 0 14px; font-size: 12px; text-align: left; }
+  .topnav a { color: #8892A6; text-decoration: none; }
+  .topnav a:hover { color: #7FD9A8; }
+  .site-footer {
+    max-width: min(94vw, 640px); margin: 0 auto; padding: 0 24px 48px; text-align: center;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #5E6579;
+  }
+  .site-footer p { margin: 0 0 10px; }
+  .site-footer a { color: #8892A6; text-decoration: underline; text-underline-offset: 2px; }
+  .site-footer a:hover { color: #7FD9A8; }
+  .site-footer .sep { margin: 0 10px; color: #3A4155; }
+  @media (pointer: coarse), (max-width: 640px) {
+    .topnav a, .site-footer a { display: inline-flex; align-items: center; min-height: 44px; }
+  }
 </style>
 </head>
 <body>
 <main>
+  <p class="topnav sans"><a href="index.html">&larr; Was trägt deinen Tag?</a></p>
   <header>
     <p class="eyebrow sans">Skizze · Düsseldorf</p>
     <h1>Was leuchtet, wenn du etwas tust?</h1>
@@ -131,6 +147,11 @@
 
   <p class="note sans">Skizze: Standorte sind schematisch und nicht maßstabsgetreu. Die Inhalte stammen aus <a href="index.html">der Hauptseite</a>, einzelne Orte und Aussagen sind vereinfacht. Diese Seite ist KI-generiert.</p>
 </main>
+
+<footer class="site-footer">
+  <p>Weiter: <a href="zelle.html">Die Zelle als Stadt</a></p>
+  <a href="impressum.html">Impressum</a><span class="sep">·</span><a href="datenschutz.html">Datenschutz</a>
+</footer>
 
 <script>
 (function () {
