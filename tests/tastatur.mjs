@@ -114,6 +114,11 @@ for (const page of b.pages) {
         // Eltern mit Handler (Event-Delegation) sind kein eigener Stopp, wenn ein erreichbares Kind-Element existiert
         const hasReachedChild = await b.ev(`(() => { const e = document.querySelector('[data-kand="${k}"]'); return [...window.__seen].some((s) => e.contains(s)); })()`);
         if (hasReachedChild) continue;
+        // Roving Tabindex: Geschwister mit tabindex=-1 sind per Pfeiltasten erreichbar, wenn ein Geschwister ein Tab-Stopp ist
+        const roving = await b.ev(`(() => { const e = document.querySelector('[data-kand="${k}"]'); return e.getAttribute('tabindex') === '-1' && !!e.getAttribute('role') && [...e.parentElement.children].some((s) => window.__seen.has(s)); })()`);
+        if (roving) continue;
+        // Bekannte Ausnahme: leere Fächer im Kettenspiel (nur belegte sind Ziele und werden dann fokussierbar)
+        if (/^div\.cg-slot/.test(c.sel)) continue;
         E(`nicht per Tab erreichbar: ${c.sel}${c.role ? ' [role=' + c.role + ']' : ''}`);
       }
     }
@@ -127,7 +132,7 @@ for (const page of b.pages) {
       if (!s.ring) {
         // Kein Outline: prüfen, ob sich Stil (Kontur, Filter, Schatten) bei Fokus gegenüber Unfokussiert ändert
         const diff = await b.ev(`(async () => { const e = [...window.__seen].find((x) => window.__sel(x) === ${JSON.stringify(s.sel)}); if (!e) return true;
-          const snap = () => [e, ...e.querySelectorAll('*')].slice(0, 40).map((n) => { const c = getComputedStyle(n); return [c.stroke, c.strokeWidth, c.filter, c.boxShadow, c.outlineStyle, c.backgroundColor, c.borderColor, c.color, c.opacity, c.textDecorationLine].join('|'); }).join('#');
+          const snap = () => [e, ...e.querySelectorAll('*')].slice(0, 40).flatMap((n) => [getComputedStyle(n), getComputedStyle(n, '::before'), getComputedStyle(n, '::after')]).map((c) => { return [c.stroke, c.strokeWidth, c.filter, c.boxShadow, c.outlineStyle, c.backgroundColor, c.borderColor, c.color, c.opacity, c.textDecorationLine].join('|'); }).join('#');
           e.focus(); await new Promise((r) => setTimeout(r, 450)); const a = snap(); e.blur(); await new Promise((r) => setTimeout(r, 450)); const u = snap(); e.focus(); return a !== u; })()`);
         if (!diff) W(`kein sichtbarer Fokus-Stil: ${s.sel}`);
       }

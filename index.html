@@ -40,7 +40,7 @@
     align-items: center;
     padding: 0;
   }
-  .skip-link { position: fixed; left: 12px; top: -80px; z-index: 10000; padding: 11px 18px; border-radius: 8px; background: #E8E6E0; color: #0B1220; font: 500 14px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-decoration: none; }
+  .skip-link { position: fixed; left: 12px; top: -80px; z-index: 10000; padding: 13px 18px; border-radius: 8px; background: #E8E6E0; color: #0B1220; font: 500 14px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-decoration: none; }
   .skip-link:focus { top: 12px; outline: 3px solid #F2C46B; outline-offset: 2px; }
   main:focus { outline: none; }
   main#main { display: flex; flex-direction: column; align-items: center; width: 100%; }
@@ -89,8 +89,8 @@
     cursor: pointer; padding-left: 0; padding-right: 0;
   }
   /* Trefferfläche 44 px: Unterstreichung als Verlauf, Polster oben und unten per Rand ausgeglichen */
-  .hero-cta button { border-bottom: none; padding: 12px 0 16px; margin: -12px 0 -12px;
-    background: linear-gradient(var(--accent), var(--accent)) left calc(100% - 12px) / 100% 1px no-repeat; }
+  .hero-cta button { position: relative; border-bottom: none; padding: 12px 0 16px; margin: -12px 0 -12px; }
+  .hero-cta button::after { content: ''; position: absolute; left: 0; right: 0; bottom: 12px; height: 1px; background: var(--accent); }
   .hero-cta a:hover, .hero-cta button:hover { color: var(--accent); }
   .hero-arrow { display: inline-block; animation: bob 2s ease-in-out infinite; }
   @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
@@ -174,6 +174,7 @@
   .clear-day { margin-top: 10px; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; font-size: 11.5px; color: #929CB0; background: none; border: none; text-decoration: underline; cursor: pointer; padding: 0; }
 
   @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  svg [role=button]:focus-visible, .chain-tag:focus-visible, .cg-slot:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
   button:focus-visible, .activity-group:focus-visible circle.bloom { outline: 2px solid #B39DDB; outline-offset: 2px; }
   .pod-anchor { font-size: 12.5px; color: #E0A458; margin: 14px 0 0; padding-left: 2px; line-height: 1.5; }
   .src-note { font-size: 11.5px; color: #8E98AC; margin: 10px 0 0; }
@@ -204,7 +205,7 @@
   .chain-start::before { content: ''; position: absolute; left: 3px; top: 6px; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
   .chain-item { position: relative; border-left: 2px solid; margin-left: 6px; padding: 11px 0 11px 18px; }
   .chain-item::before { content: ''; position: absolute; left: -5px; top: 17px; width: 8px; height: 8px; border-radius: 50%; background: #141B2B; border: 2px solid; border-color: inherit; }
-  .chain-tag { display: inline-block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.85; cursor: pointer; margin-bottom: 5px; }
+  .chain-tag { display: inline-block; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.85; cursor: pointer; padding: 16px 8px; margin: -16px -8px -11px; }
   .chain-tag:hover { opacity: 1; text-decoration: underline; }
   .chain-ding { font-size: 14px; color: #E8E6E0; margin: 0; line-height: 1.4; }
   .chain-zahl { font-size: 12.5px; color: #929CB0; margin: 4px 0 0; line-height: 1.5; }
@@ -654,7 +655,7 @@
     display: flex; align-items: center; gap: 8px;
   }
   @media (max-width: 760px), (pointer: coarse) {
-    .hud-btn, .activity-input, .submit-btn, .toggle-btn { min-height: 44px; }
+    .hud-btn, .activity-input, .submit-btn, .toggle-btn, .journey-tab, .chain-future-toggle, .journey-btn, .shelf-checkout, .cg-chip, .cg-btn, .now-you-chip { min-height: 44px; }
   }
   @media (max-width: 560px) { .side-hud { flex-direction: column; align-items: flex-end; } }
 
@@ -744,7 +745,7 @@
 
 <!-- ============ Seitenleiste: Ton & Farbschema, immer erreichbar ============ -->
 <div class="side-hud" id="sideHud">
-  <div class="tone-hint sans" id="toneHint">🔈 Klicken für Ton</div>
+  <div class="tone-hint sans" id="toneHint" aria-hidden="true">🔈 Klicken für Ton</div>
   <button type="button" class="hud-btn sans active-tone" id="hudMuteBtn" title="Ton stumm schalten / anschalten">♪ Ton an</button>
   <div class="theme-switch" id="themeSwitch" role="group" aria-label="Farbschema wählen">
     <button type="button" class="theme-dot active" data-theme="blue" aria-label="Blau"></button>
@@ -2118,6 +2119,8 @@ function buildChain(act) {
     tag.style.color = band.glow;
     tag.title = 'Ebene anzeigen';
     tag.addEventListener('click', () => { selectBand(band.id); });
+    tag.tabIndex = 0; tag.setAttribute('role', 'button'); tag.setAttribute('aria-label', 'Ebene ' + band.label + ' anzeigen');
+    tag.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } });
     item.appendChild(tag);
 
     const ding = document.createElement('p');
@@ -3498,6 +3501,7 @@ document.getElementById('packApply').addEventListener('click', () => {
       txt.textContent = i === 0 ? 'ganz oben' : (i === act.kette.length - 1 ? 'ganz unten' : '…');
       slot.appendChild(txt);
       slot.addEventListener('click', () => removeFromSlot(i));
+      slot.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.currentTarget.click(); } });
       slotsEl.appendChild(slot);
     });
 
@@ -3550,6 +3554,9 @@ document.getElementById('packApply').addEventListener('click', () => {
     slotEls.forEach((slot, i) => {
       const txt = slot.querySelector('.cg-slot-txt');
       slot.classList.remove('correct', 'wrong');
+      // Nur ein belegtes Fach lässt sich anklicken (zurück in die Auswahl), nur dann ist es ein Tastaturziel
+      if (placed[i] !== undefined && !solved) { slot.tabIndex = 0; slot.setAttribute('role', 'button'); slot.setAttribute('aria-label', act.kette[placed[i]].ding + ' zurücklegen'); }
+      else { slot.removeAttribute('tabindex'); slot.removeAttribute('role'); slot.removeAttribute('aria-label'); }
       if (placed[i] === undefined) {
         slot.classList.remove('filled');
         txt.innerHTML = '';
@@ -3659,6 +3666,7 @@ document.getElementById('packApply').addEventListener('click', () => {
 
   const slots = [];
   boardY.forEach((by, r) => {
+    const rowEls = [];
     for (let c = 0; c < COLS; c++) {
       const x = 34 + c * 52;
       const w = 34 + rnd() * 10;
@@ -3671,6 +3679,13 @@ document.getElementById('packApply').addEventListener('click', () => {
       rectEl.style.transformOrigin = 'center';
       rectEl.style.transition = 'opacity 0.55s ease, transform 0.55s cubic-bezier(.3,0,.2,1)';
       svg.appendChild(rectEl);
+      // Tastatur: je Reihe ein Tab-Stopp, Pfeiltasten wechseln das Produkt, Enter oder Leertaste legt es in den Wagen
+      rowEls.push(rectEl);
+      rectEl.setAttribute('role', 'button'); rectEl.setAttribute('aria-label', 'Produkt in den Wagen legen'); rectEl.setAttribute('tabindex', c === 0 ? '0' : '-1');
+      rectEl.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); rectEl.dispatchEvent(new MouseEvent('click')); }
+        else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); const n = rowEls[rowEls.indexOf(rectEl) + (e.key === 'ArrowRight' ? 1 : -1)]; if (n) { rowEls.forEach(x => x.setAttribute('tabindex', '-1')); n.setAttribute('tabindex', '0'); n.focus(); } }
+      });
       const slotObj = { el: rectEl, x, y: by - h, w, h, col, taken: false };
       slots.push(slotObj);
 
