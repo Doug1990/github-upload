@@ -17,35 +17,34 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 
 1. **Teilen, Rest.** Meta und Vorschaubilder sind erledigt (#19). Offen: Link-kopieren-Symbol an den Überschriften (Tastatur, Rückmeldung \"Link kopiert\") und `scroll-margin-top` für Anker. Aufwand S.
 2. **CI-Workflow.** Vorlage liegt fertig in `tests/ci/pruefen.yml` (läuft bei Pull Request und Push auf main: `check.mjs`, `kontrast.mjs`, `tastatur.mjs`, Screenshots als Artefakt bei Fehler). Fehlt nur noch die Freigabe, siehe Entscheidung 14. Danach Datei nach `.github/workflows/` verschieben. Aufwand S.
-3. **Wo das Bild hinkt.** Festes, aufklappbares Feld am Ende jedes Abschnitts und auf der Düsseldorf-Seite, mit konkreter Nennung des falschen Teils ("Die Zelle hat keinen Bürgermeister"). Möglichst vor den gemeinsamen Bausteinen, damit es ins gemeinsame CSS kommt. Aufwand S bis M (Texte sind der Aufwand). Akzeptanz: Enter und Leertaste, `aria-expanded`, einheitlich auf allen Zell-Abschnitten.
-4. **Fließband (Stoffwechselwege).** Stationen mit Enzymen, Engpass und Rückstau per Regler, Rückkopplung "Endprodukt hemmt Station 1". Schließt an das ATP-Kraftwerk an. Hinweis: Wege bilden ein Netz, ein Enzym ist kein Arbeiter. Aufwand M.
+3. **Fließband (Stoffwechselwege).** Stationen mit Enzymen, Engpass und Rückstau per Regler, Rückkopplung "Endprodukt hemmt Station 1". Schließt an das ATP-Kraftwerk an. Hinweis: Wege bilden ein Netz, ein Enzym ist kein Arbeiter. Aufwand M.
 
 ## Offen, Priorität mittel
 
-5. **Immunsystem als Stadtwache.** Zwillingspaar zu den Signalen, gleicher Aufbau. Hinweis: Immunität ist verteilt und kann Eigenes angreifen, kein Impf- oder Therapierat. Aufwand M bis L.
-6. **Gemeinsame Bausteine.** `assets/shared.css` und `assets/shared.js` (Tokens, Fokus-Stil, Topnav, Reveal, einmaliger Ton-Code, Zelle/Stadt-Schalter), ohne Build, in drei PRs: erst CSS, dann Ton, dann Schalter. Aufwand L. Akzeptanz: eine Farbänderung wirkt auf alle Seiten, Screenshots vor und nach dem Umbau unter 1 Prozent Abweichung.
-7. **Performance.** Schleifen nur laufen lassen, wenn Element und Tab sichtbar sind, Canvas-Auflösung deckeln, `index.html` (218 KB) prüfen. Vorher und nachher messen. Aufwand M.
-8. **Lernpfad.** Schmale Abschnittsleiste mit Fortschritt und "schon gesehen" in localStorage, Zurücksetzen im Fuß, Datenschutztext anpassen. Aufwand M.
-9. **Ton-Feinschliff.** Lautstärke-Regler, Stummschaltung pro Klangquelle, ein gemeinsamer Zustand, Rücksprung aus dem Seitencache. Sinnvoll nach den gemeinsamen Bausteinen. Aufwand M.
-10. **Müllabfuhr und Recycling.** Müllregler, Abfuhr zum Lysosom, Streik als Rückstau. Hinweis: Entsorgung ist dezentral (Proteasom), kein Anti-Aging-Versprechen. Aufwand M.
-11. **Dorf oder Stadt.** Bakterium gegen Zelle mit Kern als Größenregler. Hinweis: Bakterien sind keine primitive Vorstufe, Endosymbiose ist gut belegt, Details offen. Aufwand M.
-12. **Abschlussseite "Eine Stadt, ein Körper, ein Netz".** Dieselben fünf Fragen für Düsseldorf, Zelle, Körper und Internet, je Spalte ein Feld "Wo das Bild hinkt". Erst nach mindestens drei neuen Abschnitten. Aufwand M.
-13. **README, Suchmaschinen-Grundlagen und Meta.** Kurze `README.md` (Zweck, Seiten, Befehle, Vorschaubilder erzeugen), `canonical` je Seite, `sitemap.xml`, `robots.txt`, JSON-LD `WebSite` auf der Startseite. `check.mjs` prüft title, description, canonical, og:image und meldet Gedankenstriche im sichtbaren Text. Aufwand S.
-14. **Visuelle Regression.** `tests/visuell.mjs`: Referenzbilder je Seite und Breite, Vergleich per Canvas, Differenzbild bei Abweichung, Baseline mit `--update`. Voraussetzung für die gemeinsamen Bausteine. Aufwand M.
-15. **Zellskelett als Straßen und Gerüst.** Fracht läuft per Motorprotein am Mikrotubulus, "Gerüst abbauen" lässt Wege reißen. Hinweis: Motorproteine schreiten in Stufen, es gibt keinen Fahrplan. Aufwand M.
-16. **Zwei Skalen, dieselbe Frage.** Düsseldorf und Zelle nebeneinander, Schieber "Skala" blendet über, Feld "Gleicher Name, anderer Mechanismus". Vorstufe der Abschlussseite. Aufwand M.
-17. **Robuste Kompatibilität.** `noscript`-Hinweis je Seite, iOS-Audio entsperren (erste Geste, Zustand `interrupted`), Test mit abgeschaltetem JavaScript im Prüfskript, Prüfliste für echte Geräte. Entsperr-Code mit dem Ton-Feinschliff zusammenführen. Aufwand M.
-18. **Skripte auslagern und Ladezeit messen.** Erst messen, dann nur große Skripte nach `assets/*.js` mit `defer`, nach den gemeinsamen Bausteinen. Aufwand M.
-19. **Eigene Seite zu Stromnetz, Wasser und Verkehr.** Tagesverlauf mit Schieber, Last, Erzeugung und Speicher. Keine Zahlen erfinden, Quellen nennen oder als Beispiel markieren. Aufwand L.
-20. **Erweiterungen.** Quorum Sensing als Zusatzfall im Signale-Abschnitt, Alterung und Reparatur im Müllabfuhr-Abschnitt. Je Aufwand S.
+4. **Immunsystem als Stadtwache.** Zwillingspaar zu den Signalen, gleicher Aufbau. Hinweis: Immunität ist verteilt und kann Eigenes angreifen, kein Impf- oder Therapierat. Aufwand M bis L.
+5. **Gemeinsame Bausteine.** `assets/shared.css` und `assets/shared.js` (Tokens, Fokus-Stil, Topnav, Reveal, einmaliger Ton-Code, Zelle/Stadt-Schalter), ohne Build, in drei PRs: erst CSS, dann Ton, dann Schalter. Aufwand L. Akzeptanz: eine Farbänderung wirkt auf alle Seiten, Screenshots vor und nach dem Umbau unter 1 Prozent Abweichung.
+6. **Performance.** Schleifen nur laufen lassen, wenn Element und Tab sichtbar sind, Canvas-Auflösung deckeln, `index.html` (218 KB) prüfen. Vorher und nachher messen. Aufwand M.
+7. **Lernpfad.** Schmale Abschnittsleiste mit Fortschritt und "schon gesehen" in localStorage, Zurücksetzen im Fuß, Datenschutztext anpassen. Aufwand M.
+8. **Ton-Feinschliff.** Lautstärke-Regler, Stummschaltung pro Klangquelle, ein gemeinsamer Zustand, Rücksprung aus dem Seitencache. Sinnvoll nach den gemeinsamen Bausteinen. Aufwand M.
+9. **Müllabfuhr und Recycling.** Müllregler, Abfuhr zum Lysosom, Streik als Rückstau. Hinweis: Entsorgung ist dezentral (Proteasom), kein Anti-Aging-Versprechen. Aufwand M.
+10. **Dorf oder Stadt.** Bakterium gegen Zelle mit Kern als Größenregler. Hinweis: Bakterien sind keine primitive Vorstufe, Endosymbiose ist gut belegt, Details offen. Aufwand M.
+11. **Abschlussseite "Eine Stadt, ein Körper, ein Netz".** Dieselben fünf Fragen für Düsseldorf, Zelle, Körper und Internet, je Spalte ein Feld "Wo das Bild hinkt". Erst nach mindestens drei neuen Abschnitten. Aufwand M.
+12. **README, Suchmaschinen-Grundlagen und Meta.** Kurze `README.md` (Zweck, Seiten, Befehle, Vorschaubilder erzeugen), `canonical` je Seite, `sitemap.xml`, `robots.txt`, JSON-LD `WebSite` auf der Startseite. `check.mjs` prüft title, description, canonical, og:image und meldet Gedankenstriche im sichtbaren Text. Aufwand S.
+13. **Visuelle Regression.** `tests/visuell.mjs`: Referenzbilder je Seite und Breite, Vergleich per Canvas, Differenzbild bei Abweichung, Baseline mit `--update`. Voraussetzung für die gemeinsamen Bausteine. Aufwand M.
+14. **Zellskelett als Straßen und Gerüst.** Fracht läuft per Motorprotein am Mikrotubulus, "Gerüst abbauen" lässt Wege reißen. Hinweis: Motorproteine schreiten in Stufen, es gibt keinen Fahrplan. Aufwand M.
+15. **Zwei Skalen, dieselbe Frage.** Düsseldorf und Zelle nebeneinander, Schieber "Skala" blendet über, Feld "Gleicher Name, anderer Mechanismus". Vorstufe der Abschlussseite. Aufwand M.
+16. **Robuste Kompatibilität.** `noscript`-Hinweis je Seite, iOS-Audio entsperren (erste Geste, Zustand `interrupted`), Test mit abgeschaltetem JavaScript im Prüfskript, Prüfliste für echte Geräte. Entsperr-Code mit dem Ton-Feinschliff zusammenführen. Aufwand M.
+17. **Skripte auslagern und Ladezeit messen.** Erst messen, dann nur große Skripte nach `assets/*.js` mit `defer`, nach den gemeinsamen Bausteinen. Aufwand M.
+18. **Eigene Seite zu Stromnetz, Wasser und Verkehr.** Tagesverlauf mit Schieber, Last, Erzeugung und Speicher. Keine Zahlen erfinden, Quellen nennen oder als Beispiel markieren. Aufwand L.
+19. **Erweiterungen.** Quorum Sensing als Zusatzfall im Signale-Abschnitt, Alterung und Reparatur im Müllabfuhr-Abschnitt. Je Aufwand S.
 
 ## Offen, Priorität niedrig
 
-21. **Epigenetik in der DNA-Sektion.** Derselbe Bauplan, andere Lesezeichen je Zelltyp. Keine Lebensstil-Deutung, keine Vererbung über Generationen. Aufwand S.
-22. **Druckansicht und Lesemodus.** Zuerst nur `@media print` (hell, ohne Bedienknöpfe), Hell-Schalter erst nach den gemeinsamen Bausteinen. Aufwand S bis M.
-23. **Mitmach-Format.** Rätsel "Wer bin ich, in Stadt und Zelle?" und Baukasten "Baue deine Stadt", alles ohne Maus lösbar. Erst nach Fließband, Zellskelett und Zoll. Aufwand M.
-24. **Rückmeldung ohne Analytics.** Fußlink "Fehler gemeldet oder Idee?" per `mailto:` mit Betreff je Seite, ein Satz in der Datenschutzseite. Aufwand S.
-25. **Glossar.** `glossar.html` und `tests/begriffe.json` mit bevorzugter Schreibweise, vom Prüfskript gelesen. Nach README und Sitemap. Aufwand M.
+20. **Epigenetik in der DNA-Sektion.** Derselbe Bauplan, andere Lesezeichen je Zelltyp. Keine Lebensstil-Deutung, keine Vererbung über Generationen. Aufwand S.
+21. **Druckansicht und Lesemodus.** Zuerst nur `@media print` (hell, ohne Bedienknöpfe), Hell-Schalter erst nach den gemeinsamen Bausteinen. Aufwand S bis M.
+22. **Mitmach-Format.** Rätsel "Wer bin ich, in Stadt und Zelle?" und Baukasten "Baue deine Stadt", alles ohne Maus lösbar. Erst nach Fließband, Zellskelett und Zoll. Aufwand M.
+23. **Rückmeldung ohne Analytics.** Fußlink "Fehler gemeldet oder Idee?" per `mailto:` mit Betreff je Seite, ein Satz in der Datenschutzseite. Aufwand S.
+24. **Glossar.** `glossar.html` und `tests/begriffe.json` mit bevorzugter Schreibweise, vom Prüfskript gelesen. Nach README und Sitemap. Aufwand M.
 
 ## Entscheidungen für Björn (gesammelt)
 
@@ -74,6 +73,8 @@ Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn z
 21. **Zoll-Abschnitt (#30): Optik und Tempo.** Viele kleine Teilchen, Ausgleich dauert etwa 20 Sekunden. Zu langsam oder zu unruhig? Die Schleuse im Stadtbild besteht nur aus Toren und einem Zahnrad. Annahme: bleibt.
 22. **Zoll-Abschnitt: Fachcheck.** "Die Membran ist nie ganz dicht" (Leck-Bild), "ein ATP je Teilchen" (echte Pumpen arbeiten anders, steht in der Notiz), das Tor öffnet "für kurze Zeit". Die Zahlen sind frei gewählt, keine Messwerte. Annahme: bleibt, steht in der Notiz.
 23. **Zoll-Abschnitt: Osmose.** Der Satz in der Notiz ist knapp. Soll Osmose einen eigenen Abschnitt oder ein Beispiel bekommen? Annahme: nein, erst mal nicht.
+24. **"Wo das Bild hinkt" (#32), Fachcheck.** 18 Felder (10 auf der Zell-Seite, 7 auf der Startseite, 1 auf der Karte). Sachlich zu prüfen sind vor allem Aussagen, die nicht schon auf den Seiten stehen: die Turbine als Eiweiß in der Membran (ATP-Synthase), Genregulation je Zelltyp, "Abweichungen entstehen zufällig beim Kopieren, die Auswahl kommt danach", "in einer echten Zelle ist es dichter und ständig in Bewegung", "keine der beiden Zellen ist die neue", "echte Nutzung schwankt über den Tag", "ein Stausee speichert Energie für Tage" (als Bild gemeint, bei Bedarf weicher). Annahme: bleibt.
+25. **"Wo das Bild hinkt", Ton und Optik.** Gold und gestrichelter Rahmen (Baustellenband) ist dezent, aber sichtbarer als die graue Notiz. Knappe Sätze wie "Es ist keine." (Du gehörst dazu) und "Die Zelle versteht dabei nichts. Sie reagiert." (Signale) sind fast Pointen. Zwei Gegenfragen sind etwas rhetorisch (Teilung, Signale). Das Feld ist 560 px breit und links ausgerichtet, auch in zentrierten Abschnitten. Annahme: bleibt.
 
 ## Erledigt
 
@@ -85,6 +86,7 @@ Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn z
 - Zellteilung als Stadtgründung (#13)
 - Ton für Evolution und Teilung (#14)
 - Prüfskript (#16), Signale (#17), Roter Faden (#18), Teilen und Vorschaubilder (#19)
+- Wo das Bild hinkt (#32)
 - Zoll im Detail (#30)
 - Ausfall in der Zell-Stadt (#27)
 - Datenschutz-Fix, Eingaben bleiben im Browser (#25)
