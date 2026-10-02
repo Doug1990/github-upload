@@ -754,6 +754,20 @@
   .sound-toggle .waves { opacity: 0; }
   .sound-toggle[aria-pressed="true"] .waves { opacity: 1; }
   .sound-toggle[aria-pressed="true"] .mute { opacity: 0; }
+  /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
+  .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
+  .hinkt summary { list-style: none; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 14px; cursor: pointer; border: 1px dashed rgba(242,196,107,0.5); border-radius: 10px; background: rgba(242,196,107,0.06); color: #F2C46B; font-size: 13px; line-height: 1.4; }
+  .hinkt summary::-webkit-details-marker { display: none; }
+  .hinkt summary::after { content: ""; flex: none; margin-left: auto; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); }
+  .hinkt[open] > summary::after { transform: rotate(-135deg); }
+  .hinkt summary:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
+  .hinkt-band { flex: none; width: 22px; height: 12px; border-radius: 2px; border: 1px solid rgba(242,196,107,0.75); background: repeating-linear-gradient(135deg, #F2C46B 0 4px, #1A1A14 4px 8px); }
+  .hinkt-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .hinkt-body { padding: 12px 14px 4px; font-size: 13px; line-height: 1.65; color: #C7CAD6; overflow-wrap: break-word; }
+  .hinkt-body p { margin: 0 0 10px; }
+  .hinkt-body .hinkt-frage { margin-top: 12px; padding-left: 10px; border-left: 2px solid rgba(242,196,107,0.6); color: #F2C46B; font-weight: 500; }
+  @media (prefers-reduced-motion: no-preference) { .hinkt[open] > .hinkt-body { animation: hinkt-ein 0.25s ease-out; } }
+  @keyframes hinkt-ein { from { opacity: 0; } to { opacity: 1; } }
 </style>
 </head>
 <body>
@@ -902,6 +916,7 @@
   </div>
   <p class="livecap sans" id="liveCap" aria-live="polite"></p>
   <div class="infocard" id="info" aria-live="polite"></div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zell-Zoom</span></summary><div class="hinkt-body"><p>Eine Stadt hat ein Rathaus und Leute, die etwas wollen. Die Zelle hat keinen Bürgermeister und keine Absicht, ihre Teile folgen chemischen Regeln.</p><p>Auch die Anordnung ist geschönt: Hier liegen die Bauteile getrennt und ordentlich nebeneinander, in einer echten Zelle ist es dichter und ständig in Bewegung.</p><p class="hinkt-frage">Wer entscheidet in einer Zelle, was wo gebaut wird?</p></div></details>
 </section>
 
 <!-- 2. Kraftwerk -->
@@ -960,6 +975,7 @@
   </div>
   <p class="status" id="tstatus" aria-live="polite"></p>
   <div class="legend"><span><i style="background:#FF8A65"></i>Proton (H⁺)</span><span><i style="background:#F2C46B"></i>ATP (fertige Energiewährung)</span><span><i style="background:#4FC3D9"></i>Turbine dreht sich mit dem Rückfluss</span></div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kraftwerk</span></summary><div class="hinkt-body"><p>Ein Stausee füllt sich und speichert Energie für Tage. Von ATP hat eine Zelle nur wenig auf Vorrat, es wird laufend neu gemacht.</p><p>Auch die Turbine sieht anders aus: In der Zelle ist sie ein winziges Eiweiß in einer Membran, das von Protonen angetrieben wird.</p><p class="hinkt-frage">Was passiert in einer Zelle, wenn das Nachliefern nur kurz stockt?</p></div></details>
   <p class="note">Vereinfacht: In der Simulation braucht ein ATP vier Protonen. Der echte Wert liegt grob bei drei bis vier und hängt von der Zellart ab. Alles hier ist eine Skizze des Prinzips, kein exaktes Modell.</p>
 </section>
 
@@ -984,6 +1000,7 @@
       <p class="infra">In der Stadt: Puffer und Reserven kosten Geld und retten im Ernstfall den Betrieb.</p>
     </article>
   </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Gut genug schlägt perfekt</span></summary><div class="hinkt-body"><p>Eine Stadt plant Reserven, weil jemand an den Ernstfall denkt. Im Leben bleibt, was zufällig gereicht hat, und dass etwas mehrfach vorhanden ist, hatte vorher keinen Zweck.</p><p>Auch das Wort Design ist hier nur ein Bild. Es hat keinen Entwerfer gegeben.</p><p class="hinkt-frage">Was würde ein Ingenieur an dieser Stelle aufräumen, und was würde dann fehlen?</p></div></details>
 </section>
 
 <!-- 3a. Zoll im Detail -->
@@ -1136,6 +1153,7 @@
       <p class="aha">Ein Tor braucht kein ATP zum Durchlassen, nur ein Signal zum Öffnen. Ohne Gefälle bringt auch ein offenes Tor nichts, und das Gefälle bauen die Pumpen.</p>
     </div>
   </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zoll</span></summary><div class="hinkt-body"><p>Ein Zoll hat Beamte, die Papiere prüfen und entscheiden. An der Membran entscheidet niemand. Pore, Pumpe und Tor wirken durch ihre Form und ihre Chemie, und was durchkommt, hängt vom Gefälle ab.</p><p>Die Wagen in der Stadtansicht haben ein Ziel. Die Teilchen haben keines, sie bewegen sich zufällig.</p><p class="hinkt-frage">Wer legt in der Zelle fest, welche Teilchen als passend gelten?</p></div></details>
   <p class="note">Stark vereinfacht: Ein Gefälle ist Statistik, keine Absicht. Die Teilchen bewegen sich zufällig, im Mittel wandern nur mehr von der vollen auf die leere Seite. Deshalb schwanken die Zahlen auch im Ausgleich. Wasser folgt dabei der Osmose und wandert dorthin, wo mehr gelöste Teilchen sind. Viele echte Transporte sind gekoppelt: Ein Teilchen fährt mit, weil ein anderes mit dem Gefälle fließt. Echte Pumpen verbrauchen nicht ein ATP je Teilchen. Die Zahlen hier sind kein Messwert, nur ein Bild des Prinzips.</p>
 </section>
 
@@ -1165,6 +1183,7 @@
     <button type="button" class="btn" id="ausReset">Alles wieder herstellen</button>
   </div>
   <p class="aus-status" id="ausStatus" aria-live="polite"></p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Ausfall</span></summary><div class="hinkt-body"><p>Die Stufen wirken wie ein Fahrplan: erst fällt das eine aus, dann das nächste. Die Seite nennt sie selbst ein Bild für Abhängigkeiten, und wie schnell etwas in einer echten Zelle folgt, hängt vom Fall ab.</p><p>Sieben Bauteile sind eine kleine Auswahl. In einer Zelle hängt mehr zusammen, in mehr Richtungen, als diese Skizze zeigt.</p><p class="hinkt-frage">Welche Abhängigkeit fehlt in dieser Skizze?</p></div></details>
   <p class="note">Stark vereinfacht: Echte Krankheiten sind selten ein einzelner Ausfall. Meist stecken genetische und mehrstufige Ursachen dahinter, und die Bauteile hängen in echt in viel mehr Richtungen zusammen als hier. Die Stufen sind ein Bild für Abhängigkeiten, kein Zeitplan. Die Krankheitsgruppen sind nur Beispiele, keine Diagnose und keine Heilversprechen. Kein Beispiel hier ersetzt ärztlichen Rat.</p>
   <p class="aus-hint" id="ausHint">Noch läuft alles. Schalte oben eine Stelle aus, dann steht hier Stufe für Stufe, was daran hängt.</p>
   <div class="aus-detail" id="ausDetail" hidden>
@@ -1219,6 +1238,7 @@
     </div>
     <p class="status" id="evoStatus" aria-live="polite"></p>
   </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Evolution</span></summary><div class="hinkt-body"><p>Ein Viertel, das aufgegeben wird, legt einen Bauherrn nahe, der entscheidet. Hier entscheidet niemand. Eine Zelle stirbt, und wer bleibt, hat zufällig besser gepasst.</p><p>Eine Zelle ändert ihren Bauplan auch nicht, weil sie es braucht. Die Abweichungen entstehen zufällig beim Kopieren, die Auswahl kommt erst danach.</p><p class="hinkt-frage">Wer hat in dieser Simulation festgelegt, was als gut gilt?</p></div></details>
   <p class="note">Stark vereinfacht: Es gibt nur zwei Merkmale, die Zellen teilen sich ungeschlechtlich, und Auswahl heißt hier allein Überleben. Eine dickere Mauer kostet Energie, deshalb gibt es keine Lösung, die in jeder Lage die beste ist. Echte Evolution braucht viel mehr Merkmale und sehr viel mehr Zeit. Der Zufall läuft mit festem Startwert, ein Neustart verläuft also immer gleich.</p>
 </section>
 
@@ -1230,6 +1250,7 @@
   <input class="dna-in" id="dnaIn" maxlength="10" value="Leben" autocomplete="off" spellcheck="false">
   <div class="dna-out" id="dnaOut" aria-live="polite"></div>
   <p class="dna-sum" id="dnaSum"></p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: DNA</span></summary><div class="hinkt-body"><p>Ein Bauplan zeigt das fertige Haus. Die DNA enthält Anleitungen für Eiweiße und anderes, wie die Zelle am Ende aussieht, entsteht erst im Zusammenspiel.</p><p>Dazu liest eine Zelle immer nur einen Teil davon, je nach Zelltyp und Lage.</p><p class="hinkt-frage">Was fehlt einem Bauplan, damit aus ihm eine lebende Zelle wird?</p></div></details>
 </section>
 
 <!-- 5. Zellteilung als Stadtgründung -->
@@ -1294,6 +1315,7 @@
     <p id="teilCheckMsg"></p>
     <button type="button" class="btn" id="teilFault" aria-pressed="false">Kopierfehler einbauen</button>
   </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Teilung</span></summary><div class="hinkt-body"><p>Eine Stadtgründung braucht Gründer und einen Entwurf. Hier gibt es nur eine Zelle, die sich in zwei teilt, und keine der beiden ist die neue.</p><p>Die fünf Schritte laufen auch nicht so sauber nacheinander ab: Die DNA wird schon vorher kopiert, und nicht jedes Organell verdoppelt sich ordentlich.</p><p class="hinkt-frage">Welche der beiden Zellen ist die alte?</p></div></details>
   <p class="note">Stark vereinfacht: Die echte Mitose hat mehr Phasen (Prophase, Prometaphase, Metaphase, Anaphase, Telophase, dazu die Zellteilung selbst), und die DNA wird schon vorher kopiert. Hier gibt es vier Chromosomen statt 46, und nicht jedes Organell verdoppelt sich so ordentlich. Dafür gibt es in echt mehr Kontrollpunkte und Fehlerkorrektur, als diese Skizze zeigt.</p>
 </section>
 
@@ -1334,6 +1356,7 @@
   </div>
   <div class="bau-sum" id="bauSum" aria-live="polite" hidden></div>
   <div class="bau-ort"><b>Wer prüft hier eigentlich?</b><p>Niemand. Das Bauamt ist ein Bild. In der Zelle sitzt keine Behörde, die den Bauplan überblickt und Genehmigungen erteilt. Die Tore sind Rückkopplungen: Eiweiße melden Probleme, und solange eine Meldung anliegt, bleibt der Antrieb für den nächsten Schritt gebremst. Die Kontrolle entsteht aus vielen kleinen Teilen, die sich gegenseitig prüfen. Das passt zum Schluss dieser Seite: eine Stadt ohne Planungsbüro.</p></div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Bauamt</span></summary><div class="hinkt-body"><p>Ein Amt hat Akten, Zuständigkeiten und jemanden, der geradesteht. Die Kontrollpunkte haben nichts davon. Es sind Eiweiße, die einander bremsen oder freigeben.</p><p>Ein Stopp heißt auch nicht immer Ablehnung. Eine Zelle mit einem Schaden wird manchmal angehalten und manchmal gezielt abgebaut.</p><p class="hinkt-frage">Wer trägt die Verantwortung, wenn eine Kontrolle versagt?</p></div></details>
   <p class="note">Stark vereinfacht: Echte Kontrollpunkte sind mehr und komplexer, und die Fehlerfälle hier sind Beispiele. In echt gibt es Mischformen, und eine Zelle mit einem Schaden wird nicht immer nur gestoppt, manche stirbt auch gezielt. Krebs hat viele Ursachen. Ein ausgefallener Kontrollpunkt ist nur eine davon, und meist müssen mehrere Veränderungen zusammenkommen. Diese Seite ersetzt keinen ärztlichen Rat.</p>
 </section>
 
@@ -1380,6 +1403,7 @@
     <div class="col city"><b>In der Stadt</b><span id="sigTown"></span></div>
     <p class="aha" id="sigAha"></p>
   </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Signale</span></summary><div class="hinkt-body"><p>Ein Brief hat einen Absender, eine Adresse und einen, der ihn liest und versteht. Ein Hormon wird an niemanden adressiert, es treibt im Blut an alle, und nur Zellen mit dem passenden Rezeptor reagieren.</p><p>Die Zelle versteht dabei nichts. Sie reagiert.</p><p class="hinkt-frage">Wer liest hier eigentlich, und wer hat die Nachricht gewollt?</p></div></details>
   <p class="note">Stark vereinfacht: Der Körper kennt viel mehr Signalwege, und sie überlappen. Manche Botenstoffe wirken im Blut, andere nur auf Nachbarzellen, und derselbe Stoff ist in einem Nerv ein Überträger und im Blut ein Hormon. Hier sind es vier Empfänger und ein Rezeptortyp. Auch die Zeiten stimmen nicht: Ein Hormon braucht in echt Sekunden bis Minuten, ein Nervenimpuls wenige Millisekunden. Die Animation zieht beides zusammen und dehnt den Nerv, damit man ihn sehen kann.</p>
 </section>
 
