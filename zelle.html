@@ -537,6 +537,119 @@
     .bau-svg .bau-pulse { animation: none; }
   }
 
+  /* Zoll im Detail */
+  .zoll-seg { display: flex; justify-content: center; margin: 0 auto 14px; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
+  .zoll-seg button { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 0 22px; background: transparent; color: var(--muted); border: none; cursor: pointer; min-height: 44px; }
+  .zoll-seg button[aria-pressed="true"] { background: rgba(var(--accent-rgb),0.16); color: var(--accent); }
+  .zoll-panel svg { touch-action: manipulation; }
+  .zoll-svg .zoll-zo { fill: rgba(79,195,217,0.05); }
+  .zoll-svg .zoll-zi { fill: rgba(127,217,168,0.07); transition: fill 0.6s ease; }
+  .zoll-svg.v-city .zoll-zi { fill: rgba(242,196,107,0.05); }
+  .zoll-svg .zoll-mem rect { fill: #24503C; transition: fill 0.6s ease; }
+  .zoll-svg.v-city .zoll-mem rect { fill: #3a2f18; }
+  .zoll-svg .zoll-memb path { fill: none; stroke: #3C9E78; stroke-width: 2.4; transition: stroke 0.6s ease; }
+  .zoll-svg.v-city .zoll-memb path { stroke: #B88A3A; }
+  .zoll-svg .zoll-leakedge { display: none; }
+  .zoll-svg.w-pump .zoll-leakedge { display: inline; }
+  .zoll-svg.w-pump .zoll-plug { display: none; }
+  .zoll-svg .zoll-zl { font-family: 'IBM Plex Sans', sans-serif; font-size: 22px; fill: #A9AFC0; }
+  .zoll-svg .zoll-bl { font-family: 'IBM Plex Sans', sans-serif; font-size: 22px; fill: #E4ECE6; }
+  .zoll-svg .zm, .zoll-svg .zoll-badge { display: none; }
+  .zoll-svg.w-pore.v-bio .zm-pore-bio, .zoll-svg.w-pump.v-bio .zm-pump-bio, .zoll-svg.w-gate.v-bio .zm-gate-bio,
+  .zoll-svg.w-pore.v-city .zm-pore-city, .zoll-svg.w-pump.v-city .zm-pump-city, .zoll-svg.w-gate.v-city .zm-gate-city { display: inline; }
+  .zoll-svg.w-pump .zoll-badge { display: inline; }
+  .zoll-svg .zoll-prot { fill: #2E4A6B; stroke: #4FC3D9; stroke-width: 2.6; }
+  .zoll-svg .zoll-flap { fill: #3D5F85; stroke: #4FC3D9; stroke-width: 2.4; transition: transform 0.6s ease; }
+  .zoll-svg.is-open .zoll-fl { transform: translateX(-32px); }
+  .zoll-svg.is-open .zoll-fr { transform: translateX(32px); }
+  .zoll-svg .zoll-pbody { fill: #6B3F2A; stroke: #F2C46B; stroke-width: 2.8; transition: fill 0.4s ease, stroke 0.4s ease; }
+  .zoll-svg .zoll-pocket { fill: #0A1310; }
+  .zoll-svg .zoll-parr { fill: none; stroke: #F2C46B; stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.4s ease; }
+  .zoll-svg.run .zoll-parr { animation: zollPulse 1s ease-in-out infinite; }
+  .zoll-svg.atp-off .zoll-pbody { fill: #2B303A; stroke: #6E7689; }
+  .zoll-svg.atp-off .zoll-parr { stroke: #6E7689; }
+  .zoll-svg .zoll-badge rect { fill: #F2C46B; stroke: #0A1310; stroke-width: 2; transition: fill 0.4s ease; transform-box: fill-box; transform-origin: center; }
+  .zoll-svg .zoll-badge text { font-family: 'IBM Plex Sans', sans-serif; font-size: 21px; font-weight: 700; fill: #0A1310; }
+  .zoll-svg.atp-off .zoll-badge rect { fill: #4A5060; }
+  .zoll-svg.atp-off .zoll-badge text { fill: #D5D9E3; }
+  .zoll-svg .zoll-road { fill: #1d2a24; }
+  .zoll-svg .zoll-roadl { stroke: #7A5E2A; stroke-width: 2; stroke-dasharray: 6 10; fill: none; }
+  .zoll-svg .zoll-post { fill: #7A5E2A; stroke: #B88A3A; stroke-width: 2; }
+  .zoll-svg .zoll-lock { fill: #B88A3A; }
+  .zoll-svg .zoll-motor { fill: #3a2f18; stroke: #F2C46B; stroke-width: 2.6; transition: stroke 0.4s ease; }
+  .zoll-svg .zoll-rod { stroke: #B88A3A; stroke-width: 4; }
+  .zoll-svg .zoll-gear { fill: none; stroke: #F2C46B; stroke-width: 5; stroke-dasharray: 5 4; transform-box: fill-box; transform-origin: center; }
+  .zoll-svg .zoll-hub { fill: #F2C46B; }
+  .zoll-svg.atp-off .zoll-gear { stroke: #6E7689; }
+  .zoll-svg.atp-off .zoll-hub { fill: #6E7689; }
+  .zoll-svg.atp-off .zoll-motor { stroke: #6E7689; }
+  .zoll-svg.run .zoll-gear { animation: zollSpin 1.8s linear infinite; }
+  .zoll-svg .zoll-arm { transition: transform 0.7s cubic-bezier(.5,0,.2,1); transform-origin: 292px 149px; }
+  .zoll-svg.is-open .zoll-arm { transform: rotate(-82deg); }
+  .zoll-svg .zoll-armr { fill: #E8E6E0; }
+  .zoll-svg .zoll-armb { fill: #FF8A65; }
+  .zoll-svg .zoll-hut { fill: #3a2f18; stroke: #B88A3A; stroke-width: 2.4; }
+  .zoll-svg .zoll-hutd { fill: #B88A3A; }
+  .zoll-svg .zp { fill: #4FC3D9; stroke: #0A1310; stroke-width: 1.4; rx: 7px; }
+  .zoll-svg.v-city .zp { rx: 2px; }
+  .zoll-svg .zf { fill: #A58BC9; stroke: #0A1310; stroke-width: 1.4; rx: 1px; }
+  .zoll-svg .zoll-sig { fill: #FF8A65; stroke: #0A1310; stroke-width: 1.6; }
+  .zoll-svg .zoll-arr { display: none; fill: none; stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+  .zoll-svg .zoll-arr.d { stroke: #4FC3D9; }
+  .zoll-svg .zoll-arr.u { stroke: #F2C46B; }
+  .zoll-svg.static.a-down .zoll-arr.d.m, .zoll-svg.static.a-up .zoll-arr.u, .zoll-svg.static.a-leak .zoll-arr.d.l { display: inline; }
+  .zoll-svg .zoll-leakl { display: none; }
+  .zoll-svg.w-pump .zoll-leakl { display: inline; }
+  @keyframes zollSpin { to { transform: rotate(360deg); } }
+  @keyframes zollPulse { 0%,100% { opacity: 0.45; } 50% { opacity: 1; } }
+  .zoll-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0 0; }
+  .zoll-stat em { display: block; font-style: normal; font-size: 11px; color: var(--dim); margin-top: 2px; }
+  .zoll-legend i.sq { border-radius: 2px; }
+  .zoll-legend i.dia { border-radius: 1px; transform: rotate(45deg) scale(0.9); }
+  .zoll-ways-l { margin: 16px 0 6px; font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: var(--muted); }
+  .zoll-ways { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .zoll-wb { font-family: 'IBM Plex Sans', sans-serif; text-align: left; min-height: 76px; padding: 9px 12px; border-radius: 12px; border: 1px solid #3A4A42; background: transparent; color: var(--muted); cursor: pointer; display: flex; flex-direction: column; gap: 2px; line-height: 1.3; }
+  .zoll-wb b { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .zoll-wb small { font-size: 11.5px; color: var(--dim); }
+  .zoll-wb i { font-style: normal; font-size: 11.5px; color: var(--accent); margin-top: auto; padding-top: 3px; }
+  .zoll-wb:hover { border-color: var(--accent); }
+  .zoll-wb[aria-pressed="true"] { border-color: rgba(var(--accent-rgb),0.7); background: rgba(var(--accent-rgb),0.12); }
+  .zoll-wb[aria-pressed="true"] small { color: #C7CAD6; }
+  .zoll-ctl { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px 18px; margin-top: 8px; font-family: 'IBM Plex Sans', sans-serif; }
+  .zoll-slider { flex: 1 1 260px; min-width: 0; }
+  .zoll-slider .row { display: flex; justify-content: space-between; gap: 10px; font-size: 12.5px; color: var(--muted); }
+  .zoll-slider output { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .zoll-slider input[type=range] { width: 100%; accent-color: var(--accent); margin: 0; height: 44px; }
+  .zoll-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .zoll-btns .btn { min-height: 44px; padding: 8px 16px; }
+  .zoll-btns .btn[hidden] { display: none; }
+  .zoll-btns .btn[aria-pressed="true"] { border-color: var(--coral); color: var(--coral); }
+  .zoll-btns .primary { border-color: var(--accent); color: var(--accent); }
+  .zoll-hint { margin: 6px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: var(--dim); line-height: 1.5; }
+  .zoll-say { margin: 12px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: var(--gold); min-height: 44px; }
+  .zoll-say .n { display: block; margin-top: 2px; font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .zoll-live { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .zoll-det { margin-top: 14px; font-family: 'IBM Plex Sans', sans-serif; }
+  .zoll-det[hidden] { display: none; }
+  .zoll-det .hd small { display: block; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-bottom: 3px; }
+  .zoll-det .hd h3 { margin: 0 0 10px; font-family: 'Fraunces', serif; font-weight: 500; font-size: 21px; }
+  .zoll-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13.5px; line-height: 1.6; color: #C7CAD6; }
+  .zoll-cols .col { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 11px 13px; border-left: 3px solid var(--accent); }
+  .zoll-cols .col.city { border-left-color: var(--gold); }
+  .zoll-cols .col b { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
+  .zoll-cols .aha { grid-column: 1 / -1; color: var(--gold); font-size: 13.5px; margin: 0; }
+  @media (max-width: 640px) {
+    .zoll-cols { grid-template-columns: 1fr; }
+    .zoll-stats { grid-template-columns: 1fr 1fr; }
+    .zoll-panel { padding: 8px; }
+    .zoll-wb { padding: 8px 9px; }
+    .zoll-wb b { font-size: 13.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .zoll-svg *, .zoll-wb { transition: none !important; }
+    .zoll-svg .zoll-parr, .zoll-svg .zoll-gear { animation: none !important; }
+  }
+
   /* Ausfall (.aus) */
   .aus-seg { display: flex; justify-content: center; margin: 0 auto 14px; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
   .aus-seg button { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 7px 18px; background: transparent; color: var(--muted); border: none; cursor: pointer; min-height: 36px; }
@@ -682,6 +795,7 @@
     <li><a href="#stadt"><b>Die Zelle ist eine Stadt in klein</b>Eine Zelle ist organisiert wie eine kleine Stadt, als Bild gemeint. Tippe auf einen Bestandteil, um zu sehen, was dort passiert.</a></li>
     <li><a href="#kraftwerk"><b>Das Kraftwerk</b>Die Zelle macht ihre Energiewährung ATP nach dem Prinzip eines Stausees. Die Simulation ist vereinfacht.</a></li>
     <li><a href="#robust"><b>Gut genug schlägt perfekt</b>Das Leben wurde nie geplant, nur verändert. Darum gibt es Redundanz, alte Reste und Reserven, und es läuft trotzdem zuverlässig.</a></li>
+    <li><a href="#zoll"><b>Der Zoll: Drei Wege über die Grenze</b>Pore, Pumpe und Tor: Nur die Pumpe arbeitet gegen das Gefälle und kostet ATP. Ohne ATP gleicht sich das Gefälle aus. Stark vereinfacht.</a></li>
     <li><a href="#ausfall"><b>Fällt eine Stelle aus, merkt es der Rest</b>Fällt Kraftwerk, Müllabfuhr, Zoll oder Archiv aus, werden abhängige Teile in Stufen mit lahm. Krankheiten sind selten ein einzelner Ausfall, die Beispiele ersetzen keinen ärztlichen Rat.</a></li>
     <li><a href="#evolution"><b>Ohne Bauamt</b>Ohne Bauamt bleibt, was bei knapper Versorgung besteht. Niemand entwirft das Ergebnis.</a></li>
     <li><a href="#dna"><b>Der Bauplan ist digital</b>DNA schreibt mit vier Buchstaben, das sind zwei Bit pro Base. Dein Wort in DNA ist nur ein Gedankenspiel.</a></li>
@@ -872,10 +986,163 @@
   </div>
 </section>
 
+<!-- 3a. Zoll im Detail -->
+<section class="sec reveal" id="zoll">
+  <h2>Der Zoll: Drei Wege über die Grenze.</h2>
+  <p class="lead">Der Zoll an der Zellmembran ist kein einzelner Wächter. Es sind drei Wege, und nur einer kostet Energie. Wähle einen Weg, ändere das Gefälle und schalte das ATP ab. Dann siehst du, wer das Gefälle hält und wer es nur nutzt. Der Schalter wechselt zwischen Biologie und Stadt.</p>
+  <div class="zoll-seg" role="group" aria-label="Ansicht des Zolls">
+    <button type="button" id="zollViewBio" aria-pressed="true">Zelle</button>
+    <button type="button" id="zollViewCity" aria-pressed="false">Stadt</button>
+  </div>
+  <div class="panel zoll-panel" id="zollPanel">
+    <svg id="zollSvg" class="zoll-svg w-pore v-bio" viewBox="0 0 640 300" role="img" aria-labelledby="zollSvgT">
+      <title id="zollSvgT">Schema der Zellmembran. Oben außen, unten innen, in der Mitte ein Weg durch die Membran. Teilchen bewegen sich zufällig, und je nach Weg wandern sie mit dem Gefälle oder werden gegen das Gefälle gepumpt.</title>
+      <rect class="zoll-zo" x="0" y="0" width="640" height="134"/>
+      <rect class="zoll-zi" x="0" y="164" width="640" height="136"/>
+      <g class="zm zm-pore-city zm-gate-city">
+        <rect class="zoll-road" x="288" y="0" width="64" height="300"/>
+        <path class="zoll-roadl" d="M320 0 V300"/>
+      </g>
+      <g class="zoll-mem">
+        <rect x="0" y="134" width="288" height="30"/>
+        <rect x="352" y="134" width="177" height="30"/>
+        <rect class="zoll-plug" x="529" y="134" width="22" height="30"/>
+        <rect x="551" y="134" width="89" height="30"/>
+      </g>
+      <g class="zoll-memb">
+        <path d="M0 134H288M0 164H288M352 134H529M352 164H529M551 134H640M551 164H640"/>
+        <path class="zoll-plug" d="M529 134H551M529 164H551"/>
+        <path class="zoll-leakedge" d="M529 134V164M551 134V164"/>
+      </g>
+      <!-- Zelle: Pore -->
+      <g class="zm zm-pore-bio">
+        <rect class="zoll-prot" x="264" y="129" width="24" height="40" rx="8"/>
+        <rect class="zoll-prot" x="352" y="129" width="24" height="40" rx="8"/>
+      </g>
+      <!-- Zelle: Pumpe -->
+      <g class="zm zm-pump-bio">
+        <rect class="zoll-pbody" x="268" y="129" width="104" height="40" rx="12"/>
+        <rect class="zoll-pocket" x="298" y="134" width="44" height="30" rx="8"/>
+        <path class="zoll-parr" d="M320 160 V140 M311 149 L320 139 L329 149"/>
+      </g>
+      <!-- Zelle: Tor -->
+      <g class="zm zm-gate-bio">
+        <rect class="zoll-flap zoll-fl" x="288" y="135" width="32" height="28" rx="6"/>
+        <rect class="zoll-flap zoll-fr" x="320" y="135" width="32" height="28" rx="6"/>
+        <rect class="zoll-prot" x="264" y="129" width="24" height="40" rx="8"/>
+        <rect class="zoll-prot" x="352" y="129" width="24" height="40" rx="8"/>
+      </g>
+      <!-- Stadt: offene Straße -->
+      <g class="zm zm-pore-city">
+        <rect class="zoll-post" x="272" y="129" width="16" height="40" rx="3"/>
+        <rect class="zoll-post" x="352" y="129" width="16" height="40" rx="3"/>
+      </g>
+      <!-- Stadt: Schleuse mit Motor -->
+      <g class="zm zm-pump-city">
+        <rect class="zoll-post" x="272" y="129" width="16" height="40" rx="3"/>
+        <rect class="zoll-post" x="352" y="129" width="16" height="40" rx="3"/>
+        <rect class="zoll-lock" x="290" y="131" width="18" height="5" rx="2"/>
+        <rect class="zoll-lock" x="332" y="131" width="18" height="5" rx="2"/>
+        <rect class="zoll-lock" x="290" y="162" width="18" height="5" rx="2"/>
+        <rect class="zoll-lock" x="332" y="162" width="18" height="5" rx="2"/>
+        <path class="zoll-rod" d="M368 149 H384"/>
+        <rect class="zoll-motor" x="384" y="129" width="40" height="40" rx="9"/>
+        <circle class="zoll-gear" cx="404" cy="149" r="12"/>
+        <circle class="zoll-hub" cx="404" cy="149" r="4"/>
+      </g>
+      <!-- Stadt: Schranke mit Zollhäuschen -->
+      <g class="zm zm-gate-city">
+        <rect class="zoll-post" x="272" y="129" width="16" height="40" rx="3"/>
+        <rect class="zoll-post" x="352" y="129" width="16" height="40" rx="3"/>
+        <g class="zoll-arm">
+          <rect class="zoll-armr" x="292" y="145" width="56" height="8" rx="2"/>
+          <rect class="zoll-armb" x="302" y="145" width="9" height="8"/>
+          <rect class="zoll-armb" x="320" y="145" width="9" height="8"/>
+          <rect class="zoll-armb" x="338" y="145" width="9" height="8"/>
+        </g>
+        <rect class="zoll-hut" x="396" y="120" width="44" height="48" rx="3"/>
+        <path class="zoll-hut" d="M390 120 L418 100 L446 120 Z"/>
+        <rect class="zoll-hutd" x="410" y="140" width="16" height="28" rx="2"/>
+      </g>
+      <g class="zoll-badge">
+        <rect x="436" y="135" width="62" height="28" rx="14"/>
+        <text x="467" y="157" text-anchor="middle">ATP</text>
+      </g>
+      <text class="zoll-bl zoll-leakl" id="zollLeakL" x="562" y="155">Leck</text>
+      <text class="zoll-bl" id="zollBandL" x="250" y="155" text-anchor="end">Pore (Kanal)</text>
+      <g id="zollP"></g>
+      <text class="zoll-zl" opacity="0.85" id="zollZoL" x="10" y="28">außen</text>
+      <text class="zoll-zl" opacity="0.85" id="zollZiL" x="10" y="290">innen</text>
+      <circle class="zoll-sig" id="zollSig" r="8" cx="0" cy="0" display="none"/>
+      <g class="zoll-arrs" fill="none">
+        <path class="zoll-arr d m" d="M320 56 V112 M307 98 L320 114 L333 98"/>
+        <path class="zoll-arr d l" d="M540 56 V112 M527 98 L540 114 L553 98"/>
+        <path class="zoll-arr u" d="M320 244 V190 M307 204 L320 188 L333 204"/>
+      </g>
+    </svg>
+  </div>
+  <div class="zoll-stats">
+    <div class="stat zoll-stat"><small id="zollTO">Außen</small><span id="zollSO">0</span></div>
+    <div class="stat zoll-stat"><small id="zollTI">Innen</small><span id="zollSI">0</span></div>
+    <div class="stat zoll-stat"><small>Gefälle</small><span id="zollSG">0 %</span><div class="bar"><i id="zollSB"></i></div></div>
+    <div class="stat zoll-stat"><small id="zollTA">ATP-Verbrauch</small><span id="zollSA">0</span><em id="zollSAs">pro Sekunde</em></div>
+  </div>
+  <div class="legend zoll-legend">
+    <span><i id="zollLgP" style="background:#4FC3D9"></i><span id="zollLgPt">Teilchen, die durchkommen</span></span>
+    <span><i class="dia" style="background:#A58BC9"></i><span id="zollLgFt">Fremde Teilchen, die nicht passen</span></span>
+    <span><i style="background:#F2C46B"></i>ATP</span>
+  </div>
+  <p class="zoll-ways-l" id="zollWaysL">Welchen Weg nimmt die Grenze?</p>
+  <div class="zoll-ways" id="zollWays" role="group" aria-labelledby="zollWaysL">
+    <button type="button" class="zoll-wb" data-way="pore" aria-pressed="true"><b>Pore</b><small>folgt dem Gefälle</small><i>kostet nichts</i></button>
+    <button type="button" class="zoll-wb" data-way="pump" aria-pressed="false"><b>Pumpe</b><small>gegen das Gefälle</small><i>kostet ATP</i></button>
+    <button type="button" class="zoll-wb" data-way="gate" aria-pressed="false"><b>Tor</b><small>öffnet auf Signal</small><i>braucht Signal</i></button>
+  </div>
+  <div class="zoll-ctl">
+    <div class="zoll-slider">
+      <div class="row"><label for="zollGrad" id="zollGradL">Gefälle zu Beginn</label><output id="zollGradO" for="zollGrad">50 %</output></div>
+      <input type="range" id="zollGrad" min="0" max="90" step="5" value="50" aria-valuetext="50 Prozent">
+    </div>
+    <div class="zoll-btns">
+      <button type="button" class="btn" id="zollAtp" aria-pressed="false" aria-describedby="zollAtpH">ATP abschalten</button>
+      <button type="button" class="btn primary" id="zollSigBtn" hidden>Signal senden</button>
+      <button type="button" class="btn" id="zollReset">Neu starten</button>
+    </div>
+  </div>
+  <p class="zoll-hint" id="zollAtpH">Der ATP-Schalter wirkt nur bei der Pumpe.</p>
+  <p class="zoll-say" id="zollSay">Die Pore ist offen. Teilchen wandern von der vollen auf die leere Seite, das Gefälle sinkt.<span class="n">Außen 54, innen 18, Gefälle 50 Prozent, ATP gesamt 0.</span></p>
+  <p class="zoll-live" id="zollLive" aria-live="polite" aria-atomic="true"></p>
+  <div class="zoll-det" id="zollDet-pore">
+    <div class="hd"><small>Weg 1, kostet nichts</small><h3>Pore: offen, aber ohne Antrieb</h3></div>
+    <div class="zoll-cols">
+      <div class="col"><b>In der Zelle</b>Eine Pore ist ein offener Kanal durch die Membran. Teilchen wandern von der vollen auf die leere Seite, einfach weil sie sich zufällig bewegen und dort mehr Platz ist. Das kostet nichts und hört auf, sobald beide Seiten gleich voll sind.</div>
+      <div class="col city"><b>In der Stadt</b>Eine offene Straße über die Grenze. Wo sich viele Wagen drängen, fahren mehr hinüber als zurück. Niemand schiebt. Es gleicht sich von selbst aus, bis auf beiden Seiten gleich viel los ist.</div>
+      <p class="aha">Eine Pore baut kein Gefälle auf, sie verbraucht es nur. Ohne etwas, das nachlädt, wäre es bald weg.</p>
+    </div>
+  </div>
+  <div class="zoll-det" id="zollDet-pump" hidden>
+    <div class="hd"><small>Weg 2, kostet ATP</small><h3>Pumpe: der Weg gegen das Gefälle</h3></div>
+    <div class="zoll-cols">
+      <div class="col"><b>In der Zelle</b>Eine Pumpe schiebt Teilchen dorthin, wo schon viele sind. Das ist Arbeit gegen das Gefälle, und dafür spaltet sie ATP. Die Membran ist nie ganz dicht, deshalb sickert immer etwas zurück, und die Pumpe muss laufend nachschieben.</div>
+      <div class="col city"><b>In der Stadt</b>Eine Schleuse mit Motor. Sie bringt Wagen dorthin, wo schon Stau ist, und der Motor braucht Strom. Weil jeder Zaun Lücken hat, kommt immer etwas zurück. Je größer der Unterschied, desto mehr Strom braucht es.</div>
+      <p class="aha">Hier hängt alles am ATP. Schalte es ab, und das Gefälle gleicht sich durch die Lecks aus. Genau das passiert im Ausfall, wenn das Kraftwerk fehlt.</p>
+    </div>
+  </div>
+  <div class="zoll-det" id="zollDet-gate" hidden>
+    <div class="hd"><small>Weg 3, braucht ein Signal</small><h3>Tor: erst Signal, dann durch</h3></div>
+    <div class="zoll-cols">
+      <div class="col"><b>In der Zelle</b>Ein Tor ist meist zu. Erst ein Signal, zum Beispiel ein Botenstoff oder eine Spannung, öffnet es für kurze Zeit. Dann lässt es durch, was passt, und das Gefälle bestimmt die Richtung, wie bei der Pore.</div>
+      <div class="col city"><b>In der Stadt</b>Eine Schranke mit Zollhäuschen. Ohne Genehmigung bleibt sie unten. Mit Genehmigung geht sie hoch, und wer die richtigen Papiere hat, fährt durch.</div>
+      <p class="aha">Ein Tor braucht kein ATP zum Durchlassen, nur ein Signal zum Öffnen. Ohne Gefälle bringt auch ein offenes Tor nichts, und das Gefälle bauen die Pumpen.</p>
+    </div>
+  </div>
+  <p class="note">Stark vereinfacht: Ein Gefälle ist Statistik, keine Absicht. Die Teilchen bewegen sich zufällig, im Mittel wandern nur mehr von der vollen auf die leere Seite. Deshalb schwanken die Zahlen auch im Ausgleich. Wasser folgt dabei der Osmose und wandert dorthin, wo mehr gelöste Teilchen sind. Viele echte Transporte sind gekoppelt: Ein Teilchen fährt mit, weil ein anderes mit dem Gefälle fließt. Echte Pumpen verbrauchen nicht ein ATP je Teilchen. Die Zahlen hier sind kein Messwert, nur ein Bild des Prinzips.</p>
+</section>
+
 <!-- 3a. Ausfall in der Zell-Stadt -->
 <section class="sec reveal" id="ausfall">
   <h2>Fällt eine Stelle aus, merkt es der Rest.</h2>
-  <p class="lead">Redundanz fängt vieles ab, aber nicht alles. An vier Stellen hängt viel an einem einzigen Teil. Lege eines lahm und sieh, was nach und nach mit ausfällt. Du kannst auch mehrere zusammen ausschalten. Der Schalter wechselt wieder zwischen Biologie und Stadt.</p>
+  <p class="lead">Redundanz fängt vieles ab, aber nicht alles. An vier Stellen hängt viel an einem einzigen Teil. Lege eines lahm und sieh, was nach und nach mit ausfällt. Du kannst auch mehrere zusammen ausschalten. Der Schalter wechselt wieder zwischen Biologie und Stadt. <a href="#zoll">Wie der Zoll genau arbeitet, steht davor.</a></p>
   <div class="aus-seg" role="group" aria-label="Ansicht des Ausfalls">
     <button type="button" id="ausViewBio" aria-pressed="true">Zelle</button>
     <button type="button" id="ausViewCity" aria-pressed="false">Stadt</button>
@@ -3191,6 +3458,396 @@
   applyStatic(); updateText(); layout(); render(0); ui();
 })();
 
+// --- Zoll ---
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  function zq(id) { return document.getElementById(id); }
+  function zmk(name, cls, parent) {
+    var e = document.createElementNS(NS, name);
+    e.setAttribute('class', cls);
+    parent.appendChild(e);
+    return e;
+  }
+  var svg = zq('zollSvg'), panel = zq('zollPanel');
+  if (!svg || !panel) return;
+  var reduceZ = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  // Maße im Bild: Membran von TOP bis BOT, Öffnung bei CX, Leck bei LX
+  var W = 640, H = 300, TOP = 134, BOT = 164, MID = 149, R = 6, CX = 320, OW = 64, LX = 540;
+  var N = 72, NF = 6, SPEED = 125, PUMP_RATE = 3.5, LEAK_K = 0.035, GATE_MS = 9000, EQ_IN = 18, EQ_OUT = 28;
+
+  var TXT = {
+    ways: {
+      pore: { b: ['Pore', 'Offene Straße'], s: ['folgt dem Gefälle', 'ohne Kontrolle'], i: ['kostet nichts', 'kostet nichts'], mech: ['Pore (Kanal)', 'Offene Straße'] },
+      pump: { b: ['Pumpe', 'Schleuse'], s: ['gegen das Gefälle', 'mit Motor'], i: ['kostet ATP', 'kostet Strom'], mech: ['Pumpe', 'Schleuse mit Motor'] },
+      gate: { b: ['Tor', 'Schranke'], s: ['öffnet auf Signal', 'mit Genehmigung'], i: ['braucht Signal', 'braucht Erlaubnis'], mech: ['Tor', 'Schranke'] }
+    },
+    zo: ['außen', 'Ausland'], zi: ['innen', 'In der Stadt'], leak: ['Leck', 'Lücke'],
+    tO: ['Außen', 'Ausland'], tI: ['Innen', 'In der Stadt'], tA: ['ATP-Verbrauch', 'Strom (ATP)'],
+    lgP: ['Teilchen, die durchkommen', 'Wagen mit Papieren'], lgF: ['Fremde Teilchen, die nicht passen', 'Fremde Wagen ohne Papiere'],
+    lbl: ['Welchen Weg nimmt die Grenze?', 'Wie kommt man über die Grenze?'],
+    title: ['Schema der Zellmembran. Oben außen, unten innen, in der Mitte ein Weg durch die Membran. Teilchen bewegen sich zufällig, und je nach Weg wandern sie mit dem Gefälle oder werden gegen das Gefälle gepumpt.',
+            'Schema eines Grenzübergangs. Oben das Ausland, unten die Stadt, in der Mitte der Übergang. Wagen fahren zufällig hin und her, und je nach Weg gleicht sich der Stau aus oder wird mit Motor gegen den Strom gehalten.']
+  };
+
+  var way = 'pore', city = false, atp = true, gradIn = 50, gate = 'closed', gateUntil = 0;
+  var parts = [], decoys = [], pumpLog = [], atpTotal = 0, pumpAcc = 0, sigT = 0;
+  var cnt = { out: 0, inn: 0 }, eq = false, pumping = false, building = false, lastKey = '', lastRef = 0, last = 0, raf = 0, vis = true, evN = 0, sayT = null, lastPass = 0;
+  var layer = zq('zollP'), sig = zq('zollSig'), badge = svg.querySelector('.zoll-badge rect');
+
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function emit(type, k) { evN++; panel.setAttribute('data-ev', type + ':' + k + ':' + evN); }
+  function fr(i, k) { var v = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453; return v - Math.floor(v); }
+  function ci() { return city ? 1 : 0; }
+  function pick(a) { return a[ci()]; }
+  function num(v) { return String(v).replace('.', ','); }
+
+  // ---- Teilchen ----
+  function build() {
+    for (var i = 0; i < N; i++) parts.push({ el: zmk('rect', 'zp', layer), x: 0, y: 0, vx: 0, vy: 0, s: SPEED * rnd(0.75, 1.25), tr: null, band: null, fade: 1 });
+    for (var j = 0; j < NF; j++) parts.push({ el: zmk('rect', 'zf', layer), x: 0, y: 0, vx: 0, vy: 0, s: SPEED * rnd(0.6, 1), tr: null, band: null, fade: 1, decoy: true });
+    parts.forEach(function (p) {
+      var sz = p.decoy ? 12 : 14;
+      p.el.setAttribute('x', -sz / 2); p.el.setAttribute('y', -sz / 2); p.el.setAttribute('width', sz); p.el.setAttribute('height', sz);
+    });
+  }
+  function place(p, side) {
+    p.x = rnd(R + 2, W - R - 2);
+    p.y = side === 'out' ? rnd(R + 2, TOP - R - 3) : rnd(BOT + R + 3, H - R - 2);
+    var a = rnd(0, 6.283); p.vx = Math.cos(a) * p.s; p.vy = Math.sin(a) * p.s;
+    p.tr = null; p.band = null;
+  }
+  function splitOut(g) { return Math.round(N * (0.5 + g / 200)); }
+  function seed(g) {
+    var o = splitOut(g), i = 0, d = 0;
+    parts.forEach(function (p) {
+      if (p.decoy) { place(p, d++ % 2 ? 'in' : 'out'); }
+      else { place(p, i++ < o ? 'out' : 'in'); p.fade = 0; }
+    });
+    pumpLog = []; pumpAcc = 0;
+  }
+  function seedStatic(nOut) {
+    var i = 0, d = 0;
+    parts.forEach(function (p) {
+      var side, k;
+      if (p.decoy) { side = d % 2 ? 'in' : 'out'; k = d++ + 500; }
+      else { side = i < nOut ? 'out' : 'in'; k = i++; }
+      var idx = side === 'out' ? (p.decoy ? k : k) : (p.decoy ? k : k - nOut);
+      p.x = R + 8 + fr(idx + 3, 1) * (W - 2 * R - 16);
+      p.y = side === 'out' ? R + 6 + fr(idx + 7, 2) * (TOP - 2 * R - 14) : BOT + R + 8 + fr(idx + 11, 3) * (H - BOT - 2 * R - 14);
+      p.tr = null; p.band = null; p.fade = 1;
+    });
+  }
+  function counts() {
+    var o = 0, n = 0;
+    parts.forEach(function (p) { if (p.decoy) return; if (p.y < MID) o++; else n++; });
+    cnt.out = o; cnt.inn = n;
+  }
+  function openings() {
+    if (way === 'pore') return [{ x: CX, w: OW, open: true, id: 'm' }];
+    if (way === 'gate') return [{ x: CX, w: OW, open: gate === 'open', id: 'm' }];
+    return [];
+  }
+  function hit(x, ops) {
+    for (var i = 0; i < ops.length; i++) if (Math.abs(x - ops[i].x) <= ops[i].w / 2 - R) return ops[i];
+    return null;
+  }
+  function stepP(p, dt, ops) {
+    if (p.tr) { follow(p, dt); return; }
+    if (p.fade < 1) p.fade = Math.min(1, p.fade + dt * 2.2);
+    var a = Math.atan2(p.vy, p.vx) + (Math.random() - 0.5) * 6 * dt;
+    p.vx = Math.cos(a) * p.s; p.vy = Math.sin(a) * p.s;
+    var nx = p.x + p.vx * dt, ny = p.y + p.vy * dt, lo = TOP - R, hi = BOT + R;
+    if (nx < R) { nx = R; p.vx = Math.abs(p.vx); } else if (nx > W - R) { nx = W - R; p.vx = -Math.abs(p.vx); }
+    if (p.band) {
+      var b = p.band, cl = b.x - b.w / 2 + R, ch = b.x + b.w / 2 - R;
+      if (nx < cl) { nx = cl; p.vx = Math.abs(p.vx); } else if (nx > ch) { nx = ch; p.vx = -Math.abs(p.vx); }
+      if (ny <= lo) { p.band = null; ny = lo - 0.5; p.vy = -Math.abs(p.vy); }
+      else if (ny >= hi) { p.band = null; ny = hi + 0.5; p.vy = Math.abs(p.vy); }
+    } else if (p.y <= lo) {
+      if (ny < R) { ny = R; p.vy = Math.abs(p.vy); }
+      if (ny > lo) {
+        var o1 = p.decoy ? null : hit(nx, ops);
+        if (o1 && o1.open) { p.band = o1; } else { ny = lo; p.vy = -Math.abs(p.vy); }
+      }
+    } else if (p.y >= hi) {
+      if (ny > H - R) { ny = H - R; p.vy = -Math.abs(p.vy); }
+      if (ny < hi) {
+        var o2 = p.decoy ? null : hit(nx, ops);
+        if (o2 && o2.open) { p.band = o2; } else { ny = hi; p.vy = Math.abs(p.vy); }
+      }
+    }
+    var was = p.y < MID;
+    p.x = nx; p.y = ny;
+    if (!p.decoy && p.band && was !== (ny < MID)) {
+      var t = performance.now();
+      if (t - lastPass > 600) { lastPass = t; emit('pass', 0); }
+    }
+  }
+  // Wegstrecke durch Pumpe oder Leck: gerade Linien zwischen Zwischenzielen
+  function follow(p, dt) {
+    var t = p.tr, tg = t.pts[t.i], dx = tg[0] - p.x, dy = tg[1] - p.y, d = Math.sqrt(dx * dx + dy * dy), st = t.spd * dt;
+    if (d <= st) {
+      p.x = tg[0]; p.y = tg[1]; t.i++;
+      if (t.i >= t.pts.length) {
+        p.tr = null;
+        var a = rnd(0, 3.1416);
+        p.vx = Math.cos(a) * p.s * 0.6; p.vy = (t.up ? -1 : 1) * Math.abs(Math.sin(a)) * p.s;
+      }
+    } else { p.x += dx / d * st; p.y += dy / d * st; }
+  }
+  function nearest(x, side) {
+    var best = null, bd = 1e9;
+    parts.forEach(function (p) {
+      if (p.decoy || p.tr || p.band) return;
+      if (side === 'out' ? p.y > TOP - R : p.y < BOT + R) return;
+      var d = Math.abs(p.x - x) + Math.random() * 40;
+      if (d < bd) { bd = d; best = p; }
+    });
+    return best;
+  }
+  function startPump(now) {
+    var p = nearest(CX, 'in');
+    if (!p) return false;
+    p.tr = { pts: [[CX, BOT + R + 2], [CX, TOP - R - 2], [CX + rnd(-20, 20), TOP - R - 14]], i: 0, spd: 190, up: true };
+    atpTotal++; pumpLog.push(now);
+    emit('pump', 0);
+    if (badge && badge.animate) badge.animate([{ transform: 'scale(1.35)' }, { transform: 'scale(1)' }], { duration: 380, easing: 'ease-out' });
+    return true;
+  }
+  function startLeak(from) {
+    var p = nearest(LX, from);
+    if (!p) return;
+    var down = from === 'out';
+    p.tr = down ? { pts: [[LX, TOP - R - 2], [LX, BOT + R + 2], [LX + rnd(-20, 20), BOT + R + 14]], i: 0, spd: 130, up: false }
+                : { pts: [[LX, BOT + R + 2], [LX, TOP - R - 2], [LX + rnd(-20, 20), TOP - R - 14]], i: 0, spd: 130, up: true };
+  }
+  function closeGate() {
+    gate = 'closed';
+    parts.forEach(function (p) {
+      if (p.band) { var up = p.y < MID; p.band = null; p.y = up ? TOP - R - 1 : BOT + R + 1; p.vy = up ? -Math.abs(p.vy) : Math.abs(p.vy); }
+    });
+    emit('gate', 0);
+    syncView();
+  }
+
+  // ---- Takt ----
+  function active() { return vis && !document.hidden && !reduceZ; }
+  function frame(ts) {
+    raf = 0;
+    if (!active()) return;
+    var dt = Math.min(0.05, (ts - last) / 1000);
+    last = ts;
+    if (!(dt > 0)) dt = 0.016;
+    var now = performance.now();
+    if (gate === 'sending') {
+      sigT += dt / 0.9;
+      var k = Math.min(1, sigT), e = k * k * (3 - 2 * k);
+      sig.setAttribute('cx', (232 + (CX - 40 - 232) * e).toFixed(1));
+      sig.setAttribute('cy', (24 + (TOP - 8 - 24) * e).toFixed(1));
+      if (sigT >= 1) { gate = 'open'; gateUntil = now + GATE_MS; sig.setAttribute('display', 'none'); emit('gate', 1); syncView(); }
+    } else if (gate === 'open' && now > gateUntil) closeGate();
+    var ops = openings();
+    parts.forEach(function (p) { stepP(p, dt, ops); });
+    counts();
+    if (way === 'pump') {
+      var frac = (cnt.out - cnt.inn) / N;
+      pumping = atp && gradIn >= 5 && frac < gradIn / 100 - 0.015;
+      if (pumping) { pumpAcc = Math.min(2, pumpAcc + PUMP_RATE * dt); while (pumpAcc >= 1) { pumpAcc -= 1; if (!startPump(now)) break; } }
+      else pumpAcc = 0;
+      var d = cnt.out - cnt.inn;
+      if (Math.abs(d) >= 2 && Math.random() < LEAK_K * Math.abs(d) * dt) startLeak(d > 0 ? 'out' : 'in');
+    } else pumping = false;
+    draw();
+    if (now - lastRef > 250) { lastRef = now; refresh(); }
+    raf = requestAnimationFrame(frame);
+  }
+  function wake() { if (!raf && active()) { last = performance.now(); raf = requestAnimationFrame(frame); } }
+  function draw() {
+    parts.forEach(function (p) {
+      p.el.setAttribute('transform', 'translate(' + p.x.toFixed(1) + ',' + p.y.toFixed(1) + ')' + (p.decoy ? ' rotate(45)' : ''));
+      p.el.setAttribute('opacity', p.fade < 1 ? p.fade.toFixed(2) : '1');
+    });
+  }
+
+  // ---- Zahlen und Aussage ----
+  function gradPct() { var t = cnt.out + cnt.inn; return t ? Math.round(Math.abs(cnt.out - cnt.inn) / t * 100) : 0; }
+  function rateNow() {
+    if (reduceZ) return way === 'pump' && atp ? LEAK_K * Math.abs(cnt.out - cnt.inn) : 0;
+    var now = performance.now(), n = 0;
+    pumpLog = pumpLog.filter(function (t) { return now - t < 4000; });
+    pumpLog.forEach(function () { n++; });
+    return n / 4;
+  }
+  function refresh() {
+    var g = gradPct();
+    if (eq) { if (g > EQ_OUT) eq = false; } else if (g <= EQ_IN) eq = true;
+    zq('zollSO').textContent = cnt.out;
+    zq('zollSI').textContent = cnt.inn;
+    zq('zollSG').textContent = g + ' %';
+    zq('zollSB').style.width = g + '%';
+    var r = rateNow();
+    zq('zollSA').textContent = num(r.toFixed(1));
+    zq('zollSAs').textContent = reduceZ ? 'pro Sekunde' : 'pro Sekunde, gesamt ' + atpTotal;
+    showNums();
+    building = !reduceZ && way === 'pump' && atp && gradIn >= 5 && (gradIn - (cnt.out - cnt.inn) / N * 100) > 8;
+    svg.classList.toggle('run', !reduceZ && way === 'pump' && atp && pumping);
+    svg.classList.toggle('is-open', gate === 'open');
+    var key = way + '|' + atp + '|' + gate + '|' + eq + '|' + (building ? 1 : 0) + '|' + (way === 'pump' && atp && gradIn < 5 ? 1 : 0);
+    if (key !== lastKey) { lastKey = key; say(); }
+  }
+  function statement() {
+    var c = ci();
+    if (way === 'pore') return eq
+      ? ['Ausgeglichen. Es wandern weiter Teilchen hin und her, im Mittel aber gleich viele in beide Richtungen.', 'Ausgeglichen. Es fahren weiter Wagen hin und her, im Mittel aber gleich viele in beide Richtungen.'][c]
+      : ['Die Pore ist offen. Teilchen wandern von der vollen auf die leere Seite, das Gefälle sinkt.', 'Die Straße ist offen. Mehr Wagen fahren von der vollen auf die leere Seite als zurück, das Gefälle sinkt.'][c];
+    if (way === 'pump') {
+      if (atp) {
+        if (gradIn < 5) return ['Kein Gefälle eingestellt, die Pumpe hat nichts zu tun.', 'Kein Gefälle eingestellt, die Schleuse hat nichts zu tun.'][c];
+        return building
+          ? ['Die Pumpe arbeitet gegen das Gefälle und verbraucht ATP.', 'Die Schleuse hebt Wagen gegen das Gefälle und verbraucht Strom (ATP).'][c]
+          : ['Die Pumpe hält das Gefälle. Sie läuft nur so viel, wie durch kleine Lecks zurückfließt.', 'Die Schleuse hält das Gefälle. Sie läuft nur so viel, wie durch Lücken im Zaun zurückkommt.'][c];
+      }
+      return eq
+        ? ['Das Gefälle ist weg. Ohne ATP konnte niemand es halten.', 'Das Gefälle ist weg. Ohne Strom konnte niemand es halten.'][c]
+        : ['Ohne ATP steht die Pumpe. Durch kleine Lecks gleicht sich das Gefälle aus.', 'Ohne Strom steht die Schleuse. Durch Lücken im Zaun gleicht sich das Gefälle aus.'][c];
+    }
+    if (gate === 'sending') return ['Das Signal ist unterwegs.', 'Die Genehmigung ist unterwegs.'][c];
+    if (gate === 'open') return eq
+      ? ['Das Tor ist offen, aber es gibt kaum noch Gefälle. Es wandert nur noch hin und her.', 'Die Schranke ist oben, aber es gibt kaum noch Gefälle. Es fährt nur noch hin und her.'][c]
+      : ['Das Tor ist offen. Was passt, wandert mit dem Gefälle.', 'Die Schranke ist oben. Wer Papiere hat, fährt mit dem Gefälle durch.'][c];
+    return eq
+      ? ['Das Tor ist zu, und es gibt kaum Gefälle. Auch ein offenes Tor würde nichts bewegen.', 'Die Schranke ist unten, und es gibt kaum Gefälle. Auch eine offene Schranke würde nichts bewegen.'][c]
+      : ['Das Tor ist zu. Es wandert nichts durch, das Gefälle bleibt, bis ein Signal kommt.', 'Die Schranke ist unten. Ohne Genehmigung fährt nichts durch, das Gefälle bleibt.'][c];
+  }
+  function numbers() {
+    var c = ci();
+    return (c ? 'Ausland ' : 'Außen ') + cnt.out + ', ' + (c ? 'in der Stadt ' : 'innen ') + cnt.inn + ', Gefälle ' + gradPct() + ' Prozent' +
+      (reduceZ ? ', ATP-Verbrauch ' + num(rateNow().toFixed(1)) + ' pro Sekunde.' : ', ATP gesamt ' + atpTotal + '.');
+  }
+  // Sichtbarer Text bleibt frisch. Vorgelesen wird nur bei einer Änderung der Lage (versteckter Live-Bereich).
+  var shownSay = '';
+  function showNums() {
+    var n = zq('zollSay').querySelector('.n');
+    if (n) n.textContent = numbers();
+  }
+  function say(announce) {
+    var el = zq('zollSay'), t = statement();
+    if (t !== shownSay) {
+      shownSay = t;
+      el.textContent = '';
+      el.appendChild(document.createTextNode(t));
+      var n = document.createElement('span');
+      n.className = 'n';
+      el.appendChild(n);
+    }
+    showNums();
+    if (announce !== false) zq('zollLive').textContent = t + ' ' + numbers();
+  }
+
+  // ---- Endzustand ohne Bewegung (Reduced Motion) ----
+  function settle() {
+    var base = splitOut(gradIn), o;
+    if (way === 'pore') o = N / 2;
+    else if (way === 'gate') o = gate === 'open' ? N / 2 : base;
+    else o = atp ? base : N / 2;
+    seedStatic(o);
+    counts();
+    var down = way === 'pore' || (way === 'gate' && gate === 'open');
+    svg.classList.toggle('a-down', down && Math.abs(base - N / 2) > 0);
+    svg.classList.toggle('a-up', way === 'pump' && atp && gradIn >= 5);
+    svg.classList.toggle('a-leak', way === 'pump' && gradIn >= 5);
+    draw(); refresh(); lastKey = ''; refresh();
+  }
+
+  // ---- Ansicht, Beschriftung ----
+  function syncView() {
+    var cl = svg.classList;
+    ['pore', 'pump', 'gate'].forEach(function (w) { cl.toggle('w-' + w, w === way); });
+    cl.toggle('v-city', city); cl.toggle('v-bio', !city);
+    cl.toggle('atp-off', !atp); cl.toggle('is-open', gate === 'open'); cl.toggle('static', reduceZ);
+  }
+  function labels() {
+    var c = ci();
+    ['pore', 'pump', 'gate'].forEach(function (w) {
+      var b = document.querySelector('.zoll-wb[data-way="' + w + '"]'), t = TXT.ways[w];
+      b.querySelector('b').textContent = t.b[c]; b.querySelector('small').textContent = t.s[c]; b.querySelector('i').textContent = t.i[c];
+    });
+    zq('zollBandL').textContent = TXT.ways[way].mech[c];
+    zq('zollZoL').textContent = TXT.zo[c]; zq('zollZiL').textContent = TXT.zi[c]; zq('zollLeakL').textContent = TXT.leak[c];
+    zq('zollTO').textContent = TXT.tO[c]; zq('zollTI').textContent = TXT.tI[c]; zq('zollTA').textContent = TXT.tA[c];
+    zq('zollLgPt').textContent = TXT.lgP[c]; zq('zollLgFt').textContent = TXT.lgF[c];
+    zq('zollWaysL').textContent = TXT.lbl[c];
+    zq('zollSvgT').textContent = TXT.title[c];
+    zq('zollSigBtn').textContent = c ? 'Genehmigung erteilen' : 'Signal senden';
+    zq('zollAtp').textContent = c ? 'Strom abschalten' : 'ATP abschalten';
+    zq('zollAtpH').textContent = c ? 'Der Strom-Schalter wirkt nur bei der Schleuse.' : 'Der ATP-Schalter wirkt nur bei der Pumpe.';
+    zq('zollViewBio').setAttribute('aria-pressed', String(!city));
+    zq('zollViewCity').setAttribute('aria-pressed', String(city));
+    zq('zollGradL').textContent = way === 'pump' ? (c ? 'Gefälle, das die Schleuse halten soll' : 'Gefälle, das die Pumpe halten soll') : 'Gefälle zu Beginn';
+    syncView();
+  }
+  function setWay(w, silent) {
+    way = w;
+    document.querySelectorAll('.zoll-wb').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-way') === w)); });
+    ['pore', 'pump', 'gate'].forEach(function (k) { zq('zollDet-' + k).hidden = k !== w; });
+    zq('zollSigBtn').hidden = w !== 'gate';
+    gate = 'closed'; sig.setAttribute('display', 'none'); atpTotal = 0;
+    svg.classList.remove('run');
+    labels(); restart();
+    if (!silent) emit('way', ['pore', 'pump', 'gate'].indexOf(w));
+  }
+  function restart() {
+    if (gate !== 'closed') { gate = 'closed'; sig.setAttribute('display', 'none'); }
+    atpTotal = 0; pumping = false;
+    if (reduceZ) { settle(); return; }
+    seed(gradIn); counts(); draw(); lastKey = ''; refresh(); syncView();
+  }
+
+  // ---- Bedienung ----
+  document.querySelectorAll('.zoll-wb').forEach(function (b) {
+    b.addEventListener('click', function () { setWay(b.getAttribute('data-way')); });
+  });
+  zq('zollAtp').addEventListener('click', function () {
+    atp = !atp;
+    this.setAttribute('aria-pressed', String(!atp));
+    emit('atp', atp ? 1 : 0);
+    syncView();
+    if (reduceZ) settle(); else { lastKey = ''; refresh(); }
+  });
+  zq('zollSigBtn').addEventListener('click', function () {
+    if (way !== 'gate') return;
+    if (reduceZ) { gate = 'open'; emit('gate', 1); settle(); return; }
+    if (gate === 'open') { gateUntil = performance.now() + GATE_MS; return; }
+    if (gate === 'sending') return;
+    gate = 'sending'; sigT = 0;
+    sig.setAttribute('cx', '232'); sig.setAttribute('cy', '24'); sig.removeAttribute('display');
+    emit('signal', 0);
+    lastKey = ''; refresh();
+  });
+  zq('zollReset').addEventListener('click', function () { restart(); syncView(); });
+  zq('zollGrad').addEventListener('input', function () {
+    gradIn = parseInt(this.value, 10) || 0;
+    zq('zollGradO').textContent = gradIn + ' %';
+    this.setAttribute('aria-valuetext', gradIn + ' Prozent');
+    if (way !== 'pump') { if (reduceZ) settle(); else { seed(gradIn); counts(); draw(); } }
+    else if (reduceZ) settle();
+    clearTimeout(sayT); sayT = setTimeout(function () { lastKey = ''; refresh(); }, 350);
+  });
+  zq('zollViewBio').addEventListener('click', function () { city = false; labels(); say(false); });
+  zq('zollViewCity').addEventListener('click', function () { city = true; labels(); say(false); });
+
+  // Pausiert außerhalb des Bildschirms und im Hintergrund-Tab
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; wake(); }, { threshold: 0.05 }).observe(panel);
+  }
+  document.addEventListener('visibilitychange', wake);
+  build();
+  labels();
+  restart();
+  wake();
+})();
 // --- Ausfall ---
 (function () {
   'use strict';
@@ -3614,7 +4271,7 @@
     n.connect(nf); nf.connect(ng); ng.connect(out); n.start(); nl.start();
     bed = { filters: filters, out: out };
   }
-  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, teilung: 540, signale: 580, bauamt: 560, ausfall: 540 };
+  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, teilung: 540, signale: 580, bauamt: 560, ausfall: 540, zoll: 550 };
   function updateBed() {
     if (!bed) return;
     var base = (BED_BRIGHT[section] || 500) + (zoomed ? 140 : 0) + (cityMode ? 90 : 0), t = ctx.currentTime;
@@ -3739,7 +4396,7 @@
       if (next !== section) { section = next; updateBed(); }
     }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
     var h = document.querySelector('.hero'); if (h) io.observe(h);
-    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'teilung', 'bauamt', 'ausfall', 'signale'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
+    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'teilung', 'bauamt', 'zoll', 'ausfall', 'signale'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
   }
   var BASE_TONE = { A: 293.66, C: 369.99, G: 440.0, T: 493.88 }, BASE_ORDER = ['A', 'C', 'G', 'T'];
   function watchDna() {
@@ -3870,6 +4527,39 @@
     }
   }
 
+  // ---- Zoll: Weg wählen, ATP an und aus; einzelne Teilchen klingen selten und leise ----
+  function watchZoll() {
+    var panel = $('zollPanel');
+    if (!panel) return;
+    var lastPass = 0, lastPump = 0;
+    new MutationObserver(function () {
+      var v = (panel.getAttribute('data-ev') || '').split(':');
+      if (v.length < 3 || !live()) return;
+      var type = v[0], k = parseInt(v[1], 10) || 0, now = Date.now();
+      if (type === 'way') {
+        if (k === 0) note(392, { dur: 0.6, attack: 0.02, peak: 0.032, lp: 1800 });
+        else if (k === 1) note(196, { type: 'triangle', dur: 0.7, attack: 0.02, peak: 0.04, to: 147, lp: 900 });
+        else { note(330, { type: 'triangle', dur: 0.4, attack: 0.01, peak: 0.03, lp: 1400 }); note(494, { type: 'triangle', dur: 0.4, attack: 0.01, peak: 0.024, delay: 0.09, lp: 1400 }); }
+      } else if (type === 'atp') {
+        if (k) { note(293.66, { dur: 0.8, attack: 0.03, peak: 0.04 }); note(440, { dur: 0.8, attack: 0.03, peak: 0.028, delay: 0.1 }); }
+        else { note(220, { type: 'triangle', dur: 0.9, attack: 0.01, peak: 0.045, to: 110, lp: 800 }); note(110, { dur: 1.0, attack: 0.01, peak: 0.05, to: 82 }); }
+      } else if (type === 'pass') {
+        if (now - lastPass < 900) return;
+        lastPass = now;
+        note(PENTA[Math.floor(Math.random() * PENTA.length)], { dur: 0.3, attack: 0.01, peak: 0.012, lp: 1600, pan: (Math.random() - 0.5) * 0.5 });
+      } else if (type === 'pump') {
+        if (now - lastPump < 400) return;
+        lastPump = now;
+        note(130.81, { type: 'triangle', dur: 0.25, attack: 0.008, peak: 0.016, to: 110, lp: 700 });
+      } else if (type === 'signal') {
+        note(880, { dur: 0.25, attack: 0.005, peak: 0.02, lp: 2400 });
+      } else if (type === 'gate') {
+        if (k) note(262, { type: 'triangle', dur: 0.5, attack: 0.01, peak: 0.03, to: 330, lp: 1400 });
+        else note(330, { type: 'triangle', dur: 0.5, attack: 0.01, peak: 0.026, to: 220, lp: 1000 });
+      }
+    }).observe(panel, { attributes: true, attributeFilter: ['data-ev'] });
+  }
+
   // ---- Ausfall: Schalter, Kaskadenstufen, Wiederherstellen ----
   function watchAusfall() {
     var panel = $('ausPanel');
@@ -3957,7 +4647,7 @@
   });
   timers.upd = setInterval(function () { if (built && live()) updateTurbine(); }, 120);
 
-  watchCell(); watchTurbine(); watchSections(); watchDna(); watchEvolution(); watchTeilung(); watchBauamt(); watchSignale(); watchAusfall();
+  watchCell(); watchTurbine(); watchSections(); watchDna(); watchEvolution(); watchTeilung(); watchBauamt(); watchSignale(); watchAusfall(); watchZoll();
 })();
 </script>
 </body>
