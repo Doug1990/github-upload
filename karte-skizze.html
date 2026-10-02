@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skizze: Düsseldorf als Infrastruktur-Karte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; color: #E8E6E0;
+    background: linear-gradient(180deg, #1B2740 0%, #131c2e 30%, #0B1220 100%);
+    font-family: 'Fraunces', Georgia, serif;
+  }
+  .sans, button, .legend, .info, .layers { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; }
+  main { max-width: 1080px; margin: 0 auto; padding: 36px 16px 56px; }
+  header { text-align: center; }
+  .eyebrow { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #8892A6; margin: 0 0 10px; }
+  h1 { font-weight: 500; font-size: clamp(26px, 4.5vw, 40px); line-height: 1.15; margin: 0 0 12px; text-wrap: balance; }
+  .lead { font-size: 14px; line-height: 1.65; color: #A9AFC0; max-width: 540px; margin: 0 auto 22px; }
+
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .chip {
+    font-size: 13px; padding: 7px 14px 7px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid #3A4155; background: transparent; color: #C7CAD6; cursor: pointer;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+  .chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); opacity: .55; transition: opacity .2s; }
+  .chip:hover { border-color: #5b6580; }
+  .chip.on { border-color: var(--c); color: #fff; background: color-mix(in srgb, var(--c) 18%, transparent); }
+  .chip.on i { opacity: 1; box-shadow: 0 0 8px var(--c); }
+  .chip.reset { border-style: dashed; color: #8892A6; padding-left: 14px; }
+
+  .stage { position: relative; margin: 10px -16px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  svg#map { width: 100%; min-width: 820px; height: auto; display: block; }
+  .swipe { display: none; text-align: center; font-size: 11.5px; color: #6E7689; margin: 2px 0 0; }
+  @media (max-width: 860px) { .swipe { display: block; } }
+
+  .slab-top { fill: #17233a; stroke: #2a3752; stroke-width: 1; }
+  .slab-side-l { fill: #0f1829; }
+  .slab-side-r { fill: #0c1423; }
+  .grid { stroke: #22304a; stroke-width: .6; fill: none; }
+  .rhein { fill: none; stroke: #1d4a66; stroke-linecap: round; stroke-linejoin: round; }
+  .rhein-hi { fill: none; stroke: #2c6f93; stroke-width: 1.4; stroke-linecap: round; stroke-dasharray: 2 14; animation: flow 6s linear infinite; opacity: .6; }
+  .green { fill: #1e3a2a; stroke: #2c5a3e; stroke-width: 1; opacity: .85; }
+  .district { font-family: 'IBM Plex Sans', sans-serif; font-size: 10px; letter-spacing: .24em; fill: #33425f; text-transform: uppercase; }
+
+  .node { transition: opacity .5s; opacity: .5; cursor: pointer; outline: none; }
+  .node.dim { opacity: .12; }
+  .node.lit { opacity: 1; }
+  .node:hover, .node:focus-visible { opacity: 1; }
+  .node .face-l, .node .face-r, .node .face-t { transition: filter .4s; }
+  .node:hover .face-t, .node:focus-visible .face-t { filter: brightness(1.25); }
+  .node .halo { transition: opacity .5s; }
+  .node.sel .face-t { stroke: #fff; stroke-width: 1.5; }
+  .lbl { font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; fill: #F1EFE9; opacity: 0; pointer-events: none; transition: opacity .35s;
+         paint-order: stroke; stroke: #0B1220; stroke-width: 4px; stroke-linejoin: round; }
+  .node.lit .lbl.ok, .node:hover .lbl, .node:focus-visible .lbl { opacity: 1; }
+  .badge { opacity: 0; transition: opacity .35s; pointer-events: none; }
+  .node.lit .badge { opacity: 1; }
+  .badge circle { fill: #0B1220; stroke: #FFE3B0; stroke-width: 1.2; }
+  .badge text { font-family: 'IBM Plex Sans', sans-serif; font-size: 10px; font-weight: 500; fill: #FFE3B0; text-anchor: middle; }
+
+  .edge { fill: none; stroke-width: 2; stroke-linecap: round; stroke-dasharray: 3 7; opacity: 0; transition: opacity .6s; animation: flow 1.6s linear infinite; }
+  .edge.lit { opacity: .95; }
+  .edge-base { fill: none; stroke: #2a3752; stroke-width: 1; opacity: .35; }
+
+  .you .ring { fill: none; stroke: #F2C48D; stroke-width: 1.4; animation: ring 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
+  .you .core { fill: #FFE3B0; }
+  .you text { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; fill: #FFE3B0; font-weight: 500; paint-order: stroke; stroke: #0B1220; stroke-width: 4px; }
+
+  @keyframes flow { to { stroke-dashoffset: -20; } }
+  @keyframes ring { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.4); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .edge, .rhein-hi, .you .ring { animation: none; } }
+
+  .layers { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 4px; }
+  .layer-btn { font-size: 12px; padding: 4px 11px 4px 9px; border-radius: 8px; border: 1px solid transparent; background: transparent; color: #8892A6; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+  .layer-btn i { width: 10px; height: 10px; border-radius: 2px; background: var(--c); }
+  .layer-btn:hover { color: #C7CAD6; }
+  .layer-btn.off { opacity: .4; text-decoration: line-through; }
+
+  .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 22px; align-items: start; }
+  @media (max-width: 760px) { .panels { grid-template-columns: 1fr; gap: 18px; } }
+  .panel h2 { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #8892A6; font-weight: 500; margin: 0 0 8px; font-family: 'IBM Plex Sans', sans-serif; }
+  .legend ul { list-style: none; margin: 0; padding: 0; }
+  .legend li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; font-size: 13.5px; line-height: 1.5; padding: 7px 0; border-bottom: 1px solid #1f2a40; color: #C7CAD6; cursor: pointer; }
+  .legend li:hover b { color: #fff; }
+  .legend .no { width: 20px; height: 20px; border-radius: 50%; border: 1.2px solid #FFE3B0; color: #FFE3B0; font-size: 10.5px; font-weight: 500; display: grid; place-items: center; margin-top: 1px; }
+  .legend b { font-weight: 500; color: #E8E6E0; }
+  .legend .lay { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
+  .legend .tags { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 2px; font-size: 12.5px; color: #A9AFC0; }
+  .legend .tags span::before { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--c); margin-right: 6px; }
+  .legend .tags .more { color: #8892A6; }
+  .empty { color: #6E7689; font-size: 13px; margin: 6px 0; line-height: 1.6; }
+
+  .info { background: rgba(255,255,255,.03); border: 1px solid #25314a; border-radius: 12px; padding: 14px 16px; min-height: 120px; }
+  .info .t { font-family: 'Fraunces', serif; font-size: 19px; margin: 0 0 2px; font-weight: 500; }
+  .info .m { font-size: 12px; color: #8892A6; margin: 0 0 8px; }
+  .info .d { font-size: 13.5px; line-height: 1.6; color: #C7CAD6; margin: 0; }
+  .info .a { font-size: 12.5px; color: #8892A6; margin: 10px 0 0; line-height: 1.55; }
+  .info a { color: #9fb2d4; }
+
+  .note { font-size: 11.5px; color: #6E7689; max-width: 520px; margin: 26px auto 0; line-height: 1.6; text-align: center; }
+  a { color: #8892A6; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow sans">Skizze · Düsseldorf</p>
+    <h1>Was leuchtet, wenn du etwas tust?</h1>
+    <p class="lead sans">Tipp an, was du heute gemacht hast. Auf der Karte gehen die Stellen an, an denen das hängt, jede Tätigkeit in ihrer eigenen Farbe. Mehrere Dinge gehen auch zusammen. Tipp einen Ort an, um mehr zu erfahren.</p>
+    <div class="chips" id="chips"></div>
+  </header>
+
+  <div class="stage">
+    <svg id="map" viewBox="10 36 980 530" overflow="hidden" role="img" aria-label="Isometrische, stark vereinfachte Karte von Düsseldorf mit Infrastruktur-Standorten, die je nach gewählter Tätigkeit aufleuchten"></svg>
+  </div>
+  <p class="swipe sans">Karte seitlich wischen</p>
+  <div class="layers" id="layers" aria-label="Ebenen ein- und ausblenden"></div>
+
+  <div class="panels">
+    <section class="panel legend" id="legend" aria-live="polite"></section>
+    <section class="panel">
+      <h2>Ort</h2>
+      <div class="info" id="info"></div>
+    </section>
+  </div>
+
+  <p class="note sans">Skizze: Standorte sind schematisch und nicht maßstabsgetreu. Die Inhalte stammen aus <a href="index.html">der Hauptseite</a>, einzelne Orte und Aussagen sind vereinfacht. Diese Seite ist KI-generiert.</p>
+</main>
+
+<script>
+(function () {
+  const NS = 'http://www.w3.org/2000/svg';
+  const LAYER = {
+    kult: { name: 'Kulturell',  c: '#7B5EA8', g: '#B39DDB' },
+    digi: { name: 'Digital',    c: '#4A9B9B', g: '#7FCFCF' },
+    phys: { name: 'Physisch',   c: '#8B6844', g: '#E0B97E' },
+    bio:  { name: 'Biologisch', c: '#3D5A3D', g: '#8FD9A8' },
+  };
+
+  // Karte: x = Ost, y = Süd (0..100). Der Rhein läuft von Süd nach Nord, die Stadt liegt überwiegend östlich.
+  const NODES = {
+    rhein:      { n: 'Der Rhein',                  e: 'bio',  x: 41, y: 52, w: 5, h: 3,  d: 'Liefert das Rohwasser, kühlt, transportiert und hat die Kiesschichten geformt, durch die das Trinkwasser gefiltert wird.' },
+    kies:       { n: 'Kies- und Sandschichten',    e: 'phys', x: 50, y: 70, w: 4, h: 2,  d: 'Das Rheinwasser versickert hier und wird dabei gefiltert, bevor ein Mensch es anfasst.' },
+    flehe:      { n: 'Wasserwerk Flehe',           e: 'phys', x: 60, y: 82, w: 7, h: 9,  d: 'Läuft seit 1870. Das Wasser wird im „Düsseldorfer Verfahren“ mit Ozon und Aktivkohle aufbereitet.' },
+    holthausen: { n: 'Wasserwerk Holthausen',      e: 'phys', x: 80, y: 90, w: 6, h: 8,  d: 'Eines von drei Wasserwerken der Stadtwerke, zusammen mit Flehe und Am Staad.' },
+    staad:      { n: 'Wasserwerk Am Staad',        e: 'phys', x: 50, y: 10, w: 6, h: 8,  d: 'Das Wasserwerk im Norden der Stadt.' },
+    netz:       { n: 'Leitungsnetz',               e: 'phys', x: 68, y: 66, w: 4, h: 3,  d: 'Über 2.300 Kilometer Leitung versorgen mehr als 650.000 Menschen in Düsseldorf, Erkrath und Mettmann.' },
+    lausward:   { n: 'Kraftwerk Lausward',         e: 'phys', x: 51, y: 59, w: 7, h: 22, d: 'Strom und Fernwärme entstehen an wenigen großen Punkten und verteilen sich von dort in die Stadt.' },
+    flingern:   { n: 'Fernwärme Flingern',         e: 'phys', x: 80, y: 50, w: 6, h: 13, d: 'Ein weiterer Punkt im Fernwärmenetz.' },
+    mva:        { n: 'Müllverbrennung',            e: 'phys', x: 92, y: 56, w: 6, h: 12, d: 'Restmüll wird verbrannt, die Abwärme geht ins Fernwärmenetz.' },
+    klaer:      { n: 'Klärwerk',                   e: 'phys', x: 64, y: 94, w: 8, h: 3,  d: 'Abwasser wird gereinigt und fließt danach zurück in den Rhein.' },
+    hbf:        { n: 'Hauptbahnhof und Gleise',    e: 'phys', x: 64, y: 50, w: 9, h: 5,  d: 'Die Rheinbahn gibt es seit 1896. Rund 570.000 Menschen fahren täglich damit.' },
+    flughafen:  { n: 'Flughafen, U81',             e: 'phys', x: 78, y: 8,  w: 10, h: 5, d: 'Die neue U81 zum Flughafen wurde am 4. September 2026 eröffnet.' },
+    radnetz:    { n: 'Radhauptnetz',               e: 'phys', x: 74, y: 30, w: 5, h: 2,  d: 'Über 300 Kilometer aus rund 700 Einzelmaßnahmen seit 2015.' },
+    markt:      { n: 'Supermarkt und Lager',       e: 'phys', x: 74, y: 42, w: 6, h: 5,  d: 'Die Kühlkette läuft lückenlos vom Erzeuger bis ins Regal. Geliefert wird nachts, vor Ladenöffnung.' },
+    uniklinik:  { n: 'Klinikum',                   e: 'phys', x: 59, y: 66, w: 6, h: 9,  d: 'Läuft rund um die Uhr, mit Notstrom, Schichtdienst und eigenen Lieferketten.' },
+    leitstelle: { n: 'Rheinbahn-Leitstelle',       e: 'digi', x: 86, y: 68, w: 5, h: 10, d: 'Sieht das ganze Netz und greift in Sekunden ein.' },
+    rz:         { n: 'Rechenzentren',              e: 'digi', x: 92, y: 36, w: 8, h: 12, d: 'Die Cloud steht irgendwo physisch und braucht Strom und Kühlung.' },
+    glasfaser:  { n: 'Glasfaser-Knoten',           e: 'digi', x: 66, y: 38, w: 4, h: 6,  d: 'Netze und Mobilfunk bringen jedes Datenpaket zu dir.' },
+    ampel:      { n: 'Ampelsteuerung',             e: 'digi', x: 58, y: 44, w: 3, h: 9,  d: 'Rund 650 Ampelkreuzungen, 161 davon mit Grünpfeil fürs Rad.' },
+    rat:        { n: 'Rathaus, Rat und Bezirke',   e: 'kult', x: 56, y: 33, w: 6, h: 9,  d: 'Zehn Stadtbezirke, Stadtrat und Verwaltung. Hier wird entschieden, wo eine Leitung liegt und was sie kosten darf.' },
+    kita:       { n: 'Kita im Viertel',            e: 'kult', x: 74, y: 76, w: 5, h: 5,  d: 'Raum, Menschen und Regeln müssen gleichzeitig da sein, sonst läuft nichts.' },
+    thw:        { n: 'THW, Feuerwehr, DLRG',       e: 'kult', x: 64, y: 22, w: 5, h: 6,  d: 'Ein großer Teil des Katastrophenschutzes läuft über Menschen, die das neben ihrem Job machen.' },
+    schicht:    { n: 'Schichtdienst, Fachkräfte',  e: 'kult', x: 90, y: 80, w: 4, h: 6,  d: 'Fahrdienst, Werkstatt, Leitwarte, Pflege und Erziehung: Rund um die Uhr ist jemand da.' },
+    hofgarten:  { n: 'Hofgarten, Rheinwiesen',     e: 'bio',  x: 50, y: 24, w: 8, h: 2,  d: 'Stadtgrün kühlt die Stadt und hält Wasser zurück. Es ist die einzige Infrastruktur, die mit der Zeit wächst.' },
+    wald:       { n: 'Grafenberger Wald',          e: 'bio',  x: 90, y: 18, w: 9, h: 3,  d: 'Offene Flächen und Wald sorgen für Kaltluft.' },
+  };
+  const YOU = { x: 73, y: 58 };
+
+  const ACTS = [
+    { id: 'duschen', l: 'Duschen', c: '#4FC3D9',
+      edges: [['rhein','kies'],['kies','flehe'],['flehe','netz'],['netz','you'],['lausward','you']],
+      txt: { rhein: 'Liefert das Rohwasser', kies: 'Filtert das Wasser', flehe: 'Bereitet es auf', netz: 'Bringt es zu dir', lausward: 'Macht es warm' } },
+    { id: 'kaffee', l: 'Kaffee kochen', c: '#C99A6E',
+      edges: [['flehe','netz'],['netz','you'],['lausward','you'],['rz','you']],
+      txt: { flehe: 'Wasser aus dem Hahn', netz: 'Bis in die Küche', lausward: 'Strom für die Maschine', rz: 'Lieferkette der Bohne' } },
+    { id: 'bahn', l: 'Bahn fahren', c: '#E0A458',
+      edges: [['lausward','hbf'],['leitstelle','hbf'],['hbf','flughafen'],['hbf','you'],['schicht','hbf'],['ampel','hbf']],
+      txt: { lausward: 'Strom für die Bahn', leitstelle: 'Sieht das ganze Netz', hbf: 'Gleise seit 1896', flughafen: 'Neue U81', schicht: 'Rund 3.590 Beschäftigte', ampel: 'Vorrang an der Kreuzung' } },
+    { id: 'rad', l: 'Radfahren', c: '#8FD9A8',
+      edges: [['rat','radnetz'],['radnetz','hofgarten'],['ampel','radnetz'],['radnetz','you']],
+      txt: { rat: 'Ratsbeschluss von 2000', radnetz: 'Über 300 km Hauptnetz', ampel: 'Grünpfeile fürs Rad', hofgarten: 'Der Weg dorthin' } },
+    { id: 'zocken', l: 'Zocken', c: '#D9C97E',
+      edges: [['glasfaser','you'],['rz','glasfaser'],['lausward','rz'],['lausward','you']],
+      txt: { glasfaser: 'Latenz unter 50 ms', rz: 'Läuft rund um die Uhr', lausward: 'Strom für beide Seiten' } },
+    { id: 'ki', l: 'Eine KI fragen', c: '#B39DDB',
+      edges: [['glasfaser','you'],['rz','glasfaser'],['lausward','rz'],['rhein','rz'],['rat','rz']],
+      txt: { glasfaser: 'Die Leitung zu dir', rz: 'Rechnen und Kühlen', lausward: 'Der Strom dafür', rhein: 'Wasser zur Kühlung', rat: 'Datenschutz und Regeln' } },
+    { id: 'kita', l: 'Kind in die Kita bringen', c: '#F2A65A',
+      edges: [['kita','you'],['rat','kita'],['hbf','kita'],['schicht','kita'],['flehe','kita'],['lausward','kita']],
+      txt: { kita: 'Raum, Menschen, Regeln', rat: 'Platzvergabe', hbf: 'Der Weg dorthin', schicht: 'Fachkräfte und Vertretung', flehe: 'Wasser', lausward: 'Wärme' } },
+    { id: 'einkauf', l: 'Einkaufen', c: '#E57F7F',
+      edges: [['markt','you'],['lausward','markt'],['rz','markt'],['hbf','markt'],['schicht','markt']],
+      txt: { markt: 'Kühlkette und Regal', lausward: 'Strom für die Kühlung', rz: 'Kasse und Bestellung', hbf: 'Lieferverkehr', schicht: 'Nachtschicht im Lager' } },
+    { id: 'klo', l: 'Klo spülen', c: '#7FA8D9',
+      edges: [['flehe','netz'],['netz','you'],['you','klaer'],['klaer','rhein']],
+      txt: { flehe: 'Frisches Wasser', netz: 'Kommt zu dir', klaer: 'Reinigt es wieder', rhein: 'Nimmt es zurück auf' } },
+    { id: 'muell', l: 'Müll rausbringen', c: '#9AA7B5',
+      edges: [['you','mva'],['mva','flingern'],['schicht','mva']],
+      txt: { mva: 'Wird verbrannt', flingern: 'Die Abwärme heizt mit', schicht: 'Abfuhr in der Frühschicht' } },
+    { id: 'arzt', l: 'Zum Arzt gehen', c: '#E07A9A',
+      edges: [['you','uniklinik'],['lausward','uniklinik'],['schicht','uniklinik'],['thw','uniklinik'],['glasfaser','uniklinik']],
+      txt: { uniklinik: 'Rund um die Uhr offen', lausward: 'Strom, auch bei Ausfall', schicht: 'Pflege und Ärzte', thw: 'Rettung und Notfallhilfe', glasfaser: 'Notruf und Befunde' } },
+  ];
+
+  // --- Projektion ---
+  const KX = 4.7, KY = 2.35, CX = 500, CY = 70;
+  const P = (x, y, z = 0) => [CX + (x - y) * KX, CY + (x + y) * KY - z];
+  const pts = a => a.map(p => p.map(v => v.toFixed(1)).join(',')).join(' ');
+  const el = (t, a = {}, parent) => { const n = document.createElementNS(NS, t); for (const k in a) n.setAttribute(k, a[k]); if (parent) parent.appendChild(n); return n; };
+  const svg = document.getElementById('map');
+
+  const defs = el('defs', {}, svg);
+  const f = el('filter', { id: 'glow', x: '-60%', y: '-60%', width: '220%', height: '220%' }, defs);
+  el('feGaussianBlur', { stdDeviation: 4, result: 'b' }, f);
+  const fm = el('feMerge', {}, f); el('feMergeNode', { in: 'b' }, fm); el('feMergeNode', { in: 'SourceGraphic' }, fm);
+
+  // Platte
+  const D = 16;
+  const c = [P(0,0), P(100,0), P(100,100), P(0,100)];
+  el('polygon', { class: 'slab-side-l', points: pts([c[3], c[2], [c[2][0], c[2][1]+D], [c[3][0], c[3][1]+D]]) }, svg);
+  el('polygon', { class: 'slab-side-r', points: pts([c[2], c[1], [c[1][0], c[1][1]+D], [c[2][0], c[2][1]+D]]) }, svg);
+  el('polygon', { class: 'slab-top', points: pts(c) }, svg);
+  for (let i = 10; i < 100; i += 10) {
+    el('polyline', { class: 'grid', points: pts([P(i,0), P(i,100)]) }, svg);
+    el('polyline', { class: 'grid', points: pts([P(0,i), P(100,i)]) }, svg);
+  }
+
+  // Grünflächen
+  const patch = (cx, cy, rx, ry) => { const a = []; for (let i = 0; i < 14; i++) { const t = i / 14 * Math.PI * 2; a.push(P(cx + Math.cos(t) * rx, cy + Math.sin(t) * ry)); } el('polygon', { class: 'green', points: pts(a) }, svg); };
+  patch(90, 18, 9, 6); patch(50, 24, 8, 4); patch(86, 92, 8, 4); patch(24, 70, 10, 6);
+
+  // Rhein
+  const river = [[58,100],[52,84],[46,68],[41,52],[40,36],[45,20],[51,0]];
+  const d = river.map(([x, y], i) => { const p = P(x, y); return (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ');
+  el('path', { class: 'rhein', d, 'stroke-width': 30 }, svg);
+  el('path', { class: 'rhein-hi', d }, svg);
+
+  [['Oberkassel', 18, 40], ['Altstadt', 58, 28], ['Flingern', 88, 46], ['Süden', 40, 90], ['Norden', 38, 10]].forEach(([t, x, y]) => {
+    const [px, py] = P(x, y); el('text', { class: 'district', x: px, y: py, 'text-anchor': 'middle' }, svg).textContent = t;
+  });
+
+  // Leitungen: pro Tätigkeit und Kante eine eigene Linie, leicht versetzt, damit sich gemeinsame Wege nicht überdecken
+  const pos = id => id === 'you' ? P(YOU.x, YOU.y, 6) : P(NODES[id].x, NODES[id].y, NODES[id].h * 0.55);
+  const arc = (p, q, k) => {
+    const a = pos(p), b = pos(q); const len = Math.hypot(a[0] - b[0], a[1] - b[1]);
+    const mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2 - len * (0.14 + k * 0.045);
+    return `M${a[0].toFixed(1)} ${a[1].toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${b[0].toFixed(1)} ${b[1].toFixed(1)}`;
+  };
+  const baseDone = new Set();
+  ACTS.forEach((a, k) => a.edges.forEach(([p, q]) => {
+    const key = p < q ? p + '|' + q : q + '|' + p;
+    if (!baseDone.has(key)) { baseDone.add(key); el('path', { class: 'edge-base', d: arc(p, q, 0) }, svg); }
+  }));
+  ACTS.forEach((a, k) => { a.edgeEls = a.edges.map(([p, q]) => el('path', { class: 'edge', d: arc(p, q, k % 5), stroke: a.c }, svg)); });
+
+  // Knoten, von hinten nach vorne
+  const nodeEls = {};
+  const boxes = {};
+  Object.entries(NODES).sort((a, b) => (a[1].x + a[1].y) - (b[1].x + b[1].y)).forEach(([id, n]) => {
+    const L = LAYER[n.e];
+    const g = el('g', { class: 'node', tabindex: 0, role: 'button', 'aria-label': n.n, 'data-id': id }, svg);
+    const hw = n.w / 2;
+    const base = [P(n.x - hw, n.y - hw), P(n.x + hw, n.y - hw), P(n.x + hw, n.y + hw), P(n.x - hw, n.y + hw)];
+    const top = [P(n.x - hw, n.y - hw, n.h), P(n.x + hw, n.y - hw, n.h), P(n.x + hw, n.y + hw, n.h), P(n.x - hw, n.y + hw, n.h)];
+    const ctr = P(n.x, n.y);
+    const halo = el('ellipse', { class: 'halo', cx: ctr[0], cy: ctr[1] - n.h * 0.3, rx: n.w * KX * 0.9 + 6, ry: n.w * KY * 1.2 + 6, fill: L.g, filter: 'url(#glow)', style: 'opacity:0' }, g);
+    halo.style.mixBlendMode = 'screen';
+    el('polygon', { class: 'face-l', points: pts([base[3], base[2], top[2], top[3]]), fill: L.c }, g);
+    el('polygon', { class: 'face-r', points: pts([base[2], base[1], top[1], top[2]]), fill: L.c }, g);
+    el('polygon', { class: 'face-t', points: pts(top), fill: L.g }, g);
+    const tp = P(n.x, n.y, n.h);
+    const lbl = el('text', { class: 'lbl', x: tp[0], y: tp[1] - 20, 'text-anchor': 'middle' }, g); lbl.textContent = n.n;
+    const bd = el('g', { class: 'badge', transform: `translate(${tp[0].toFixed(1)} ${(tp[1] - 8).toFixed(1)})` }, g);
+    el('circle', { r: 8 }, bd); const bt = el('text', { y: 3.6 }, bd);
+    nodeEls[id] = { g, halo, lbl, bt, tp };
+    // Platzbedarf des Symbols, damit Beschriftungen nicht darüberliegen
+    const xs = [...base, ...top].map(p => p[0]), ys = [...base, ...top].map(p => p[1]);
+    boxes[id] = { x1: Math.min(...xs) - 2, x2: Math.max(...xs) + 2, y1: Math.min(...ys) - 18, y2: Math.max(...ys) + 2 };
+    g.addEventListener('click', () => select(id));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(id); } });
+  });
+
+  // Du
+  const yp = P(YOU.x, YOU.y, 6);
+  const you = el('g', { class: 'you' }, svg);
+  el('circle', { class: 'ring', cx: yp[0], cy: yp[1], r: 7 }, you);
+  el('circle', { class: 'core', cx: yp[0], cy: yp[1], r: 5.5 }, you);
+  el('text', { x: yp[0] + 12, y: yp[1] + 5 }, you).textContent = 'Du';
+
+  // --- UI ---
+  const chips = document.getElementById('chips');
+  const legend = document.getElementById('legend');
+  const info = document.getElementById('info');
+  const layersEl = document.getElementById('layers');
+  const on = new Set();
+  const layerOff = new Set();
+  let selected = null;
+
+  ACTS.forEach(a => {
+    const b = document.createElement('button');
+    b.className = 'chip'; b.type = 'button'; b.style.setProperty('--c', a.c);
+    b.innerHTML = '<i></i>' + a.l;
+    b.addEventListener('click', () => { on.has(a.id) ? on.delete(a.id) : on.add(a.id); b.classList.toggle('on', on.has(a.id)); render(); });
+    chips.appendChild(b); a.btn = b;
+  });
+  const rs = document.createElement('button');
+  rs.className = 'chip reset'; rs.type = 'button'; rs.textContent = 'Zurücksetzen';
+  rs.addEventListener('click', () => { on.clear(); layerOff.clear(); selected = null; ACTS.forEach(a => a.btn.classList.remove('on')); layerBtns.forEach(b => b.classList.remove('off')); render(); });
+  chips.appendChild(rs);
+
+  const layerBtns = Object.entries(LAYER).map(([k, l]) => {
+    const b = document.createElement('button');
+    b.className = 'layer-btn'; b.type = 'button'; b.style.setProperty('--c', l.g); b.innerHTML = '<i></i>' + l.name;
+    b.title = 'Ebene aus- oder einblenden';
+    b.addEventListener('click', () => { layerOff.has(k) ? layerOff.delete(k) : layerOff.add(k); b.classList.toggle('off', layerOff.has(k)); render(); });
+    layersEl.appendChild(b); return b;
+  });
+
+  function select(id) { selected = id; render(); }
+
+  function placeLabels(order) {
+    // Beschriftungen nacheinander an die erste freie Stelle setzen: oben, rechts, links, unten
+    const placed = [];
+    const hit = (r) => placed.some(p => r.x1 < p.x2 && r.x2 > p.x1 && r.y1 < p.y2 && r.y2 > p.y1);
+    const hitNode = (r, own) => Object.entries(boxes).some(([id, b]) => id !== own && r.x1 < b.x2 && r.x2 > b.x1 && r.y1 < b.y2 && r.y2 > b.y1);
+    order.forEach(id => {
+      const o = nodeEls[id], w = NODES[id].n.length * 6.6 + 8, h = 15, [ax, ay] = o.tp;
+      const hwid = (boxes[id].x2 - boxes[id].x1) / 2;
+      const cands = [
+        { a: 'middle', x: ax, y: ay - 20 },
+        { a: 'start',  x: boxes[id].x2 + 5, y: ay + 6 },
+        { a: 'end',    x: boxes[id].x1 - 5, y: ay + 6 },
+        { a: 'middle', x: ax, y: boxes[id].y2 + 17 },
+        { a: 'middle', x: ax, y: ay - 36 },
+        { a: 'middle', x: ax, y: boxes[id].y2 + 33 },
+      ];
+      let ok = false;
+      for (const cd of cands) {
+        const x1 = cd.a === 'middle' ? cd.x - w / 2 : cd.a === 'start' ? cd.x : cd.x - w, r = { x1, x2: x1 + w, y1: cd.y - 12, y2: cd.y + 4 };
+        const vx = r.x1 > 12 && r.x2 < 988;
+        if (vx && !hit(r) && !hitNode(r, id)) { o.lbl.setAttribute('x', cd.x); o.lbl.setAttribute('y', cd.y); o.lbl.setAttribute('text-anchor', cd.a); o.lbl.classList.add('ok'); placed.push(r); ok = true; break; }
+      }
+      if (!ok) o.lbl.classList.remove('ok');
+    });
+  }
+
+  function render() {
+    const perAct = {}, notes = {};
+    const active = ACTS.filter(a => on.has(a.id));
+    active.forEach(a => {
+      new Set(a.edges.flat().filter(i => i !== 'you')).forEach(id => { (perAct[id] = perAct[id] || []).push(a); });
+      Object.entries(a.txt).forEach(([id, t]) => { (notes[id] = notes[id] || {})[a.id] = t; });
+    });
+    const rows = Object.keys(perAct).filter(id => !layerOff.has(NODES[id].e))
+      .sort((a, b) => perAct[b].length - perAct[a].length || NODES[a].n.localeCompare(NODES[b].n, 'de'));
+    const num = {}; rows.forEach((id, i) => { num[id] = i + 1; });
+
+    Object.entries(nodeEls).forEach(([id, o]) => {
+      const lit = !!num[id];
+      o.g.classList.toggle('lit', lit);
+      o.g.classList.toggle('dim', layerOff.has(NODES[id].e));
+      o.g.classList.toggle('sel', selected === id);
+      o.halo.style.opacity = lit ? Math.min(0.35 + perAct[id].length * 0.2, 0.95) : 0;
+      o.bt.textContent = num[id] || '';
+      o.lbl.classList.remove('ok');
+    });
+    active.forEach(a => a.edges.forEach(() => {}));
+    ACTS.forEach(a => a.edgeEls.forEach((e, i) => {
+      const [p, q] = a.edges[i];
+      const vis = on.has(a.id) && [p, q].every(id => id === 'you' || !layerOff.has(NODES[id].e));
+      e.classList.toggle('lit', vis);
+    }));
+    placeLabels(rows);
+
+    // Legende
+    if (!on.size) {
+      legend.innerHTML = '<h2>Was dafür mitläuft</h2><p class="empty">Noch nichts gewählt. Tipp oben eine Tätigkeit an, dann erscheint hier, welche Stellen dafür gebraucht werden.</p>';
+    } else {
+      legend.innerHTML = '<h2>Was dafür mitläuft</h2><ul>' + rows.map(id => {
+        const n = NODES[id];
+        const tags = perAct[id].map(a => `<span style="--c:${a.c}">${notes[id][a.id] || a.l}</span>`).join('');
+        return `<li data-id="${id}"><span class="no">${num[id]}</span><div><b><i class="lay" style="background:${LAYER[n.e].g}"></i>${n.n}</b><div class="tags">${tags}</div></div></li>`;
+      }).join('') + '</ul>';
+      legend.querySelectorAll('li').forEach(li => li.addEventListener('click', () => select(li.dataset.id)));
+    }
+
+    // Ort-Karte
+    if (!selected) {
+      info.innerHTML = '<p class="empty">Tipp einen Ort auf der Karte oder in der Liste an. Dann siehst du hier, was er tut und wofür er gebraucht wird.</p>';
+    } else {
+      const n = NODES[selected];
+      const uses = ACTS.filter(a => a.edges.flat().includes(selected));
+      info.innerHTML = `<p class="t">${n.n}</p><p class="m">${LAYER[n.e].name}</p><p class="d">${n.d}</p>` +
+        `<p class="a">Hängt dran bei: ${uses.map(a => `<span style="color:${a.c}">${a.l}</span>`).join(', ')}</p>`;
+    }
+  }
+
+  render();
+  ACTS[0].btn.click();
+  const stage = document.querySelector('.stage');
+  stage.scrollLeft = (stage.scrollWidth - stage.clientWidth) / 2;
+})();
+</script>
+</body>
+</html>
