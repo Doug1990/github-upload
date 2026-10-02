@@ -293,6 +293,86 @@
     .hero-bg circle, .pump-on .pumparrow { animation: none; }
   }
 
+  /* Signale (.sig) */
+  .sig-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 16px; margin: 0 auto 14px; }
+  .sig-seg { display: flex; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
+  .sig-seg button { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 7px 18px; background: transparent; color: var(--muted); border: none; cursor: pointer; min-height: 36px; }
+  .sig-seg button[aria-pressed="true"] { background: rgba(var(--accent-rgb),0.16); color: var(--accent); }
+  .sig-panel svg { touch-action: manipulation; }
+  .sig-svg .sig-cellhit { cursor: pointer; }
+  .sig-svg .sig-body { fill: url(#sigCellG); stroke: #3C9E78; stroke-width: 1.6; transition: stroke 0.6s ease; }
+  .sig-svg.city .sig-body { fill: url(#sigCellC); stroke: #B88A3A; }
+  .sig-svg .sig-nuc { fill: #2D3A6E; opacity: 0.85; transition: fill 0.6s ease; }
+  .sig-svg.city .sig-nuc { fill: #7A5E2A; }
+  .sig-svg .sig-send { fill: url(#sigSendG); stroke: #E8B56A; stroke-width: 1.6; }
+  .sig-svg .sig-resp { fill: #7FD9A8; }
+  .sig-svg .sig-ring { fill: none; stroke: #7FD9A8; stroke-width: 2; }
+  .sig-svg .sig-rec { fill: none; stroke: #7FD9A8; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.6s ease; }
+  .sig-svg.city .sig-rec { stroke: #E8E6E0; }
+  .sig-svg .sig-plug { fill: #FF8A65; }
+  .sig-svg .sig-grid { opacity: 0; transition: opacity 0.8s ease; }
+  .sig-svg.city .sig-grid { opacity: 0.1; }
+  .sig-svg .sig-vwall { fill: none; stroke: #B5574A; stroke-width: 16; stroke-linecap: round; transition: stroke 0.6s ease; }
+  .sig-svg .sig-vessel { opacity: 0.32; }
+  .sig-svg.city .sig-vwall { stroke: #6B6552; }
+  .sig-svg.city .sig-vessel { opacity: 0.5; }
+  .sig-svg .sig-vflow { fill: none; stroke: #FF8A65; stroke-width: 1.6; stroke-dasharray: 2 10; stroke-linecap: round; opacity: 0.55; animation: sigflow 1.6s linear infinite; }
+  .sig-svg.city .sig-vflow { stroke: #F6DC9B; stroke-dasharray: 7 9; stroke-linecap: butt; }
+  .sig-svg.paused .sig-vflow { animation-play-state: paused; }
+  @keyframes sigflow { to { stroke-dashoffset: -12; } }
+  .sig-svg .sig-axg { fill: none; stroke: #4FC3D9; stroke-width: 8; stroke-linecap: round; opacity: 0.14; }
+  .sig-svg .sig-ax { fill: none; stroke: #4FC3D9; stroke-width: 2.2; stroke-linecap: round; opacity: 0.75; }
+  .sig-svg .sig-bout { fill: #4FC3D9; opacity: 0.8; }
+  .sig-svg .sig-lit { fill: none; stroke: #D5F6FF; stroke-width: 3.4; stroke-linecap: round; opacity: 0; }
+  .sig-svg .sig-dend { fill: none; stroke: #E8B56A; stroke-width: 2; stroke-linecap: round; opacity: 0.8; }
+  .sig-svg.m-hor .sig-nerv-only, .sig-svg.m-nerv .sig-hor-only { display: none; }
+  .sig-svg .sig-cut { fill: none; stroke: #FF8A65; stroke-width: 2.6; stroke-linecap: round; }
+  .sig-lbl text { font-family: 'IBM Plex Sans', sans-serif; fill: #E4ECE6; }
+  .sig-lbl rect { fill: rgba(10,19,16,0.8); stroke: #3A4A42; }
+  .sig-lbl .on rect { stroke: #7FD9A8; }
+  .sig-lbl .on text { fill: #7FD9A8; }
+  .sig-recv { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 12px; }
+  .sig-rb { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; min-height: 44px; padding: 6px 8px; border-radius: 12px; border: 1px solid #3A4A42; background: transparent; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .sig-rb i { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid #6E7689; flex: none; }
+  .sig-rb:hover { border-color: var(--accent); color: var(--ink); }
+  .sig-rb[aria-pressed="true"] { border-color: rgba(var(--accent-rgb),0.6); background: rgba(var(--accent-rgb),0.12); color: var(--ink); }
+  .sig-rb[aria-pressed="true"] i { background: var(--gold); border-color: var(--gold); }
+  .sig-cap { font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; color: var(--dim); margin: 8px 0 0; line-height: 1.5; }
+  .sig-ctl { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; margin-top: 14px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); }
+  .sig-slider { flex: 1; min-width: 220px; display: block; }
+  .sig-slider[hidden] { display: none; }
+  .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .sig-slider output { color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500; }
+  .sig-slider input[type=range] { width: 100%; accent-color: var(--accent); margin: 0; height: 32px; }
+  .sig-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+  .sig-btns .btn { min-height: 40px; padding: 8px 16px; }
+  .sig-btns .btn[hidden] { display: none; }
+  .sig-btns .btn[disabled] { opacity: 0.4; cursor: default; border-color: #3A4A42; color: var(--ink); }
+  .sig-btns .primary { border-color: var(--accent); color: var(--accent); }
+  .sig-btns .btn[aria-pressed="true"] { border-color: var(--coral); color: var(--coral); }
+  .sig-head { margin: 18px 0 8px; }
+  .sig-head small { display: block; font-family: 'IBM Plex Sans', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-bottom: 3px; }
+  .sig-head h3 { margin: 0; font-weight: 500; font-size: 21px; }
+  .sig-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: #C7CAD6; }
+  .sig-cols .col { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 11px 13px; border-left: 3px solid var(--accent); }
+  .sig-cols .col.city { border-left-color: var(--gold); }
+  .sig-cols .col b { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
+  .sig-cols .aha { grid-column: 1 / -1; color: var(--gold); font-size: 13.5px; margin: 0; }
+  @media (max-width: 640px) {
+    .sig-cols { grid-template-columns: 1fr; }
+    .sig-seg button, .sig-btns .btn { min-height: 44px; }
+    .sig-recv { grid-template-columns: 1fr 1fr; }
+    #sigPanel .stat { padding: 9px 9px; }
+    #sigPanel .stat span { font-size: 17px; white-space: nowrap; }
+  }
+  @media (pointer: coarse) {
+    .sig-seg button, .sig-btns .btn { min-height: 44px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sig-svg *, .sig-rb { transition: none !important; }
+    .sig-svg .sig-vflow { animation: none; }
+  }
+
   /* --- Sound --- */
   .sound-toggle {
     position: fixed; top: 14px; right: 16px; z-index: 5;
@@ -630,6 +710,52 @@
     <button type="button" class="btn" id="teilFault" aria-pressed="false">Kopierfehler einbauen</button>
   </div>
   <p class="note">Stark vereinfacht: Die echte Mitose hat mehr Phasen (Prophase, Prometaphase, Metaphase, Anaphase, Telophase, dazu die Zellteilung selbst), und die DNA wird schon vorher kopiert. Hier gibt es vier Chromosomen statt 46, und nicht jedes Organell verdoppelt sich so ordentlich. Dafür gibt es in echt mehr Kontrollpunkte und Fehlerkorrektur, als diese Skizze zeigt.</p>
+</section>
+
+<!-- 6. Signale zwischen Zellen als Postsystem -->
+<section class="sec reveal" id="signale">
+  <h2>Zellen schreiben sich Briefe.</h2>
+  <p class="lead">Eine Zelle allein kann nichts abstimmen. Also verschickt sie Post: entweder einen Botenstoff durch das Blut, langsam und an alle, oder einen elektrischen Impuls über eine Nervenbahn, schnell und gezielt. Wähle den Weg, sende ein Signal ab und entscheide, welche Zellen das passende Schloss haben. Der Schalter wechselt wieder zwischen Biologie und Stadt.</p>
+  <div class="sig-bar">
+    <div class="sig-seg" role="group" aria-label="Signalweg">
+      <button type="button" id="sigModeHor" aria-pressed="true">Hormon</button>
+      <button type="button" id="sigModeNerv" aria-pressed="false">Nerv</button>
+    </div>
+    <div class="sig-seg" role="group" aria-label="Ansicht der Signale">
+      <button type="button" id="sigViewBio" aria-pressed="true">Zelle</button>
+      <button type="button" id="sigViewCity" aria-pressed="false">Stadt</button>
+    </div>
+  </div>
+  <div class="panel sig-panel" id="sigPanel" data-mode="hor">
+    <svg id="sigSvg" class="sig-svg m-hor" viewBox="0 0 640 420" role="img" aria-labelledby="sigSvgT">
+      <title id="sigSvgT">Schema: Eine Absenderzelle links, vier Empfängerzellen rechts. Im Hormonweg treiben Botenstoffe durch die Blutbahn und docken nur an Zellen mit passendem Rezeptor an. Im Nervenweg läuft ein Impuls über eine Nervenbahn, am Spalt übernimmt ein Botenstoff.</title>
+    </svg>
+    <div class="stats" aria-live="off">
+      <div class="stat"><small>Wegzeit</small><span id="sigTime">&nbsp;</span></div>
+      <div class="stat"><small>Antworten</small><span id="sigResp">0 von 4</span></div>
+      <div class="stat"><small id="sigDockL">Angedockt</small><span id="sigDock">0</span></div>
+    </div>
+    <div class="legend" id="sigLegend"></div>
+    <div class="sig-recv" id="sigRecv" role="group" aria-label="Empfängerzellen mit passendem Rezeptor"></div>
+    <p class="sig-cap" id="sigRecvCap"></p>
+    <div class="sig-ctl">
+      <label class="sig-slider" id="sigAmtRow" for="sigAmt"><span class="row"><span id="sigAmtL">Menge an Botenstoff</span><output id="sigAmtO" for="sigAmt">12</output></span><input type="range" id="sigAmt" min="2" max="24" step="2" value="12"></label>
+      <label class="sig-slider" id="sigSpdRow" for="sigSpd" hidden><span class="row"><span>Leitungsgeschwindigkeit</span><output id="sigSpdO" for="sigSpd">60 m/s</output></span><input type="range" id="sigSpd" min="10" max="120" step="5" value="60"></label>
+      <div class="sig-btns">
+        <button type="button" class="btn primary" id="sigGo">Absenden</button>
+        <button type="button" class="btn" id="sigNext" hidden>Nächster Schritt</button>
+        <button type="button" class="btn" id="sigFault" aria-pressed="false">Störung einbauen</button>
+      </div>
+    </div>
+    <p class="status" id="sigStatus" aria-live="polite"></p>
+  </div>
+  <div class="sig-head" aria-live="polite"><small id="sigEyebrow"></small><h3 id="sigTitle"></h3></div>
+  <div class="sig-cols">
+    <div class="col"><b>In der Zelle</b><span id="sigCell"></span></div>
+    <div class="col city"><b>In der Stadt</b><span id="sigTown"></span></div>
+    <p class="aha" id="sigAha"></p>
+  </div>
+  <p class="note">Stark vereinfacht: Der Körper kennt viel mehr Signalwege, und sie überlappen. Manche Botenstoffe wirken im Blut, andere nur auf Nachbarzellen, und derselbe Stoff ist in einem Nerv ein Überträger und im Blut ein Hormon. Hier sind es vier Empfänger und ein Rezeptortyp. Auch die Zeiten stimmen nicht: Ein Hormon braucht in echt Sekunden bis Minuten, ein Nervenimpuls wenige Millisekunden. Die Animation zieht beides zusammen und dehnt den Nerv, damit man ihn sehen kann.</p>
 </section>
 
 <section class="closing reveal">
@@ -1932,6 +2058,490 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutLabels);
   layoutLabels();
 })();
+
+// --- Signale ---
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  function q(id) { return document.getElementById(id); }
+  function mk(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function S(x, a, b) { var t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); }
+  function hash(i, s) { var v = Math.sin(i * 12.9898 + s * 78.233) * 43758.5453; return v - Math.floor(v); }
+  var svg = q('sigSvg'), panel = q('sigPanel');
+  if (!svg || !panel) return;
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  // ---- Geometrie (Querformat 640 x 420, Hochformat dreht die Szene um 90 Grad) ----
+  var CR = 32, GAP = 15, CUT_S = 52, V_HOR = 78;
+  var CELLS = [{ x: 320, y: 85, dir: -1 }, { x: 320, y: 335, dir: 1 }, { x: 560, y: 150, dir: -1 }, { x: 560, y: 300, dir: 1 }];
+  var ROUTES = [
+    'M98,210 H190 C250,210 250,85 277,85',
+    'M98,210 H190 C250,210 250,335 277,335',
+    'M98,210 H420 C480,210 470,150 517,150',
+    'M98,210 H420 C480,210 470,300 517,300'
+  ];
+  var ORDER = [0, 2, 1, 3];
+  var SLOTS = [[0, 0], [-9, -8], [-9, 8], [-18, 0], [-18, -16], [-18, 16]];
+  var NAMES = ['A', 'B', 'C', 'D'];
+
+  // ---- Zustand ----
+  var mode = 'hor', city = false, fault = false, recv = [true, false, true, false];
+  var run = null, t = 0, raf = 0, last = 0, vis = false, phase = 0, evN = 0, statusKind = 'idle';
+  var portrait = false, scale = 1, shown = {};
+
+  // ---- Bauteile der Szene ----
+  var defs = mk('defs', {}, svg);
+  var g1 = mk('radialGradient', { id: 'sigCellG', cx: '50%', cy: '45%', r: '65%' }, defs);
+  [['0', '#2A5A44'], ['0.7', '#1B3A2C'], ['1', '#112419']].forEach(function (s) { mk('stop', { offset: s[0], 'stop-color': s[1] }, g1); });
+  var g2 = mk('radialGradient', { id: 'sigCellC', cx: '50%', cy: '45%', r: '65%' }, defs);
+  [['0', '#5A4A2A'], ['0.7', '#3A2F1A'], ['1', '#241C10']].forEach(function (s) { mk('stop', { offset: s[0], 'stop-color': s[1] }, g2); });
+  var g3 = mk('radialGradient', { id: 'sigSendG', cx: '40%', cy: '35%', r: '75%' }, defs);
+  [['0', '#F2C46B'], ['0.6', '#9A6A30'], ['1', '#4A2F18']].forEach(function (s) { mk('stop', { offset: s[0], 'stop-color': s[1] }, g3); });
+  var fl = mk('filter', { id: 'sigBlur', x: '-60%', y: '-60%', width: '220%', height: '220%' }, defs);
+  mk('feGaussianBlur', { stdDeviation: 7 }, fl);
+  var pat = mk('pattern', { id: 'sigGridP', width: 36, height: 36, patternUnits: 'userSpaceOnUse' }, defs);
+  mk('path', { d: 'M36 0H0V36', fill: 'none', stroke: '#F2C46B', 'stroke-width': 0.8 }, pat);
+
+  var scene = mk('g', {}, svg);
+  mk('rect', { 'class': 'sig-grid', x: -40, y: -40, width: 720, height: 500, fill: 'url(#sigGridP)' }, scene);
+  var meas = [], len = [];
+  var gm = mk('g', { visibility: 'hidden' }, scene);
+  ROUTES.forEach(function (d) { var p = mk('path', { d: d, fill: 'none' }, gm); meas.push(p); len.push(p.getTotalLength()); });
+
+  var gv = mk('g', { 'class': 'sig-hor-only' }, scene), gves = mk('g', { 'class': 'sig-vessel' }, gv);
+  ROUTES.forEach(function (d) { mk('path', { 'class': 'sig-vwall', d: d }, gves); });
+  ROUTES.forEach(function (d) { mk('path', { 'class': 'sig-vflow', d: d }, gv); });
+
+  var gn = mk('g', { 'class': 'sig-nerv-only' }, scene), bout = [], lit = [];
+  ROUTES.forEach(function (d, k) {
+    var clip = (len[k] - GAP) + ' 9999';
+    var a = mk('path', { 'class': 'sig-axg', d: d }, gn); a.style.strokeDasharray = clip;
+    var b = mk('path', { 'class': 'sig-ax', d: d }, gn); b.style.strokeDasharray = clip;
+  });
+  ROUTES.forEach(function (d, k) {
+    var p = meas[k].getPointAtLength(len[k] - GAP);
+    bout.push(mk('circle', { 'class': 'sig-bout', cx: p.x, cy: p.y, r: 6 }, gn));
+  });
+  ROUTES.forEach(function (d) { lit.push(mk('path', { 'class': 'sig-lit', d: d }, gn)); });
+
+  // Sender
+  var sendGlow = mk('circle', { cx: 64, cy: 210, r: 44, fill: '#F2C46B', opacity: 0, filter: 'url(#sigBlur)' }, scene);
+  var dend = mk('g', { 'class': 'sig-nerv-only' }, scene);
+  [[34, 188, 14, 166], [30, 214, 6, 214], [36, 238, 16, 260]].forEach(function (a) {
+    mk('path', { 'class': 'sig-dend', d: 'M' + a[0] + ',' + a[1] + ' L' + a[2] + ',' + a[3] }, dend);
+  });
+  mk('circle', { 'class': 'sig-send', cx: 64, cy: 210, r: 34 }, scene);
+  mk('circle', { cx: 70, cy: 205, r: 10, fill: '#4A2F18', opacity: 0.8 }, scene);
+
+  // Empfänger
+  var cellEls = CELLS.map(function (c, k) {
+    var g = mk('g', {}, scene), ex = c.x - CR;
+    var glow = mk('circle', { 'class': 'sig-resp', cx: c.x, cy: c.y, r: CR + 8, opacity: 0, filter: 'url(#sigBlur)' }, g);
+    var ring = mk('circle', { 'class': 'sig-ring', cx: c.x, cy: c.y, r: CR, opacity: 0 }, g);
+    mk('circle', { 'class': 'sig-body', cx: c.x, cy: c.y, r: CR }, g);
+    mk('circle', { 'class': 'sig-nuc', cx: c.x + 8, cy: c.y - 5, r: 9 }, g);
+    var rec = mk('path', { 'class': 'sig-rec', d: 'M' + (ex - 8) + ',' + (c.y - 8) + ' L' + (ex - 2) + ',' + (c.y - 8) + ' L' + (ex - 2) + ',' + (c.y + 8) + ' L' + (ex - 8) + ',' + (c.y + 8) }, g);
+    var plug = mk('rect', { 'class': 'sig-plug', x: ex - 9, y: c.y - 6, width: 6.5, height: 12, rx: 2 }, g);
+    return { g: g, glow: glow, ring: ring, rec: rec, plug: plug };
+  });
+
+  var cut = mk('g', { 'class': 'sig-nerv-only', display: 'none' }, scene);
+  mk('path', { 'class': 'sig-cut', d: 'M144,203 L156,217 M156,203 L144,217' }, cut);
+  mk('circle', { 'class': 'sig-cut', cx: 150, cy: 210, r: 11, 'stroke-dasharray': '3 4', 'stroke-width': 1.6 }, cut);
+
+  // Moleküle und Impulsköpfe
+  var POOL = 24, mols = [], heads = [];
+  var gmol = mk('g', {}, scene);
+  for (var mi = 0; mi < POOL; mi++) {
+    var m = mk('g', { display: 'none' }, gmol);
+    mk('circle', { r: 4.6, fill: '#F2C46B', stroke: '#FFE9A8', 'stroke-width': 0.8 }, m);
+    mk('rect', { x: 3.4, y: -1.8, width: 4.4, height: 3.6, rx: 0.8, fill: '#F2C46B', stroke: '#FFE9A8', 'stroke-width': 0.6 }, m);
+    mols.push(m);
+  }
+  var ghead = mk('g', {}, scene);
+  for (var hi = 0; hi < 4; hi++) {
+    var h = mk('g', { display: 'none' }, ghead);
+    mk('circle', { r: 11, fill: '#4FC3D9', opacity: 0.4, filter: 'url(#sigBlur)' }, h);
+    mk('circle', { r: 4.6, fill: '#E6FBFF' }, h);
+    heads.push(h);
+  }
+  var hits = mk('g', {}, scene);
+  CELLS.forEach(function (c, k) {
+    var hc = mk('circle', { 'class': 'sig-cellhit', cx: c.x, cy: c.y, r: 46, fill: 'transparent', 'aria-hidden': 'true' }, hits);
+    hc.addEventListener('click', function () { toggleRecv(k); });
+  });
+
+  // Beschriftungen als Pillen (liegen außerhalb der gedrehten Szene)
+  var glbl = mk('g', { 'class': 'sig-lbl', 'pointer-events': 'none' }, svg);
+  var LBL = [
+    { id: 'send', ax: 64, ay: 210, r: 34, place: 'below' },
+    { id: 'trunk', ax: 380, ay: 210, r: 7, place: 'trunk' },
+    { id: 0, ax: 320, ay: 85, r: CR, place: 'below' },
+    { id: 1, ax: 320, ay: 335, r: CR, place: 'below' },
+    { id: 2, ax: 560, ay: 150, r: CR, place: 'below' },
+    { id: 3, ax: 560, ay: 300, r: CR, place: 'below' }
+  ];
+  LBL.forEach(function (l) {
+    l.g = mk('g', {}, glbl);
+    l.rect = mk('rect', {}, l.g);
+    l.text = mk('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central' }, l.g);
+    l.txt = '';
+  });
+  function lblText(l) {
+    var c = city ? 1 : 0;
+    if (l.id === 'send') return mode === 'hor' ? ['Drüse', 'Postamt'][c] : ['Nervenzelle', 'Vermittlung'][c];
+    if (l.id === 'trunk') return mode === 'hor' ? ['Blutbahn', 'Straßennetz'][c] : ['Axon', 'Glasfaser'][c];
+    var base = [['Zelle ', 'Haus '][c] + NAMES[l.id]];
+    if (run && run.cells[l.id].respT <= t) base.push(city ? ': gelesen' : ': Antwort');
+    return base.join('');
+  }
+  function placeLabels() {
+    var fs = 11.5 / scale, h = fs * 1.75, padX = fs * 0.7, vbW = portrait ? 420 : 640;
+    LBL.forEach(function (l) {
+      var txt = lblText(l), on = l.id !== 'send' && l.id !== 'trunk' && txt.indexOf(':') > 0;
+      l.text.setAttribute('font-size', fs);
+      l.text.textContent = txt;
+      var w = (l.text.getComputedTextLength ? l.text.getComputedTextLength() : 0) || txt.length * fs * 0.58;
+      var lax = l.id === 'trunk' && portrait ? 150 : l.ax, P = portrait ? [420 - l.ay, lax] : [lax, l.ay], cx, cy;
+      var bw = w + padX * 2, off = 6 / scale;
+      if (l.place === 'trunk') {
+        if (portrait) { cx = P[0] + l.r + off + bw / 2; cy = P[1]; } else { cx = P[0]; cy = P[1] - l.r - off - h / 2; }
+      } else if (l.id === 'send' && portrait) { cx = P[0] + l.r + off + bw / 2; cy = P[1]; }
+      else { cx = P[0]; cy = P[1] + l.r + off + h / 2; }
+      cx = Math.min(vbW - bw / 2 - 2, Math.max(bw / 2 + 2, cx));
+      l.rect.setAttribute('x', cx - bw / 2); l.rect.setAttribute('y', cy - h / 2);
+      l.rect.setAttribute('width', bw); l.rect.setAttribute('height', h); l.rect.setAttribute('rx', h / 2);
+      l.rect.setAttribute('stroke-width', 1 / scale);
+      l.text.setAttribute('x', cx); l.text.setAttribute('y', cy + fs * 0.04);
+      l.g.setAttribute('class', on ? 'on' : '');
+      l.txt = txt;
+    });
+  }
+  function layout() {
+    var w = panel.clientWidth - 28;
+    if (w < 40) return;
+    portrait = w < 520;
+    var vbW = portrait ? 420 : 640, vbH = portrait ? 640 : 420;
+    svg.setAttribute('viewBox', '0 0 ' + vbW + ' ' + vbH);
+    scene.setAttribute('transform', portrait ? 'translate(420 0) rotate(90)' : '');
+    scale = w / vbW;
+    placeLabels();
+    if (run) render(t);
+  }
+
+  // ---- Texte ----
+  function copy() {
+    if (mode === 'hor') return {
+      eyebrow: 'Signalweg 1 von 2: Hormon',
+      title: ['Hormon: Post an alle, gelesen von wenigen', 'Briefe im Straßennetz: Post an alle, gelesen von wenigen'],
+      cell: 'Eine Drüsenzelle gibt einen Botenstoff ins Blut ab. Das Blut trägt ihn überallhin, aber langsam. Nur Zellen mit dem passenden Rezeptor, einem Schloss in der Zellwand, nehmen ihn auf und antworten. Alle anderen lassen ihn vorbeiziehen.',
+      town: 'Ein Postamt wirft Briefe ins Straßennetz. Sie laufen durch alle Straßen, aber nur Häuser mit dem passenden Briefkasten nehmen sie an. Das dauert, dafür erreicht es viele auf einmal.',
+      aha: 'Es braucht keine Adresse, nur das passende Schloss.'
+    };
+    return {
+      eyebrow: 'Signalweg 2 von 2: Nerv',
+      title: ['Nervenimpuls: Leitung und Übergabe', 'Glasfaser mit Übergabestelle'],
+      cell: 'Eine Nervenzelle schickt ein elektrisches Signal an ihrem Axon entlang. Am Ende liegt ein winziger Spalt, die Synapse. Dort setzt die Zelle einen Botenstoff frei, der den Spalt überquert und am Rezeptor der Nachbarzelle andockt.',
+      town: 'Eine Glasfaser trägt das Signal in Sekundenbruchteilen bis zum Hausanschluss. Auf dem letzten Meter, an der Übergabestelle, wird daraus wieder ein Brief, den der Briefkasten annimmt.',
+      aha: 'Schnell und gezielt: erst die Leitung, dann der Brief.'
+    };
+  }
+  function secs(x) { return x.toFixed(1).replace('.', ',') + ' s'; }
+  function statusText() {
+    var c = city ? 1 : 0, n = 0, r = run, i;
+    if (statusKind === 'idle' || !r) {
+      return ['Wähle den Signalweg und drücke Absenden. Mit Störung siehst du, was ausfällt, wenn ein Teil fehlt.', 'Wähle den Weg und drücke Absenden. Mit Störung siehst du, was ausfällt, wenn ein Teil der Post fehlt.'][c];
+    }
+    if (statusKind === 'run' || statusKind === 'p1') {
+      if (r.mode === 'hor') return [r.N + ' Botenstoffe treiben mit dem Blut los. Sie brauchen eine Weile.', r.N + ' Briefe laufen durch das Straßennetz. Das dauert eine Weile.'][c];
+      return [r.fault ? 'Der Impuls läuft los, aber die Leitung ist unterbrochen.' : 'Der Impuls läuft mit ' + r.ms + ' m/s über das Axon.', r.fault ? 'Das Lichtsignal läuft los, aber die Glasfaser ist gekappt.' : 'Das Lichtsignal läuft durch die Glasfaser.'][c];
+    }
+    if (statusKind === 'p2') return ['Das Signal ist bei den Empfängern angekommen. Nächster Schritt: Wer antwortet?', 'Die Post ist bei den Häusern angekommen. Nächster Schritt: Wer antwortet?'][c];
+    // fertig
+    for (i = 0; i < 4; i++) if (r.cells[i].respT < Infinity) n++;
+    var anyRecv = r.recv.some(function (v) { return v; }), low = [];
+    for (i = 0; i < 4; i++) if (r.recv[i] && r.cells[i].respT === Infinity) low.push(NAMES[i]);
+    var tm = secs(r.tFirst);
+    if (r.mode === 'hor') {
+      if (r.fault && anyRecv) return ['Alle Rezeptoren sind blockiert. Die Botenstoffe finden keinen Platz und ziehen weiter. Keine Zelle antwortet.', 'Alle Briefkästen sind zugeklebt. Die Briefe finden keinen Platz und liegen auf der Straße. Niemand antwortet.'][c];
+      if (!anyRecv) return ['Keine Zelle hat ein passendes Schloss. Der Botenstoff zieht an allen vorbei, nichts passiert.', 'Kein Haus hat einen passenden Briefkasten. Die Briefe laufen an allen vorbei, nichts passiert.'][c];
+      if (n === 0) return ['Zu wenig Botenstoff: Keine Zelle hat genug aufgenommen, um zu antworten. Erhöhe die Menge.', 'Zu wenig Post: Kein Haus hat genug Briefe bekommen, um zu antworten. Schicke mehr Briefe.'][c];
+      var s1 = ['Antwort von ' + n + ' von 4 Zellen, die erste nach ' + tm + '. ', 'Antwort von ' + n + ' von 4 Häusern, die erste nach ' + tm + '. '][c];
+      if (low.length) s1 += [(low.length > 1 ? 'Zellen ' : 'Zelle ') + low.join(' und ') + ' bekamen zu wenig Botenstoff. Mehr Menge hilft. ', (low.length > 1 ? 'Häuser ' : 'Haus ') + low.join(' und ') + ' bekamen zu wenig Post. Mehr Briefe helfen. '][c];
+      else if (n < 4) s1 += ['Die übrigen Zellen haben nichts bemerkt. ', 'Die übrigen Häuser haben nichts bemerkt. '][c];
+      return s1 + 'Im Körper dauert das Sekunden bis Minuten.';
+    }
+    if (r.fault) return ['Die Leitung ist unterbrochen. Der Impuls kommt nirgends an, keine Zelle antwortet.', 'Die Glasfaser ist gekappt. Das Signal kommt nirgends an, niemand antwortet.'][c];
+    if (!anyRecv) return ['Der Impuls kam an, aber keine Zelle hat den passenden Rezeptor. Nichts passiert.', 'Das Signal kam an, aber kein Haus hat den passenden Briefkasten. Nichts passiert.'][c];
+    return ['Antwort von ' + n + ' von 4 Zellen nach ' + tm + ' (in Zeitlupe). Echt dauert das wenige Millisekunden.', 'Antwort von ' + n + ' von 4 Häusern nach ' + tm + ' (in Zeitlupe). Echt dauert das wenige Millisekunden.'][c];
+  }
+  function setStatus() { q('sigStatus').textContent = statusText(); }
+
+  function updateText() {
+    var c = copy(), ci = city ? 1 : 0;
+    q('sigEyebrow').textContent = c.eyebrow;
+    q('sigTitle').textContent = c.title[ci];
+    q('sigCell').textContent = c.cell; q('sigTown').textContent = c.town; q('sigAha').textContent = '→ ' + c.aha;
+    var b = q('sigRecv').children;
+    for (var i = 0; i < 4; i++) {
+      b[i].children[1].textContent = ['Zelle ', 'Haus '][ci] + NAMES[i];
+      b[i].setAttribute('aria-pressed', String(recv[i]));
+    }
+    q('sigRecv').setAttribute('aria-label', city ? 'Häuser mit passendem Briefkasten' : 'Empfängerzellen mit passendem Rezeptor');
+    q('sigRecvCap').textContent = city ? 'Welches Haus hat den passenden Briefkasten? Tippe die Häuser an.' : 'Welche Zelle hat das passende Schloss? Tippe die Zellen an.';
+    q('sigAmtL').textContent = city ? 'Menge an Briefen' : 'Menge an Botenstoff';
+    q('sigDockL').textContent = city ? 'Eingeworfen' : 'Angedockt';
+    q('sigFault').textContent = mode === 'hor' ? (city ? 'Störung: Briefkästen zukleben' : 'Störung: Rezeptoren blockieren') : (city ? 'Störung: Glasfaser kappen' : 'Störung: Leitung unterbrechen');
+    var items = [
+      ['#F2C46B', city ? 'Brief' : 'Botenstoff', ''],
+      ['#7FD9A8', city ? 'Briefkasten' : 'Rezeptor (Schloss)', ''],
+      ['#4FC3D9', city ? 'Lichtsignal in der Glasfaser' : 'elektrischer Impuls', 'nerv'],
+      ['#E8E6E0', city ? 'Übergabestelle: Lichtsignal wird zum Brief' : 'Spalt (Synapse): Impuls wird zum Botenstoff', 'nerv']
+    ];
+    var lg = q('sigLegend'); lg.innerHTML = '';
+    items.forEach(function (it) {
+      if (it[2] && it[2] !== mode) return;
+      var s = document.createElement('span'), ic = document.createElement('i');
+      ic.style.background = it[0]; s.appendChild(ic); s.appendChild(document.createTextNode(it[1])); lg.appendChild(s);
+    });
+    placeLabels();
+    setStatus();
+  }
+  function applyStatic() {
+    cellEls.forEach(function (c, k) {
+      c.rec.setAttribute('display', recv[k] ? '' : 'none');
+      c.plug.setAttribute('display', recv[k] && fault && mode === 'hor' ? '' : 'none');
+    });
+    cut.setAttribute('display', fault && mode === 'nerv' ? '' : 'none');
+    var b = q('sigRecv').children;
+    for (var i = 0; i < 4; i++) b[i].setAttribute('aria-pressed', String(recv[i]));
+    q('sigFault').setAttribute('aria-pressed', String(fault));
+  }
+
+  // ---- Ablauf planen (alles ist eine Funktion der Zeit seit dem Absenden) ----
+  function plan() {
+    var o = { mode: mode, fault: fault, recv: recv.slice(), cells: [], items: [], tFirst: Infinity, arriveT: Infinity, tEnd: 0 }, k, i;
+    for (k = 0; k < 4; k++) o.cells.push({ respT: Infinity, list: [] });
+    if (mode === 'hor') {
+      var N = parseInt(q('sigAmt').value, 10) || 12; o.N = N;
+      for (i = 0; i < N; i++) {
+        k = ORDER[i % 4];
+        var it = { k: k, r: i * (1.1 / N) + 0.2 * hash(i, 1), v: V_HOR * (0.88 + 0.24 * hash(i, 2)), ph: hash(i, 3) * 6.28, ok: recv[k] && !fault, slot: 0 };
+        it.arr = it.r + len[k] / it.v;
+        o.items.push(it);
+        if (it.ok) o.cells[k].list.push(it);
+        o.arriveT = Math.min(o.arriveT, it.arr); o.tEnd = Math.max(o.tEnd, it.arr);
+      }
+      o.cells.forEach(function (c) {
+        c.list.sort(function (a, b) { return a.arr - b.arr; });
+        c.list.forEach(function (it, j) { it.slot = j; });
+        if (c.list.length >= 2) c.respT = c.list[1].arr;
+        o.tFirst = Math.min(o.tFirst, c.respT);
+      });
+      o.tEnd += 2.4;
+    } else {
+      o.ms = parseInt(q('sigSpd').value, 10) || 60; o.v = o.ms * 8;
+      o.te = []; o.stopT = CUT_S / o.v;
+      for (k = 0; k < 4; k++) {
+        var te = fault ? Infinity : (len[k] - GAP) / o.v;
+        o.te.push(te);
+        o.arriveT = Math.min(o.arriveT, te);
+        if (!fault && recv[k]) o.cells[k].respT = te + 0.5;
+        o.tFirst = Math.min(o.tFirst, o.cells[k].respT);
+        if (!fault) o.tEnd = Math.max(o.tEnd, te + 0.5);
+      }
+      o.tEnd = fault ? o.stopT + 1.6 : o.tEnd + 2;
+    }
+    if (!isFinite(o.arriveT)) o.arriveT = o.stopT || o.tEnd * 0.5;
+    return o;
+  }
+
+  function ptAt(k, s) {
+    var L = len[k]; s = Math.max(0, Math.min(L, s));
+    var a = meas[k].getPointAtLength(s), b = s + 2 <= L ? meas[k].getPointAtLength(s + 2) : null, c = b ? a : meas[k].getPointAtLength(Math.max(0, s - 2));
+    var p = b || a, o = b ? a : c;
+    return { x: a.x, y: a.y, a: Math.atan2(p.y - o.y, p.x - o.x) };
+  }
+  function place(el, x, y, deg, op, sc) {
+    if (op <= 0.01) { el.setAttribute('display', 'none'); return; }
+    el.setAttribute('display', '');
+    el.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' + deg.toFixed(0) + ') scale(' + sc.toFixed(2) + ')');
+    el.setAttribute('opacity', op.toFixed(2));
+  }
+
+  // ---- Zeichnen ----
+  function render(tt) {
+    var r = run, i, k, j, used = 0, ms = Math.max(1, 3.2 / (scale * 4.6)), docked = [0, 0, 0, 0], respN = 0, dockN = 0;
+    for (i = 0; i < POOL; i++) mols[i].setAttribute('display', 'none');
+    for (i = 0; i < 4; i++) { heads[i].setAttribute('display', 'none'); lit[i].style.opacity = 0; bout[i].setAttribute('r', 6); }
+    if (r && r.mode === 'hor') {
+      r.items.forEach(function (it, idx) {
+        var u = tt - it.r;
+        if (u < 0) return;
+        var s = u * it.v, L = len[it.k], p, op = 1, x, y, ang;
+        if (s < L) {
+          p = ptAt(it.k, s);
+          var wob = 4.2 * Math.sin(it.ph + u * 2.6) * (1 - S(s, L - 50, L)) * S(s, 0, 20);
+          x = p.x - Math.sin(p.a) * wob; y = p.y + Math.cos(p.a) * wob; ang = p.a * 57.3; op = S(s, 0, 14);
+        } else {
+          var ua = tt - it.arr, e = ptAt(it.k, L), dir = CELLS[it.k].dir;
+          ang = 0;
+          if (it.ok) {
+            var sl = SLOTS[it.slot % 6], f = S(ua, 0, 0.5);
+            x = e.x + sl[0] * f; y = e.y + sl[1] * f; docked[it.k]++; dockN++;
+          } else {
+            x = e.x - (r.fault ? 12 : 3) * S(ua, 0, 0.6); y = e.y + dir * 26 * S(ua, 0.1, 1.5); ang = ua * 140;
+            op = 1 - S(ua, 0.5, 1.5);
+          }
+        }
+        place(mols[idx], x, y, ang, op, ms);
+      });
+    } else if (r) {
+      for (k = 0; k < 4; k++) {
+        var sh = r.fault ? CUT_S : len[k] - GAP, v = r.v, s2 = Math.min(v * tt, sh), reached = v * tt >= sh, tr = tt - sh / v;
+        var hp = ptAt(k, s2), hop = reached ? 1 - S(tr, 0, r.fault ? 0.5 : 0.25) : 1;
+        if (hop > 0.01) {
+          heads[k].setAttribute('display', ''); heads[k].setAttribute('transform', 'translate(' + hp.x.toFixed(1) + ' ' + hp.y.toFixed(1) + ') scale(' + ms.toFixed(2) + ')'); heads[k].setAttribute('opacity', hop.toFixed(2));
+          var trail = Math.min(s2, 46);
+          lit[k].style.strokeDasharray = trail.toFixed(1) + ' 9999'; lit[k].style.strokeDashoffset = (-(s2 - trail)).toFixed(1); lit[k].style.opacity = (0.9 * hop).toFixed(2);
+        }
+        if (!r.fault) {
+          var te = r.te[k];
+          if (tt >= te) bout[k].setAttribute('r', (6 + 3.5 * (1 - S(tt - te, 0, 0.45))).toFixed(2));
+          for (j = 0; j < 4; j++) {
+            var u2 = tt - (te + j * 0.05);
+            if (u2 < 0) continue;
+            var f2 = S(u2, 0, 0.35), from = ptAt(k, len[k] - GAP), to = ptAt(k, len[k]), dir2 = CELLS[k].dir, sl2 = SLOTS[j], x2, y2, op2 = 1, ang2 = 0;
+            if (r.recv[k]) { x2 = from.x + (to.x + sl2[0] - from.x) * f2; y2 = from.y + (to.y + sl2[1] - from.y) * f2; docked[k]++; dockN++; }
+            else { var ua2 = u2 - 0.35; x2 = from.x + (to.x - 4 - from.x) * f2; y2 = from.y + (to.y + sl2[1] * 0.5 - from.y) * f2 + dir2 * 24 * S(ua2, 0, 1.2); op2 = 1 - S(ua2, 0.3, 1.1); ang2 = ua2 * 120; }
+            place(mols[k * 4 + j], x2, y2, ang2, op2, ms);
+          }
+        }
+      }
+    }
+    // Zellen
+    var changed = false;
+    cellEls.forEach(function (c, n) {
+      var rt = r ? r.cells[n].respT : Infinity, g = rt <= tt ? S((tt - rt) / 0.8, 0, 1) : 0, pre = r && r.mode === 'hor' ? 0.16 * Math.min(1, docked[n] / 2) : 0;
+      if (rt <= tt) respN++;
+      var wasOn = shown['r' + n] || false, isOn = rt <= tt;
+      if (wasOn !== isOn) { shown['r' + n] = isOn; changed = true; }
+      c.glow.setAttribute('opacity', (Math.max(pre, 0.6 * g * (0.85 + 0.15 * Math.sin(tt * 3)))).toFixed(2));
+      var rp = rt <= tt ? S((tt - rt) / 1.3, 0, 1) : 1;
+      c.ring.setAttribute('r', (CR + 26 * rp).toFixed(1)); c.ring.setAttribute('opacity', rt <= tt ? (0.7 * (1 - rp)).toFixed(2) : 0);
+    });
+    if (changed) placeLabels();
+    // Absender
+    var sw = !r ? 0 : r.mode === 'hor' ? 1.4 : 0.45;
+    sendGlow.setAttribute('opacity', r && tt >= 0 ? (0.55 * (1 - S(tt, 0, sw))).toFixed(2) : 0);
+    // Kennzahlen
+    var tfs = '\u00a0';
+    if (r && r.tFirst <= tt) tfs = secs(r.tFirst);
+    else if (r) tfs = statusKind === 'done' ? 'keine' : '…';
+    setTxt('sigTime', tfs); setTxt('sigResp', respN + ' von 4'); setTxt('sigDock', String(dockN));
+  }
+  function setTxt(id, s) { if (shown[id] !== s) { shown[id] = s; q(id).textContent = s; } }
+
+  // ---- Ereignisse für den Ton ----
+  function emit(type, k) { evN++; panel.setAttribute('data-ev', type + ':' + k + ':' + evN); }
+  function events(tt) {
+    var r = run, k;
+    if (!r) return;
+    if (!r.fArr && tt >= r.arriveT) { r.fArr = true; emit('arrive', 0); }
+    for (k = 0; k < 4; k++) if (!r.fAns[k] && r.cells[k].respT <= tt) { r.fAns[k] = true; emit('answer', k); }
+  }
+
+  // ---- Bewegung ----
+  function kick() { if (!raf && run && vis && !run.done && !reduce) { last = 0; raf = requestAnimationFrame(frame); } }
+  function frame(ts) {
+    raf = 0;
+    if (!vis || !run || run.done) return;
+    if (!last) last = ts;
+    var dt = Math.min(0.05, (ts - last) / 1000); last = ts;
+    t += dt; render(t); events(t);
+    if (t >= run.tEnd) { finish(); return; }
+    raf = requestAnimationFrame(frame);
+  }
+  function finish() {
+    run.done = true; statusKind = 'done'; phase = 3;
+    t = run.tEnd; render(t); events(t); setStatus(); ui();
+  }
+  function start() {
+    if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    run = plan(); run.fAns = [false, false, false, false]; run.fArr = false; run.done = false;
+    t = 0; phase = 0; shown = {}; statusKind = 'run';
+    emit('send', 0);
+    if (reduce) { phase = 1; statusKind = 'p1'; showPhase(); }
+    else { render(0); kick(); setStatus(); }
+    ui();
+  }
+  function showPhase() {
+    var r = run;
+    t = phase === 1 ? r.arriveT * 0.5 : phase === 2 ? r.arriveT + 0.05 : r.tEnd;
+    statusKind = phase === 1 ? 'p1' : phase === 2 ? 'p2' : 'done';
+    if (phase === 3) r.done = true;
+    render(t); events(t); setStatus();
+  }
+  function clearRun() {
+    if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    run = null; t = 0; phase = 0; statusKind = 'idle'; shown = {};
+    render(0); placeLabels(); setStatus(); ui();
+  }
+  function ui() {
+    var nx = q('sigNext');
+    nx.hidden = !reduce;
+    nx.disabled = !run || phase === 0 || phase >= 3;
+    q('sigGo').textContent = run && !run.done && !reduce ? 'Neu absenden' : 'Absenden';
+  }
+
+  // ---- Bedienung ----
+  function setMode(m) {
+    mode = m; svg.classList.toggle('m-hor', m === 'hor'); svg.classList.toggle('m-nerv', m === 'nerv');
+    panel.setAttribute('data-mode', m);
+    q('sigModeHor').setAttribute('aria-pressed', String(m === 'hor')); q('sigModeNerv').setAttribute('aria-pressed', String(m === 'nerv'));
+    q('sigAmtRow').hidden = m !== 'hor'; q('sigSpdRow').hidden = m !== 'nerv';
+    applyStatic(); clearRun(); updateText();
+  }
+  function setView(c) {
+    city = c; svg.classList.toggle('city', c);
+    q('sigViewBio').setAttribute('aria-pressed', String(!c)); q('sigViewCity').setAttribute('aria-pressed', String(c));
+    updateText();
+  }
+  function toggleRecv(k) { recv[k] = !recv[k]; applyStatic(); clearRun(); }
+  q('sigModeHor').addEventListener('click', function () { if (mode !== 'hor') setMode('hor'); });
+  q('sigModeNerv').addEventListener('click', function () { if (mode !== 'nerv') setMode('nerv'); });
+  q('sigViewBio').addEventListener('click', function () { setView(false); });
+  q('sigViewCity').addEventListener('click', function () { setView(true); });
+  var rb = q('sigRecv');
+  for (var bi = 0; bi < 4; bi++) {
+    (function (k) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'sig-rb'; b.setAttribute('aria-pressed', String(recv[k]));
+      b.appendChild(document.createElement('i')); b.appendChild(document.createElement('span'));
+      b.addEventListener('click', function () { toggleRecv(k); });
+      rb.appendChild(b);
+    })(bi);
+  }
+  q('sigFault').addEventListener('click', function () { fault = !fault; applyStatic(); clearRun(); });
+  q('sigGo').addEventListener('click', start);
+  q('sigNext').addEventListener('click', function () { if (run && phase < 3) { phase++; showPhase(); ui(); } });
+  q('sigAmt').addEventListener('input', function () { q('sigAmtO').textContent = this.value; });
+  q('sigSpd').addEventListener('input', function () { q('sigSpdO').textContent = this.value + ' m/s'; });
+
+  // ---- Start, Sichtbarkeit, Größe ----
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; svg.classList.toggle('paused', !vis); if (vis) kick(); }, { threshold: 0.05 }).observe(panel);
+  } else { vis = true; }
+  if ('ResizeObserver' in window) new ResizeObserver(layout).observe(panel);
+  else window.addEventListener('resize', layout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  applyStatic(); updateText(); layout(); render(0); ui();
+})();
 </script>
 <script>
 // --- Sound ---
@@ -2035,7 +2645,7 @@
     n.connect(nf); nf.connect(ng); ng.connect(out); n.start(); nl.start();
     bed = { filters: filters, out: out };
   }
-  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, teilung: 540 };
+  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, teilung: 540, signale: 580 };
   function updateBed() {
     if (!bed) return;
     var base = (BED_BRIGHT[section] || 500) + (zoomed ? 140 : 0) + (cityMode ? 90 : 0), t = ctx.currentTime;
@@ -2160,7 +2770,7 @@
       if (next !== section) { section = next; updateBed(); }
     }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
     var h = document.querySelector('.hero'); if (h) io.observe(h);
-    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'teilung'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
+    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'teilung', 'signale'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
   }
   var BASE_TONE = { A: 293.66, C: 369.99, G: 440.0, T: 493.88 }, BASE_ORDER = ['A', 'C', 'G', 'T'];
   function watchDna() {
@@ -2231,6 +2841,38 @@
     }
   }
 
+  // ---- Signale: Absenden, Ankunft, Antwort je Zelle; Störung dissonant ----
+  function watchSignale() {
+    var panel = $('sigPanel'), fault = $('sigFault');
+    if (!panel) return;
+    new MutationObserver(function () {
+      var v = (panel.getAttribute('data-ev') || '').split(':');
+      if (v.length < 3 || !live()) return;
+      var type = v[0], k = parseInt(v[1], 10) || 0, nerv = panel.getAttribute('data-mode') === 'nerv';
+      if (type === 'send') {
+        if (nerv) note(660, { type: 'triangle', dur: 0.3, attack: 0.004, peak: 0.03, to: 1320, lp: 2400 });
+        else note(196, { dur: 0.8, attack: 0.02, peak: 0.04, to: 262, lp: 1400 });
+      } else if (type === 'arrive') {
+        if (nerv) note(880, { dur: 0.35, attack: 0.004, peak: 0.025, lp: 2600 });
+        else note(440, { dur: 0.7, attack: 0.01, peak: 0.024, lp: 2000 });
+      } else if (type === 'answer') {
+        var f = PENTA[Math.min(PENTA.length - 1, k + 1)], pan = (k - 1.5) * 0.25;
+        note(f, { dur: 1.1, attack: 0.02, peak: 0.04, lp: 2000, pan: pan, delay: k * 0.04 });
+        note(f * 1.5, { dur: 0.9, attack: 0.03, peak: 0.016, lp: 2000, pan: pan, delay: 0.1 + k * 0.04 });
+      }
+    }).observe(panel, { attributes: true, attributeFilter: ['data-ev'] });
+    if (fault) {
+      var was = fault.getAttribute('aria-pressed') === 'true';
+      new MutationObserver(function () {
+        var now = fault.getAttribute('aria-pressed') === 'true';
+        if (now === was) return;
+        was = now;
+        if (now) { note(220, { type: 'triangle', dur: 0.8, attack: 0.01, peak: 0.04, lp: 1200 }); note(233, { type: 'triangle', dur: 0.8, attack: 0.01, peak: 0.04, lp: 1200 }); }
+        else { note(293.66, { dur: 0.8, attack: 0.03, peak: 0.04 }); note(440, { dur: 0.8, attack: 0.03, peak: 0.028, delay: 0.1 }); }
+      }).observe(fault, { attributes: true, attributeFilter: ['aria-pressed'] });
+    }
+  }
+
   // ---- Ein/Aus, Sichtbarkeit, Aufräumen ----
   function sync() {
     if (!ctx) return;
@@ -2289,7 +2931,7 @@
   });
   timers.upd = setInterval(function () { if (built && live()) updateTurbine(); }, 120);
 
-  watchCell(); watchTurbine(); watchSections(); watchDna(); watchEvolution(); watchTeilung();
+  watchCell(); watchTurbine(); watchSections(); watchDna(); watchEvolution(); watchTeilung(); watchSignale();
 })();
 </script>
 </body>
