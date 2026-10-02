@@ -1847,7 +1847,7 @@ function renderPanel() {
         src.className = 'src-note sans';
         if (sub.quelleUrl) {
           const a = document.createElement('a');
-          a.href = sub.quelleUrl; a.target = '_blank'; a.rel = 'noopener';
+          a.href = safeUrl(sub.quelleUrl); a.target = '_blank'; a.rel = 'noopener';
           a.textContent = 'Quelle: ' + sub.quelle;
           src.appendChild(a);
         } else { src.textContent = 'Quelle: ' + sub.quelle; }
@@ -1971,7 +1971,7 @@ function buildZukunftToggle(zukunft, ebene) {
   was.className = 'cf-was sans';
   if (zukunft.quelleUrl) {
     const a = document.createElement('a');
-    a.href = zukunft.quelleUrl; a.target = '_blank'; a.rel = 'noopener';
+    a.href = safeUrl(zukunft.quelleUrl); a.target = '_blank'; a.rel = 'noopener';
     a.textContent = zukunft.was;
     was.appendChild(a);
   } else { was.textContent = zukunft.was; }
@@ -2055,7 +2055,7 @@ function buildGefuege(act) {
       zahl.className = 'gef-zahl sans';
       if (t.quelleUrl) {
         const a = document.createElement('a');
-        a.href = t.quelleUrl; a.target = '_blank'; a.rel = 'noopener';
+        a.href = safeUrl(t.quelleUrl); a.target = '_blank'; a.rel = 'noopener';
         a.textContent = t.zahl;
         zahl.appendChild(a);
       } else { zahl.textContent = t.zahl; }
@@ -2132,7 +2132,7 @@ function buildChain(act) {
     zahl.className = 'chain-zahl sans';
     if (glied.quelleUrl) {
       const a = document.createElement('a');
-      a.href = glied.quelleUrl; a.target = '_blank'; a.rel = 'noopener';
+      a.href = safeUrl(glied.quelleUrl); a.target = '_blank'; a.rel = 'noopener';
       a.textContent = glied.zahl;
       zahl.appendChild(a);
     } else {
@@ -2388,6 +2388,10 @@ function exportPNG() {
   img.src = url;
 }
 
+// Links aus Daten (auch aus Paketen) nur mit http oder https setzen, sonst kein Link
+function safeUrl(u) {
+  try { const p = new URL(String(u), location.href); return (p.protocol === 'https:' || p.protocol === 'http:') ? p.href : ''; } catch (e) { return ''; }
+}
 // --- Eigene Aktivität einordnen (Claude API) --------------------------------
 
 const CUSTOM_ACCENT = '#CFA0E0';
@@ -2397,7 +2401,9 @@ const inputStatus = document.getElementById('inputStatus');
 
 // Endpoint zentral konfigurierbar: innerhalb von Claude direkt, öffentlich über eigenen Proxy.
 const CONFIG = {
-  apiEndpoint: 'https://api.anthropic.com/v1/messages',
+  // Leer: Eingaben verlassen den Browser nicht, die Einordnung läuft über die Stichwort-Heuristik unten.
+  // Ein Endpoint darf nur gesetzt werden, wenn die Datenschutzerklärung die Verbindung nennt.
+  apiEndpoint: '',
 };
 
 // Fallback ohne API: einfache Stichwort-Heuristik, damit die Seite auch ohne Backend nutzbar bleibt.
@@ -2463,6 +2469,7 @@ function classifyFallback(label) {
 }
 
 async function classifyActivity(label) {
+  if (!CONFIG.apiEndpoint) throw new Error('kein Endpoint konfiguriert');
   const systemPrompt = `Du ordnest eine Alltagsaktivität in ein 4-Ebenen-Infrastrukturmodell ein: bio (biologisch), phys (physisch), digi (digital), kult (kulturell). Kontext ist Düsseldorf.
 
 Antworte AUSSCHLIESSLICH mit validem JSON, ohne Codeblock, ohne Erklärung, in genau diesem Format:
@@ -2755,7 +2762,7 @@ function playDayChord(counts) {
       src.className = 'now-src';
       if (m.url) {
         const a = document.createElement('a');
-        a.href = m.url; a.target = '_blank'; a.rel = 'noopener';
+        a.href = safeUrl(m.url); a.target = '_blank'; a.rel = 'noopener';
         a.textContent = m.src;
         src.appendChild(a);
       } else { src.textContent = m.src; }
@@ -3173,6 +3180,8 @@ function applyLayerPack(pack) {
   const url = new URLSearchParams(location.search).get('pack');
   if (!url) return;
   try {
+    // Nur Pakete von dieser Seite selbst, keine fremden Server
+    if (new URL(url, location.href).origin !== location.origin) { console.warn('Paket von fremder Herkunft wird nicht geladen.'); return; }
     const res = await fetch(url);
     const added = applyLayerPack(await res.json());
     render();
