@@ -537,6 +537,92 @@
     .bau-svg .bau-pulse { animation: none; }
   }
 
+  /* Ausfall (.aus) */
+  .aus-seg { display: flex; justify-content: center; margin: 0 auto 14px; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
+  .aus-seg button { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 7px 18px; background: transparent; color: var(--muted); border: none; cursor: pointer; min-height: 36px; }
+  .aus-seg button[aria-pressed="true"] { background: rgba(var(--accent-rgb),0.16); color: var(--accent); }
+  .aus-panel svg { touch-action: manipulation; }
+  .aus-svg .aus-cell { fill: rgba(127,217,168,0.05); stroke: #3C9E78; stroke-width: 3; transition: stroke 0.6s ease, fill 0.6s ease; }
+  .aus-svg.city .aus-cell { fill: rgba(242,196,107,0.04); stroke: #B88A3A; stroke-dasharray: 10 7; }
+  .aus-svg .aus-grid { opacity: 0; transition: opacity 0.7s ease; }
+  .aus-svg.city .aus-grid { opacity: 0.12; }
+  .aus-svg .aus-grid path { fill: none; stroke: #F2C46B; stroke-width: 1; }
+  .aus-svg .aus-edge { fill: none; stroke: #FF8A65; stroke-width: 2.6; stroke-dasharray: 7 7; opacity: 0; transition: opacity 0.5s ease; }
+  .aus-svg .aus-edge.on { opacity: 0.85; }
+  .aus-svg .aus-arr { fill: #FF8A65; }
+  .aus-svg .aus-n .n-body { transition: filter 0.6s ease; }
+  .aus-svg .aus-n.s-low .n-body { filter: grayscale(0.9) brightness(0.62); }
+  .aus-svg .aus-n.s-out .n-body { filter: grayscale(1) brightness(0.42); }
+  .aus-svg .n-ring { fill: none; stroke: #FF8A65; stroke-width: 2.4; opacity: 0; transition: opacity 0.5s ease, stroke 0.5s ease; }
+  .aus-svg .s-out .n-ring, .aus-svg .s-jam .n-ring { opacity: 0.95; }
+  .aus-svg .s-low .n-ring { stroke: #6E7689; stroke-dasharray: 4 5; opacity: 0.8; }
+  .aus-svg .n-bar { fill: #FF8A65; opacity: 0; transition: opacity 0.5s ease; }
+  .aus-svg .s-out .n-bar { opacity: 1; }
+  .aus-svg .n-pile { transform-box: fill-box; transform-origin: 50% 100%; transition: transform 0.7s ease; }
+  .aus-svg .n-pile rect { fill: #7F675E; stroke: #0A1310; stroke-width: 1.5; transition: fill 0.5s ease; }
+  .aus-svg .s-jam .n-pile { transform: scale(1.25); }
+  .aus-svg .s-jam .n-pile rect { fill: #FF8A65; }
+  .aus-svg .n-pill rect { fill: rgba(10,19,16,0.82); stroke: #3A4A42; transition: stroke 0.4s ease; }
+  .aus-svg .n-pill text { font-family: 'IBM Plex Sans', sans-serif; font-size: 21px; fill: #E4ECE6; transition: fill 0.4s ease; }
+  .aus-svg .s-out .n-pill rect, .aus-svg .s-jam .n-pill rect { stroke: #FF8A65; }
+  .aus-svg .s-out .n-pill text, .aus-svg .s-jam .n-pill text { fill: #FF8A65; }
+  .aus-svg .s-low .n-pill text { fill: #A9AFC0; }
+  .aus-chips { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 8px; font-family: 'IBM Plex Sans', sans-serif; }
+  .aus-chips li { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; line-height: 1.3; padding: 5px 11px; border-radius: 999px; border: 1px solid rgba(var(--accent-rgb),0.35); color: var(--ink); transition: border-color 0.4s ease, color 0.4s ease; }
+  .aus-chips li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; transition: background 0.4s ease; }
+  .aus-chips li span { color: var(--dim); }
+  .aus-chips li.s-low { border-color: #6E7689; color: #A9AFC0; }
+  .aus-chips li.s-low::before { background: #6E7689; }
+  .aus-chips li.s-out, .aus-chips li.s-jam { border-color: rgba(255,138,101,0.7); }
+  .aus-chips li.s-out::before, .aus-chips li.s-jam::before { background: var(--coral); }
+  .aus-chips li.s-out span, .aus-chips li.s-jam span { color: var(--coral); }
+  .aus-sw-l { margin: 16px 0 6px; font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: var(--muted); }
+  .aus-sw { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .aus-swb { font-family: 'IBM Plex Sans', sans-serif; text-align: left; min-height: 72px; padding: 9px 12px; border-radius: 12px; border: 1px solid #3A4A42; background: transparent; color: var(--muted); cursor: pointer; display: flex; flex-direction: column; gap: 2px; line-height: 1.3; }
+  .aus-swb b { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+  .aus-swb small { font-size: 11.5px; color: var(--dim); }
+  .aus-swb i { font-style: normal; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-top: auto; padding-top: 3px; }
+  .aus-swb:hover { border-color: var(--accent); }
+  .aus-swb[aria-pressed="true"] { border-color: rgba(255,138,101,0.7); background: rgba(255,138,101,0.1); }
+  .aus-swb[aria-pressed="true"] i { color: var(--coral); }
+  .aus-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; font-family: 'IBM Plex Sans', sans-serif; }
+  .aus-ctl .btn { min-height: 40px; padding: 8px 16px; }
+  .aus-ctl .btn[hidden] { display: none; }
+  .aus-ctl .primary { border-color: var(--accent); color: var(--accent); }
+  .aus-status { margin: 12px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: var(--gold); min-height: 44px; }
+  .aus-hint { margin: 14px 0 0; padding: 12px 14px; border: 1px dashed #3A4A42; border-radius: 12px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+  .aus-hint[hidden], .aus-detail[hidden] { display: none; }
+  .aus-detail { margin-top: 14px; font-family: 'IBM Plex Sans', sans-serif; }
+  .aus-head small { display: block; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-bottom: 3px; }
+  .aus-head h3 { margin: 0; font-family: 'Fraunces', serif; font-weight: 500; font-size: 21px; }
+  .aus-steps { list-style: none; margin: 12px 0 14px; padding: 0; display: grid; gap: 8px; }
+  .aus-steps li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; font-size: 13.5px; line-height: 1.6; color: #C7CAD6; animation: ausIn 0.5s ease both; }
+  .aus-steps li b { width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; border: 1px solid #6E7689; color: #A9AFC0; margin-top: 1px; }
+  .aus-steps li:first-child b { border-color: var(--coral); color: var(--coral); }
+  @keyframes ausIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .aus-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 13.5px; line-height: 1.6; color: #C7CAD6; }
+  .aus-cols .col { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 11px 13px; border-left: 3px solid var(--accent); }
+  .aus-cols .col.city { border-left-color: var(--gold); }
+  .aus-cols .col b { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
+  .aus-cols .aha { grid-column: 1 / -1; color: var(--gold); font-size: 13.5px; margin: 0; }
+  .aus-ex { margin-top: 12px; padding: 12px 14px; border: 1px dashed #3A4A42; border-radius: 12px; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+  .aus-ex b { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
+  .aus-ex strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 2px; }
+  .aus-ex p { margin: 0; }
+  @media (max-width: 720px) { .aus-sw { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 640px) {
+    .aus-cols { grid-template-columns: 1fr; }
+    .aus-panel { padding: 8px; }
+    .aus-seg button, .aus-ctl .btn { min-height: 44px; }
+  }
+  @media (pointer: coarse) {
+    .aus-seg button, .aus-ctl .btn { min-height: 44px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .aus-svg *, .aus-swb, .aus-chips li { transition: none !important; }
+    .aus-steps li { animation: none; }
+  }
+
   /* --- Sound --- */
   .sound-toggle {
     position: fixed; top: 14px; right: 16px; z-index: 5;
@@ -596,6 +682,7 @@
     <li><a href="#stadt"><b>Die Zelle ist eine Stadt in klein</b>Eine Zelle ist organisiert wie eine kleine Stadt, als Bild gemeint. Tippe auf einen Bestandteil, um zu sehen, was dort passiert.</a></li>
     <li><a href="#kraftwerk"><b>Das Kraftwerk</b>Die Zelle macht ihre Energiewährung ATP nach dem Prinzip eines Stausees. Die Simulation ist vereinfacht.</a></li>
     <li><a href="#robust"><b>Gut genug schlägt perfekt</b>Das Leben wurde nie geplant, nur verändert. Darum gibt es Redundanz, alte Reste und Reserven, und es läuft trotzdem zuverlässig.</a></li>
+    <li><a href="#ausfall"><b>Fällt eine Stelle aus, merkt es der Rest</b>Fällt Kraftwerk, Müllabfuhr, Zoll oder Archiv aus, werden abhängige Teile in Stufen mit lahm. Krankheiten sind selten ein einzelner Ausfall, die Beispiele ersetzen keinen ärztlichen Rat.</a></li>
     <li><a href="#evolution"><b>Ohne Bauamt</b>Ohne Bauamt bleibt, was bei knapper Versorgung besteht. Niemand entwirft das Ergebnis.</a></li>
     <li><a href="#dna"><b>Der Bauplan ist digital</b>DNA schreibt mit vier Buchstaben, das sind zwei Bit pro Base. Dein Wort in DNA ist nur ein Gedankenspiel.</a></li>
     <li><a href="#teilung"><b>Eine Stadt gründet eine zweite</b>Eine Zelle kopiert erst den Bauplan, verdoppelt die Infrastruktur, sortiert und zieht zuletzt eine Grenze. Stark vereinfacht.</a></li>
@@ -782,6 +869,46 @@
       <p>Optimiert wird nichts, es muss nur reichen. Dafür hält das System auch unter chaotischen Bedingungen durch.</p>
       <p class="infra">In der Stadt: Puffer und Reserven kosten Geld und retten im Ernstfall den Betrieb.</p>
     </article>
+  </div>
+</section>
+
+<!-- 3a. Ausfall in der Zell-Stadt -->
+<section class="sec reveal" id="ausfall">
+  <h2>Fällt eine Stelle aus, merkt es der Rest.</h2>
+  <p class="lead">Redundanz fängt vieles ab, aber nicht alles. An vier Stellen hängt viel an einem einzigen Teil. Lege eines lahm und sieh, was nach und nach mit ausfällt. Du kannst auch mehrere zusammen ausschalten. Der Schalter wechselt wieder zwischen Biologie und Stadt.</p>
+  <div class="aus-seg" role="group" aria-label="Ansicht des Ausfalls">
+    <button type="button" id="ausViewBio" aria-pressed="true">Zelle</button>
+    <button type="button" id="ausViewCity" aria-pressed="false">Stadt</button>
+  </div>
+  <div class="panel aus-panel" id="ausPanel">
+    <svg id="ausSvg" class="aus-svg" viewBox="0 0 640 380" role="img" aria-labelledby="ausSvgT">
+      <title id="ausSvgT">Schema einer Zelle mit sieben Bauteilen: Zellkern, Ribosomen, Mitochondrium, Golgi-Apparat, Lysosom, Müll und Membrantor. Fällt ein Bauteil aus, werden die abhängigen Bauteile in Stufen grau.</title>
+    </svg>
+    <ul class="aus-chips" id="ausChips" aria-label="Zustand der Bauteile"></ul>
+    <div class="legend">
+      <span><i style="background:#7FD9A8"></i>Läuft</span>
+      <span><i style="background:#FF8A65"></i>Ausgefallen oder Stau</span>
+      <span><i style="background:#6E7689"></i>Gedrosselt, weil etwas davor fehlt</span>
+    </div>
+  </div>
+  <p class="aus-sw-l" id="ausSwL">Welche Stelle fällt aus?</p>
+  <div class="aus-sw" id="ausSw" role="group" aria-labelledby="ausSwL"></div>
+  <div class="aus-ctl">
+    <button type="button" class="btn primary" id="ausNext" hidden>Nächste Stufe</button>
+    <button type="button" class="btn" id="ausReset">Alles wieder herstellen</button>
+  </div>
+  <p class="aus-status" id="ausStatus" aria-live="polite"></p>
+  <p class="note">Stark vereinfacht: Echte Krankheiten sind selten ein einzelner Ausfall. Meist stecken genetische und mehrstufige Ursachen dahinter, und die Bauteile hängen in echt in viel mehr Richtungen zusammen als hier. Die Stufen sind ein Bild für Abhängigkeiten, kein Zeitplan. Die Krankheitsgruppen sind nur Beispiele, keine Diagnose und keine Heilversprechen. Kein Beispiel hier ersetzt ärztlichen Rat.</p>
+  <p class="aus-hint" id="ausHint">Noch läuft alles. Schalte oben eine Stelle aus, dann steht hier Stufe für Stufe, was daran hängt.</p>
+  <div class="aus-detail" id="ausDetail" hidden>
+    <div class="aus-head"><small id="ausEyebrow"></small><h3 id="ausTitle"></h3></div>
+    <ol class="aus-steps" id="ausSteps"></ol>
+    <div class="aus-cols">
+      <div class="col"><b>In der Zelle</b><span id="ausCell"></span></div>
+      <div class="col city"><b>In der Stadt</b><span id="ausTown"></span></div>
+      <p class="aha" id="ausAha"></p>
+    </div>
+    <div class="aus-ex"><b>Ein Beispiel aus der Medizin</b><strong id="ausExName"></strong><p id="ausExText"></p></div>
   </div>
 </section>
 
@@ -3063,6 +3190,327 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
   applyStatic(); updateText(); layout(); render(0); ui();
 })();
+
+// --- Ausfall ---
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  function q(id) { return document.getElementById(id); }
+  function mk(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  var svg = q('ausSvg'), panel = q('ausPanel');
+  if (!svg || !panel) return;
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var city = false, vis = true, evN = 0, timer = null;
+
+  // ---- Bauteile: Lage im Bild, Beschriftung [Zelle, Stadt], Größe des Rahmens [Breite, Höhe, Rundung] ----
+  var NODES = {
+    kern:  { x: 140, y: 112, lbl: ['Zellkern', 'Archiv'], ly: 62, ring: [108, 108, 54] },
+    ribo:  { x: 320, y: 92, lbl: ['Ribosomen', 'Werkstätten'], ly: 50, ring: [100, 76, 30] },
+    mito:  { x: 500, y: 122, lbl: ['Mitochondrium', 'Kraftwerk'], ly: 56, ring: [140, 84, 42] },
+    golgi: { x: 360, y: 238, lbl: ['Golgi-Apparat', 'Paketzentrum'], ly: 56, ring: [112, 84, 30] },
+    lyso:  { x: 140, y: 250, lbl: ['Lysosom', 'Recyclinghof'], ly: 52, ring: [88, 88, 44] },
+    muell: { x: 252, y: 322, lbl: ['Müll', 'Müll'], ly: 36, ring: [92, 66, 22] },
+    zoll:  { x: 612, y: 232, lbl: ['Membrantor', 'Zoll'], ly: 0, ring: [50, 124, 16] }
+  };
+  var ORDER = ['kern', 'ribo', 'mito', 'golgi', 'lyso', 'muell', 'zoll'];
+
+  // ---- Ausfälle: Startpunkt, Stufen (Pfeile von, nach), Texte [Zelle, Stadt] ----
+  var SW = ['kraft', 'abfuhr', 'zoll', 'archiv'];
+  var LINK = ' Dieselbe Logik für Düsseldorf: <a href="index.html#belonging">Du gehörst dazu</a>, wo eine Leitung die nächsten mitreißt.';
+  var DEF = {
+    kraft: {
+      src: 'mito',
+      lbl: ['Mitochondrien aus', 'Stromausfall'], sub: ['Das Kraftwerk der Zelle', 'Das Kraftwerk steht still'],
+      title: ['Die Mitochondrien fallen aus', 'Stromausfall im Kraftwerk'],
+      st: [
+        { e: [], t: ['Die Mitochondrien liefern kein ATP mehr, die Energiewährung der Zelle.', 'Das Kraftwerk liefert keinen Strom mehr.'] },
+        { e: [['mito', 'zoll'], ['mito', 'ribo']], t: ['Zoll und Ribosomen verlieren Energie. Die Pumpen an der Membran und der Eiweißbau brauchen ATP.', 'Zoll und Werkstätten verlieren Strom. Die Tore und die Maschinen stehen.'] },
+        { e: [['ribo', 'golgi']], t: ['Die Produktion stockt. Der Golgi-Apparat bekommt keine neuen Eiweiße zum Verpacken.', 'Die Produktion stockt. Das Paketzentrum bekommt keine Ware mehr.'] },
+        { e: [['golgi', 'lyso'], ['golgi', 'muell']], t: ['Der Müll staut sich. Auch das Lysosom braucht Energie, und Abfälle werden nicht mehr abgeführt.', 'Der Müll staut sich. Auch der Recyclinghof fährt ohne Strom nicht mehr.'] }
+      ],
+      cell: 'Mitochondrien machen den größten Teil des ATP. Fehlt es, bleiben Pumpen, Eiweißbau und Reparaturen ohne Antrieb.',
+      town: 'Das Kraftwerk liefert den Strom für die ganze Stadt. Steht es still, laufen Pumpen und Maschinen nicht mehr, auch wenn sonst alles heil ist.',
+      aha: 'Wer ganz unten in der Kette liegt, reißt am meisten mit.',
+      ex: ['Mitochondriopathien', 'Eine Gruppe seltener, meist genetisch bedingter Erkrankungen, bei denen die Energiegewinnung in den Mitochondrien gestört ist. Betroffen sind oft Organe mit hohem Energiebedarf, etwa Muskeln, Nerven, Herz und Gehirn. Verlauf und Schwere sind sehr verschieden.']
+    },
+    abfuhr: {
+      src: 'lyso',
+      lbl: ['Lysosom aus', 'Müllstreik'], sub: ['Der Recyclinghof der Zelle', 'Die Müllabfuhr bleibt stehen'],
+      title: ['Das Lysosom fällt aus', 'Müllstreik'],
+      st: [
+        { e: [], t: ['Das Lysosom zerlegt nichts mehr. Altes und Defektes bleibt liegen.', 'Die Müllabfuhr kommt nicht mehr, der Recyclinghof bleibt zu.'] },
+        { e: [['lyso', 'muell'], ['lyso', 'ribo']], t: ['Der Zellmüll bleibt liegen. Zugleich kommen keine Bausteine zurück, die Ribosomen haben weniger Material.', 'Der Müll bleibt liegen. Die Werkstätten bekommen kein Recycling-Material mehr.'] },
+        { e: [['ribo', 'mito']], t: ['Alte Mitochondrien werden nicht mehr aussortiert. Das Kraftwerk arbeitet schlechter.', 'Alte Kraftwerksblöcke werden nicht abgebaut. Das Kraftwerk leistet weniger.'] },
+        { e: [['mito', 'zoll'], ['mito', 'golgi']], t: ['Mit weniger Energie arbeiten auch Zoll und Golgi-Apparat langsamer. Die Zelle wird träge.', 'Mit weniger Strom arbeiten auch Zoll und Paketzentrum langsamer. Die Stadt wird träge.'] }
+      ],
+      cell: 'Im Lysosom werden Altes und Defektes in Bausteine zerlegt. Fällt es aus, bleibt der Abfall liegen, und die Bausteine kommen nicht zurück.',
+      town: 'Die Müllabfuhr holt ab, was die Stadt nicht mehr braucht, und der Recyclinghof macht daraus wieder Rohstoff. Beim Streik bleibt beides liegen.',
+      aha: 'Ein Müllstreik tut anfangs nicht weh. Der Stau wächst leise, und irgendwann fehlt etwas anderes.',
+      ex: ['Lysosomale Speicherkrankheiten', 'Eine Gruppe seltener, meist erblicher Erkrankungen, zum Beispiel Morbus Gaucher, Morbus Fabry oder Morbus Pompe. Bei jeder fehlt oder wirkt ein bestimmtes Enzym im Lysosom nicht richtig, und ein bestimmtes Material häuft sich in den Zellen an. Ob und wie behandelt wird, hängt von der Form ab und gehört in ärztliche Hände.']
+    },
+    zoll: {
+      src: 'zoll',
+      lbl: ['Membrantransport aus', 'Zoll geschlossen'], sub: ['Das Tor in der Zellmembran', 'Das Stadttor bleibt zu'],
+      title: ['Der Membrantransport fällt aus', 'Der Zoll ist geschlossen'],
+      st: [
+        { e: [], t: ['Die Tore in der Membran lassen nichts mehr durch. Es kommt nichts herein und nichts hinaus.', 'Das Stadttor bleibt zu. Es kommt nichts herein und nichts hinaus.'] },
+        { e: [['zoll', 'mito'], ['zoll', 'golgi']], t: ['Nachschub kommt nicht an, der Versand ist blockiert. Mitochondrien und Golgi-Apparat spüren es zuerst.', 'Keine Lieferung kommt an, keine fährt hinaus. Kraftwerk und Paketzentrum spüren es zuerst.'] },
+        { e: [['golgi', 'ribo'], ['golgi', 'muell']], t: ['Den Ribosomen fehlt Rohstoff, und Abfälle kommen nicht hinaus. Der Müll beginnt sich zu stauen.', 'Den Werkstätten fehlt Material, und der Abfall kommt nicht aus der Stadt. Der Müll beginnt sich zu stauen.'] },
+        { e: [['zoll', 'kern']], t: ['Signale von außen erreichen den Kern nicht mehr. Er bekommt keine Aufträge.', 'Aufträge von außen erreichen das Archiv nicht mehr. Es weiß nicht, was gebraucht wird.'] }
+      ],
+      cell: 'Kanäle und Pumpen in der Membran lassen gezielt Stoffe herein und heraus. Fällt ein Transporter aus, stimmt die Bilanz zwischen innen und außen nicht mehr.',
+      town: 'Der Zoll entscheidet, was in die Stadt darf und was sie verlässt. Bleibt das Tor zu, kommt nichts an und nichts hinaus.',
+      aha: 'Innen ist nichts kaputt, und trotzdem läuft alles ins Leere. Eine Kette ist nur so stark wie ihr Tor.',
+      ex: ['Mukoviszidose', 'Eine erbliche Erkrankung, bei der ein Kanal für Chlorid in der Zellmembran nicht richtig arbeitet. Salz- und Wassertransport sind gestört, der Schleim wird zäh, vor allem in Lunge und Verdauung. Hier fällt nicht der ganze Zoll aus, sondern ein einzelnes Tor.']
+    },
+    archiv: {
+      src: 'kern',
+      lbl: ['Zellkern gestört', 'Archiv unlesbar'], sub: ['Der Bauplan ist nicht lesbar', 'Die Pläne sind unleserlich'],
+      title: ['Der Zellkern ist gestört', 'Das Archiv ist unlesbar'],
+      st: [
+        { e: [], t: ['Der Bauplan im Kern lässt sich nicht mehr richtig lesen oder ist beschädigt.', 'Die Pläne im Archiv sind nicht mehr lesbar.'] },
+        { e: [['kern', 'ribo']], t: ['Die Ribosomen bekommen keine neuen Abschriften. Sie arbeiten mit dem Vorrat weiter.', 'Die Werkstätten bekommen keine neuen Baupläne. Sie arbeiten mit dem Vorrat weiter.'] },
+        { e: [['kern', 'zoll'], ['kern', 'lyso'], ['kern', 'golgi']], t: ['Ersatz fehlt: neue Kanäle für den Zoll, neue Enzyme fürs Lysosom, neue Teile für den Golgi-Apparat.', 'Ersatz fehlt: neue Tore für den Zoll, neue Geräte für den Recyclinghof, neue Teile fürs Paketzentrum.'] },
+        { e: [['ribo', 'mito'], ['golgi', 'muell']], t: ['Auch das Kraftwerk altert, denn viele seiner Bauteile stammen aus dem Plan im Kern. Der Müll wächst.', 'Auch das Kraftwerk verschleißt ohne Ersatzteile. Der Müll wächst.'] }
+      ],
+      cell: 'Im Kern liegt der Bauplan. Ist er nicht lesbar oder beschädigt, entstehen keine richtigen Abschriften, und Ersatzteile lassen sich nicht nachbauen.',
+      town: 'Das Archiv hält die Pläne für alles, was die Stadt baut. Sind sie unleserlich, kann niemand mehr nachbauen oder reparieren.',
+      aha: 'Dieser Ausfall fällt zuletzt auf. Die Stadt lebt erst vom Vorrat und merkt es, wenn Ersatz nötig wird.',
+      ex: ['Defekte der DNA-Reparatur und der Kernhülle', 'Zwei verschiedene Gruppen seltener Erkrankungen. Bei Xeroderma pigmentosum werden UV-Schäden an der DNA schlecht repariert, bei Laminopathien ist die Kernhülle gestört. Die Ursachen sind genetisch, und die Krankheitsbilder unterscheiden sich stark.']
+    }
+  };
+  var on = {}, prog = {}, order = [];
+  SW.forEach(function (k) { on[k] = false; prog[k] = 0; });
+
+  // ---- Zeichnen ----
+  var defs = mk('defs', {}, svg);
+  var mkr = mk('marker', { id: 'ausArr', viewBox: '0 0 10 10', refX: 8, refY: 5, markerWidth: 6, markerHeight: 6, orient: 'auto' }, defs);
+  mk('path', { d: 'M0 0 L10 5 L0 10 z', 'class': 'aus-arr' }, mkr);
+  var grid = mk('g', { 'class': 'aus-grid' }, svg);
+  for (var gx = 60; gx < 620; gx += 50) mk('path', { d: 'M' + gx + ' 30 V350' }, grid);
+  for (var gy = 60; gy < 350; gy += 50) mk('path', { d: 'M30 ' + gy + ' H610' }, grid);
+  mk('path', { 'class': 'aus-cell', d: 'M130 28 H520 Q612 28 612 120 V270 Q612 352 520 352 H130 Q28 352 28 270 V110 Q28 28 130 28 Z' }, svg);
+
+  // Pfeile zuerst, damit die Bauteile darüber liegen
+  var TRIM = { kern: 50, ribo: 44, mito: 62, golgi: 52, lyso: 44, muell: 34, zoll: 34 };
+  var edgeEls = {};
+  SW.forEach(function (k) {
+    DEF[k].st.forEach(function (s) {
+      s.e.forEach(function (p) {
+        var id = p[0] + '>' + p[1];
+        if (edgeEls[id]) return;
+        var a = NODES[p[0]], b = NODES[p[1]], dx = b.x - a.x, dy = b.y - a.y, d = Math.sqrt(dx * dx + dy * dy);
+        var t0 = TRIM[p[0]], t1 = TRIM[p[1]] + 4;
+        edgeEls[id] = mk('path', { 'class': 'aus-edge', 'marker-end': 'url(#ausArr)',
+          d: 'M' + (a.x + dx / d * t0).toFixed(1) + ' ' + (a.y + dy / d * t0).toFixed(1) + ' L' + (b.x - dx / d * t1).toFixed(1) + ' ' + (b.y - dy / d * t1).toFixed(1) }, svg);
+      });
+    });
+  });
+
+  var nodeEls = {}, textEls = {}, rectEls = {};
+  var BODY = {
+    kern: function (g) {
+      mk('circle', { r: 40, fill: '#2D2750', stroke: '#B39DDB', 'stroke-width': 3 }, g);
+      mk('circle', { cx: -9, cy: -5, r: 13, fill: '#B39DDB', 'fill-opacity': 0.55 }, g);
+      [[14, 10], [20, -12], [6, 22]].forEach(function (p) { mk('circle', { cx: p[0], cy: p[1], r: 3.5, fill: '#B39DDB', 'fill-opacity': 0.8 }, g); });
+    },
+    ribo: function (g) {
+      [[-26, -8], [-8, -16], [10, -6], [-14, 8], [6, 14], [26, 6]].forEach(function (p) { mk('circle', { cx: p[0], cy: p[1], r: 7.5, fill: '#9EDDBB', stroke: '#0A1310', 'stroke-width': 1.5 }, g); });
+    },
+    mito: function (g) {
+      mk('ellipse', { rx: 56, ry: 30, fill: '#4A3A14', stroke: '#F2C46B', 'stroke-width': 3 }, g);
+      mk('path', { d: 'M-34 -20 V6 M-18 20 V-6 M-2 -22 V6 M14 22 V-6 M30 -18 V8', fill: 'none', stroke: '#F2C46B', 'stroke-width': 3, 'stroke-linecap': 'round', opacity: 0.7 }, g);
+    },
+    golgi: function (g) {
+      [-26, -9, 8, 25].forEach(function (y, i) { mk('path', { d: 'M-46 ' + (y + 6) + ' Q0 ' + (y - 14) + ' 46 ' + (y + 6), fill: 'none', stroke: '#7FDDF0', 'stroke-width': 7, 'stroke-linecap': 'round', opacity: 1 - i * 0.12 }, g); });
+    },
+    lyso: function (g) {
+      mk('circle', { r: 30, fill: '#4A2A20', stroke: '#FF8A65', 'stroke-width': 3 }, g);
+      [[-10, -7], [8, -10], [5, 10], [-9, 11]].forEach(function (p) { mk('circle', { cx: p[0], cy: p[1], r: 4.5, fill: '#FF8A65', 'fill-opacity': 0.7 }, g); });
+    },
+    muell: function (g) {
+      var pile = mk('g', { 'class': 'n-pile' }, g);
+      [[-22, 6, -8], [-4, 10, 6], [16, 6, -4], [-12, -8, 10], [6, -6, -12], [-2, -20, 4], [20, -8, 14]].forEach(function (p) {
+        mk('rect', { x: p[0] - 8, y: p[1] - 8, width: 16, height: 16, rx: 3, transform: 'rotate(' + p[2] + ' ' + p[0] + ' ' + p[1] + ')' }, pile);
+      });
+    },
+    zoll: function (g) {
+      mk('rect', { x: -12, y: -52, width: 24, height: 36, rx: 5, fill: '#2F6F55', stroke: '#7FD9A8', 'stroke-width': 2.5 }, g);
+      mk('rect', { x: -12, y: 16, width: 24, height: 36, rx: 5, fill: '#2F6F55', stroke: '#7FD9A8', 'stroke-width': 2.5 }, g);
+    }
+  };
+  ORDER.forEach(function (n) {
+    var d = NODES[n], g = mk('g', { 'class': 'aus-n s-ok', transform: 'translate(' + d.x + ' ' + d.y + ')' }, svg);
+    var body = mk('g', { 'class': 'n-body' }, g);
+    BODY[n](body);
+    if (n === 'zoll') mk('rect', { 'class': 'n-bar', x: -17, y: -16, width: 34, height: 32, rx: 4 }, g);
+    mk('rect', { 'class': 'n-ring', x: -d.ring[0] / 2, y: -d.ring[1] / 2, width: d.ring[0], height: d.ring[1], rx: d.ring[2] }, g);
+    var lx = n === 'zoll' ? -64 : 0, ly = n === 'zoll' ? 88 : d.ly;
+    var pill = mk('g', { 'class': 'n-pill', transform: 'translate(' + lx + ' ' + ly + ')' }, g);
+    rectEls[n] = mk('rect', { rx: 15, height: 30, y: -21 }, pill);
+    textEls[n] = mk('text', { 'text-anchor': 'middle', y: 1 }, pill);
+    nodeEls[n] = g;
+  });
+
+  function fit() {
+    ORDER.forEach(function (n) {
+      var t = textEls[n], w = 100;
+      try { w = t.getComputedTextLength(); } catch (e) {}
+      rectEls[n].setAttribute('x', -(w / 2 + 12)); rectEls[n].setAttribute('width', w + 24);
+    });
+  }
+  function labels() {
+    var c = city ? 1 : 0;
+    ORDER.forEach(function (n) { textEls[n].textContent = NODES[n].lbl[c]; });
+    svg.classList.toggle('city', city);
+    q('ausViewBio').setAttribute('aria-pressed', String(!city));
+    q('ausViewCity').setAttribute('aria-pressed', String(city));
+    fit();
+  }
+
+  // ---- Schalter und Zustandsleiste ----
+  var swEl = q('ausSw'), chipsEl = q('ausChips'), swBtns = {}, chipEls = {}, swTag = {};
+  SW.forEach(function (k) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'aus-swb'; b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = '<b></b><small></small><i></i>';
+    swEl.appendChild(b); swBtns[k] = b;
+    b.addEventListener('click', function () { toggle(k); });
+  });
+  ORDER.forEach(function (n) {
+    var li = document.createElement('li'); li.innerHTML = '<em style="font-style:normal"></em><span></span>';
+    chipsEl.appendChild(li); chipEls[n] = li;
+  });
+
+  function emit(type, k) { evN++; panel.setAttribute('data-ev', type + ':' + k + ':' + evN); }
+  function ci() { return city ? 1 : 0; }
+  function maxStage(k) { return DEF[k].st.length - 1; }
+  function pending() { return order.some(function (k) { return prog[k] < maxStage(k); }); }
+
+  // Zustand je Bauteil aus allen aktiven Ausfällen
+  function states() {
+    var s = {};
+    ORDER.forEach(function (n) { s[n] = 'ok'; });
+    order.forEach(function (k) {
+      for (var i = 1; i <= prog[k]; i++) DEF[k].st[i].e.forEach(function (p) {
+        if (p[1] === 'muell') s.muell = 'jam';
+        else if (s[p[1]] === 'ok') s[p[1]] = 'low';
+      });
+    });
+    order.forEach(function (k) { s[DEF[k].src] = 'out'; });
+    return s;
+  }
+  function stateText(n, st) {
+    if (st === 'out') return 'ausgefallen';
+    if (st === 'jam') return 'Stau';
+    if (st === 'low') return 'gedrosselt';
+    return n === 'muell' ? 'kein Stau' : 'läuft';
+  }
+
+  function render() {
+    var st = states(), c = ci(), lit = {};
+    ORDER.forEach(function (n) {
+      nodeEls[n].setAttribute('class', 'aus-n s-' + st[n]);
+      var li = chipEls[n];
+      li.className = 's-' + st[n];
+      li.firstChild.textContent = NODES[n].lbl[c];
+      li.lastChild.textContent = stateText(n, st[n]);
+    });
+    order.forEach(function (k) {
+      for (var i = 1; i <= prog[k]; i++) DEF[k].st[i].e.forEach(function (p) { lit[p[0] + '>' + p[1]] = true; });
+    });
+    Object.keys(edgeEls).forEach(function (id) { edgeEls[id].setAttribute('class', 'aus-edge' + (lit[id] ? ' on' : '')); });
+    SW.forEach(function (k) {
+      var b = swBtns[k], d = DEF[k];
+      b.setAttribute('aria-pressed', String(on[k]));
+      b.querySelector('b').textContent = d.lbl[c];
+      b.querySelector('small').textContent = d.sub[c];
+      b.querySelector('i').textContent = on[k] ? (c ? 'steht still' : 'ausgefallen') : 'läuft';
+    });
+    var f = order.length ? order[order.length - 1] : null;
+    q('ausDetail').hidden = !f; q('ausHint').hidden = !!f;
+    if (f) {
+      var d = DEF[f], steps = q('ausSteps'), have = steps.children.length;
+      q('ausEyebrow').textContent = prog[f] === 0 ? 'Ausgefallen' : 'Stufe ' + prog[f] + ' von ' + maxStage(f);
+      q('ausTitle').textContent = d.title[c];
+      if (steps.getAttribute('data-k') !== f + (c ? 'c' : 'b') || have > prog[f] + 1) { steps.innerHTML = ''; have = 0; steps.setAttribute('data-k', f + (c ? 'c' : 'b')); }
+      for (var i = have; i <= prog[f]; i++) {
+        var li = document.createElement('li');
+        li.innerHTML = '<b></b><span></span>';
+        li.firstChild.textContent = i; li.lastChild.textContent = d.st[i].t[c];
+        if (reduce || have === 0 && i < prog[f]) li.style.animation = 'none';
+        steps.appendChild(li);
+      }
+      q('ausCell').textContent = d.cell; q('ausTown').textContent = d.town;
+      q('ausAha').innerHTML = d.aha + LINK;
+      q('ausExName').textContent = d.ex[0]; q('ausExText').textContent = d.ex[1];
+    }
+    q('ausNext').hidden = !(reduce && pending());
+  }
+  function say(t) { q('ausStatus').textContent = t; }
+
+  // ---- Ablauf ----
+  function advance() {
+    var out = [];
+    order.slice().forEach(function (k) {
+      if (prog[k] >= maxStage(k)) return;
+      prog[k]++;
+      out.push((order.length > 1 ? DEF[k].title[ci()] + ', ' : '') + 'Stufe ' + prog[k] + ' von ' + maxStage(k) + ': ' + DEF[k].st[prog[k]].t[ci()]);
+      emit('stage', prog[k]);
+    });
+    if (out.length) say(out.join(' '));
+    render();
+  }
+  function schedule() {
+    clearTimeout(timer); timer = null;
+    if (reduce || !pending()) return;
+    timer = setTimeout(function () {
+      timer = null;
+      if (!vis || document.hidden) return;   // außerhalb des Bildschirms ruht die Kaskade
+      advance(); schedule();
+    }, 1500);
+  }
+  function toggle(k) {
+    var c = ci();
+    if (!on[k]) {
+      on[k] = true; prog[k] = 0; order.push(k);
+      say(DEF[k].title[c] + ': ' + DEF[k].st[0].t[c] + (reduce ? ' Mit „Nächste Stufe“ siehst du die Folgen.' : ' Die Folgen kommen Stufe für Stufe.'));
+      emit('on', SW.indexOf(k));
+    } else {
+      on[k] = false; prog[k] = 0; order = order.filter(function (x) { return x !== k; });
+      say(DEF[k].lbl[c] + ' ist wieder in Ordnung. ' + (order.length ? 'Die anderen Ausfälle bleiben bestehen.' : 'Alles läuft.'));
+      emit('off', SW.indexOf(k));
+    }
+    render(); schedule();
+  }
+  q('ausNext').addEventListener('click', function () {
+    advance();
+    if (!pending()) q('ausReset').focus();
+  });
+  q('ausReset').addEventListener('click', function () {
+    var any = order.length > 0;
+    SW.forEach(function (k) { on[k] = false; prog[k] = 0; });
+    order = []; clearTimeout(timer); timer = null;
+    say(any ? 'Alles ist wieder hergestellt. Jedes Bauteil läuft.' : 'Es war nichts ausgefallen. Alles läuft.');
+    emit('reset', 0); render();
+  });
+  q('ausViewBio').addEventListener('click', function () { city = false; labels(); render(); });
+  q('ausViewCity').addEventListener('click', function () { city = true; labels(); render(); });
+
+  // Sichtbarkeit: außerhalb des Bildschirms oder im Hintergrund-Tab ruht die Kaskade
+  function wake() { if (vis && !document.hidden) schedule(); }
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; wake(); }, { threshold: 0.05 }).observe(panel);
+  }
+  document.addEventListener('visibilitychange', wake);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  labels(); render();
+})();
 </script>
 <script>
 // --- Sound ---
@@ -3166,7 +3614,7 @@
     n.connect(nf); nf.connect(ng); ng.connect(out); n.start(); nl.start();
     bed = { filters: filters, out: out };
   }
-  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, teilung: 540, signale: 580, bauamt: 560 };
+  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, teilung: 540, signale: 580, bauamt: 560, ausfall: 540 };
   function updateBed() {
     if (!bed) return;
     var base = (BED_BRIGHT[section] || 500) + (zoomed ? 140 : 0) + (cityMode ? 90 : 0), t = ctx.currentTime;
@@ -3291,7 +3739,7 @@
       if (next !== section) { section = next; updateBed(); }
     }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
     var h = document.querySelector('.hero'); if (h) io.observe(h);
-    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'teilung', 'bauamt', 'signale'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
+    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'teilung', 'bauamt', 'ausfall', 'signale'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
   }
   var BASE_TONE = { A: 293.66, C: 369.99, G: 440.0, T: 493.88 }, BASE_ORDER = ['A', 'C', 'G', 'T'];
   function watchDna() {
@@ -3422,6 +3870,30 @@
     }
   }
 
+  // ---- Ausfall: Schalter, Kaskadenstufen, Wiederherstellen ----
+  function watchAusfall() {
+    var panel = $('ausPanel');
+    if (!panel) return;
+    var BASE = [110, 130.81, 164.81, 196];
+    new MutationObserver(function () {
+      var v = (panel.getAttribute('data-ev') || '').split(':');
+      if (v.length < 3 || !live()) return;
+      var type = v[0], k = parseInt(v[1], 10) || 0;
+      if (type === 'on') {
+        var b = BASE[Math.min(3, k)];
+        note(b * 2, { type: 'triangle', dur: 1.0, attack: 0.01, peak: 0.05, to: b, lp: 900 });
+        note(b, { dur: 1.1, attack: 0.01, peak: 0.05, to: b * 0.7 });
+      } else if (type === 'stage') {
+        note(Math.max(150, 380 - k * 55), { type: 'triangle', dur: 0.6, attack: 0.01, peak: 0.03, to: 130, lp: 1100 });
+      } else if (type === 'off') {
+        note(293.66, { dur: 0.8, attack: 0.03, peak: 0.04 });
+        note(440, { dur: 0.8, attack: 0.03, peak: 0.028, delay: 0.1 });
+      } else if (type === 'reset') {
+        [0, 2, 4].forEach(function (i) { note(PENTA[i], { dur: 1.0, attack: 0.02, peak: 0.035, delay: i * 0.07, lp: 2000, pan: (i - 2) * 0.12 }); });
+      }
+    }).observe(panel, { attributes: true, attributeFilter: ['data-ev'] });
+  }
+
   // ---- Ein/Aus, Sichtbarkeit, Aufräumen ----
   function sync() {
     if (!ctx) return;
@@ -3485,7 +3957,7 @@
   });
   timers.upd = setInterval(function () { if (built && live()) updateTurbine(); }, 120);
 
-  watchCell(); watchTurbine(); watchSections(); watchDna(); watchEvolution(); watchTeilung(); watchBauamt(); watchSignale();
+  watchCell(); watchTurbine(); watchSections(); watchDna(); watchEvolution(); watchTeilung(); watchBauamt(); watchSignale(); watchAusfall();
 })();
 </script>
 </body>

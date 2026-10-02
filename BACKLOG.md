@@ -16,7 +16,6 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 ## Offen, Priorität hoch
 
 1. **Teilen, Rest.** Meta und Vorschaubilder sind erledigt (#19). Offen: Link-kopieren-Symbol an den Überschriften (Tastatur, Rückmeldung \"Link kopiert\") und `scroll-margin-top` für Anker. Aufwand S.
-2. **Ausfall in der Zell-Stadt.** Vier Schalter (Kraftwerk, Müllabfuhr, Zoll, Archiv), abhängige Bauteile fallen in Stufen aus, je ein Beispiel einer realen Krankheitsgruppe. Brücke zur Ausfall-Logik der Düsseldorf-Seite. Hinweis: Krankheiten sind selten ein einzelner Ausfall, kein Ersatz für ärztlichen Rat. Aufwand M.
 
 ## Offen, Priorität mittel
 
@@ -50,6 +49,8 @@ Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn z
 10. **Bauamt-Abschnitt (#23): Reihenfolge und Titel.** Der Abschnitt steht nach der Teilung und vor den Signalen, Titel "Ein Bauamt gibt es nicht, geprüft wird trotzdem." Alternative wäre ein ruhigerer Titel. Annahme: bleibt.
 11. **Evolutionsabschnitt heißt weiter "Ohne Bauamt: Was sich bewährt, bleibt."** Stimmig (kein Entwerfer), kollidiert aber leicht mit dem Bauamt als Bild im neuen Abschnitt. Annahme: bleibt.
 12. **Krebs-Ausblick im Bauamt-Abschnitt** steht nur im Ergebnisblock und in der Notiz, bewusst nüchtern. Soll er sichtbarer sein? Annahme: bleibt.
+13. **Ausfall-Abschnitt: Platzierung und Stadtansicht.** Der Abschnitt steht nach "Gut genug schlägt perfekt" (Redundanz, dann ihre Grenzen) und vor der Evolution. In der Stadtansicht ändern sich Beschriftungen, Rand und Raster, die Bauteile bleiben Zellbilder. Annahme: bleibt.
+14. **Krankheitsbeispiele im Ausfall-Abschnitt.** Mitochondriopathien, lysosomale Speicherkrankheiten, Mukoviszidose, DNA-Reparatur und Kernhülle, bewusst nüchtern. Bitte inhaltlich gegenlesen. Annahme: bleibt.
 
 ## Erledigt
 
@@ -62,4 +63,5 @@ Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn z
 - Ton für Evolution und Teilung (#14)
 - Prüfskript (#16), Signale (#17), Roter Faden (#18), Teilen und Vorschaubilder (#19)
 - Bauamt mit Kontrollpunkten (#23)
+- Ausfall in der Zell-Stadt (Abschnitt nach "Gut genug schlägt perfekt")
 - Barrierefreiheit (#21): Kontraste, Skip-Link, Tastatur, Tippflächen, Reduced Motion, Fallbacks, Skripte `tests/kontrast.mjs` und `tests/tastatur.mjs`
