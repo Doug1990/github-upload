@@ -133,6 +133,14 @@
   .cellsvg .pore { transition: stroke 0.6s ease; } .cellsvg.city .pore { stroke: #F2C46B; }
   .livecap { margin: 10px 0 0; font-size: 13px; color: var(--gold); line-height: 1.55; min-height: 40px; }
 
+  /* Touch: Tippflächen mindestens 44 px */
+  @media (pointer: coarse), (max-width: 640px) {
+    .seg button { min-height: 44px; padding: 0 22px; }
+    .btn { min-height: 44px; }
+    .topnav { top: 6px; }
+    .topnav a, .hero-cta, a.next { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; }
+  }
+
   /* Turbine */
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0 0; }
   .stat { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 9px 12px; font-family: 'IBM Plex Sans', sans-serif; }
@@ -494,8 +502,8 @@
     ribosom: { cx: 440, cy: 270, w: 330 }, golgi: { cx: 400, cy: 400, w: 280 }, lyso: { cx: 215, cy: 395, w: 220 }
   };
   var LABELS = [
-    { part: 'kern', x: 285, y: 352 }, { part: 'mito', x: 590, y: 108 }, { part: 'ribosom', x: 500, y: 322 },
-    { part: 'golgi', x: 400, y: 456 }, { part: 'lyso', x: 210, y: 448 }, { part: 'membran', x: 118, y: 92 }
+    { below: true, part: 'kern', x: 285, y: 352 }, { part: 'mito', x: 590, y: 108 }, { below: true, part: 'ribosom', x: 462, y: 322 },
+    { below: true, part: 'golgi', x: 400, y: 456 }, { below: true, part: 'lyso', x: 210, y: 448 }, { part: 'membran', x: 118, y: 92 }
   ];
   var csvg = $('csvg'), memPath = $('memPath');
   var city = false, curPart = 'mito', zoomed = false;
@@ -567,15 +575,18 @@
     var g = el('g', { 'class': 'lblg' }, $('labels'));
     var rect = el('rect', { rx: 11, height: 22, y: -16, fill: 'rgba(10,19,16,0.78)', stroke: PARTS[l.part].color, 'stroke-width': 1, 'stroke-opacity': 0.7 }, g);
     var t = el('text', { 'class': 'lbl', 'text-anchor': 'middle' }, g);
-    return { g: g, rect: rect, t: t, x: l.x, y: l.y, part: l.part };
+    return { g: g, rect: rect, t: t, x: l.x, y: l.y, part: l.part, below: !!l.below };
   });
   var vb = { x: 0, y: 0, w: 800, h: 520 };
   function applyVB() {
     csvg.setAttribute('viewBox', vb.x.toFixed(1) + ' ' + vb.y.toFixed(1) + ' ' + vb.w.toFixed(1) + ' ' + vb.h.toFixed(1));
-    var s = vb.w / 800;
+    // Schrift auf dem Bildschirm mindestens 10,5 px, auf großen Flächen wie bisher 15 px
+    var cw = csvg.clientWidth || 800, s = (vb.w / cw) * Math.max(10.5, 15 * cw / 800) / 15;
     lblObjs.forEach(function (o) {
       // Beim Zoom wandert das Label des gewählten Teils an den unteren Bildrand, damit es im Bild bleibt
       var pin = zoomed && o.part === curPart, x = pin ? vb.x + vb.w / 2 : o.x, y = pin ? vb.y + vb.h - 14 * s : o.y;
+      // Labels unter einem Teil: Oberkante der Pille bleibt, wenn die Schrift größer skaliert wird
+      if (!pin && o.below) y += 16 * s - 16;
       o.g.setAttribute('transform', 'translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ') scale(' + s.toFixed(3) + ')');
     });
   }
@@ -738,6 +749,7 @@
   $('viewBio').addEventListener('click', function () { setView(false); });
   $('viewCity').addEventListener('click', function () { setView(true); });
   renderLabels(); renderInfo(); applyVB();
+  if ('ResizeObserver' in window) new ResizeObserver(applyVB).observe(csvg);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(renderLabels);
 
   // --- 2. Turbine ---
