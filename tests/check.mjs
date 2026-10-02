@@ -69,6 +69,7 @@ for (const page of pages) {
       if (m.method === 'Runtime.consoleAPICalled' && m.params.type === 'error') err(page, w, 'Konsolenfehler: ' + m.params.args.map((a) => a.value ?? a.description).join(' ').slice(0, 160));
       if (m.method === 'Log.entryAdded' && m.params.entry.level === 'error' && !/favicon\.ico/.test(m.params.entry.url || '')) err(page, w, `Ladefehler: ${m.params.entry.text} ${m.params.entry.url || ''}`.slice(0, 200));
       if (m.method === 'Network.loadingFailed' && !m.params.canceled) err(page, w, 'Request fehlgeschlagen: ' + m.params.errorText);
+      if (m.method === 'Network.requestWillBeSent' && /^https?:/.test(m.params.request.url) && !m.params.request.url.startsWith(BASE) && m.params.type !== 'Document') err(page, w, 'Request an fremde Herkunft: ' + m.params.request.url.slice(0, 120));
     }
     const r = await ev(`(()=>{
       const sel=e=>e.tagName.toLowerCase()+(e.id?'#'+e.id:'')+(e.className&&typeof e.className==='string'?'.'+e.className.trim().split(/\\s+/).slice(0,2).join('.'):'');
