@@ -181,6 +181,20 @@
   @media (pointer: coarse), (max-width: 640px) {
     .topnav a, .site-footer a { display: inline-flex; align-items: center; min-height: 44px; }
   }
+  /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
+  .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
+  .hinkt summary { list-style: none; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 14px; cursor: pointer; border: 1px dashed rgba(242,196,107,0.5); border-radius: 10px; background: rgba(242,196,107,0.06); color: #F2C46B; font-size: 13px; line-height: 1.4; }
+  .hinkt summary::-webkit-details-marker { display: none; }
+  .hinkt summary::after { content: ""; flex: none; margin-left: auto; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); }
+  .hinkt[open] > summary::after { transform: rotate(-135deg); }
+  .hinkt summary:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
+  .hinkt-band { flex: none; width: 22px; height: 12px; border-radius: 2px; border: 1px solid rgba(242,196,107,0.75); background: repeating-linear-gradient(135deg, #F2C46B 0 4px, #1A1A14 4px 8px); }
+  .hinkt-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .hinkt-body { padding: 12px 14px 4px; font-size: 13px; line-height: 1.65; color: #C7CAD6; overflow-wrap: break-word; }
+  .hinkt-body p { margin: 0 0 10px; }
+  .hinkt-body .hinkt-frage { margin-top: 12px; padding-left: 10px; border-left: 2px solid rgba(242,196,107,0.6); color: #F2C46B; font-weight: 500; }
+  @media (prefers-reduced-motion: no-preference) { .hinkt[open] > .hinkt-body { animation: hinkt-ein 0.25s ease-out; } }
+  @keyframes hinkt-ein { from { opacity: 0; } to { opacity: 1; } }
 </style>
 </head>
 <body>
@@ -215,6 +229,7 @@
     </section>
   </div>
 
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Karte</span></summary><div class="hinkt-body"><p>Die Karte ist eine Skizze, keine Netzkarte. Die Linien zeigen, dass Orte zusammenhängen. Sie geben nicht den Verlauf echter Leitungen, Gleise oder Straßen wieder, und die Standorte sind schematisch.</p><p>Ein Ort, der aufleuchtet, hängt an der Tätigkeit, ist aber nicht allein zuständig. Und ein Ort, der dunkel bleibt, ist nicht unbeteiligt: Die Auswahl je Tätigkeit ist klein.</p><p class="hinkt-frage">Welchen Ort würdest du bei deiner Tätigkeit zusätzlich aufleuchten lassen?</p></div></details>
   <p class="note sans">Skizze: Standorte sind schematisch und nicht maßstabsgetreu. Die Inhalte stammen aus <a href="index.html">der Hauptseite</a>, einzelne Orte und Aussagen sind vereinfacht. Diese Seite ist KI-generiert.</p>
 </main>
 

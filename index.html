@@ -735,6 +735,20 @@
     .station-panel-inner { max-height: 92vh; border-radius: 20px 20px 0 0; }
     .hud-progress { display: none; }
   }
+  /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
+  .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
+  .hinkt summary { list-style: none; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 14px; cursor: pointer; border: 1px dashed rgba(242,196,107,0.5); border-radius: 10px; background: rgba(242,196,107,0.06); color: #F2C46B; font-size: 13px; line-height: 1.4; }
+  .hinkt summary::-webkit-details-marker { display: none; }
+  .hinkt summary::after { content: ""; flex: none; margin-left: auto; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); }
+  .hinkt[open] > summary::after { transform: rotate(-135deg); }
+  .hinkt summary:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
+  .hinkt-band { flex: none; width: 22px; height: 12px; border-radius: 2px; border: 1px solid rgba(242,196,107,0.75); background: repeating-linear-gradient(135deg, #F2C46B 0 4px, #1A1A14 4px 8px); }
+  .hinkt-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .hinkt-body { padding: 12px 14px 4px; font-size: 13px; line-height: 1.65; color: #C7CAD6; overflow-wrap: break-word; }
+  .hinkt-body p { margin: 0 0 10px; }
+  .hinkt-body .hinkt-frage { margin-top: 12px; padding-left: 10px; border-left: 2px solid rgba(242,196,107,0.6); color: #F2C46B; font-weight: 500; }
+  @media (prefers-reduced-motion: no-preference) { .hinkt[open] > .hinkt-body { animation: hinkt-ein 0.25s ease-out; } }
+  @keyframes hinkt-ein { from { opacity: 0; } to { opacity: 1; } }
 </style>
 </head>
 <body>
@@ -828,6 +842,7 @@
   <svg id="graph"></svg>
 
   <div class="panel-wrap" id="panelWrap"></div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was hast du heute gemacht</span></summary><div class="hinkt-body"><p>Vier Ebenen wirken wie Stockwerke, die sich sauber trennen lassen. In Wirklichkeit greifen sie ineinander: Ein Wasserwerk ist Technik, Menschen, Regeln und Vertrauen zugleich.</p><p>Die Einordnung hier ist ein Vorschlag. Bei einer eigenen Eingabe sortiert die Seite nach Stichworten und versteht nicht, was du meinst.</p><p class="hinkt-frage">Zu welcher Ebene gehört eine Leitstelle, und was spricht für eine zweite?</p></div></details>
 </div>
 
 <div class="pack-box" id="packBox" style="display:none;">
@@ -871,6 +886,7 @@
   <p class="journey-chain sans" id="journeyChain"></p>
 
   <button class="journey-btn" id="journeyBtn">▸ Start</button>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Deine Reise</span></summary><div class="hinkt-body"><p>Eine Reise legt eine einzelne Linie nahe, vom Rhein bis zum Hahn. Wirklich ist es ein Netz mit Zweigen und Rückläufen, und an vielen Stationen hängt noch mehr dran.</p><p>Die Stationen sind eine Auswahl, und ihre Zuordnung zu den Ebenen ist eine Deutung.</p><p class="hinkt-frage">Welche Station fehlt auf dem Weg zu deinem Hahn?</p></div></details>
 </section>
 
 <section class="shelf" id="shelfScene">
@@ -886,6 +902,7 @@
   <p class="shelf-receipt sans" id="shelfReceipt"></p>
 
   <div class="shelf-whispers" id="shelfWhispers" aria-hidden="true"></div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehst einkaufen</span></summary><div class="hinkt-body"><p>Der Kassenzettel nennt Kühlkette, Lieferung und Kassensystem. Das sind Beispiele und keine Rechnung dessen, was bei deinem Einkauf wirklich beteiligt war.</p><p>Die leisen Zeilen im Regal, etwa die Uhrzeit des Lastwagens, sind ausgedacht. Hinter jedem Produkt steht ein ganzes Netz von Betrieben und nicht nur ein Weg.</p><p class="hinkt-frage">Was steht hinter dem Produkt, das du zuletzt gekauft hast, und fehlt hier?</p></div></details>
 </section>
 
 <section class="chaingame" id="chainGame">
@@ -905,6 +922,7 @@
   </div>
   <p class="cg-progress sans" id="cgProgress"></p>
   <div class="cg-badge" id="cgBadge" hidden></div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was kommt vor was</span></summary><div class="hinkt-body"><p>Das Spiel hat für jede Kette eine richtige Lösung. In der Wirklichkeit gibt es oft mehrere Wege und Querverbindungen, und manches läuft zurück, etwa wenn gereinigtes Abwasser in den Rhein fließt.</p><p>Dass weiter unten grundlegender heißt, ist eine Vereinfachung für das Spiel.</p><p class="hinkt-frage">Wo in deiner Kette läuft etwas zurück?</p></div></details>
 </section>
 
 <section class="belonging" id="belonging">
@@ -934,6 +952,7 @@
   <p class="belong-note sans">
     Nicht jede Leitung ist für jeden gleich wichtig. Getragen zu werden und selbst zu tragen gehört beides dazu.
   </p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehörst dazu</span></summary><div class="hinkt-body"><p>Zwei Spalten mit je fünf Leitungen sehen nach einer Bilanz aus. Es ist keine. Die Auswahl ist klein, und die Seiten lassen sich nicht gegeneinander aufrechnen.</p><p>In der Mitte steht auch nur eine Person. In Wirklichkeit hängen viele Menschen an denselben Leitungen.</p><p class="hinkt-frage">Welche Leitung würdest du bei dir ergänzen?</p></div></details>
 </section>
 
 <section class="now" id="now">
@@ -950,6 +969,7 @@
 
   <p class="now-people sans" id="nowPeople"></p>
   <p class="now-note sans">Die Zahlen sind aus Tagesdurchschnitten hochgerechnet und keine Live-Daten. Die Größenordnung stimmt, die genaue Sekunde nicht.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig wie eine Uhr. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, und die echte Nutzung schwankt über den Tag.</p><p>Aus den Zählern für Wasser und Fahrgäste lässt sich deshalb keine Zahl für genau diesen Moment ablesen und auch keine für dich.</p><p class="hinkt-frage">Zu welcher Uhrzeit würde jeder dieser Zähler schneller oder langsamer laufen?</p></div></details>
 </section>
 
 <section class="cube-section" id="cubeSection">
@@ -958,6 +978,7 @@
   <div class="cube-scene-wrap">
     <svg class="cube-scene" id="cubeScene" viewBox="0 0 400 1350" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Ein Turm, durch den die Figur geht. An fünf Stationen kommt Energie auf unterschiedliche Weise dazu"></svg>
   </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wie Energie unterwegs entsteht</span></summary><div class="hinkt-body"><p>Ein Turm mit fünf Stationen legt ein Nacheinander nahe. In Wirklichkeit kommt Energie aus mehreren Quellen zugleich und wird laufend ausbalanciert.</p><p>Die Stationen sind eine Auswahl und kein Bild dessen, woher Düsseldorfs Strom tatsächlich kommt.</p><p class="hinkt-frage">Was passiert im Turm bei Windstille?</p></div></details>
 </section>
 
 <section class="landing" id="landing">
