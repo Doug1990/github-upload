@@ -112,6 +112,27 @@
   .infocard .aha { grid-column: 1 / -1; color: var(--gold); font-size: 13px; }
   @media (max-width: 560px) { .infocard { grid-template-columns: 1fr; } }
 
+
+  /* Zelle: Interaktion */
+  .cellpanel { position: relative; }
+  .zoomback { position: absolute; top: 12px; right: 12px; z-index: 2; background: rgba(10,19,16,0.7); }
+  .cellsvg { touch-action: manipulation; }
+  .cellsvg .part { transition: opacity 0.25s ease; }
+  .cellsvg .part:not(.sel) { opacity: 0.9; }
+  .cellsvg:has(.part:hover) .part:not(:hover) { opacity: 0.38; }
+  .cellsvg .lbl { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; fill: #E4ECE6; stroke: none; }
+  .cellsvg .lblg { transition: opacity 0.3s ease; }
+  .cellsvg.zoomed .lblg:not(.cur) { opacity: 0; }
+  .cellsvg .pb { display: inline; } .cellsvg .pc { display: none; }
+  .cellsvg.city .pb { display: none; } .cellsvg.city .pc { display: inline; }
+  .cellsvg .route { fill: none; stroke: #F2C46B; stroke-width: 9; stroke-linecap: round; opacity: 0; transition: opacity 0.7s ease; }
+  .cellsvg .routeline { fill: none; stroke: #F6DC9B; stroke-width: 1.6; stroke-dasharray: 3 8; opacity: 0; transition: opacity 0.7s ease; }
+  .cellsvg.city .route { opacity: 0.1; } .cellsvg.city .routeline { opacity: 0.5; }
+  .cellsvg .cityGrid { opacity: 0; transition: opacity 0.8s ease; } .cellsvg.city .cityGrid { opacity: 0.12; }
+  .cellsvg .chanbody { transition: fill 0.6s ease; } .cellsvg.city .chanbody { fill: #F2C46B; }
+  .cellsvg .pore { transition: stroke 0.6s ease; } .cellsvg.city .pore { stroke: #F2C46B; }
+  .livecap { margin: 10px 0 0; font-size: 13px; color: var(--gold); line-height: 1.55; min-height: 40px; }
+
   /* Turbine */
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0 0; }
   .stat { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 9px 12px; font-family: 'IBM Plex Sans', sans-serif; }
@@ -197,58 +218,100 @@
 <!-- 1. Zelle als Stadt -->
 <section class="sec reveal" id="stadt">
   <h2>Die Zelle ist eine Stadt in klein.</h2>
-  <p class="lead">Tippe auf einen Bestandteil. Mit dem Schalter wechselst du zwischen der Sprache der Biologie und der der Stadtplanung.</p>
+  <p class="lead">Tippe auf einen Bestandteil: Die Kamera fährt hinein, und du siehst, was dort gerade passiert. Mit dem Schalter wechselst du zwischen der Sprache der Biologie und der der Stadtplanung.</p>
   <div class="seg" role="group" aria-label="Ansicht">
     <button type="button" id="viewBio" aria-pressed="true">Zelle</button>
     <button type="button" id="viewCity" aria-pressed="false">Stadt</button>
   </div>
-  <div class="panel">
-    <svg viewBox="0 0 800 520" role="img" aria-label="Schematische Zelle mit Kern, Mitochondrien, Golgi-Apparat, Lysosom und Ribosomen">
+  <div class="panel cellpanel" id="cellPanel">
+    <button type="button" class="btn zoomback" id="zoomBack" hidden>← Ganze Zelle</button>
+    <svg id="csvg" class="cellsvg" viewBox="0 0 800 520" role="group" aria-label="Schematische Zelle mit Kern, Mitochondrien, Golgi-Apparat, Lysosom, Ribosomen und Membran. Bestandteile sind anwählbar.">
       <defs>
-        <radialGradient id="cyto" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1E3A2D"/><stop offset="1" stop-color="#142A20"/></radialGradient>
+        <radialGradient id="gCyto" cx="50%" cy="45%" r="62%"><stop offset="0" stop-color="#264D3B"/><stop offset="0.7" stop-color="#173126"/><stop offset="1" stop-color="#0F2219"/></radialGradient>
+        <radialGradient id="gNuc" cx="38%" cy="32%" r="78%"><stop offset="0" stop-color="#5A6AB4"/><stop offset="0.55" stop-color="#2D3A6E"/><stop offset="1" stop-color="#1A2145"/></radialGradient>
+        <radialGradient id="gNucleolus" cx="38%" cy="32%" r="72%"><stop offset="0" stop-color="#A3ACEA"/><stop offset="1" stop-color="#4C59A6"/></radialGradient>
+        <linearGradient id="gMito" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#B26A44"/><stop offset="1" stop-color="#5A2F1D"/></linearGradient>
+        <linearGradient id="gGolgi" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8CE3F5"/><stop offset="1" stop-color="#2A8BA8"/></linearGradient>
+        <radialGradient id="gLyso" cx="36%" cy="30%" r="78%"><stop offset="0" stop-color="#A25577"/><stop offset="1" stop-color="#47233A"/></radialGradient>
+        <radialGradient id="gBead" cx="35%" cy="30%" r="75%"><stop offset="0" stop-color="#9EDDBB"/><stop offset="1" stop-color="#3B8A67"/></radialGradient>
+        <filter id="fGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>
+        <filter id="fTex" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.013" numOctaves="3" seed="7" result="n"/>
+          <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.55  0 0 0 0 0.92  0 0 0 0 0.72  1.2 0 0 0 -0.52"/>
+        </filter>
+        <clipPath id="cellClip"><path d="M120,260 C100,120 260,50 400,60 C560,50 720,110 700,260 C720,400 580,480 400,470 C240,480 100,400 120,260Z"/></clipPath>
+        <pattern id="pGrid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#F2C46B" stroke-width="0.7"/></pattern>
       </defs>
+
+      <!-- Membran: Glow, Füllung (nicht klickbar), Doppelschicht (klickbar) -->
+      <path d="M120,260 C100,120 260,50 400,60 C560,50 720,110 700,260 C720,400 580,480 400,470 C240,480 100,400 120,260Z" fill="none" stroke="#7FD9A8" stroke-width="16" opacity="0.28" filter="url(#fGlow)" pointer-events="none"/>
+      <path d="M120,260 C100,120 260,50 400,60 C560,50 720,110 700,260 C720,400 580,480 400,470 C240,480 100,400 120,260Z" fill="url(#gCyto)" pointer-events="none"/>
+      <rect x="0" y="0" width="800" height="520" filter="url(#fTex)" opacity="0.4" clip-path="url(#cellClip)" pointer-events="none"/>
+      <rect class="cityGrid" x="0" y="0" width="800" height="520" fill="url(#pGrid)" clip-path="url(#cellClip)" pointer-events="none"/>
+      <g id="cyto" clip-path="url(#cellClip)" fill="none" stroke="#A8D8C0" stroke-width="1.4" opacity="0.13" pointer-events="none">
+        <path d="M150,330 C230,290 330,330 420,300 S600,250 690,300"/><path d="M170,190 C260,230 330,170 440,200 S600,170 680,190"/>
+        <path d="M250,110 C290,190 350,230 330,330 S300,420 330,465"/><path d="M560,80 C520,160 560,230 520,320 S470,400 500,468"/>
+      </g>
+      <g id="roads" pointer-events="none"></g>
+      <g id="drift" fill="#B8E8CF" pointer-events="none"></g>
+
+      <!-- Raues ER (Dekor): Sheets um den Kern -->
+      <g pointer-events="none" fill="none" stroke-linecap="round">
+        <path id="erA" d="M368,196 C418,160 452,214 414,246 C380,270 438,296 398,336" stroke="#2F6B52" stroke-width="11"/>
+        <path d="M368,196 C418,160 452,214 414,246 C380,270 438,296 398,336" stroke="#6FB594" stroke-width="1.8" opacity="0.65"/>
+        <path d="M378,212 C410,196 430,226 404,248 C388,262 416,282 392,314" stroke="#2F6B52" stroke-width="7" opacity="0.8"/>
+      </g>
+
+      <!-- Membran (klickbare Doppelschicht) -->
       <g class="part" data-part="membran" tabindex="0" role="button" aria-label="Zellmembran">
-        <path class="shape" d="M120,260 C100,120 260,50 400,60 C560,50 720,110 700,260 C720,400 580,480 400,470 C240,480 100,400 120,260Z" fill="url(#cyto)" stroke="#7FD9A8" stroke-width="6"/>
+        <path id="memPath" class="shape" d="M120,260 C100,120 260,50 400,60 C560,50 720,110 700,260 C720,400 580,480 400,470 C240,480 100,400 120,260Z" fill="none" stroke="#2F7D5C" stroke-width="10" pointer-events="stroke"/>
+        <path d="M120,260 C100,120 260,50 400,60 C560,50 720,110 700,260 C720,400 580,480 400,470 C240,480 100,400 120,260Z" fill="none" stroke="#C6F6DD" stroke-width="2" opacity="0.8" pointer-events="none"/>
+        <g id="chan"></g>
       </g>
-      <!-- ER -->
-      <path d="M372,185 C430,150 450,225 410,250 C375,272 440,300 395,335" fill="none" stroke="#4A7A63" stroke-width="9" stroke-linecap="round" opacity="0.8" pointer-events="none"/>
-      <g fill="#B8E8CF" pointer-events="none">
-        <circle cx="428" cy="178" r="4"/><circle cx="440" cy="215" r="4"/><circle cx="420" cy="262" r="4"/><circle cx="426" cy="310" r="4"/>
-        <circle cx="250" cy="120" r="3.5"/><circle cx="620" cy="260" r="3.5"/><circle cx="500" cy="420" r="3.5"/><circle cx="170" cy="300" r="3.5"/><circle cx="330" cy="400" r="3.5"/>
-      </g>
-      <g class="part" data-part="ribosom" tabindex="0" role="button" aria-label="Ribosomen">
-        <circle class="shape" cx="500" cy="262" r="15" fill="#2D5A45" stroke="#B8E8CF" stroke-width="2"/>
-        <circle class="shape" cx="478" cy="285" r="9" fill="#2D5A45" stroke="#B8E8CF" stroke-width="2"/>
-        <circle class="shape" cx="522" cy="290" r="9" fill="#2D5A45" stroke="#B8E8CF" stroke-width="2"/>
-      </g>
+
+      <!-- Kern -->
       <g class="part" data-part="kern" tabindex="0" role="button" aria-label="Zellkern">
-        <circle class="shape" cx="285" cy="250" r="82" fill="#2B3A66" stroke="#B39DDB" stroke-width="4"/>
-        <circle cx="300" cy="245" r="26" fill="#3D4F8A" pointer-events="none"/>
-        <path d="M240,215 q20,-14 40,0 t40,0 M236,262 q22,16 44,0 t44,0" fill="none" stroke="#B39DDB" stroke-width="3" stroke-linecap="round" pointer-events="none"/>
-      </g>
-      <g class="part" data-part="mito" tabindex="0" role="button" aria-label="Mitochondrien">
-        <ellipse class="shape" cx="590" cy="160" rx="68" ry="36" fill="#6B3F2A" stroke="#F2C46B" stroke-width="4" transform="rotate(-14 590 160)"/>
-        <path d="M540,168 q10,-24 20,0 t20,0 t20,0 t20,0 t20,0" fill="none" stroke="#F2C46B" stroke-width="3" stroke-linecap="round" opacity="0.8" transform="rotate(-14 590 160)" pointer-events="none"/>
-        <ellipse class="shape" cx="565" cy="375" rx="60" ry="32" fill="#6B3F2A" stroke="#F2C46B" stroke-width="4" transform="rotate(18 565 375)"/>
-        <path d="M518,372 q9,-22 18,0 t18,0 t18,0 t18,0 t18,0" fill="none" stroke="#F2C46B" stroke-width="3" stroke-linecap="round" opacity="0.8" transform="rotate(18 565 375)" pointer-events="none"/>
-      </g>
-      <g class="part" data-part="golgi" tabindex="0" role="button" aria-label="Golgi-Apparat">
-        <g class="shape" fill="none" stroke="#4FC3D9" stroke-width="7" stroke-linecap="round">
-          <path d="M360,385 q40,-22 80,0"/><path d="M355,405 q45,-24 90,0"/><path d="M360,425 q40,-22 80,0"/>
+        <circle class="shape" cx="285" cy="250" r="84" fill="url(#gNuc)" stroke="#B39DDB" stroke-width="3"/>
+        <circle cx="285" cy="250" r="78" fill="none" stroke="#B39DDB" stroke-width="1" opacity="0.5" pointer-events="none"/>
+        <g fill="none" stroke="#CDBDF5" stroke-width="2.2" stroke-linecap="round" opacity="0.7" pointer-events="none">
+          <path d="M236,222 q16,-24 32,-6 t30,4 t28,-10"/><path d="M232,266 q18,22 34,4 t30,-6 t26,10"/><path d="M258,200 q10,16 24,6 t22,12"/>
+          <path d="M300,276 q14,-12 28,4 t20,-4"/><path d="M250,244 q12,10 26,-2 t24,6"/><path d="M322,212 q10,12 22,2 t18,10"/>
         </g>
+        <circle cx="302" cy="246" r="22" fill="url(#gNucleolus)" pointer-events="none"/>
+        <circle cx="296" cy="240" r="3" fill="#fff" opacity="0.25" pointer-events="none"/>
+        <g id="pores"></g>
       </g>
+
+      <!-- Ribosomen: Polysom + Kugeln am ER -->
+      <g class="part" data-part="ribosom" tabindex="0" role="button" aria-label="Ribosomen">
+        <circle cx="500" cy="272" r="44" fill="transparent"/>
+        <path d="M462,290 C476,252 500,304 520,268 S540,262 538,282" fill="none" stroke="#E3D6FF" stroke-width="1.6" opacity="0.8" pointer-events="none"/>
+        <g id="beads"></g>
+        <g id="erBeads"></g>
+      </g>
+
+      <!-- Mitochondrien (Kristae per Skript) -->
+      <g class="part" data-part="mito" tabindex="0" role="button" aria-label="Mitochondrien"><g id="mitoA"></g><g id="mitoB"></g></g>
+
+      <!-- Golgi -->
+      <g class="part" data-part="golgi" tabindex="0" role="button" aria-label="Golgi-Apparat">
+        <rect x="340" y="362" width="120" height="72" fill="transparent"/>
+        <g class="shape" id="golgiStack"></g>
+      </g>
+
+      <!-- Lysosom -->
       <g class="part" data-part="lyso" tabindex="0" role="button" aria-label="Lysosom">
-        <circle class="shape" cx="210" cy="405" r="28" fill="#5A3347" stroke="#FF8A65" stroke-width="4"/>
-        <circle cx="203" cy="400" r="4" fill="#FF8A65" pointer-events="none"/><circle cx="217" cy="411" r="3" fill="#FF8A65" pointer-events="none"/>
+        <circle class="shape" cx="210" cy="405" r="27" fill="url(#gLyso)" stroke="#FF8A65" stroke-width="2.6"/>
+        <path d="M193,396 A19,19 0 0 1 207,386" fill="none" stroke="#fff" stroke-width="2" opacity="0.3" stroke-linecap="round" pointer-events="none"/>
+        <g id="lysoGrains" fill="#FF8A65" pointer-events="none"></g>
       </g>
-      <text class="lbl" x="285" y="360" text-anchor="middle" id="lKern" data-bio="Zellkern" data-city="Rathaus-Archiv"></text>
-      <text class="lbl" x="590" y="108" text-anchor="middle" id="lMito" data-bio="Mitochondrium" data-city="Kraftwerk"></text>
-      <text class="lbl" x="500" y="333" text-anchor="middle" id="lRibo" data-bio="Ribosomen" data-city="Werkstätten"></text>
-      <text class="lbl" x="400" y="458" text-anchor="middle" id="lGolgi" data-bio="Golgi-Apparat" data-city="Paketzentrum"></text>
-      <text class="lbl" x="210" y="452" text-anchor="middle" id="lLyso" data-bio="Lysosom" data-city="Recyclinghof"></text>
-      <text class="lbl" x="150" y="105" text-anchor="middle" id="lMem" data-bio="Zellmembran" data-city="Stadtgrenze"></text>
+
+      <g id="particles" pointer-events="none"></g>
+      <g id="effects" pointer-events="none"></g>
+      <g id="labels" pointer-events="none"></g>
     </svg>
   </div>
+  <p class="livecap sans" id="liveCap" aria-live="polite"></p>
   <div class="infocard" id="info" aria-live="polite"></div>
 </section>
 
@@ -377,49 +440,270 @@
   // --- 1. Zelle als Stadt ---
   var PARTS = {
     membran: {
-      bio: 'Zellmembran', city: 'Stadtgrenze mit Zoll',
+      bio: 'Zellmembran', city: 'Stadtgrenze mit Zoll', color: '#7FD9A8',
       cell: 'Eine hauchdünne Fettschicht trennt innen von außen. Spezielle Eiweiße lassen gezielt Stoffe herein und heraus.',
       town: 'Stadtmauer mit Toren. Nicht alles darf durch, aber ohne Austausch würde die Stadt verhungern.',
-      aha: 'Ordnung im Innern gibt es nur, weil es eine Grenze gibt.'
+      aha: 'Ordnung im Innern gibt es nur, weil es eine Grenze gibt.',
+      liveBio: 'Gerade zu sehen: Blasen aus dem Golgi verschmelzen mit der Membran und entlassen ihre Fracht nach draußen.',
+      liveCity: 'Gerade zu sehen: Lieferwagen verlassen die Stadt durch die Tore der Stadtgrenze.'
     },
     kern: {
-      bio: 'Zellkern', city: 'Rathaus-Archiv',
+      bio: 'Zellkern', city: 'Rathaus-Archiv', color: '#B39DDB',
       cell: 'Hier liegt die DNA, der Bauplan der Zelle. Das Original bleibt drinnen, nach außen gehen nur Abschriften.',
       town: 'Das Archiv im Rathaus. Die Originalpläne verlassen das Gebäude nie, die Werkstätten bekommen Kopien.',
-      aha: 'Information wird geschützt, indem man sie kopiert, statt das Original herumzutragen.'
+      aha: 'Information wird geschützt, indem man sie kopiert, statt das Original herumzutragen.',
+      liveBio: 'Gerade zu sehen: Abschriften des Bauplans verlassen den Kern durch die Poren und wandern zu den Ribosomen.',
+      liveCity: 'Gerade zu sehen: Kopien der Pläne verlassen das Archiv durch die Pforte und gehen an die Werkstätten.'
     },
     mito: {
-      bio: 'Mitochondrium', city: 'Kraftwerk',
+      bio: 'Mitochondrium', city: 'Kraftwerk', color: '#F2C46B',
       cell: 'Hier entsteht der größte Teil des ATP. Ein Gefälle aus Protonen treibt eine winzige Turbine an. Probiere es unten selbst aus.',
       town: 'Das Kraftwerk der Stadt. Es liefert die Währung, mit der alle anderen arbeiten, und zwar rund um die Uhr.',
-      aha: 'Ohne Energiezufuhr gibt es keine Ordnung. Das Kraftwerk ist die wichtigste Infrastruktur.'
+      aha: 'Ohne Energiezufuhr gibt es keine Ordnung. Das Kraftwerk ist die wichtigste Infrastruktur.',
+      liveBio: 'Gerade zu sehen: Gelbe ATP-Pakete werden zu Kern und Ribosomen geliefert und dort verbraucht.',
+      liveCity: 'Gerade zu sehen: Das Kraftwerk beliefert Archiv und Werkstätten mit Strom.'
     },
     ribosom: {
-      bio: 'Ribosomen', city: 'Werkstätten',
+      bio: 'Ribosomen', city: 'Werkstätten', color: '#9EDDBB',
       cell: 'Sie lesen die Abschrift des Bauplans und setzen Eiweiße zusammen, die „Arbeiter“ der Zelle.',
       town: 'Die Werkstätten. Sie bekommen eine Bauanleitung und fertigen daraus, was die Stadt braucht.',
-      aha: 'Die Zelle baut die Eiweiße, die die Zelle bauen. Ein Kreislauf ohne Anfang.'
+      aha: 'Die Zelle baut die Eiweiße, die die Zelle bauen. Ein Kreislauf ohne Anfang.',
+      liveBio: 'Gerade zu sehen: Die Ribosomen lesen Abschriften. Fertige Eiweiße gehen in Blasen weiter zum Golgi-Apparat.',
+      liveCity: 'Gerade zu sehen: Die Werkstätten bekommen Baupläne und liefern Teile ans Paketzentrum.'
     },
     golgi: {
-      bio: 'Golgi-Apparat', city: 'Paketzentrum',
+      bio: 'Golgi-Apparat', city: 'Paketzentrum', color: '#7FDDF0',
       cell: 'Fertige Eiweiße werden sortiert, verpackt und mit einer Art Adresse an den richtigen Ort geschickt.',
       town: 'Das Paketzentrum. Erst die Adresse macht aus einem Päckchen etwas, das ankommt.',
-      aha: 'Logistik ist keine Nebensache. Ohne sie bleibt jede Produktion liegen.'
+      aha: 'Logistik ist keine Nebensache. Ohne sie bleibt jede Produktion liegen.',
+      liveBio: 'Gerade zu sehen: Blasen bringen Eiweiße zum Golgi. Von dort geht es mit Adresse weiter zur Membran.',
+      liveCity: 'Gerade zu sehen: Das Paketzentrum sortiert und schickt Lieferwagen zu den Stadttoren.'
     },
     lyso: {
-      bio: 'Lysosom', city: 'Recyclinghof',
+      bio: 'Lysosom', city: 'Recyclinghof', color: '#FF8A65',
       cell: 'Altes und Defektes wird hier zerlegt. Die Bausteine gehen zurück in den Kreislauf.',
       town: 'Der Recyclinghof. Eine Stadt, die nichts entsorgt, erstickt irgendwann an ihrem eigenen Müll.',
-      aha: 'Abbau gehört zum Betrieb dazu, genau wie der Aufbau.'
+      aha: 'Abbau gehört zum Betrieb dazu, genau wie der Aufbau.',
+      liveBio: 'Gerade zu sehen: Zellmüll wird eingesammelt und im Lysosom in Bausteine zerlegt.',
+      liveCity: 'Gerade zu sehen: Die Müllabfuhr liefert am Recyclinghof an.'
     }
   };
-  var LABEL_IDS = ['lKern', 'lMito', 'lRibo', 'lGolgi', 'lLyso', 'lMem'];
-  var city = false, curPart = 'mito';
-  function renderLabels() {
-    LABEL_IDS.forEach(function (id) {
-      var t = $(id); t.textContent = t.getAttribute(city ? 'data-city' : 'data-bio');
+  // Kamera-Ziele beim Hineinzoomen: Mittelpunkt und Breite im 800x520-Koordinatensystem
+  var ZOOM = {
+    membran: { cx: 640, cy: 380, w: 300 }, kern: { cx: 285, cy: 250, w: 300 }, mito: { cx: 575, cy: 268, w: 460 },
+    ribosom: { cx: 440, cy: 270, w: 330 }, golgi: { cx: 400, cy: 400, w: 280 }, lyso: { cx: 215, cy: 395, w: 220 }
+  };
+  var LABELS = [
+    { part: 'kern', x: 285, y: 352 }, { part: 'mito', x: 590, y: 108 }, { part: 'ribosom', x: 500, y: 322 },
+    { part: 'golgi', x: 400, y: 456 }, { part: 'lyso', x: 210, y: 448 }, { part: 'membran', x: 118, y: 92 }
+  ];
+  var csvg = $('csvg'), memPath = $('memPath');
+  var city = false, curPart = 'mito', zoomed = false;
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Zeichnen: Details der Organellen ----
+  (function buildDetails() {
+    // Kanalproteine in der Membran
+    var L = memPath.getTotalLength(), chan = $('chan'), n = 18;
+    for (var i = 0; i < n; i++) {
+      var l = L * (i + 0.5) / n, p = memPath.getPointAtLength(l), q = memPath.getPointAtLength(l + 1);
+      var a = Math.atan2(q.y - p.y, q.x - p.x) * 180 / Math.PI;
+      var g = el('g', { transform: 'translate(' + p.x.toFixed(1) + ',' + p.y.toFixed(1) + ') rotate(' + a.toFixed(1) + ')' }, chan);
+      el('rect', { x: -5, y: -9, width: 10, height: 18, rx: 4, fill: '#CFF5E0', 'fill-opacity': 0.92, 'class': 'chanbody' }, g);
+      el('rect', { x: -1.5, y: -9, width: 3, height: 18, fill: '#143025', opacity: 0.75 }, g);
+    }
+    // Kernporen
+    var pores = $('pores');
+    for (var k = 0; k < 18; k++) {
+      var ang = (-10 + k * 20) * Math.PI / 180, c = Math.cos(ang), s = Math.sin(ang);
+      el('line', { x1: 285 + c * 77, y1: 250 + s * 77, x2: 285 + c * 88, y2: 250 + s * 88, stroke: '#E7DEFF', 'stroke-width': 4.5, 'stroke-linecap': 'round', opacity: 0.9, 'class': 'pore' }, pores);
+    }
+    // Polysom-Kugeln
+    var beads = $('beads');
+    [[468, 286], [484, 266], [502, 288], [520, 268], [537, 280]].forEach(function (b) {
+      el('circle', { cx: b[0], cy: b[1], r: 7, fill: 'url(#gBead)', stroke: '#CFF5E0', 'stroke-width': 1, 'class': 'shape' }, beads);
+      el('circle', { cx: b[0] - 1, cy: b[1] - 6, r: 4.4, fill: '#7FC8A2', stroke: '#CFF5E0', 'stroke-width': 0.8, 'class': 'shape' }, beads);
+    });
+    // Ribosomen auf dem ER
+    var er = $('erA'), eL = er.getTotalLength(), eb = $('erBeads');
+    for (var d = 8; d < eL - 6; d += 15) {
+      var e1 = er.getPointAtLength(d), e2 = er.getPointAtLength(d + 1);
+      var nx = -(e2.y - e1.y), ny = e2.x - e1.x, nl = Math.hypot(nx, ny) || 1;
+      [-1, 1].forEach(function (sd) {
+        el('circle', { cx: (e1.x + sd * nx / nl * 7.5).toFixed(1), cy: (e1.y + sd * ny / nl * 7.5).toFixed(1), r: 2.5, fill: '#CFEFDC', 'class': 'shape' }, eb);
+      });
+    }
+    // Mitochondrien mit Kristae
+    function mito(host, cx, cy, rx, ry, rot) {
+      var g = el('g', { transform: 'translate(' + cx + ',' + cy + ') rotate(' + rot + ')' }, host);
+      el('ellipse', { rx: rx, ry: ry, fill: 'url(#gMito)', stroke: '#F2C46B', 'stroke-width': 2.6, 'class': 'shape' }, g);
+      el('ellipse', { rx: rx - 6, ry: ry - 6, fill: 'rgba(20,8,0,0.22)', stroke: '#E7B25E', 'stroke-width': 1.2, opacity: 0.8, 'pointer-events': 'none' }, g);
+      var step = rx / 5.2, idx = 0;
+      for (var x = -rx * 0.72; x <= rx * 0.74; x += step, idx++) {
+        var top = idx % 2 === 0, y0 = (top ? -1 : 1) * (ry - 6), y1 = (top ? 1 : -1) * ry * 0.34;
+        el('path', { d: 'M' + x.toFixed(1) + ',' + y0.toFixed(1) + ' q' + (idx % 4 < 2 ? 5 : -5) + ',' + ((y1 - y0) * 0.5).toFixed(1) + ' 0,' + (y1 - y0).toFixed(1), fill: 'none', stroke: '#F2C46B', 'stroke-width': 2.3, 'stroke-linecap': 'round', opacity: 0.8, 'pointer-events': 'none' }, g);
+      }
+    }
+    mito($('mitoA'), 590, 160, 68, 36, -14);
+    mito($('mitoB'), 565, 375, 60, 32, 18);
+    // Golgi-Stapel und Bläschen
+    var gs = $('golgiStack');
+    [[44, 0], [48, 13], [50, 26], [48, 39], [42, 52]].forEach(function (c, i) {
+      var w = c[0], y = 372 + c[1];
+      el('path', { d: 'M' + (400 - w) + ',' + y + ' Q400,' + (y - 15) + ' ' + (400 + w) + ',' + y + ' Q400,' + (y - 7) + ' ' + (400 - w) + ',' + y + 'Z', fill: 'url(#gGolgi)', stroke: '#C5F4FF', 'stroke-width': 1, 'stroke-linejoin': 'round', opacity: 0.95 - i * 0.04 }, gs);
+    });
+    [[452, 392, 4.5], [458, 412, 3.4], [346, 396, 3.6], [352, 418, 4.2], [470, 402, 2.6]].forEach(function (v) {
+      el('circle', { cx: v[0], cy: v[1], r: v[2], fill: '#8CE3F5', stroke: '#C5F4FF', 'stroke-width': 0.8, opacity: 0.9 }, gs);
+    });
+    // Lysosom-Körnchen
+    var lg = $('lysoGrains');
+    [[202, 402, 3.2], [217, 411, 2.6], [212, 394, 2.2], [201, 415, 2], [221, 399, 1.8], [208, 408, 1.6]].forEach(function (v) {
+      el('circle', { cx: v[0], cy: v[1], r: v[2], opacity: 0.85 }, lg);
+    });
+  })();
+
+  // ---- Beschriftungen als Pillen ----
+  var lblObjs = LABELS.map(function (l) {
+    var g = el('g', { 'class': 'lblg' }, $('labels'));
+    var rect = el('rect', { rx: 11, height: 22, y: -16, fill: 'rgba(10,19,16,0.78)', stroke: PARTS[l.part].color, 'stroke-width': 1, 'stroke-opacity': 0.7 }, g);
+    var t = el('text', { 'class': 'lbl', 'text-anchor': 'middle' }, g);
+    return { g: g, rect: rect, t: t, x: l.x, y: l.y, part: l.part };
+  });
+  var vb = { x: 0, y: 0, w: 800, h: 520 };
+  function applyVB() {
+    csvg.setAttribute('viewBox', vb.x.toFixed(1) + ' ' + vb.y.toFixed(1) + ' ' + vb.w.toFixed(1) + ' ' + vb.h.toFixed(1));
+    var s = vb.w / 800;
+    lblObjs.forEach(function (o) {
+      // Beim Zoom wandert das Label des gewählten Teils an den unteren Bildrand, damit es im Bild bleibt
+      var pin = zoomed && o.part === curPart, x = pin ? vb.x + vb.w / 2 : o.x, y = pin ? vb.y + vb.h - 14 * s : o.y;
+      o.g.setAttribute('transform', 'translate(' + x.toFixed(1) + ',' + y.toFixed(1) + ') scale(' + s.toFixed(3) + ')');
     });
   }
+  function renderLabels() {
+    lblObjs.forEach(function (o) {
+      o.t.textContent = PARTS[o.part][city ? 'city' : 'bio'];
+      var w = o.t.getBBox().width + 18;
+      o.rect.setAttribute('width', w.toFixed(1)); o.rect.setAttribute('x', (-w / 2).toFixed(1));
+      o.g.classList.toggle('cur', o.part === curPart);
+    });
+  }
+
+  // ---- Wege und Partikel ----
+  var KIND = { mrna: '#E3D6FF', vesicle: '#7FDDF0', atp: '#F2C46B', waste: '#B7C0C7' };
+  var ROUTES = [
+    { d: 'M368,238 C410,224 452,256 490,264', kind: 'mrna', parts: ['kern', 'ribosom'], every: 2.2, speed: 62 },
+    { d: 'M396,334 C392,352 403,366 400,382', kind: 'vesicle', parts: ['ribosom', 'golgi'], every: 3.0, speed: 36 },
+    { d: 'M449,404 C490,414 522,438 548,454', kind: 'vesicle', parts: ['golgi', 'membran'], every: 3.2, speed: 48, fuse: true },
+    { d: 'M573,196 C552,224 530,246 512,258', kind: 'atp', parts: ['mito', 'ribosom'], every: 1.7, speed: 55 },
+    { d: 'M538,350 C528,325 518,308 508,292', kind: 'atp', parts: ['mito', 'ribosom'], every: 2.4, speed: 50 },
+    { d: 'M534,176 C480,188 424,200 372,214', kind: 'atp', parts: ['mito', 'kern'], every: 2.0, speed: 62 },
+    { d: 'M152,318 C170,348 188,364 203,380', kind: 'waste', parts: ['lyso'], every: 3.4, speed: 34, fade: true }
+  ];
+  var roadsG = $('roads');
+  ROUTES.forEach(function (r) {
+    r.el = el('path', { d: r.d, 'class': 'route' }, roadsG);
+    el('path', { d: r.d, 'class': 'routeline' }, roadsG);
+    r.len = r.el.getTotalLength(); r.acc = rnd(0, r.every);
+  });
+  var parts = [], effects = [];
+  function makeParticle(r) {
+    var g = el('g', { 'class': 'pp' }, $('particles')), col = KIND[r.kind];
+    var pb = el('g', { 'class': 'pb' }, g), pc = el('g', { 'class': 'pc' }, g);
+    if (r.kind === 'mrna') {
+      el('path', { d: 'M-9,0 q2,-4 4.5,0 t4.5,0 t4.5,0 t4.5,0', fill: 'none', stroke: col, 'stroke-width': 2, 'stroke-linecap': 'round' }, pb);
+    } else if (r.kind === 'atp') {
+      el('circle', { r: 7, fill: col, opacity: 0.22 }, pb); el('circle', { r: 3, fill: col }, pb);
+    } else if (r.kind === 'vesicle') {
+      el('circle', { r: 4.2, fill: col, stroke: '#fff', 'stroke-opacity': 0.7, 'stroke-width': 0.9 }, pb);
+    } else {
+      el('path', { d: 'M-3.5,-1 L-1,-3.5 L3,-2 L3.5,1.5 L0,3.5 L-3,2 Z', fill: col }, pb);
+    }
+    el('rect', { x: -6, y: -3.5, width: 12, height: 7, rx: 2, fill: col }, pc);
+    el('rect', { x: 1, y: -2.3, width: 3.4, height: 4.6, rx: 1, fill: '#0A1310', opacity: 0.55 }, pc);
+    el('circle', { cx: -3, cy: 4, r: 1.5, fill: '#0A1310' }, pc); el('circle', { cx: 3, cy: 4, r: 1.5, fill: '#0A1310' }, pc);
+    return g;
+  }
+  function spawn(r, t) { parts.push({ r: r, t: t || 0, g: makeParticle(r) }); }
+  function ring(x, y, col) { effects.push({ g: el('circle', { cx: x, cy: y, r: 3, fill: 'none', stroke: col, 'stroke-width': 2 }, $('effects')), age: 0 }); }
+
+  // Kleine Teilchen, die ziellos durch das Zytoplasma treiben
+  var dots = [];
+  (function () {
+    var host = $('drift'), tries = 0;
+    while (dots.length < 26 && tries++ < 400) {
+      var x = rnd(150, 680), y = rnd(100, 440), ex = (x - 410) / 270, ey = (y - 265) / 180;
+      if (ex * ex + ey * ey > 0.7) continue;
+      var c = el('circle', { cx: x, cy: y, r: rnd(1.6, 3.6), opacity: rnd(0.25, 0.6) }, host);
+      dots.push({ c: c, x: x, y: y, ax: rnd(4, 12), ay: rnd(4, 12), fx: rnd(0.3, 0.9), fy: rnd(0.3, 0.9), ph: rnd(0, 6.28) });
+    }
+  })();
+
+  var lastT = 0, running = false, visible = false;
+  function tick(ts) {
+    if (!visible) { running = false; return; }
+    var dt = Math.min(0.05, (ts - lastT) / 1000 || 0.016); lastT = ts;
+    ROUTES.forEach(function (r) {
+      var boost = r.parts.indexOf(curPart) >= 0;
+      r.acc += dt;
+      if (r.acc >= r.every * (boost ? 0.42 : 1)) { r.acc = 0; spawn(r); }
+    });
+    for (var i = parts.length - 1; i >= 0; i--) {
+      var p = parts[i], r = p.r;
+      p.t += r.speed * dt / r.len;
+      if (p.t >= 1) {
+        if (r.fuse) { var e = r.el.getPointAtLength(r.len); ring(e.x, e.y, KIND.vesicle); }
+        p.g.remove(); parts.splice(i, 1); continue;
+      }
+      var l = p.t * r.len, a = r.el.getPointAtLength(l), b = r.el.getPointAtLength(Math.min(r.len, l + 2));
+      var rot = Math.atan2(b.y - a.y, b.x - a.x) * 180 / Math.PI;
+      p.g.setAttribute('transform', 'translate(' + a.x.toFixed(1) + ',' + a.y.toFixed(1) + ') rotate(' + rot.toFixed(0) + ')');
+      var boostP = r.parts.indexOf(curPart) >= 0, base = boostP ? 1 : 0.5;
+      var fadeIn = Math.min(1, p.t / 0.1), fadeOut = r.fade ? Math.min(1, (1 - p.t) / 0.25) : Math.min(1, (1 - p.t) / 0.08);
+      p.g.setAttribute('opacity', (base * fadeIn * fadeOut).toFixed(2));
+    }
+    for (var j = effects.length - 1; j >= 0; j--) {
+      var f = effects[j]; f.age += dt;
+      f.g.setAttribute('r', (3 + f.age * 26).toFixed(1)); f.g.setAttribute('opacity', Math.max(0, 1 - f.age / 0.6).toFixed(2));
+      if (f.age > 0.6) { f.g.remove(); effects.splice(j, 1); }
+    }
+    var sec = ts / 1000;
+    dots.forEach(function (d) {
+      d.c.setAttribute('cx', (d.x + d.ax * Math.sin(sec * d.fx + d.ph)).toFixed(1));
+      d.c.setAttribute('cy', (d.y + d.ay * Math.sin(sec * d.fy + d.ph * 1.7)).toFixed(1));
+    });
+    requestAnimationFrame(tick);
+  }
+  function startTick() { if (!running && !reduceMotion) { running = true; lastT = performance.now(); requestAnimationFrame(tick); } }
+  ROUTES.forEach(function (r) { if (!reduceMotion) spawn(r, rnd(0.1, 0.8)); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) startTick(); }, { threshold: 0.05 }).observe($('cellPanel'));
+  } else { visible = true; startTick(); }
+
+  // ---- Kamera ----
+  var zoomAnim = 0;
+  function flyTo(t) {
+    cancelAnimationFrame(zoomAnim);
+    if (reduceMotion) { vb = { x: t.x, y: t.y, w: t.w, h: t.h }; applyVB(); return; }
+    var from = { x: vb.x, y: vb.y, w: vb.w, h: vb.h }, t0 = null;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var k = Math.min(1, (ts - t0) / 650), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      vb.x = from.x + (t.x - from.x) * e; vb.y = from.y + (t.y - from.y) * e;
+      vb.w = from.w + (t.w - from.w) * e; vb.h = from.h + (t.h - from.h) * e;
+      applyVB();
+      if (k < 1) zoomAnim = requestAnimationFrame(step);
+    }
+    zoomAnim = requestAnimationFrame(step);
+  }
+  function setZoom(on) {
+    zoomed = on;
+    csvg.classList.toggle('zoomed', on);
+    $('zoomBack').hidden = !on;
+    if (on) { var z = ZOOM[curPart]; flyTo({ x: z.cx - z.w / 2, y: z.cy - z.w * 0.325, w: z.w, h: z.w * 0.65 }); }
+    else flyTo({ x: 0, y: 0, w: 800, h: 520 });
+  }
+
+  // ---- Info, Auswahl, Schalter ----
   function renderInfo() {
     var p = PARTS[curPart], card = $('info');
     card.innerHTML = '';
@@ -428,22 +712,33 @@
     add('div', 'col', '<b>In der Zelle</b>' + p.cell);
     add('div', 'col city', '<b>In der Stadt</b>' + p.town);
     add('div', 'aha', '→ ' + p.aha);
-    document.querySelectorAll('.part').forEach(function (g) { g.classList.toggle('sel', g.getAttribute('data-part') === curPart); });
+    document.querySelectorAll('#csvg .part').forEach(function (g) { g.classList.toggle('sel', g.getAttribute('data-part') === curPart); });
+    $('liveCap').textContent = city ? p.liveCity : p.liveBio;
+    lblObjs.forEach(function (o) { o.g.classList.toggle('cur', o.part === curPart); });
   }
-  document.querySelectorAll('.part').forEach(function (g) {
-    function pick() { curPart = g.getAttribute('data-part'); renderInfo(); }
-    g.addEventListener('click', pick);
+  document.querySelectorAll('#csvg .part').forEach(function (g) {
+    function pick() {
+      var key = g.getAttribute('data-part');
+      if (zoomed && curPart === key) { setZoom(false); return; }
+      curPart = key; renderInfo(); setZoom(true);
+    }
+    g.addEventListener('click', function (e) { e.stopPropagation(); pick(); });
     g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
   });
+  csvg.addEventListener('click', function () { if (zoomed) setZoom(false); });
+  $('zoomBack').addEventListener('click', function () { setZoom(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && zoomed) setZoom(false); });
   function setView(c) {
     city = c;
+    csvg.classList.toggle('city', c);
     $('viewBio').setAttribute('aria-pressed', String(!c));
     $('viewCity').setAttribute('aria-pressed', String(c));
-    renderLabels();
+    renderLabels(); renderInfo();
   }
   $('viewBio').addEventListener('click', function () { setView(false); });
   $('viewCity').addEventListener('click', function () { setView(true); });
-  renderLabels(); renderInfo();
+  renderLabels(); renderInfo(); applyVB();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(renderLabels);
 
   // --- 2. Turbine ---
   var N = 44, PROTONS_PER_ATP = 4;
