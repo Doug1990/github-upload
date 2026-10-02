@@ -95,6 +95,19 @@ for (const page of pages) {
   }
 }
 
+// Meta-Angaben: Beschreibung für alle Seiten, og:image muss lokal existieren (Pages-URL auf lokalen Server abgebildet)
+const PAGES_URL = 'https://doug1990.github.io/github-upload/';
+for (const page of pages) {
+  await send('Page.navigate', { url: `${BASE}/${page}` }); await sleep(600);
+  const meta = await ev(`({d:document.querySelector('meta[name=description]')?.content||'',img:document.querySelector('meta[property="og:image"]')?.content||'',t:document.title})`);
+  if (!meta.d) warn(page, '-', 'keine Meta-Beschreibung');
+  if (meta.img) {
+    const local = meta.img.startsWith(PAGES_URL) ? meta.img.slice(PAGES_URL.length) : null;
+    if (!local) err(page, '-', 'og:image zeigt nicht auf die Pages-Adresse: ' + meta.img);
+    else { const r = await fetch(`${BASE}/${local}`); if (r.status !== 200) err(page, '-', `og:image fehlt (${r.status}): ${local}`); else if ((await r.arrayBuffer()).byteLength > 300000) warn(page, '-', 'og:image größer als 300 KB: ' + local); }
+  }
+}
+
 ws.close(); chrome.kill(); server.close();
 try { fs.rmSync(profile, { recursive: true, force: true }); } catch {}
 const uniq = (a) => [...new Set(a)];

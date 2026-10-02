@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><title>Vorschaubild-Vorlage</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+  :root { --accent:#7FD9A8; --gold:#F2C46B; }
+  html,body { margin:0; width:1200px; height:630px; overflow:hidden; }
+  body { font-family:'Fraunces',Georgia,serif; color:#E8E6E0; position:relative;
+    background: radial-gradient(900px 500px at 80% 20%, var(--glow,#1d3a2d) 0%, transparent 70%), linear-gradient(180deg,var(--bg1,#16261F),var(--bg2,#0A1310)); }
+  .eyebrow { position:absolute; left:80px; top:78px; font-family:'IBM Plex Sans',sans-serif; font-size:22px; letter-spacing:.24em; text-transform:uppercase; color:#8892A6; }
+  h1 { position:absolute; left:80px; top:130px; width:700px; margin:0; font-weight:500; font-size:76px; line-height:1.08; }
+  p { position:absolute; left:80px; bottom:84px; width:660px; margin:0; font-family:'IBM Plex Sans',sans-serif; font-size:27px; line-height:1.5; color:#A9AFC0; }
+  .url { position:absolute; left:80px; bottom:36px; font-family:'IBM Plex Sans',sans-serif; font-size:20px; color:#6E7689; }
+  svg { position:absolute; right:40px; top:70px; width:430px; height:490px; }
+</style></head><body>
+<div class="eyebrow" id="e"></div><h1 id="t"></h1><p id="s"></p><div class="url">doug1990.github.io/github-upload</div>
+<svg id="m" viewBox="0 0 430 490" aria-hidden="true"></svg>
+<script>
+  var q = new URLSearchParams(location.search), m = q.get('motiv') || 'zelle';
+  document.getElementById('e').textContent = q.get('eyebrow') || '';
+  document.getElementById('t').textContent = q.get('titel') || '';
+  document.getElementById('s').textContent = q.get('text') || '';
+  var S = document.getElementById('m'), g = '';
+  if (m === 'zelle') {
+    document.documentElement.style.setProperty('--glow', '#1d3a2d');
+    g = '<ellipse cx="215" cy="245" rx="190" ry="150" fill="#173126" stroke="#7FD9A8" stroke-width="8"/><circle cx="170" cy="230" r="62" fill="#2D3A6E" stroke="#B39DDB" stroke-width="5"/><circle cx="182" cy="226" r="20" fill="#6574C0"/><ellipse cx="290" cy="170" rx="46" ry="26" fill="#8A4F32" stroke="#F2C46B" stroke-width="4" transform="rotate(-14 290 170)"/><ellipse cx="285" cy="320" rx="42" ry="23" fill="#8A4F32" stroke="#F2C46B" stroke-width="4" transform="rotate(18 285 320)"/><g fill="none" stroke="#4FC3D9" stroke-width="7" stroke-linecap="round"><path d="M150 330 q30 -16 60 0"/><path d="M146 346 q34 -18 68 0"/><path d="M150 362 q30 -16 60 0"/></g>';
+  } else if (m === 'karte') {
+    document.documentElement.style.setProperty('--bg1', '#1B2740'); document.documentElement.style.setProperty('--bg2', '#0B1220'); document.documentElement.style.setProperty('--glow', '#223255');
+    g = '<g fill="none" stroke="#3A4A70" stroke-width="2"><path d="M30 120 L215 30 L400 120 L215 210Z"/><path d="M30 220 L215 130 L400 220 L215 310Z"/><path d="M30 320 L215 230 L400 320 L215 410Z"/></g><path d="M60 330 C120 280 160 330 215 250 S330 210 380 150" fill="none" stroke="#7FD9A8" stroke-width="6" stroke-linecap="round"/><g><circle cx="215" cy="250" r="14" fill="#F2C46B"/><circle cx="380" cy="150" r="14" fill="#4FC3D9"/><circle cx="60" cy="330" r="14" fill="#FF8A65"/></g>';
+  } else {
+    g = '<g fill="none" stroke="#2F4A3C" stroke-width="2"><path d="M40 420 H390"/><path d="M40 330 H390"/><path d="M40 240 H390"/></g><g><rect x="70" y="270" width="70" height="150" rx="6" fill="#1E3A2D" stroke="#7FD9A8" stroke-width="3"/><rect x="170" y="190" width="80" height="230" rx="6" fill="#26405A" stroke="#4FC3D9" stroke-width="3"/><rect x="280" y="300" width="90" height="120" rx="6" fill="#4A3425" stroke="#F2C46B" stroke-width="3"/></g><circle cx="320" cy="110" r="46" fill="#F2C46B" opacity=".85"/>';
+  }
+  S.innerHTML = g;
+</script></body></html>
