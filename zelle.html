@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2316261F'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%237FD9A8' stroke-width='2'/%3E%3Ccircle cx='13' cy='14' r='3.2' fill='%237FD9A8'/%3E%3Ccircle cx='20' cy='19' r='1.8' fill='%23F2C46B'/%3E%3C/svg%3E">
+<title>Die Zelle als Stadt · Infrastruktur des Lebens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #7FD9A8; --accent-rgb: 127,217,168;
+    --gold: #F2C46B; --coral: #FF8A65; --blue: #4FC3D9;
+    --bg1: #16261F; --bg2: #101B17; --bg3: #0A1310;
+    --ink: #E8E6E0; --muted: #A9AFC0; --dim: #8892A6; --line: #2F3D36;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 24%, var(--bg3) 100%);
+    color: var(--ink);
+    font-family: 'Fraunces', Georgia, serif;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .sans { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .topnav {
+    position: absolute; top: 18px; left: 20px; z-index: 2;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 12px;
+  }
+  .topnav a { color: var(--dim); text-decoration: none; }
+  .topnav a:hover { color: var(--accent); }
+
+  /* --- Hero --- */
+  .hero {
+    width: 100%; min-height: 100vh; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 40px 20px;
+  }
+  .eyebrow {
+    font-family: 'IBM Plex Sans', sans-serif; letter-spacing: 0.24em; font-size: 11px;
+    text-transform: uppercase; color: var(--dim); margin: 0 0 18px;
+  }
+  .hero-title {
+    font-weight: 500; font-size: clamp(34px, 7vw, 66px); line-height: 1.08;
+    margin: 0; max-width: 780px; text-wrap: balance;
+  }
+  .hero-thesis {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: clamp(14px, 1.6vw, 16.5px);
+    color: var(--muted); max-width: 540px; margin: 22px auto 0; line-height: 1.65;
+  }
+  .hero > * { opacity: 0; animation: fadeUp 1s ease forwards; }
+  .hero > :nth-child(2) { animation-delay: 0.25s; }
+  .hero > :nth-child(3) { animation-delay: 0.5s; }
+  .hero > :nth-child(4) { animation-delay: 0.8s; }
+  .hero > .hero-bg { animation: none; opacity: 0.5; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  .hero-cta {
+    margin-top: 38px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; font-weight: 500;
+    color: var(--ink); text-decoration: none; letter-spacing: 0.03em;
+    border-bottom: 1px solid var(--accent); padding-bottom: 4px;
+  }
+  .hero-cta:hover { color: var(--accent); }
+  .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .hero-bg circle { fill: none; stroke: #2B4A3C; stroke-width: 1.2; animation: breathe 7s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+  .hero-bg circle:nth-child(2n) { animation-delay: -2.3s; }
+  .hero-bg circle:nth-child(3n) { animation-delay: -4.6s; }
+  @keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+  /* --- Sections --- */
+  .sec { width: 100%; max-width: 860px; padding: 70px 18px 20px; }
+  .sec h2 { font-weight: 500; font-size: clamp(24px, 4vw, 34px); margin: 0 0 10px; text-align: center; text-wrap: balance; }
+  .sec .lead {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 14.5px; line-height: 1.7;
+    color: var(--muted); max-width: 600px; margin: 0 auto 26px; text-align: center;
+  }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.9s ease, transform 0.9s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  .panel {
+    background: rgba(255,255,255,0.025); border: 1px solid var(--line);
+    border-radius: 14px; padding: 14px;
+  }
+  .panel svg { width: 100%; height: auto; display: block; }
+
+  .seg { display: flex; justify-content: center; gap: 0; margin: 0 auto 14px; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
+  .seg button {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 7px 18px;
+    background: transparent; color: var(--muted); border: none; cursor: pointer;
+  }
+  .seg button[aria-pressed="true"] { background: rgba(var(--accent-rgb),0.16); color: var(--accent); }
+
+  /* Zelle-als-Stadt */
+  .part { cursor: pointer; }
+  .part .shape { transition: filter 0.25s ease, stroke-width 0.25s ease; }
+  .part:hover .shape, .part:focus-visible .shape, .part.sel .shape { filter: brightness(1.35) drop-shadow(0 0 6px rgba(127,217,168,0.55)); }
+  .part:focus { outline: none; }
+  .part:focus-visible .shape { stroke: var(--gold); }
+  .lbl { font-family: 'IBM Plex Sans', sans-serif; font-size: 17px; fill: #DDE6E0; pointer-events: none; paint-order: stroke; stroke: #0A1310; stroke-width: 4px; }
+  .infocard {
+    margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: #C7CAD6;
+  }
+  .infocard h3 { grid-column: 1 / -1; margin: 0; font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; color: var(--ink); }
+  .infocard .col { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 11px 13px; border-left: 3px solid var(--accent); }
+  .infocard .col.city { border-left-color: var(--gold); }
+  .infocard .col b { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
+  .infocard .aha { grid-column: 1 / -1; color: var(--gold); font-size: 13px; }
+  @media (max-width: 560px) { .infocard { grid-template-columns: 1fr; } }
+
+  /* Turbine */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0 0; }
+  .stat { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 9px 12px; font-family: 'IBM Plex Sans', sans-serif; }
+  .stat small { display: block; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+  .stat span { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bar { height: 6px; background: #1d2a24; border-radius: 3px; margin-top: 6px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--blue); transition: width 0.15s linear; }
+  .controls { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; margin-top: 14px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); }
+  .controls label { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 220px; }
+  .controls input[type=range] { flex: 1; accent-color: var(--accent); }
+  .btn {
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 8px 15px;
+    border-radius: 999px; border: 1px solid #3A4A42; background: transparent; color: var(--ink); cursor: pointer;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.off { border-color: var(--coral); color: var(--coral); }
+  .status { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--gold); margin: 12px 0 0; min-height: 40px; line-height: 1.55; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: var(--dim); margin-top: 10px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+  .note { font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #6E7689; margin-top: 10px; line-height: 1.5; }
+  @keyframes pulse { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
+  .pump-on .pumparrow { animation: pulse 0.9s ease-in-out infinite; }
+
+  /* Karten */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  @media (max-width: 720px) { .cards { grid-template-columns: 1fr; } }
+  .card { background: rgba(255,255,255,0.03); border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 14px; font-family: 'IBM Plex Sans', sans-serif; }
+  .card h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; margin: 0 0 8px; }
+  .card p { margin: 0 0 10px; font-size: 13.5px; line-height: 1.6; color: #C7CAD6; }
+  .card .infra { color: var(--gold); font-size: 12.5px; border-top: 1px dashed #3A4A42; padding-top: 8px; margin: 0; }
+
+  /* DNA */
+  .dna-in {
+    width: 100%; max-width: 420px; display: block; margin: 0 auto 12px;
+    background: rgba(255,255,255,0.04); border: 1px solid #3A4A42; border-radius: 8px; color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; padding: 10px 14px; text-align: center;
+  }
+  .dna-in:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .dna-out { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 8px; min-height: 90px; }
+  .dna-ch { text-align: center; font-family: 'IBM Plex Sans', sans-serif; }
+  .dna-ch .c { font-size: 11px; color: var(--dim); margin-bottom: 3px; }
+  .dna-ch .b { display: flex; gap: 2px; }
+  .dna-ch .b span { width: 22px; height: 26px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; font-size: 14px; font-weight: 600; color: #0A1310; }
+  .base-A { background: #7FD9A8; } .base-C { background: #4FC3D9; } .base-G { background: #F2C46B; } .base-T { background: #FF8A65; }
+  .dna-ch .bits { font-size: 9.5px; color: #6E7689; margin-top: 3px; letter-spacing: 0.04em; }
+  .dna-sum { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: var(--muted); text-align: center; margin-top: 12px; }
+
+  /* Schluss */
+  .closing { text-align: center; padding: 90px 22px 60px; max-width: 640px; }
+  .closing p { font-size: clamp(17px, 2.6vw, 22px); color: #C7CAD6; line-height: 1.6; margin: 0 0 14px; }
+  .closing .warm { color: #FFE3B0; }
+  .closing a.next { display: inline-block; margin-top: 18px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; }
+
+  .site-footer {
+    max-width: min(94vw, 640px); margin: 0 auto; padding: 0 24px 48px; text-align: center;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #5E6579;
+  }
+  .site-footer a { color: #8892A6; text-decoration: underline; text-underline-offset: 2px; }
+  .site-footer a:hover { color: var(--accent); }
+  .site-footer .sep { margin: 0 10px; color: #3A4155; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero > *, .reveal { animation: none; opacity: 1; transform: none; transition: none; }
+    .hero-bg circle, .pump-on .pumparrow { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="topnav"><a href="index.html">&larr; Was trägt deinen Tag?</a></div>
+  <svg class="hero-bg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <circle cx="120" cy="140" r="70"/><circle cx="660" cy="110" r="46"/><circle cx="730" cy="330" r="90"/>
+    <circle cx="90" cy="430" r="52"/><circle cx="260" cy="530" r="80"/><circle cx="560" cy="520" r="40"/>
+    <circle cx="400" cy="70" r="34"/><circle cx="40" cy="290" r="30"/>
+  </svg>
+  <p class="eyebrow">Infrastruktur · Teil 2</p>
+  <h1 class="hero-title">In jeder deiner Zellen steht ein Kraftwerk.</h1>
+  <p class="hero-thesis">Archiv, Fabrik, Müllabfuhr, Stadtgrenze: Eine einzelne Zelle ist organisiert wie eine kleine Stadt. Und sie läuft seit Milliarden Jahren, ohne dass jemand sie geplant hat.</p>
+  <a class="hero-cta" href="#stadt">Rein in die Zelle &darr;</a>
+</section>
+
+<!-- 1. Zelle als Stadt -->
+<section class="sec reveal" id="stadt">
+  <h2>Die Zelle ist eine Stadt in klein.</h2>
+  <p class="lead">Tippe auf einen Bestandteil. Mit dem Schalter wechselst du zwischen der Sprache der Biologie und der der Stadtplanung.</p>
+  <div class="seg" role="group" aria-label="Ansicht">
+    <button type="button" id="viewBio" aria-pressed="true">Zelle</button>
+    <button type="button" id="viewCity" aria-pressed="false">Stadt</button>
+  </div>
+  <div class="panel">
+    <svg viewBox="0 0 800 520" role="img" aria-label="Schematische Zelle mit Kern, Mitochondrien, Golgi-Apparat, Lysosom und Ribosomen">
+      <defs>
+        <radialGradient id="cyto" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#1E3A2D"/><stop offset="1" stop-color="#142A20"/></radialGradient>
+      </defs>
+      <g class="part" data-part="membran" tabindex="0" role="button" aria-label="Zellmembran">
+        <path class="shape" d="M120,260 C100,120 260,50 400,60 C560,50 720,110 700,260 C720,400 580,480 400,470 C240,480 100,400 120,260Z" fill="url(#cyto)" stroke="#7FD9A8" stroke-width="6"/>
+      </g>
+      <!-- ER -->
+      <path d="M372,185 C430,150 450,225 410,250 C375,272 440,300 395,335" fill="none" stroke="#4A7A63" stroke-width="9" stroke-linecap="round" opacity="0.8" pointer-events="none"/>
+      <g fill="#B8E8CF" pointer-events="none">
+        <circle cx="428" cy="178" r="4"/><circle cx="440" cy="215" r="4"/><circle cx="420" cy="262" r="4"/><circle cx="426" cy="310" r="4"/>
+        <circle cx="250" cy="120" r="3.5"/><circle cx="620" cy="260" r="3.5"/><circle cx="500" cy="420" r="3.5"/><circle cx="170" cy="300" r="3.5"/><circle cx="330" cy="400" r="3.5"/>
+      </g>
+      <g class="part" data-part="ribosom" tabindex="0" role="button" aria-label="Ribosomen">
+        <circle class="shape" cx="500" cy="262" r="15" fill="#2D5A45" stroke="#B8E8CF" stroke-width="2"/>
+        <circle class="shape" cx="478" cy="285" r="9" fill="#2D5A45" stroke="#B8E8CF" stroke-width="2"/>
+        <circle class="shape" cx="522" cy="290" r="9" fill="#2D5A45" stroke="#B8E8CF" stroke-width="2"/>
+      </g>
+      <g class="part" data-part="kern" tabindex="0" role="button" aria-label="Zellkern">
+        <circle class="shape" cx="285" cy="250" r="82" fill="#2B3A66" stroke="#B39DDB" stroke-width="4"/>
+        <circle cx="300" cy="245" r="26" fill="#3D4F8A" pointer-events="none"/>
+        <path d="M240,215 q20,-14 40,0 t40,0 M236,262 q22,16 44,0 t44,0" fill="none" stroke="#B39DDB" stroke-width="3" stroke-linecap="round" pointer-events="none"/>
+      </g>
+      <g class="part" data-part="mito" tabindex="0" role="button" aria-label="Mitochondrien">
+        <ellipse class="shape" cx="590" cy="160" rx="68" ry="36" fill="#6B3F2A" stroke="#F2C46B" stroke-width="4" transform="rotate(-14 590 160)"/>
+        <path d="M540,168 q10,-24 20,0 t20,0 t20,0 t20,0 t20,0" fill="none" stroke="#F2C46B" stroke-width="3" stroke-linecap="round" opacity="0.8" transform="rotate(-14 590 160)" pointer-events="none"/>
+        <ellipse class="shape" cx="565" cy="375" rx="60" ry="32" fill="#6B3F2A" stroke="#F2C46B" stroke-width="4" transform="rotate(18 565 375)"/>
+        <path d="M518,372 q9,-22 18,0 t18,0 t18,0 t18,0 t18,0" fill="none" stroke="#F2C46B" stroke-width="3" stroke-linecap="round" opacity="0.8" transform="rotate(18 565 375)" pointer-events="none"/>
+      </g>
+      <g class="part" data-part="golgi" tabindex="0" role="button" aria-label="Golgi-Apparat">
+        <g class="shape" fill="none" stroke="#4FC3D9" stroke-width="7" stroke-linecap="round">
+          <path d="M360,385 q40,-22 80,0"/><path d="M355,405 q45,-24 90,0"/><path d="M360,425 q40,-22 80,0"/>
+        </g>
+      </g>
+      <g class="part" data-part="lyso" tabindex="0" role="button" aria-label="Lysosom">
+        <circle class="shape" cx="210" cy="405" r="28" fill="#5A3347" stroke="#FF8A65" stroke-width="4"/>
+        <circle cx="203" cy="400" r="4" fill="#FF8A65" pointer-events="none"/><circle cx="217" cy="411" r="3" fill="#FF8A65" pointer-events="none"/>
+      </g>
+      <text class="lbl" x="285" y="360" text-anchor="middle" id="lKern" data-bio="Zellkern" data-city="Rathaus-Archiv"></text>
+      <text class="lbl" x="590" y="108" text-anchor="middle" id="lMito" data-bio="Mitochondrium" data-city="Kraftwerk"></text>
+      <text class="lbl" x="500" y="333" text-anchor="middle" id="lRibo" data-bio="Ribosomen" data-city="Werkstätten"></text>
+      <text class="lbl" x="400" y="458" text-anchor="middle" id="lGolgi" data-bio="Golgi-Apparat" data-city="Paketzentrum"></text>
+      <text class="lbl" x="210" y="452" text-anchor="middle" id="lLyso" data-bio="Lysosom" data-city="Recyclinghof"></text>
+      <text class="lbl" x="150" y="105" text-anchor="middle" id="lMem" data-bio="Zellmembran" data-city="Stadtgrenze"></text>
+    </svg>
+  </div>
+  <div class="infocard" id="info" aria-live="polite"></div>
+</section>
+
+<!-- 2. Kraftwerk -->
+<section class="sec reveal" id="kraftwerk">
+  <h2>Das Kraftwerk: Wasserkraft im Miniaturformat.</h2>
+  <p class="lead">Die Energiewährung der Zelle heißt ATP. Ein Körper setzt davon pro Tag grob sein eigenes Gewicht um, aber jede Zelle hat nur wenig auf Vorrat. Also muss ständig nachgeliefert werden. Das Prinzip kennst du aus dem Stausee: Erst wird Wasser hochgepumpt, dann treibt der Rückfluss eine Turbine an.</p>
+  <div class="panel" id="turbinePanel">
+    <svg id="tsvg" viewBox="0 0 800 470" role="img" aria-label="Animation: Protonenpumpe und ATP-Synthase in der Mitochondrienmembran">
+      <defs>
+        <clipPath id="ringclip"><rect x="537" y="220" width="46" height="32" rx="8"/></clipPath>
+      </defs>
+      <rect id="zUp" x="12" y="30" width="776" height="188" rx="10" fill="#4FC3D9" opacity="0.1"/>
+      <rect id="zLow" x="12" y="254" width="776" height="188" rx="10" fill="#4FC3D9" opacity="0.1"/>
+      <text x="24" y="58" font-size="17" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Stausee: viel H⁺ (Raum zwischen den Membranen)</text>
+      <text x="24" y="432" font-size="17" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Unten: wenig H⁺ (Matrix)</text>
+      <g id="membrane"></g>
+
+      <!-- Pumpe -->
+      <g id="pump">
+        <rect x="170" y="208" width="60" height="52" rx="12" fill="#6B3F2A" stroke="#F2C46B" stroke-width="3"/>
+        <path class="pumparrow" d="M200,252 V218 M188,230 L200,217 L212,230" fill="none" stroke="#F2C46B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="200" y="196" text-anchor="middle" font-size="16" fill="#F2C46B" font-family="IBM Plex Sans, sans-serif">Pumpe</text>
+        <text x="200" y="304" text-anchor="middle" font-size="15" fill="#C9A878" font-family="IBM Plex Sans, sans-serif">Nahrung + O₂</text>
+        <path d="M200,284 V264" stroke="#C9A878" stroke-width="2" stroke-dasharray="3 4" fill="none"/>
+      </g>
+
+      <!-- ATP-Synthase -->
+      <g id="synth">
+        <rect x="535" y="218" width="50" height="36" rx="9" fill="#2E4A6B" stroke="#4FC3D9" stroke-width="3"/>
+        <g clip-path="url(#ringclip)"><g id="ringStripes"></g></g>
+        <rect x="556" y="254" width="8" height="34" fill="#4FC3D9"/>
+        <g transform="translate(560,316)">
+          <circle cx="-17" cy="-6" r="19" fill="#3D5F85" stroke="#4FC3D9" stroke-width="2.5"/>
+          <circle cx="17" cy="-6" r="19" fill="#3D5F85" stroke="#4FC3D9" stroke-width="2.5"/>
+          <circle cx="0" cy="14" r="19" fill="#3D5F85" stroke="#4FC3D9" stroke-width="2.5"/>
+          <circle id="lobe0" cx="-17" cy="-6" r="19" fill="#F2C46B" opacity="0"/>
+          <circle id="lobe1" cx="17" cy="-6" r="19" fill="#F2C46B" opacity="0"/>
+          <circle id="lobe2" cx="0" cy="14" r="19" fill="#F2C46B" opacity="0"/>
+          <line id="rotbar" x1="-26" y1="0" x2="26" y2="0" stroke="#E8E6E0" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <text x="560" y="372" text-anchor="middle" font-size="16" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">ATP-Synthase</text>
+        <text x="560" y="196" text-anchor="middle" font-size="16" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Turbine</text>
+      </g>
+      <g id="floaters"></g>
+      <g id="protons"></g>
+    </svg>
+  </div>
+  <div class="stats" aria-live="off">
+    <div class="stat"><small>Pegel</small><span id="sLevel">0 %</span><div class="bar"><i id="sBar"></i></div></div>
+    <div class="stat"><small>ATP pro Sekunde</small><span id="sRate">0</span></div>
+    <div class="stat"><small>ATP gesamt</small><span id="sTotal">0</span></div>
+  </div>
+  <div class="controls">
+    <label>Nahrung &amp; O₂ <input type="range" id="power" min="0" max="100" value="55" aria-label="Pumpleistung"></label>
+    <button type="button" class="btn" id="o2btn">Sauerstoff abdrehen</button>
+  </div>
+  <p class="status" id="tstatus" aria-live="polite"></p>
+  <div class="legend"><span><i style="background:#FF8A65"></i>Proton (H⁺)</span><span><i style="background:#F2C46B"></i>ATP (fertige Energiewährung)</span><span><i style="background:#4FC3D9"></i>Turbine dreht sich mit dem Rückfluss</span></div>
+  <p class="note">Vereinfacht: In der Simulation braucht ein ATP vier Protonen. Der echte Wert liegt grob bei drei bis vier und hängt von der Zellart ab. Alles hier ist eine Skizze des Prinzips, kein exaktes Modell.</p>
+</section>
+
+<!-- 3. Robust statt perfekt -->
+<section class="sec reveal" id="robust">
+  <h2>Gut genug schlägt perfekt.</h2>
+  <p class="lead">Technik wird nach Plan gebaut. Das Leben wurde nie geplant, nur laufend verändert. Heraus kommt ein Design, das einen Ingenieur nervös macht und trotzdem erstaunlich zuverlässig läuft.</p>
+  <div class="cards">
+    <article class="card">
+      <h3>Redundanz</h3>
+      <p>Viele Funktionen sind mehrfach vorhanden, überlappend und scheinbar verschwenderisch. Fällt ein Teil aus, springt ein anderes ein.</p>
+      <p class="infra">In der Stadt: Ringleitungen, zwei Zufahrten, Notstrom.</p>
+    </article>
+    <article class="card">
+      <h3>Alte Reste bleiben</h3>
+      <p>Evolution räumt nicht auf. Was einmal funktioniert hat, wird überschrieben, ergänzt, umgangen, aber selten entfernt.</p>
+      <p class="infra">In der Stadt: Der Altbau unter dem Neubau, die Leitung aus den Fünfzigern, die noch immer läuft.</p>
+    </article>
+    <article class="card">
+      <h3>Robust vor effizient</h3>
+      <p>Optimiert wird nichts, es muss nur reichen. Dafür hält das System auch unter chaotischen Bedingungen durch.</p>
+      <p class="infra">In der Stadt: Puffer und Reserven kosten Geld und retten im Ernstfall den Betrieb.</p>
+    </article>
+  </div>
+</section>
+
+<!-- 4. Information -->
+<section class="sec reveal" id="dna">
+  <h2>Der Bauplan ist digital.</h2>
+  <p class="lead">DNA schreibt mit vier Buchstaben: A, C, G und T. Vier Möglichkeiten sind genau zwei Bit pro Base. Tippe ein Wort und sieh, wie es in diesem Alphabet aussähe. Das ist nur ein Gedankenspiel und kein echter biologischer Code.</p>
+  <label class="sans" style="display:block;text-align:center;font-size:12px;color:var(--dim);margin-bottom:6px;" for="dnaIn">Dein Wort (max. 10 Zeichen)</label>
+  <input class="dna-in" id="dnaIn" maxlength="10" value="Leben" autocomplete="off" spellcheck="false">
+  <div class="dna-out" id="dnaOut" aria-live="polite"></div>
+  <p class="dna-sum" id="dnaSum"></p>
+</section>
+
+<section class="closing reveal">
+  <p>Ein Kraftwerk ohne Betreiber. Ein Archiv ohne Archivar. Eine Stadt ohne Bauamt.</p>
+  <p class="warm">Ordnung entsteht hier nicht durch einen Plan, sondern durch Energie, Information und sehr viel Zeit.</p>
+  <a class="next" href="index.html">&larr; Zurück zur Infrastruktur in Düsseldorf</a>
+</section>
+
+<footer class="site-footer">
+  <p style="margin: 0 0 10px;">Hinweis: Diese Seite ist KI-generiert. Die Inhalte sind eine vereinfachte Darstellung und ersetzen kein Lehrbuch.</p>
+  <a href="impressum.html">Impressum</a><span class="sep">·</span><a href="datenschutz.html">Datenschutz</a>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  function el(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function $(id) { return document.getElementById(id); }
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+
+  // --- Einblenden beim Scrollen ---
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 }) : null;
+  document.querySelectorAll('.reveal').forEach(function (n) { io ? io.observe(n) : n.classList.add('in'); });
+
+  // --- 1. Zelle als Stadt ---
+  var PARTS = {
+    membran: {
+      bio: 'Zellmembran', city: 'Stadtgrenze mit Zoll',
+      cell: 'Eine hauchdünne Fettschicht trennt innen von außen. Spezielle Eiweiße lassen gezielt Stoffe herein und heraus.',
+      town: 'Stadtmauer mit Toren. Nicht alles darf durch, aber ohne Austausch würde die Stadt verhungern.',
+      aha: 'Ordnung im Innern gibt es nur, weil es eine Grenze gibt.'
+    },
+    kern: {
+      bio: 'Zellkern', city: 'Rathaus-Archiv',
+      cell: 'Hier liegt die DNA, der Bauplan der Zelle. Das Original bleibt drinnen, nach außen gehen nur Abschriften.',
+      town: 'Das Archiv im Rathaus. Die Originalpläne verlassen das Gebäude nie, die Werkstätten bekommen Kopien.',
+      aha: 'Information wird geschützt, indem man sie kopiert, statt das Original herumzutragen.'
+    },
+    mito: {
+      bio: 'Mitochondrium', city: 'Kraftwerk',
+      cell: 'Hier entsteht der größte Teil des ATP. Ein Gefälle aus Protonen treibt eine winzige Turbine an. Probiere es unten selbst aus.',
+      town: 'Das Kraftwerk der Stadt. Es liefert die Währung, mit der alle anderen arbeiten, und zwar rund um die Uhr.',
+      aha: 'Ohne Energiezufuhr gibt es keine Ordnung. Das Kraftwerk ist die wichtigste Infrastruktur.'
+    },
+    ribosom: {
+      bio: 'Ribosomen', city: 'Werkstätten',
+      cell: 'Sie lesen die Abschrift des Bauplans und setzen Eiweiße zusammen, die „Arbeiter“ der Zelle.',
+      town: 'Die Werkstätten. Sie bekommen eine Bauanleitung und fertigen daraus, was die Stadt braucht.',
+      aha: 'Die Zelle baut die Eiweiße, die die Zelle bauen. Ein Kreislauf ohne Anfang.'
+    },
+    golgi: {
+      bio: 'Golgi-Apparat', city: 'Paketzentrum',
+      cell: 'Fertige Eiweiße werden sortiert, verpackt und mit einer Art Adresse an den richtigen Ort geschickt.',
+      town: 'Das Paketzentrum. Erst die Adresse macht aus einem Päckchen etwas, das ankommt.',
+      aha: 'Logistik ist keine Nebensache. Ohne sie bleibt jede Produktion liegen.'
+    },
+    lyso: {
+      bio: 'Lysosom', city: 'Recyclinghof',
+      cell: 'Altes und Defektes wird hier zerlegt. Die Bausteine gehen zurück in den Kreislauf.',
+      town: 'Der Recyclinghof. Eine Stadt, die nichts entsorgt, erstickt irgendwann an ihrem eigenen Müll.',
+      aha: 'Abbau gehört zum Betrieb dazu, genau wie der Aufbau.'
+    }
+  };
+  var LABEL_IDS = ['lKern', 'lMito', 'lRibo', 'lGolgi', 'lLyso', 'lMem'];
+  var city = false, curPart = 'mito';
+  function renderLabels() {
+    LABEL_IDS.forEach(function (id) {
+      var t = $(id); t.textContent = t.getAttribute(city ? 'data-city' : 'data-bio');
+    });
+  }
+  function renderInfo() {
+    var p = PARTS[curPart], card = $('info');
+    card.innerHTML = '';
+    function add(tag, cls, html) { var n = document.createElement(tag); if (cls) n.className = cls; n.innerHTML = html; card.appendChild(n); }
+    add('h3', '', p.bio + ' = ' + p.city);
+    add('div', 'col', '<b>In der Zelle</b>' + p.cell);
+    add('div', 'col city', '<b>In der Stadt</b>' + p.town);
+    add('div', 'aha', '→ ' + p.aha);
+    document.querySelectorAll('.part').forEach(function (g) { g.classList.toggle('sel', g.getAttribute('data-part') === curPart); });
+  }
+  document.querySelectorAll('.part').forEach(function (g) {
+    function pick() { curPart = g.getAttribute('data-part'); renderInfo(); }
+    g.addEventListener('click', pick);
+    g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+  });
+  function setView(c) {
+    city = c;
+    $('viewBio').setAttribute('aria-pressed', String(!c));
+    $('viewCity').setAttribute('aria-pressed', String(c));
+    renderLabels();
+  }
+  $('viewBio').addEventListener('click', function () { setView(false); });
+  $('viewCity').addEventListener('click', function () { setView(true); });
+  renderLabels(); renderInfo();
+
+  // --- 2. Turbine ---
+  var N = 44, PROTONS_PER_ATP = 4;
+  var Y_MEM_TOP = 218, Y_MEM_BOT = 254;
+  var memG = $('membrane');
+  for (var x = 14; x < 800; x += 14) {
+    if ((x > 160 && x < 240) || (x > 524 && x < 596)) continue;
+    el('line', { x1: x, y1: 228, x2: x, y2: 244, stroke: '#3F5A4D', 'stroke-width': 2 }, memG);
+    el('circle', { cx: x, cy: 226, r: 5, fill: '#7FD9A8', opacity: 0.85 }, memG);
+    el('circle', { cx: x, cy: 246, r: 5, fill: '#7FD9A8', opacity: 0.85 }, memG);
+  }
+  var stripes = $('ringStripes');
+  for (var s = -2; s < 8; s++) el('rect', { x: 537 + s * 14, y: 222, width: 5, height: 28, rx: 2.5, fill: '#4FC3D9', opacity: 0.8 }, stripes);
+
+  var pg = $('protons'), prot = [];
+  for (var i = 0; i < N; i++) {
+    var up = i < N / 2;
+    var p = { zone: up ? 'up' : 'low', x: rnd(30, 770), y: up ? rnd(75, 205) : rnd(268, 410), el: null, path: null, seg: 0, dest: null, wt: 0, hx: 0, hy: 0 };
+    p.hx = p.x; p.hy = p.y;
+    p.el = el('circle', { r: 6, fill: '#FF8A65', stroke: '#FFD2C2', 'stroke-width': 1 }, pg);
+    prot.push(p);
+  }
+  function count(z) { var c = 0; prot.forEach(function (q) { if (q.zone === z) c++; }); return c; }
+  function pick(z) {
+    var pool = prot.filter(function (q) { return q.zone === z; });
+    return pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
+  }
+  function launch(q, path, dest) { q.zone = 'move'; q.path = path; q.seg = 0; q.dest = dest; }
+
+  var floaters = [], fg = $('floaters');
+  function floater(text, x0, y0, x1, y1, color, dur) {
+    var g = el('g', {}, fg);
+    el('rect', { x: -25, y: -11, width: 50, height: 22, rx: 7, fill: color, opacity: 0.95 }, g);
+    var t = el('text', { x: 0, y: 5, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 600, fill: '#14110B', 'font-family': 'IBM Plex Sans, sans-serif' }, g);
+    t.textContent = text;
+    floaters.push({ g: g, x0: x0, y0: y0, x1: x1, y1: y1, t: 0, dur: dur });
+  }
+
+  var power = $('power'), o2 = $('o2btn'), pumpOn = true;
+  var upN = 0, lowN = 0, pumpAcc = 0, flowAcc = 0, atpAcc = 0, atpTotal = 0, angle = 0, last = 0, flowRate = 0;
+  var lastStatus = '';
+  o2.addEventListener('click', function () {
+    pumpOn = !pumpOn;
+    o2.textContent = pumpOn ? 'Sauerstoff abdrehen' : 'Sauerstoff wieder an';
+    o2.classList.toggle('off', !pumpOn);
+  });
+
+  function frame(ts) {
+    var dt = Math.min(0.05, (ts - last) / 1000 || 0.016); last = ts;
+    upN = count('up'); lowN = count('low');
+    var frac = Math.max(0, Math.min(1, (upN - lowN) / N));
+    var pumpRate = pumpOn ? power.value / 100 * 7 : 0;
+    flowRate = upN > 0 ? 12 * frac : 0;
+
+    // Pumpe: unten -> oben
+    pumpAcc += pumpRate * dt;
+    while (pumpAcc >= 1) {
+      pumpAcc -= 1;
+      var a = pick('low'); if (!a) break;
+      launch(a, [{ x: rnd(190, 210), y: rnd(300, 330) }, { x: 200, y: 262 }, { x: 200, y: 212 }, { x: rnd(120, 280), y: rnd(80, 190) }], 'up');
+    }
+    // Turbine: oben -> unten
+    flowAcc += flowRate * dt;
+    while (flowAcc >= 1) {
+      flowAcc -= 1;
+      var b = pick('up'); if (!b) break;
+      launch(b, [{ x: rnd(550, 570), y: 190 }, { x: 560, y: 236 }, { x: 560, y: 280 }, { x: rnd(480, 640), y: rnd(380, 420) }], 'low');
+    }
+    // ATP
+    atpAcc += flowRate / PROTONS_PER_ATP * dt;
+    while (atpAcc >= 1) {
+      atpAcc -= 1; atpTotal++;
+      floater('ADP+P', 440, 330, 540, 316, '#B8C4D6', 0.7);
+      floater('ATP', 585, 330, rnd(690, 750), rnd(340, 410), '#F2C46B', 1.8);
+    }
+    // Rotor
+    angle += dt * flowRate * 0.9;
+    $('rotbar').setAttribute('transform', 'scale(' + Math.cos(angle).toFixed(3) + ',1)');
+    ringShift(angle);
+    for (var l = 0; l < 3; l++) {
+      var ph = ((angle / (Math.PI * 2) * 3) % 3 + 3) % 3;
+      $('lobe' + l).setAttribute('opacity', flowRate > 0.2 ? Math.max(0, 0.5 - Math.abs(ph - l) * 0.5) : 0);
+    }
+    $('pump').classList.toggle('pump-on', pumpOn && power.value > 0);
+
+    // Protonen bewegen
+    prot.forEach(function (q) {
+      if (q.zone === 'move') {
+        var tgt = q.path[q.seg], dx = tgt.x - q.x, dy = tgt.y - q.y, d = Math.hypot(dx, dy), step = 300 * dt;
+        if (d <= step) {
+          q.x = tgt.x; q.y = tgt.y; q.seg++;
+          if (q.seg >= q.path.length) { q.zone = q.dest; q.hx = q.x; q.hy = q.y; q.wt = 0; }
+        } else { q.x += dx / d * step; q.y += dy / d * step; }
+      } else {
+        q.wt -= dt;
+        if (q.wt <= 0) {
+          q.wt = rnd(1.2, 3);
+          q.hx = rnd(30, 770);
+          q.hy = q.zone === 'up' ? rnd(75, 205) : rnd(268, 410);
+        }
+        q.x += (q.hx - q.x) * dt * 0.9 + rnd(-1, 1);
+        q.y += (q.hy - q.y) * dt * 0.9 + rnd(-1, 1);
+        q.y = q.zone === 'up' ? Math.max(70, Math.min(206, q.y)) : Math.max(266, Math.min(412, q.y));
+      }
+      q.el.setAttribute('cx', q.x.toFixed(1)); q.el.setAttribute('cy', q.y.toFixed(1));
+    });
+    // Schwebende Etiketten
+    floaters = floaters.filter(function (f) {
+      f.t += dt; var k = Math.min(1, f.t / f.dur);
+      f.g.setAttribute('transform', 'translate(' + (f.x0 + (f.x1 - f.x0) * k).toFixed(1) + ',' + (f.y0 + (f.y1 - f.y0) * k).toFixed(1) + ')');
+      f.g.setAttribute('opacity', (k < 0.15 ? k / 0.15 : k > 0.7 ? (1 - k) / 0.3 : 1).toFixed(2));
+      if (k >= 1) { fg.removeChild(f.g); return false; }
+      return true;
+    });
+    // Wasserstand
+    $('zUp').setAttribute('opacity', (0.05 + 0.4 * upN / N).toFixed(2));
+    $('zLow').setAttribute('opacity', (0.05 + 0.4 * lowN / N).toFixed(2));
+    // Anzeigen
+    var lvl = Math.round(frac * 100);
+    $('sLevel').textContent = lvl + ' %'; $('sBar').style.width = lvl + '%';
+    $('sRate').textContent = (flowRate / PROTONS_PER_ATP).toFixed(1);
+    $('sTotal').textContent = atpTotal;
+    var msg;
+    if (!pumpOn) msg = frac > 0.05
+      ? 'Ohne Sauerstoff steht die Pumpe. Der Stausee läuft leer, und mit dem Gefälle verschwindet der Strom.'
+      : 'Kein Gefälle, keine Turbine, kein ATP. Eine Zelle in dieser Lage hat sehr schnell ein ernstes Problem.';
+    else if (frac < 0.12) msg = 'Die Pumpe füllt den Stausee. Sobald ein Gefälle da ist, beginnt die Turbine zu drehen.';
+    else msg = 'Gleichgewicht: Die Pumpe füllt nach, die Turbine verbraucht. Mit dem Regler stellst du die Leistung ein.';
+    if (msg !== lastStatus) { $('tstatus').textContent = msg; lastStatus = msg; }
+    requestAnimationFrame(frame);
+  }
+  function ringShift(a) {
+    stripes.setAttribute('transform', 'translate(' + ((a * 10) % 14).toFixed(2) + ',0)');
+  }
+
+  // Animation nur laufen lassen, wenn sichtbar
+  var running = false, visible = false;
+  function start() { if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); } }
+  if ('IntersectionObserver' in window) {
+    // Stoppen: frame() plant sich selbst neu; wir stoppen über Flag
+    var origFrame = frame;
+    frame = function (ts) { if (!visible) { running = false; return; } origFrame(ts); };
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) start(); }, { threshold: 0.01 }).observe($('turbinePanel'));
+  } else { visible = true; start(); }
+
+  // --- 4. DNA ---
+  var BASES = ['A', 'C', 'G', 'T'];
+  function dna() {
+    var txt = $('dnaIn').value.slice(0, 10), out = $('dnaOut');
+    out.innerHTML = '';
+    var bytes = new TextEncoder().encode(txt), total = 0;
+    for (var ch of txt) {
+      var enc = new TextEncoder().encode(ch), bases = '', bits = '';
+      enc.forEach(function (byte) {
+        for (var s = 6; s >= 0; s -= 2) { var v = (byte >> s) & 3; bases += BASES[v]; bits += (v >> 1) + '' + (v & 1) + ' '; }
+      });
+      total += bases.length;
+      var d = document.createElement('div'); d.className = 'dna-ch';
+      d.innerHTML = '<div class="c">' + (ch === ' ' ? '␣' : ch.replace(/</g, '&lt;')) + '</div><div class="b">' +
+        bases.split('').map(function (b) { return '<span class="base-' + b + '">' + b + '</span>'; }).join('') + '</div><div class="bits">' + bits.trim() + '</div>';
+      out.appendChild(d);
+    }
+    $('dnaSum').textContent = txt ? (txt.length + ' Zeichen = ' + bytes.length + ' Byte = ' + total + ' Basen. Zum Vergleich: Das menschliche Genom hat rund 3 Milliarden Basen.') : 'Tippe etwas ein.';
+  }
+  $('dnaIn').addEventListener('input', dna); dna();
+})();
+</script>
+</body>
+</html>
