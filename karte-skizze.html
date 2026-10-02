@@ -26,9 +26,12 @@
     font-family: 'Fraunces', Georgia, serif;
   }
   .sans, button, .legend, .info, .layers { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; }
+  .skip-link { position: fixed; left: 12px; top: -80px; z-index: 10000; padding: 13px 18px; border-radius: 8px; background: #E8E6E0; color: #0B1220; font: 500 14px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-decoration: none; }
+  .skip-link:focus { top: 12px; outline: 3px solid #F2C46B; outline-offset: 2px; }
+  main:focus { outline: none; }
   main { max-width: 1080px; margin: 0 auto; padding: 36px 16px 56px; }
   header { text-align: center; }
-  .eyebrow { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #8892A6; margin: 0 0 10px; }
+  .eyebrow { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #929CB0; margin: 0 0 10px; }
   h1 { font-weight: 500; font-size: clamp(26px, 4.5vw, 40px); line-height: 1.15; margin: 0 0 12px; text-wrap: balance; }
   .lead { font-size: 14px; line-height: 1.65; color: #A9AFC0; max-width: 540px; margin: 0 auto 22px; }
 
@@ -40,13 +43,15 @@
   }
   .chip i { width: 9px; height: 9px; border-radius: 50%; background: var(--c); opacity: .55; transition: opacity .2s; }
   .chip:hover { border-color: #5b6580; }
-  .chip.on { border-color: var(--c); color: #fff; background: color-mix(in srgb, var(--c) 18%, transparent); }
+  @media (max-width: 760px), (pointer: coarse) { .chip, .layer-btn { min-height: 44px; } }
+  .chip.on { border-color: var(--c); color: #fff; background: rgba(255,255,255,0.12); }
+  @supports (background: color-mix(in srgb, red 50%, blue)) { .chip.on { background: color-mix(in srgb, var(--c) 18%, transparent); } }
   .chip.on i { opacity: 1; box-shadow: 0 0 8px var(--c); }
-  .chip.reset { border-style: dashed; color: #8892A6; padding-left: 14px; }
+  .chip.reset { border-style: dashed; color: #929CB0; padding-left: 14px; }
 
   .stage { position: relative; margin: 10px -16px 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   svg#map { width: 100%; min-width: 820px; height: auto; display: block; }
-  .swipe { display: none; text-align: center; font-size: 11.5px; color: #6E7689; margin: 2px 0 0; }
+  .swipe { display: none; text-align: center; font-size: 11.5px; color: #8E98AC; margin: 2px 0 0; }
   @media (max-width: 860px) { .swipe { display: block; } }
 
   .slab-top { fill: #17233a; stroke: #2a3752; stroke-width: 1; }
@@ -62,6 +67,8 @@
   .node.dim { opacity: .12; }
   .node.lit { opacity: 1; }
   .node:hover, .node:focus-visible { opacity: 1; }
+  .node:focus-visible { outline: 2px solid #F2C46B; outline-offset: 4px; }
+  .legend li:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
   .node .face-l, .node .face-r, .node .face-t { transition: filter .4s; }
   .node:hover .face-t, .node:focus-visible .face-t { filter: brightness(1.25); }
   .node .halo { transition: opacity .5s; }
@@ -87,14 +94,14 @@
   @media (prefers-reduced-motion: reduce) { .edge, .rhein-hi, .you .ring { animation: none; } }
 
   .layers { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 4px; }
-  .layer-btn { font-size: 12px; padding: 4px 11px 4px 9px; border-radius: 8px; border: 1px solid transparent; background: transparent; color: #8892A6; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+  .layer-btn { font-size: 12px; padding: 4px 11px 4px 9px; border-radius: 8px; border: 1px solid transparent; background: transparent; color: #929CB0; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
   .layer-btn i { width: 10px; height: 10px; border-radius: 2px; background: var(--c); }
   .layer-btn:hover { color: #C7CAD6; }
   .layer-btn.off { opacity: .4; text-decoration: line-through; }
 
   .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 22px; align-items: start; }
   @media (max-width: 760px) { .panels { grid-template-columns: 1fr; gap: 18px; } }
-  .panel h2 { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #8892A6; font-weight: 500; margin: 0 0 8px; font-family: 'IBM Plex Sans', sans-serif; }
+  .panel h2 { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #929CB0; font-weight: 500; margin: 0 0 8px; font-family: 'IBM Plex Sans', sans-serif; }
   .legend ul { list-style: none; margin: 0; padding: 0; }
   .legend li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; font-size: 13.5px; line-height: 1.5; padding: 7px 0; border-bottom: 1px solid #1f2a40; color: #C7CAD6; cursor: pointer; }
   .legend li:hover b { color: #fff; }
@@ -103,45 +110,45 @@
   .legend .lay { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 6px; }
   .legend .tags { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 2px; font-size: 12.5px; color: #A9AFC0; }
   .legend .tags span::before { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--c); margin-right: 6px; }
-  .legend .tags .more { color: #8892A6; }
-  .empty { color: #6E7689; font-size: 13px; margin: 6px 0; line-height: 1.6; }
+  .legend .tags .more { color: #929CB0; }
+  .empty { color: #8E98AC; font-size: 13px; margin: 6px 0; line-height: 1.6; }
 
   .info { background: rgba(255,255,255,.03); border: 1px solid #25314a; border-radius: 12px; padding: 14px 16px; min-height: 120px; }
   .info .t { font-family: 'Fraunces', serif; font-size: 19px; margin: 0 0 2px; font-weight: 500; }
-  .info .m { font-size: 12px; color: #8892A6; margin: 0 0 8px; }
+  .info .m { font-size: 12px; color: #929CB0; margin: 0 0 8px; }
   .info .d { font-size: 13.5px; line-height: 1.6; color: #C7CAD6; margin: 0; }
-  .info .a { font-size: 12.5px; color: #8892A6; margin: 10px 0 0; line-height: 1.55; }
+  .info .a { font-size: 12.5px; color: #929CB0; margin: 10px 0 0; line-height: 1.55; }
   .info a { color: #9fb2d4; }
 
-  .note { font-size: 11.5px; color: #6E7689; max-width: 520px; margin: 26px auto 0; line-height: 1.6; text-align: center; }
-  a { color: #8892A6; }
+  .note { font-size: 11.5px; color: #8E98AC; max-width: 520px; margin: 26px auto 0; line-height: 1.6; text-align: center; }
+  a { color: #929CB0; }
 
   .topnav { margin: 0 0 14px; font-size: 12px; text-align: left; }
-  .topnav a { color: #8892A6; text-decoration: none; }
+  .topnav a { color: #929CB0; text-decoration: none; }
   .topnav a:hover { color: #7FD9A8; }
   .site-footer {
     max-width: min(94vw, 640px); margin: 0 auto; padding: 0 24px 48px; text-align: center;
-    font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #5E6579;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #8E98AC;
   }
   .site-footer p { margin: 0 0 10px; }
-  .site-footer a { color: #8892A6; text-decoration: underline; text-underline-offset: 2px; }
+  .site-footer a { color: #929CB0; text-decoration: underline; text-underline-offset: 2px; }
   .site-footer a:hover { color: #7FD9A8; }
-  .site-footer .sep { margin: 0 10px; color: #3A4155; }
+  .site-footer .sep { margin: 0 10px; color: #8E98AC; }
 
   /* --- Roter Faden (.pfad): Wegweiser, Einstieg, Weiter-Block, Begriffe --- */
   .pfad-kopf, .pfad-kurz, .pfad-weiter, .pfad-begriffe { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; }
   .pfad-kopf { width: 100%; max-width: 1080px; margin: 0 auto; padding: 4px 8px 0; font-size: 12.5px; text-align: left; }
   .pfad-weg { display: flex; flex-wrap: wrap; align-items: center; }
-  .pfad-weg a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; color: #8892A6; text-decoration: none; }
+  .pfad-weg a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; color: #929CB0; text-decoration: none; }
   .pfad-weg a:hover { color: var(--accent, #7FD9A8); }
   .pfad-weg a[aria-current="page"] { color: #E8E6E0; text-decoration: underline; text-decoration-color: var(--accent, #7FD9A8); text-underline-offset: 6px; text-decoration-thickness: 1px; }
-  .pfad-wahl { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; padding: 0 12px 6px; color: #8892A6; font-size: 12.5px; }
+  .pfad-wahl { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; padding: 0 12px 6px; color: #929CB0; font-size: 12.5px; }
   .pfad-wahl span { margin-right: 4px; }
   @media (max-width: 480px) { .pfad-wahl span { flex-basis: 100%; } }
   .pfad-knopf { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border: 1px solid #3A4155; border-radius: 999px; color: #E8E6E0; text-decoration: none; font-size: 13px; }
   .pfad-knopf:hover { border-color: var(--accent, #7FD9A8); color: var(--accent, #7FD9A8); }
   .pfad-kopf a:focus-visible, .pfad-kurz a:focus-visible, .pfad-weiter a:focus-visible, .pfad-begriffe summary:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
-  .pfad-zeile { max-width: 540px; margin: -8px auto 18px; font-size: 13px; line-height: 1.6; color: #8892A6; }
+  .pfad-zeile { max-width: 540px; margin: -8px auto 18px; font-size: 13px; line-height: 1.6; color: #929CB0; }
 
   .pfad-kurz { width: 100%; max-width: 640px; margin: 0 auto; padding: 56px 20px 8px; scroll-margin-top: 12px; }
   .pfad-kurz h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: clamp(20px, 3.4vw, 26px); line-height: 1.25; margin: 0 0 8px; text-align: center; text-wrap: balance; color: #E8E6E0; }
@@ -153,13 +160,13 @@
   .pfad-kurz li b { display: block; margin-bottom: 1px; font-weight: 500; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, #7FD9A8); }
 
   .pfad-weiter { width: 100%; max-width: 640px; margin: 0 auto; padding: 36px 24px 28px; text-align: center; }
-  .pfad-weiter .pfad-weiter-eb { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #8892A6; }
+  .pfad-weiter .pfad-weiter-eb { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #929CB0; }
   .pfad-weiter .pfad-weiter-frage { margin: 0 auto 16px; max-width: 460px; font-family: 'Fraunces', Georgia, serif; font-size: clamp(18px, 3vw, 22px); line-height: 1.4; color: #E8E6E0; text-wrap: balance; }
   .pfad-weiter a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid var(--accent, #7FD9A8); border-radius: 999px; color: #E8E6E0; text-decoration: none; font-size: 13.5px; }
   .pfad-weiter a:hover { color: var(--accent, #7FD9A8); }
 
   .pfad-begriffe { width: 100%; max-width: 640px; margin: 0 auto; padding: 0 24px 28px; font-size: 13px; color: #A9AFC0; }
-  .pfad-begriffe summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; color: #8892A6; font-size: 12.5px; }
+  .pfad-begriffe summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; color: #929CB0; font-size: 12.5px; }
   .pfad-begriffe summary:hover { color: #C7CAD6; }
   .pfad-begriffe summary::before { content: "\25B8"; margin-right: 8px; font-size: 11px; }
   .pfad-begriffe[open] summary::before { content: "\25BE"; }
@@ -167,13 +174,18 @@
   .pfad-begriffe dt { margin: 12px 0 2px; font-weight: 500; color: #E8E6E0; }
   .pfad-begriffe dd { margin: 0; line-height: 1.6; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  /* Ruhige globale Regel: keine Dauerbewegung, Einblenden und Übergänge sofort fertig. Bedienung und Schritt-Buttons bleiben nutzbar. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
+  }
   @media (pointer: coarse), (max-width: 640px) {
     .topnav a, .site-footer a { display: inline-flex; align-items: center; min-height: 44px; }
   }
 </style>
 </head>
 <body>
-<main>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<main id="main" tabindex="-1">
   <div class="pfad-kopf">
     <nav class="pfad-weg" aria-label="Seiten dieser Reihe">
       <a href="index.html">Düsseldorf</a>
@@ -186,14 +198,14 @@
     <h1>Was leuchtet, wenn du etwas tust?</h1>
     <p class="lead sans">Tipp an, was du heute gemacht hast. Auf der Karte gehen die Stellen an, an denen das hängt, jede Tätigkeit in ihrer eigenen Farbe. Mehrere Dinge gehen auch zusammen. Tipp einen Ort an, um mehr zu erfahren.</p>
     <p class="pfad-zeile sans">In 2 Minuten: Tipp zwei oder drei Tätigkeiten an und lies unten, was dafür mitläuft.</p>
-    <div class="chips" id="chips"></div>
+    <div class="chips" id="chips" role="group" aria-label="Tätigkeiten"></div>
   </header>
 
   <div class="stage">
     <svg id="map" viewBox="10 36 980 530" overflow="hidden" role="img" aria-label="Isometrische, stark vereinfachte Karte von Düsseldorf mit Infrastruktur-Standorten, die je nach gewählter Tätigkeit aufleuchten"></svg>
   </div>
   <p class="swipe sans">Karte seitlich wischen</p>
-  <div class="layers" id="layers" aria-label="Ebenen ein- und ausblenden"></div>
+  <div class="layers" id="layers" role="group" aria-label="Ebenen ein- und ausblenden"></div>
 
   <div class="panels">
     <section class="panel legend" id="legend" aria-live="polite"></section>
@@ -388,21 +400,21 @@
 
   ACTS.forEach(a => {
     const b = document.createElement('button');
-    b.className = 'chip'; b.type = 'button'; b.style.setProperty('--c', a.c);
+    b.className = 'chip'; b.type = 'button'; b.setAttribute('aria-pressed', 'false'); b.style.setProperty('--c', a.c);
     b.innerHTML = '<i></i>' + a.l;
-    b.addEventListener('click', () => { on.has(a.id) ? on.delete(a.id) : on.add(a.id); b.classList.toggle('on', on.has(a.id)); render(); });
+    b.addEventListener('click', () => { on.has(a.id) ? on.delete(a.id) : on.add(a.id); b.classList.toggle('on', on.has(a.id)); b.setAttribute('aria-pressed', String(on.has(a.id))); render(); });
     chips.appendChild(b); a.btn = b;
   });
   const rs = document.createElement('button');
   rs.className = 'chip reset'; rs.type = 'button'; rs.textContent = 'Zurücksetzen';
-  rs.addEventListener('click', () => { on.clear(); layerOff.clear(); selected = null; ACTS.forEach(a => a.btn.classList.remove('on')); layerBtns.forEach(b => b.classList.remove('off')); render(); });
+  rs.addEventListener('click', () => { on.clear(); layerOff.clear(); selected = null; ACTS.forEach(a => { a.btn.classList.remove('on'); a.btn.setAttribute('aria-pressed', 'false'); }); layerBtns.forEach(b => { b.classList.remove('off'); b.setAttribute('aria-pressed', 'true'); }); render(); });
   chips.appendChild(rs);
 
   const layerBtns = Object.entries(LAYER).map(([k, l]) => {
     const b = document.createElement('button');
     b.className = 'layer-btn'; b.type = 'button'; b.style.setProperty('--c', l.g); b.innerHTML = '<i></i>' + l.name;
-    b.title = 'Ebene aus- oder einblenden';
-    b.addEventListener('click', () => { layerOff.has(k) ? layerOff.delete(k) : layerOff.add(k); b.classList.toggle('off', layerOff.has(k)); render(); });
+    b.title = 'Ebene aus- oder einblenden'; b.setAttribute('aria-pressed', 'true');
+    b.addEventListener('click', () => { layerOff.has(k) ? layerOff.delete(k) : layerOff.add(k); b.classList.toggle('off', layerOff.has(k)); b.setAttribute('aria-pressed', String(!layerOff.has(k))); render(); });
     layersEl.appendChild(b); return b;
   });
 
@@ -466,12 +478,15 @@
     if (!on.size) {
       legend.innerHTML = '<h2>Was dafür mitläuft</h2><p class="empty">Noch nichts gewählt. Tipp oben eine Tätigkeit an, dann erscheint hier, welche Stellen dafür gebraucht werden.</p>';
     } else {
-      legend.innerHTML = '<h2>Was dafür mitläuft</h2><ul>' + rows.map(id => {
+      legend.innerHTML = '<h2>Was dafür mitläuft</h2><ul role="group" aria-label="Orte, die dafür gebraucht werden">' + rows.map(id => {
         const n = NODES[id];
         const tags = perAct[id].map(a => `<span style="--c:${a.c}">${notes[id][a.id] || a.l}</span>`).join('');
-        return `<li data-id="${id}"><span class="no">${num[id]}</span><div><b><i class="lay" style="background:${LAYER[n.e].g}"></i>${n.n}</b><div class="tags">${tags}</div></div></li>`;
+        return `<li data-id="${id}" tabindex="0" role="button" aria-label="${n.n} auf der Karte zeigen"><span class="no">${num[id]}</span><div><b><i class="lay" style="background:${LAYER[n.e].g}"></i>${n.n}</b><div class="tags">${tags}</div></div></li>`;
       }).join('') + '</ul>';
-      legend.querySelectorAll('li').forEach(li => li.addEventListener('click', () => select(li.dataset.id)));
+      legend.querySelectorAll('li').forEach(li => {
+        li.addEventListener('click', () => select(li.dataset.id));
+        li.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(li.dataset.id); const n = legend.querySelector('li[data-id="' + li.dataset.id + '"]'); if (n) n.focus(); } });
+      });
     }
 
     // Ort-Karte
