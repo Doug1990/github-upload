@@ -284,9 +284,32 @@
     .hero > *, .reveal { animation: none; opacity: 1; transform: none; transition: none; }
     .hero-bg circle, .pump-on .pumparrow { animation: none; }
   }
+
+  /* --- Sound --- */
+  .sound-toggle {
+    position: fixed; top: 14px; right: 16px; z-index: 5;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; letter-spacing: 0.02em;
+    padding: 8px 14px 8px 12px; border-radius: 999px; cursor: pointer;
+    background: rgba(10,19,16,0.72); color: var(--muted); border: 1px solid #3A4A42;
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    transition: border-color 0.25s ease, color 0.25s ease;
+  }
+  .sound-toggle:hover { border-color: var(--accent); color: var(--ink); }
+  .sound-toggle[aria-pressed="true"] { border-color: rgba(var(--accent-rgb),0.7); color: var(--accent); }
+  .sound-toggle svg { width: 16px; height: 16px; flex: none; }
+  .sound-toggle .waves, .sound-toggle .mute { transition: opacity 0.25s ease; }
+  .sound-toggle .waves { opacity: 0; }
+  .sound-toggle[aria-pressed="true"] .waves { opacity: 1; }
+  .sound-toggle[aria-pressed="true"] .mute { opacity: 0; }
 </style>
 </head>
 <body>
+
+<button type="button" class="sound-toggle" id="soundBtn" aria-pressed="false" aria-label="Ton" title="Ton ein- oder ausschalten">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 18.5v-13L7.5 9.5z" fill="currentColor" fill-opacity="0.25"/><path class="waves" d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/><path class="mute" d="M16 9.5l5 5M21 9.5l-5 5"/></svg>
+  <span>Ton <span id="soundState" aria-hidden="true">aus</span></span>
+</button>
 
 <section class="hero">
   <div class="topnav"><a href="index.html">&larr; Was trägt deinen Tag?</a></div>
@@ -1895,6 +1918,308 @@
   else window.addEventListener('resize', layoutLabels);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutLabels);
   layoutLabels();
+})();
+</script>
+<script>
+// --- Sound ---
+// Rein synthetisch (Web Audio), keine Dateien. Ton startet nie von selbst: erst nach einer
+// Geste, und nur wenn der Schalter an ist. Die Seite selbst bleibt unangetastet, der Ton
+// liest ihren Zustand (Klassen, Werte, Zähler) und reagiert darauf.
+(function () {
+  'use strict';
+  var AC = window.AudioContext || window.webkitAudioContext;
+  var btn = document.getElementById('soundBtn'), stateEl = document.getElementById('soundState');
+  function $(id) { return document.getElementById(id); }
+  if (!btn) return;
+  if (!AC) { btn.hidden = true; return; }
+
+  var KEY = 'zelleTon', MASTER = 0.8;
+  var ctx = null, master = null, noiseBuf = null, built = false;
+  var wanted = false, hidden = document.hidden, perm = [], timers = {};
+  var bed = null, turb = null, section = 'hero', zoomed = false, cityMode = false, turbVisible = false;
+
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+  function load() { try { return localStorage.getItem(KEY) === '1'; } catch (e) { return false; } }
+  function save(v) { try { localStorage.setItem(KEY, v ? '1' : '0'); } catch (e) {} }
+  function live() { return !!(ctx && wanted && !hidden && ctx.state === 'running'); }
+  function ui() {
+    btn.setAttribute('aria-pressed', String(wanted));
+    stateEl.textContent = wanted ? 'an' : 'aus';
+  }
+
+  // ---- Bausteine ----
+  function keep(node) { perm.push(node); return node; }
+  function drop(node) { try { node.disconnect(); } catch (e) {} }
+  function makeNoise() {
+    // Weiches, tiefes Rauschen (braun), eine Schleife von drei Sekunden
+    var len = ctx.sampleRate * 3, buf = ctx.createBuffer(1, len, ctx.sampleRate), d = buf.getChannelData(0), last = 0;
+    for (var i = 0; i < len; i++) { last = (last + 0.02 * (Math.random() * 2 - 1)) / 1.02; d[i] = last * 3.2; }
+    return buf;
+  }
+  // Einzelner Ton mit weicher Hüllkurve. Räumt sich nach dem Ende selbst auf.
+  function note(freq, o) {
+    if (!live()) return;
+    o = o || {};
+    var t0 = ctx.currentTime + (o.delay || 0), dur = o.dur || 1, atk = o.attack || 0.02;
+    var osc = ctx.createOscillator(), g = ctx.createGain(), out = g, nodes = [osc, g];
+    osc.type = o.type || 'sine';
+    osc.frequency.setValueAtTime(freq, t0);
+    if (o.to) osc.frequency.exponentialRampToValueAtTime(o.to, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(o.peak || 0.05, t0 + atk);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    osc.connect(g);
+    if (o.lp) {
+      var f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = o.lp; f.Q.value = 0.5;
+      g.disconnect(); g.connect(f); out = f; nodes.push(f);
+    }
+    if (o.pan && ctx.createStereoPanner) {
+      var p = ctx.createStereoPanner(); p.pan.value = o.pan; out.connect(p); out = p; nodes.push(p);
+    }
+    out.connect(master);
+    osc.onended = function () { nodes.forEach(drop); };
+    osc.start(t0); osc.stop(t0 + dur + 0.05);
+  }
+  // Rauschen durch einen wandernden Bandpass: Zoom als Luftzug
+  function swoosh(from, to, dur, peak) {
+    if (!live()) return;
+    var t0 = ctx.currentTime, src = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+    src.buffer = noiseBuf; f.type = 'bandpass'; f.Q.value = 1.1;
+    f.frequency.setValueAtTime(from, t0); f.frequency.exponentialRampToValueAtTime(to, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(peak, t0 + dur * 0.4);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    src.connect(f); f.connect(g); g.connect(master);
+    src.onended = function () { [src, f, g].forEach(drop); };
+    src.start(t0); src.stop(t0 + dur + 0.05);
+  }
+
+  // ---- Klangteppich: ruhiger Dreiklang in D mit Rauschen wie ferner Strom ----
+  function buildBed() {
+    var out = ctx.createGain(); out.gain.value = 1; out.connect(master);
+    var voices = [[73.42, 0.034], [110.0, 0.026], [164.81, 0.014]], filters = [];
+    voices.forEach(function (v, i) {
+      var o1 = keep(ctx.createOscillator()), o2 = keep(ctx.createOscillator()), g2 = ctx.createGain();
+      o1.type = 'triangle'; o1.frequency.value = v[0];
+      o2.type = 'sine'; o2.frequency.value = v[0]; o2.detune.value = 5 + rnd(0, 5); g2.gain.value = 0.3;
+      var lfo = keep(ctx.createOscillator()), lg = ctx.createGain();
+      lfo.frequency.value = 0.05 + rnd(0, 0.06); lg.gain.value = 0.3;
+      lfo.connect(lg); lg.connect(o1.frequency); lg.connect(o2.frequency);
+      var f = ctx.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 500; f.Q.value = 0.6;
+      var fl = keep(ctx.createOscillator()), fg = ctx.createGain();
+      fl.frequency.value = 0.025 + i * 0.01; fg.gain.value = 140;
+      fl.connect(fg); fg.connect(f.frequency);
+      var g = ctx.createGain(); g.gain.value = v[1];
+      o1.connect(f); o2.connect(g2); g2.connect(f); f.connect(g); g.connect(out);
+      o1.start(); o2.start(); lfo.start(); fl.start();
+      filters.push(f);
+    });
+    // Ferner Strom: sehr leises, dunkles Rauschen, das langsam atmet
+    var n = keep(ctx.createBufferSource()), nf = ctx.createBiquadFilter(), ng = ctx.createGain();
+    n.buffer = noiseBuf; n.loop = true; nf.type = 'lowpass'; nf.frequency.value = 380; ng.gain.value = 0.045;
+    var nl = keep(ctx.createOscillator()), nlg = ctx.createGain();
+    nl.frequency.value = 0.07; nlg.gain.value = 0.025; nl.connect(nlg); nlg.connect(ng.gain);
+    n.connect(nf); nf.connect(ng); ng.connect(out); n.start(); nl.start();
+    bed = { filters: filters, out: out };
+  }
+  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, dna: 640 };
+  function updateBed() {
+    if (!bed) return;
+    var base = (BED_BRIGHT[section] || 500) + (zoomed ? 140 : 0) + (cityMode ? 90 : 0), t = ctx.currentTime;
+    bed.filters.forEach(function (f, i) { f.frequency.setTargetAtTime(base + i * 90, t, 1.4); });
+    // Unter der Turbine tritt der Teppich etwas zurück, damit Pumpe und Rotor Raum haben
+    bed.out.gain.setTargetAtTime(section === 'kraftwerk' ? 0.75 : 1, t, 1.2);
+  }
+
+  // ---- Turbine: Pumpe pocht, Rotor summt, beides folgt der Leistung ----
+  function buildTurbine() {
+    var out = ctx.createGain(); out.gain.value = 1; out.connect(master);
+    // Pumpe: tiefer Ton, dessen Lautstärke im Takt der Pumpe pulsiert
+    var po = keep(ctx.createOscillator()), pg = ctx.createGain(), pl = keep(ctx.createOscillator()), pa = ctx.createGain(), pf = ctx.createBiquadFilter();
+    po.type = 'sine'; po.frequency.value = 58; pg.gain.value = 0; pl.type = 'sine'; pl.frequency.value = 1.5; pa.gain.value = 0;
+    pf.type = 'lowpass'; pf.frequency.value = 220;
+    po.connect(pg); pl.connect(pa); pa.connect(pg.gain); pg.connect(pf); pf.connect(out);
+    // Rotor: weicher Sägezahn, Tonhöhe und Helligkeit steigen mit der Drehzahl
+    var ro = keep(ctx.createOscillator()), rf = ctx.createBiquadFilter(), rg = ctx.createGain();
+    var wo = keep(ctx.createOscillator()), wg = ctx.createGain();
+    ro.type = 'sawtooth'; ro.frequency.value = 70; rf.type = 'lowpass'; rf.frequency.value = 240; rf.Q.value = 0.8; rg.gain.value = 0;
+    wo.type = 'sine'; wo.frequency.value = 140; wg.gain.value = 0;
+    ro.connect(rf); rf.connect(rg); rg.connect(out); wo.connect(wg); wg.connect(out);
+    po.start(); pl.start(); ro.start(); wo.start();
+    turb = { pg: pg, pa: pa, pl: pl, ro: ro, rf: rf, rg: rg, wo: wo, wg: wg, o2: true, total: 0, lastPing: 0 };
+    turb.total = parseInt($('sTotal').textContent, 10) || 0;
+  }
+  function updateTurbine() {
+    if (!turb || !ctx) return;
+    var t = ctx.currentTime, on = turbVisible && live();
+    var power = (parseFloat($('power').value) || 0) / 100, pumpOn = !$('o2btn').classList.contains('off');
+    var rate = Math.min(3.2, parseFloat($('sRate').textContent) || 0);
+    var pump = on && pumpOn ? 0.03 * (0.25 + power) : 0, flow = on ? Math.min(1, rate / 2.6) : 0;
+    turb.pg.gain.setTargetAtTime(pump * 0.55, t, 0.25);
+    turb.pa.gain.setTargetAtTime(pump * 0.45, t, 0.25);
+    turb.pl.frequency.setTargetAtTime(0.8 + power * 3.4, t, 0.3);
+    turb.ro.frequency.setTargetAtTime(62 + rate * 20, t, 0.35);
+    turb.rf.frequency.setTargetAtTime(220 + rate * 190, t, 0.35);
+    turb.rg.gain.setTargetAtTime(flow * 0.028, t, 0.35);
+    turb.wo.frequency.setTargetAtTime(210 + rate * 60, t, 0.35);
+    turb.wg.gain.setTargetAtTime(flow * flow * 0.006, t, 0.35);
+  }
+  var PING = [587.33, 659.25, 739.99, 880.0, 987.77];
+  function atpPing() {
+    var now = ctx ? ctx.currentTime : 0;
+    if (!live() || !turbVisible || now - turb.lastPing < 0.12) return;
+    turb.lastPing = now;
+    var f = PING[Math.floor(Math.random() * PING.length)], pan = rnd(-0.35, 0.35);
+    note(f, { dur: 0.75, attack: 0.006, peak: 0.032, pan: pan });
+    note(f * 2, { dur: 0.35, attack: 0.004, peak: 0.008, pan: pan });
+  }
+
+  // ---- Ereignisse der Seite beobachten ----
+  var PART_TONE = { membran: 293.66, kern: 220.0, mito: 146.83, ribosom: 369.99, golgi: 440.0, lyso: 246.94 };
+  function onPartSelected(key) {
+    var f = PART_TONE[key] || 220;
+    note(f, { dur: 1.7, attack: 0.05, peak: 0.07 });
+    note(f * 2, { type: 'triangle', dur: 1.1, attack: 0.05, peak: 0.016, lp: 1500 });
+    if (key === 'mito') note(f / 2, { dur: 2, attack: 0.12, peak: 0.05 });
+  }
+  function watchCell() {
+    var csvg = $('csvg'), partEls = document.querySelectorAll('#csvg .part'), sel = {};
+    partEls.forEach(function (p) { sel[p.getAttribute('data-part')] = p.classList.contains('sel'); });
+    zoomed = csvg.classList.contains('zoomed'); cityMode = csvg.classList.contains('city');
+    var mo = new MutationObserver(function (list) {
+      list.forEach(function (m) {
+        var tg = m.target;
+        if (tg === csvg) {
+          var z = tg.classList.contains('zoomed'), c = tg.classList.contains('city');
+          if (z !== zoomed) {
+            zoomed = z; updateBed();
+            if (z) { swoosh(260, 1100, 0.65, 0.05); note(110, { dur: 0.7, attack: 0.25, peak: 0.03, to: 164 }); }
+            else { swoosh(1000, 220, 0.6, 0.04); note(165, { dur: 0.7, attack: 0.05, peak: 0.028, to: 98 }); }
+          }
+          if (c !== cityMode) {
+            cityMode = c; updateBed();
+            // Zelle: weich und rund. Stadt: zwei trockene Töne, wie ein Schaltwerk
+            if (c) { note(196, { type: 'triangle', dur: 0.5, attack: 0.008, peak: 0.05, lp: 900 }); note(294, { type: 'triangle', dur: 0.6, attack: 0.008, peak: 0.045, lp: 900, delay: 0.11 }); }
+            else { note(294, { dur: 0.7, attack: 0.03, peak: 0.045 }); note(196, { dur: 0.9, attack: 0.03, peak: 0.045, delay: 0.14 }); }
+          }
+        } else {
+          var key = tg.getAttribute('data-part'), now = tg.classList.contains('sel');
+          if (now && !sel[key]) onPartSelected(key);
+          sel[key] = now;
+        }
+      });
+    });
+    mo.observe(csvg, { attributes: true, attributeFilter: ['class'] });
+    partEls.forEach(function (p) { mo.observe(p, { attributes: true, attributeFilter: ['class'] }); });
+  }
+  function watchTurbine() {
+    var o2 = $('o2btn'), tot = $('sTotal'), off = o2.classList.contains('off');
+    new MutationObserver(function () {
+      var now = o2.classList.contains('off');
+      if (now === off) return;
+      off = now;
+      if (!turbVisible && !live()) return;
+      if (now) {
+        // Sauerstoff weg: ein Ton sackt ab, darunter ein dumpfes Nachgeben
+        note(262, { dur: 1.6, attack: 0.02, peak: 0.06, to: 52, lp: 1200 });
+        note(70, { dur: 1.2, attack: 0.01, peak: 0.07, to: 40 });
+      } else {
+        note(90, { dur: 1.0, attack: 0.4, peak: 0.05, to: 180, lp: 900 });
+      }
+    }).observe(o2, { attributes: true, attributeFilter: ['class'] });
+    new MutationObserver(function () {
+      if (!turb) return;
+      var n = parseInt(tot.textContent, 10) || 0;
+      if (n > turb.total) atpPing();
+      turb.total = n;
+    }).observe(tot, { childList: true, characterData: true, subtree: true });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { turbVisible = es[0].isIntersecting; updateTurbine(); }, { threshold: 0.05 }).observe($('turbinePanel'));
+    }
+  }
+  function watchSections() {
+    if (!('IntersectionObserver' in window)) return;
+    var ratio = {}, io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { ratio[e.target.id || 'hero'] = e.intersectionRatio; });
+      var best = 'hero', max = -1;
+      Object.keys(ratio).forEach(function (k) { if (ratio[k] > max) { max = ratio[k]; best = k; } });
+      var next = best === 'stadt' || best === 'kraftwerk' || best === 'robust' || best === 'dna' ? best : 'hero';
+      if (next !== section) { section = next; updateBed(); }
+    }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+    var h = document.querySelector('.hero'); if (h) io.observe(h);
+    ['stadt', 'kraftwerk', 'robust', 'dna'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
+  }
+  var BASE_TONE = { A: 293.66, C: 369.99, G: 440.0, T: 493.88 }, BASE_ORDER = ['A', 'C', 'G', 'T'];
+  function watchDna() {
+    $('dnaIn').addEventListener('input', function (e) {
+      if (!live() || !e.data) return;
+      var ch = e.data.slice(-1), bytes = new TextEncoder().encode(ch), seq = [];
+      bytes.forEach(function (b) { for (var s = 6; s >= 0; s -= 2) seq.push(BASE_ORDER[(b >> s) & 3]); });
+      seq.slice(0, 8).forEach(function (b, i) {
+        note(BASE_TONE[b], { dur: 0.5, attack: 0.012, peak: 0.028, delay: i * 0.075, pan: (i % 2 ? 0.2 : -0.2) });
+      });
+    });
+  }
+
+  // ---- Ein/Aus, Sichtbarkeit, Aufräumen ----
+  function sync() {
+    if (!ctx) return;
+    var want = wanted && !hidden, t = ctx.currentTime;
+    clearTimeout(timers.sus);
+    if (want) {
+      var go = function () {
+        if (!(wanted && !hidden)) return;
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.setTargetAtTime(MASTER, ctx.currentTime, 0.35);
+        updateBed(); updateTurbine();
+      };
+      if (ctx.state === 'running') go(); else ctx.resume().then(go, function () {});
+    } else {
+      master.gain.cancelScheduledValues(t);
+      master.gain.setTargetAtTime(0, t, 0.12);
+      timers.sus = setTimeout(function () { if (!(wanted && !hidden) && ctx.state === 'running') ctx.suspend(); }, 700);
+    }
+  }
+  function ensure() {
+    if (ctx) return true;
+    try { ctx = new AC(); } catch (e) { ctx = null; return false; }
+    master = ctx.createGain(); master.gain.value = 0;
+    var comp = ctx.createDynamicsCompressor();
+    comp.threshold.value = -24; comp.ratio.value = 4;
+    master.connect(comp); comp.connect(ctx.destination);
+    noiseBuf = makeNoise();
+    buildBed(); buildTurbine(); built = true;
+    return true;
+  }
+  function setWanted(v) {
+    wanted = v; save(v); ui();
+    if (v) { if (!ensure()) { wanted = false; save(false); ui(); return; } }
+    sync();
+  }
+  btn.addEventListener('click', function () { setWanted(!wanted); });
+
+  // Gespeicherter Wunsch: erst bei der ersten echten Geste starten (Scrollen zählt nicht)
+  wanted = load(); ui();
+  if (wanted) {
+    var EV = ['pointerdown', 'keydown', 'touchend'];
+    var arm = function (e) {
+      if (e && e.target && btn.contains(e.target)) return;
+      EV.forEach(function (n) { window.removeEventListener(n, arm, true); });
+      if (wanted && ensure()) sync();
+    };
+    EV.forEach(function (n) { window.addEventListener(n, arm, true); });
+  }
+  document.addEventListener('visibilitychange', function () { hidden = document.hidden; sync(); });
+  window.addEventListener('pagehide', function (e) {
+    if (e.persisted) { wanted = false; ui(); sync(); return; }   // Seitencache: nur stumm schalten
+    clearInterval(timers.upd); clearTimeout(timers.sus);
+    perm.forEach(function (n) { try { n.stop(); } catch (e) {} drop(n); });
+    perm = [];
+    if (ctx) { try { ctx.close(); } catch (e) {} }
+  });
+  timers.upd = setInterval(function () { if (built && live()) updateTurbine(); }, 120);
+
+  watchCell(); watchTurbine(); watchSections(); watchDna();
 })();
 </script>
 </body>
