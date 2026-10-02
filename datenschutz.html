@@ -23,13 +23,17 @@
   h2 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 17px; margin: 32px 0 10px; color: #E8E6E0; }
   p { font-size: 14px; line-height: 1.7; color: #C7CAD6; margin: 0 0 10px; }
   a { color: var(--accent); }
-  .back { display: inline-block; margin-bottom: 40px; font-size: 12px; color: #8892A6; text-decoration: underline; text-underline-offset: 2px; }
+  .skip-link { position: fixed; left: 12px; top: -80px; z-index: 10000; padding: 11px 18px; border-radius: 8px; background: #E8E6E0; color: #0B1220; font: 500 14px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-decoration: none; }
+  .skip-link:focus { top: 12px; outline: 3px solid #F2C46B; outline-offset: 2px; }
+  main:focus { outline: none; }
+  .back { display: inline-block; padding: 15px 12px; margin: -15px 0 25px -12px; font-size: 12px; color: #8892A6; text-decoration: underline; text-underline-offset: 2px; }
   .back:hover { color: var(--accent); }
 </style>
 </head>
 <body>
-<main>
-  <a class="back" href="index.html">&larr; Zurück</a>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<main id="main" tabindex="-1">
+  <nav aria-label="Zurück"><a class="back" href="index.html">&larr; Zurück</a></nav>
   <h1>Datenschutzerklärung</h1>
 
   <h2>Verantwortlicher</h2>
