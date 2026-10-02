@@ -315,6 +315,46 @@
   .site-footer a { color: #8892A6; text-decoration: underline; text-underline-offset: 2px; }
   .site-footer a:hover { color: var(--accent); }
   .site-footer .sep { margin: 0 10px; color: #3A4155; }
+
+  /* --- Roter Faden (.pfad): Wegweiser, Einstieg, Weiter-Block, Begriffe --- */
+  .pfad-kopf, .pfad-kurz, .pfad-weiter, .pfad-begriffe { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; }
+  .pfad-kopf { width: 100%; max-width: 1080px; margin: 0 auto; padding: 4px 8px 0; font-size: 12.5px; text-align: left; }
+  .pfad-weg { display: flex; flex-wrap: wrap; align-items: center; }
+  .pfad-weg a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; color: #8892A6; text-decoration: none; }
+  .pfad-weg a:hover { color: var(--accent, #7FD9A8); }
+  .pfad-weg a[aria-current="page"] { color: #E8E6E0; text-decoration: underline; text-decoration-color: var(--accent, #7FD9A8); text-underline-offset: 6px; text-decoration-thickness: 1px; }
+  .pfad-wahl { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; padding: 0 12px 6px; color: #8892A6; font-size: 12.5px; }
+  .pfad-wahl span { margin-right: 4px; }
+  @media (max-width: 480px) { .pfad-wahl span { flex-basis: 100%; } }
+  .pfad-knopf { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border: 1px solid #3A4155; border-radius: 999px; color: #E8E6E0; text-decoration: none; font-size: 13px; }
+  .pfad-knopf:hover { border-color: var(--accent, #7FD9A8); color: var(--accent, #7FD9A8); }
+  .pfad-kopf a:focus-visible, .pfad-kurz a:focus-visible, .pfad-weiter a:focus-visible, .pfad-begriffe summary:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
+  .pfad-zeile { max-width: 540px; margin: -8px auto 18px; font-size: 13px; line-height: 1.6; color: #8892A6; }
+
+  .pfad-kurz { width: 100%; max-width: 640px; margin: 0 auto; padding: 56px 20px 8px; scroll-margin-top: 12px; }
+  .pfad-kurz h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: clamp(20px, 3.4vw, 26px); line-height: 1.25; margin: 0 0 8px; text-align: center; text-wrap: balance; color: #E8E6E0; }
+  .pfad-kurz .pfad-vor { margin: 0 auto; max-width: 480px; font-size: 13px; line-height: 1.6; color: #A9AFC0; text-align: center; }
+  .pfad-kurz ol { list-style: none; margin: 16px 0 0; padding: 0; }
+  .pfad-kurz li { border-bottom: 1px solid #25314a; }
+  .pfad-kurz li a { display: block; min-height: 44px; padding: 11px 4px; color: #C7CAD6; text-decoration: none; font-size: 14px; line-height: 1.55; }
+  .pfad-kurz li a:hover { color: #fff; }
+  .pfad-kurz li b { display: block; margin-bottom: 1px; font-weight: 500; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, #7FD9A8); }
+
+  .pfad-weiter { width: 100%; max-width: 640px; margin: 0 auto; padding: 36px 24px 28px; text-align: center; }
+  .pfad-weiter .pfad-weiter-eb { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #8892A6; }
+  .pfad-weiter .pfad-weiter-frage { margin: 0 auto 16px; max-width: 460px; font-family: 'Fraunces', Georgia, serif; font-size: clamp(18px, 3vw, 22px); line-height: 1.4; color: #E8E6E0; text-wrap: balance; }
+  .pfad-weiter a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid var(--accent, #7FD9A8); border-radius: 999px; color: #E8E6E0; text-decoration: none; font-size: 13.5px; }
+  .pfad-weiter a:hover { color: var(--accent, #7FD9A8); }
+
+  .pfad-begriffe { width: 100%; max-width: 640px; margin: 0 auto; padding: 0 24px 28px; font-size: 13px; color: #A9AFC0; }
+  .pfad-begriffe summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; color: #8892A6; font-size: 12.5px; }
+  .pfad-begriffe summary:hover { color: #C7CAD6; }
+  .pfad-begriffe summary::before { content: "\25B8"; margin-right: 8px; font-size: 11px; }
+  .pfad-begriffe[open] summary::before { content: "\25BE"; }
+  .pfad-begriffe dl { margin: 6px 0 0; }
+  .pfad-begriffe dt { margin: 12px 0 2px; font-weight: 500; color: #E8E6E0; }
+  .pfad-begriffe dd { margin: 0; line-height: 1.6; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   .landing.in-view #landingLine1 { transition-delay: 1.1s; }
   .landing.in-view #landingLine2 { transition-delay: 2.9s; }
   .landing.in-view #landingLine3 { transition-delay: 4.7s; }
@@ -680,6 +720,17 @@
   </div>
 </div>
 
+<div class="pfad-kopf">
+  <nav class="pfad-weg" aria-label="Seiten dieser Reihe">
+    <a href="index.html" aria-current="page">Düsseldorf</a>
+    <a href="karte-skizze.html">Karte</a>
+    <a href="zelle.html">Zelle</a>
+  </nav>
+  <p class="pfad-wahl"><span>Kurz oder gründlich?</span>
+    <a class="pfad-knopf" href="#kurz">In 2 Minuten</a>
+    <a class="pfad-knopf" href="#tool">Ganz in Ruhe</a></p>
+</div>
+
 <section class="hero" id="hero">
   <svg class="hero-roots" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid slice" id="heroRootsSvg"></svg>
   <p class="sound-hint sans">♪ Am besten mit Ton, idealerweise mit Kopfhörern.</p>
@@ -701,6 +752,20 @@
   <p class="hero-cta"><button type="button" id="heroScrollBtn">Ab nach unten <span class="hero-arrow">↓</span></button></p>
   <p class="hero-cta-hint sans">Ein Klick startet auch den Ton.</p>
 </section>
+
+<aside class="pfad-kurz" id="kurz" aria-labelledby="kurzT">
+  <h2 id="kurzT">Das Wichtigste in einem Satz pro Abschnitt</h2>
+  <p class="pfad-vor">Wer wenig Zeit hat, liest hier den Kern. Jeder Satz führt zum Abschnitt, in dem mehr dazu steht.</p>
+  <ol>
+    <li><a href="#tool"><b>Was hast du heute gemacht?</b>Du wählst eine Tätigkeit und siehst, welche Ebenen dabei beteiligt waren und welche nicht.</a></li>
+    <li><a href="#journey"><b>Deine Reise</b>Eine Reise zeigt in Stationen, was alles unterwegs sein muss, bis etwas bei dir ankommt.</a></li>
+    <li><a href="#shelfScene"><b>Du gehst einkaufen</b>Beim Einkauf siehst du, was alles laufen muss, damit die Sachen im Regal liegen.</a></li>
+    <li><a href="#chainGame"><b>Was kommt vor was?</b>Im Spiel ordnest du Ketten von oben nach unten, also immer tiefer.</a></li>
+    <li><a href="#belonging"><b>Du gehörst dazu</b>Du wirst getragen und trägst selbst mit, ohne dass die Rechnung aufgehen muss.</a></li>
+    <li><a href="#now"><b>Es läuft weiter</b>Während du liest, läuft vieles weiter. Die Zahlen sind hochgerechnete Tagesdurchschnitte und keine Live-Daten.</a></li>
+    <li><a href="#cubeSection"><b>Wie Energie unterwegs entsteht</b>Ein Turm zeigt an fünf Stationen, wie Energie auf unterschiedliche Weise dazukommt.</a></li>
+  </ol>
+</aside>
 
 <div class="tool-section" id="tool">
   <header>
@@ -868,10 +933,25 @@
   <p class="landing-line landing-warm" id="landingLine3">Und auch auf dich verlässt sich jemand.</p>
 </section>
 
+<nav class="pfad-weiter" aria-label="Weiter zur nächsten Seite">
+  <p class="pfad-weiter-eb">Weiter</p>
+  <p class="pfad-weiter-frage">Wo in Düsseldorf hängt das alles zusammen, und was leuchtet auf, wenn du etwas tust?</p>
+  <a href="karte-skizze.html">Zur Karte &rarr;</a>
+</nav>
+
+<details class="pfad-begriffe">
+  <summary>Begriffe, die auf allen Seiten gleich gemeint sind</summary>
+  <dl>
+    <dt>Versorgung</dt><dd>Alles, was ein Teil laufend geliefert bekommen muss, damit er arbeitet, etwa Wasser, Strom oder Nährstoffe.</dd>
+    <dt>Puffer</dt><dd>Eine Reserve, die Schwankungen abfängt. Sie kostet etwas und hilft im Ernstfall.</dd>
+    <dt>Altlast</dt><dd>Etwas Altes, das geblieben ist und weiter mitläuft. Auf den Seiten auch als alte Reste oder Altbau beschrieben.</dd>
+    <dt>Ausfall</dt><dd>Eine Stelle liefert nicht mehr. Was an ihr hängt, ist je nach Abhängigkeit mit betroffen.</dd>
+    <dt>Bauplan</dt><dd>Die Anleitung, nach der etwas gebaut und nachgebaut wird. In der Zelle ist das die DNA, bei der Stadt ist es nur ein Bild.</dd>
+  </dl>
+</details>
+
 <footer class="site-footer">
   <p style="margin: 0 0 10px;">Hinweis: Diese Seite (<a href="https://doug1990.github.io/github-upload/">doug1990.github.io/github-upload</a>) ist KI-generiert.</p>
-  <p style="margin: 0 0 10px;">Weiter: <a href="zelle.html">Die Zelle als Stadt</a></p>
-  <p style="margin: 0 0 10px;"><a href="karte-skizze.html">Skizze: Düsseldorf als Karte</a></p>
   <a href="impressum.html">Impressum</a><span class="sep">·</span><a href="datenschutz.html">Datenschutz</a>
 </footer>
 
