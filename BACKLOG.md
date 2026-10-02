@@ -39,6 +39,16 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 16. **Epigenetik in der DNA-Sektion.** Derselbe Bauplan, andere Lesezeichen je Zelltyp. Keine Lebensstil-Deutung, keine Vererbung über Generationen. Aufwand S.
 17. **Druckansicht und Lesemodus.** Zuerst nur `@media print` (hell, ohne Bedienknöpfe), Hell-Schalter erst nach den gemeinsamen Bausteinen. Aufwand S bis M.
 
+## Entscheidungen für Björn (gesammelt)
+
+Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn zu unterbrechen. Claude arbeitet mit der naheliegendsten Annahme weiter und teilt die Liste gesammelt mit. Erledigtes wird gestrichen.
+
+1. **Datenschutztext zu den Schriften.** Der Agent hat den Abschnitt "Google Fonts" durch "Schriftarten" ersetzt (lokal ausgeliefert, keine Verbindung zu Google). Bitte rechtlich gegenlesen. Annahme bis dahin: bleibt so.
+2. **Seitentitel von Impressum und Datenschutz** enthalten einen Gedankenstrich ("Datenschutz — Was trägt deinen Tag?"). Das widerspricht Björns Schreibstil. Vorschlag: Mittelpunkt statt Strich. Annahme bis dahin: unverändert.
+3. **Höreindruck des Tons.** Klangteppich, Interaktionsklänge, Evolution, Teilung und Signale sind nur technisch getestet. Lautstärken und Klangfarben bitte anhören. Die Konstanten stehen im Sound-Block (MASTER, peak-Werte).
+4. **Zeiten in der Signal-Animation.** Hormon gestrafft, Nerv in Zeitlupe, damit man es sieht. Steht in der Notiz im Abschnitt. Annahme: so lassen.
+5. **Vorschaubilder.** Motiv und Text der drei Bilder in `og/` sind ein Vorschlag. Annahme: bleiben, bis Björn etwas ändern will.
+
 ## Erledigt
 
 - Zelle als Stadt mit ATP-Turbine (#3)
@@ -48,3 +58,4 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 - Mobil-Verbesserungen Zell-Seite (#11), Verlinkung und Rechtliches auf der Karte (#12)
 - Zellteilung als Stadtgründung (#13)
 - Ton für Evolution und Teilung (#14)
+- Prüfskript (#16), Signale (#17), Roter Faden (#18), Teilen und Vorschaubilder (#19)
