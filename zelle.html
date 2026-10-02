@@ -638,9 +638,9 @@
     }
   })();
 
-  var lastT = 0, running = false, visible = false;
+  var lastT = 0, cellRunning = false, cellVisible = false;
   function tick(ts) {
-    if (!visible) { running = false; return; }
+    if (!cellVisible) { cellRunning = false; return; }
     var dt = Math.min(0.05, (ts - lastT) / 1000 || 0.016); lastT = ts;
     ROUTES.forEach(function (r) {
       var boost = r.parts.indexOf(curPart) >= 0;
@@ -673,11 +673,11 @@
     });
     requestAnimationFrame(tick);
   }
-  function startTick() { if (!running && !reduceMotion) { running = true; lastT = performance.now(); requestAnimationFrame(tick); } }
+  function startTick() { if (!cellRunning && !reduceMotion) { cellRunning = true; lastT = performance.now(); requestAnimationFrame(tick); } }
   ROUTES.forEach(function (r) { if (!reduceMotion) spawn(r, rnd(0.1, 0.8)); });
   if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) startTick(); }, { threshold: 0.05 }).observe($('cellPanel'));
-  } else { visible = true; startTick(); }
+    new IntersectionObserver(function (es) { cellVisible = es[0].isIntersecting; if (cellVisible) startTick(); }, { threshold: 0.05 }).observe($('cellPanel'));
+  } else { cellVisible = true; startTick(); }
 
   // ---- Kamera ----
   var zoomAnim = 0;
