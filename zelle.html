@@ -24,7 +24,7 @@
     --accent: #7FD9A8; --accent-rgb: 127,217,168;
     --gold: #F2C46B; --coral: #FF8A65; --blue: #4FC3D9;
     --bg1: #16261F; --bg2: #101B17; --bg3: #0A1310;
-    --ink: #E8E6E0; --muted: #A9AFC0; --dim: #8892A6; --line: #2F3D36;
+    --ink: #E8E6E0; --muted: #A9AFC0; --dim: #929CB0; --line: #2F3D36;
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -433,6 +433,110 @@
     .sig-svg .sig-vflow { animation: none; }
   }
 
+  /* Bauamt (.bau) */
+  .bau-seg { display: flex; justify-content: center; margin: 0 auto 14px; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
+  .bau-seg button { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 7px 18px; background: transparent; color: var(--muted); border: none; cursor: pointer; min-height: 36px; }
+  .bau-seg button[aria-pressed="true"] { background: rgba(var(--accent-rgb),0.16); color: var(--accent); }
+  .bau-panel svg { touch-action: manipulation; }
+  .bau-svg .bau-road { fill: none; stroke: #1d2a24; stroke-width: 18; stroke-linecap: round; }
+  .bau-svg .bau-roadline { fill: none; stroke: #3A4A42; stroke-width: 1.4; stroke-dasharray: 4 9; transition: stroke 0.6s ease; }
+  .bau-svg.city .bau-roadline { stroke: #7A5E2A; }
+  .bau-svg .bau-post { fill: #3A4A42; transition: fill 0.6s ease; }
+  .bau-svg.city .bau-post { fill: #7A5E2A; }
+  .bau-svg .bau-bars { transition: transform 0.7s cubic-bezier(.5,0,.2,1); }
+  .bau-svg .bau-bars line { stroke: #8892A6; stroke-width: 3; stroke-linecap: round; transition: stroke 0.4s ease; }
+  .bau-svg .s-stop .bau-bars line { stroke: #FF8A65; }
+  .bau-svg .s-pass .bau-bars, .bau-svg .s-fixed .bau-bars, .bau-svg .s-bypass .bau-bars { transform: translateY(-92px); }
+  .bau-svg .bau-lamp { fill: none; stroke: #6E7689; stroke-width: 2; transition: fill 0.4s ease, stroke 0.4s ease; }
+  .bau-svg .s-pass .bau-lamp, .bau-svg .s-fixed .bau-lamp { fill: #7FD9A8; stroke: #7FD9A8; }
+  .bau-svg .s-stop .bau-lamp { fill: #FF8A65; stroke: #FF8A65; }
+  .bau-svg .s-bypass .bau-lamp { fill: #F2C46B; stroke: #F2C46B; }
+  .bau-svg .bau-gl { fill: none; stroke: #0A1310; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transition: opacity 0.3s ease; }
+  .bau-svg .s-pass .gl-ok, .bau-svg .s-fixed .gl-ok, .bau-svg .s-stop .gl-stop, .bau-svg .s-bypass .gl-bang { opacity: 1; }
+  .bau-svg .bau-pulse { fill: none; stroke: #7FD9A8; stroke-width: 1.6; opacity: 0; }
+  .bau-svg .is-cur .bau-pulse { opacity: 0.7; animation: bauPulse 2.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .bau-svg.paused .bau-pulse { animation-play-state: paused; }
+  @keyframes bauPulse { 0%,100% { transform: scale(0.85); opacity: 0.2; } 50% { transform: scale(1.12); opacity: 0.8; } }
+  .bau-svg .bau-pill rect { fill: rgba(10,19,16,0.8); stroke: #3A4A42; transition: stroke 0.3s ease; }
+  .bau-svg .bau-pill text { font-family: 'IBM Plex Sans', sans-serif; font-size: 21px; fill: #E4ECE6; }
+  .bau-svg .is-cur .bau-pill rect { stroke: #7FD9A8; }
+  .bau-svg .is-cur .bau-pill text { fill: #7FD9A8; }
+  .bau-svg .bau-out { opacity: 0; transition: opacity 0.4s ease; }
+  .bau-svg.broken .bau-out { opacity: 1; }
+  .bau-svg .bau-out rect { fill: rgba(10,19,16,0.85); stroke: #FF8A65; }
+  .bau-svg .bau-out text { font-family: 'IBM Plex Sans', sans-serif; font-size: 21px; fill: #FF8A65; }
+  .bau-svg .bau-tok { transition: transform 0.9s cubic-bezier(.5,0,.2,1), opacity 0.4s ease; }
+  .bau-svg .bau-body { transition: transform 0.8s ease; transform-box: fill-box; transform-origin: center; }
+  .bau-svg .bau-sc { fill: #24503C; stroke: #3C9E78; stroke-width: 2.4; transition: fill 0.6s ease, stroke 0.6s ease; }
+  .bau-svg .bau-sn { fill: #2D3A6E; transition: fill 0.6s ease; }
+  .bau-svg .bau-cityonly { display: none; }
+  .bau-svg.city .bau-cityonly { display: inline; }
+  .bau-svg.city .bau-cellonly { display: none; }
+  .bau-svg.city .bau-sc { fill: #3a2f18; stroke: #B88A3A; }
+  .bau-svg.city .bau-sn { fill: #B88A3A; }
+  .bau-svg .bau-bad { opacity: 0; transition: opacity 0.3s ease; }
+  .bau-svg .bau-bad.on { opacity: 1; }
+  .bau-svg .bau-bad circle { fill: #FF8A65; stroke: #0A1310; stroke-width: 2; }
+  .bau-svg .bau-bad text { font-family: 'IBM Plex Sans', sans-serif; font-size: 20px; font-weight: 700; fill: #0A1310; }
+  .bau-svg .bau-dau { transition: transform 0.9s cubic-bezier(.5,0,.2,1) 0.1s, opacity 0.5s ease 0.1s; opacity: 0; }
+  .bau-svg .bau-dau.on { opacity: 1; }
+  .bau-svg .bau-dau .bau-sc { stroke-width: 2.2; }
+  .bau-svg .bau-dau.flawed .bau-sc { stroke: #FF8A65; }
+  .bau-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+  .bau-step { font-family: 'IBM Plex Sans', sans-serif; min-height: 48px; padding: 6px 4px; border-radius: 12px; border: 1px solid #3A4A42; background: transparent; color: var(--muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; line-height: 1.2; }
+  .bau-step b { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bau-step span { font-size: 12px; }
+  .bau-step:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .bau-step:disabled { opacity: 0.45; cursor: default; }
+  .bau-step.done { border-color: rgba(var(--accent-rgb),0.45); color: var(--ink); }
+  .bau-step[aria-current="step"] { background: rgba(var(--accent-rgb),0.16); border-color: var(--accent); color: var(--accent); }
+  .bau-head { margin: 18px 0 8px; }
+  .bau-head small { display: block; font-family: 'IBM Plex Sans', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-bottom: 3px; }
+  .bau-head h3 { margin: 0; font-weight: 500; font-size: 21px; }
+  .bau-q { margin: 6px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; line-height: 1.55; color: var(--ink); }
+  .bau-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: #C7CAD6; }
+  .bau-cols .col { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 11px 13px; border-left: 3px solid var(--accent); }
+  .bau-cols .col.city { border-left-color: var(--gold); }
+  .bau-cols .col b { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
+  .bau-cols .aha { grid-column: 1 / -1; color: var(--gold); font-size: 13.5px; margin: 0; }
+  .bau-pick-l { margin: 14px 0 6px; font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: var(--muted); }
+  .bau-pick { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .bau-opt { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.35; min-height: 44px; padding: 8px 12px; border-radius: 12px; border: 1px solid #3A4A42; background: transparent; color: var(--muted); cursor: pointer; text-align: left; }
+  .bau-opt:hover { border-color: var(--accent); color: var(--ink); }
+  .bau-opt[aria-pressed="true"] { border-color: rgba(var(--accent-rgb),0.6); background: rgba(var(--accent-rgb),0.12); color: var(--ink); }
+  .bau-opt.fault[aria-pressed="true"] { border-color: rgba(255,138,101,0.6); background: rgba(255,138,101,0.1); }
+  .bau-status { margin: 14px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: var(--ink); min-height: 44px; }
+  .bau-tag { display: inline-block; margin-right: 8px; padding: 1px 10px; border-radius: 999px; border: 1px solid #6E7689; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: #A9AFC0; }
+  .bau-tag.t-pass { border-color: var(--accent); color: var(--accent); }
+  .bau-tag.t-stop { border-color: var(--coral); color: var(--coral); }
+  .bau-tag.t-out { border-color: var(--gold); color: var(--gold); }
+  .bau-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; font-family: 'IBM Plex Sans', sans-serif; }
+  .bau-ctl .btn { min-height: 40px; padding: 8px 16px; }
+  .bau-ctl .btn[hidden] { display: none; }
+  .bau-ctl .btn[disabled] { opacity: 0.4; cursor: default; border-color: #3A4A42; color: var(--ink); }
+  .bau-ctl .primary { border-color: var(--accent); color: var(--accent); }
+  .bau-ctl .fix { border-color: var(--coral); color: var(--coral); }
+  .bau-ctl .btn[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+  .bau-sum { margin-top: 14px; padding: 12px 14px; border: 1px dashed #3A4A42; border-radius: 12px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+  .bau-sum[hidden] { display: none; }
+  .bau-sum b { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
+  .bau-sum.flawed { border-color: rgba(255,138,101,0.5); }
+  .bau-ort { margin-top: 14px; padding: 12px 14px; border-left: 3px solid var(--gold); background: rgba(255,255,255,0.03); border-radius: 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: #C7CAD6; }
+  .bau-ort p { margin: 0; }
+  .bau-ort b { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
+  @media (max-width: 640px) {
+    .bau-cols, .bau-pick { grid-template-columns: 1fr; }
+    .bau-panel { padding: 8px; }
+    .bau-seg button, .bau-ctl .btn { min-height: 44px; }
+  }
+  @media (pointer: coarse) {
+    .bau-seg button, .bau-ctl .btn { min-height: 44px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bau-svg *, .bau-opt { transition: none !important; }
+    .bau-svg .bau-pulse { animation: none; }
+  }
+
   /* --- Sound --- */
   .sound-toggle {
     position: fixed; top: 14px; right: 16px; z-index: 5;
@@ -495,6 +599,7 @@
     <li><a href="#evolution"><b>Ohne Bauamt</b>Ohne Bauamt bleibt, was bei knapper Versorgung besteht. Niemand entwirft das Ergebnis.</a></li>
     <li><a href="#dna"><b>Der Bauplan ist digital</b>DNA schreibt mit vier Buchstaben, das sind zwei Bit pro Base. Dein Wort in DNA ist nur ein Gedankenspiel.</a></li>
     <li><a href="#teilung"><b>Eine Stadt gründet eine zweite</b>Eine Zelle kopiert erst den Bauplan, verdoppelt die Infrastruktur, sortiert und zieht zuletzt eine Grenze. Stark vereinfacht.</a></li>
+    <li><a href="#bauamt"><b>Geprüft wird vor dem Bau</b>Vor der Teilung prüft die Zelle an drei Kontrollpunkten Größe, Kopie und Spindel. Ein Bauamt gibt es dafür nicht, Eiweiße prüfen sich gegenseitig. Stark vereinfacht.</a></li>
   </ol>
 </aside>
 
@@ -798,6 +903,46 @@
   <p class="note">Stark vereinfacht: Die echte Mitose hat mehr Phasen (Prophase, Prometaphase, Metaphase, Anaphase, Telophase, dazu die Zellteilung selbst), und die DNA wird schon vorher kopiert. Hier gibt es vier Chromosomen statt 46, und nicht jedes Organell verdoppelt sich so ordentlich. Dafür gibt es in echt mehr Kontrollpunkte und Fehlerkorrektur, als diese Skizze zeigt.</p>
 </section>
 
+<!-- 5b. Bauamt mit Kontrollpunkten -->
+<section class="sec reveal" id="bauamt">
+  <h2>Ein Bauamt gibt es nicht, geprüft wird trotzdem.</h2>
+  <p class="lead">Bevor eine Zelle sich teilt, prüft sie an drei Toren, ob Bauplan, Material und Platz stimmen. Wähle an jedem Tor, was dort ankommt, und sieh, ob es Stopp oder Durchlass gibt. Dann lass den Prüfer ausfallen. Der Schalter wechselt wieder zwischen Biologie und Stadtplanung.</p>
+  <div class="bau-seg" role="group" aria-label="Ansicht des Rundgangs">
+    <button type="button" id="bauViewBio" aria-pressed="true">Zelle</button>
+    <button type="button" id="bauViewCity" aria-pressed="false">Stadt</button>
+  </div>
+  <div class="panel bau-panel" id="bauPanel">
+    <svg id="bauSvg" class="bau-svg" viewBox="0 8 640 262" role="img" aria-labelledby="bauSvgT">
+      <title id="bauSvgT">Schema: Eine Zelle läuft von links nach rechts durch drei Tore, G1, G2 und Metaphase. Ein Tor ist offen, geschlossen oder ohne Prüfer. Am Ende teilt sie sich in zwei Zellen.</title>
+    </svg>
+    <div class="legend">
+      <span><i style="background:#7FD9A8"></i>Durchlass</span>
+      <span><i style="background:#FF8A65"></i>Stopp</span>
+      <span><i style="background:#F2C46B"></i>Durchlass ohne Prüfer</span>
+      <span><i style="background:transparent;border:1.5px solid #6E7689;width:10px;height:10px"></i>Noch nicht geprüft</span>
+    </div>
+  </div>
+  <div class="bau-steps" role="group" aria-label="Tore des Rundgangs" id="bauSteps"></div>
+  <div class="bau-head"><small id="bauEyebrow"></small><h3 id="bauTitle"></h3><p class="bau-q" id="bauQ"></p></div>
+  <div class="bau-cols">
+    <div class="col"><b>In der Zelle</b><span id="bauCell"></span></div>
+    <div class="col city"><b>In der Stadt</b><span id="bauTown"></span></div>
+    <p class="aha" id="bauAha"></p>
+  </div>
+  <p class="bau-pick-l" id="bauPickL">Was kommt an diesem Tor an?</p>
+  <div class="bau-pick" id="bauPick" role="group" aria-labelledby="bauPickL"></div>
+  <p class="bau-status" id="bauStatus" aria-live="polite"><span class="bau-tag" id="bauTag"></span><span id="bauMsg"></span></p>
+  <div class="bau-ctl">
+    <button type="button" class="btn fix" id="bauFix" hidden>Beheben</button>
+    <button type="button" class="btn primary" id="bauNext" disabled>Weiter zu Tor 2 &rarr;</button>
+    <button type="button" class="btn" id="bauOut" aria-pressed="false">Prüfer ausfallen lassen</button>
+    <button type="button" class="btn" id="bauReset">Neu beginnen</button>
+  </div>
+  <div class="bau-sum" id="bauSum" aria-live="polite" hidden></div>
+  <div class="bau-ort"><b>Wer prüft hier eigentlich?</b><p>Niemand. Das Bauamt ist ein Bild. In der Zelle sitzt keine Behörde, die den Bauplan überblickt und Genehmigungen erteilt. Die Tore sind Rückkopplungen: Eiweiße melden Probleme, und solange eine Meldung anliegt, bleibt der Antrieb für den nächsten Schritt gebremst. Die Kontrolle entsteht aus vielen kleinen Teilen, die sich gegenseitig prüfen. Das passt zum Schluss dieser Seite: eine Stadt ohne Planungsbüro.</p></div>
+  <p class="note">Stark vereinfacht: Echte Kontrollpunkte sind mehr und komplexer, und die Fehlerfälle hier sind Beispiele. In echt gibt es Mischformen, und eine Zelle mit einem Schaden wird nicht immer nur gestoppt, manche stirbt auch gezielt. Krebs hat viele Ursachen. Ein ausgefallener Kontrollpunkt ist nur eine davon, und meist müssen mehrere Veränderungen zusammenkommen. Diese Seite ersetzt keinen ärztlichen Rat.</p>
+</section>
+
 <!-- 6. Signale zwischen Zellen als Postsystem -->
 <section class="sec reveal" id="signale">
   <h2>Zellen schreiben sich Briefe.</h2>
@@ -845,7 +990,7 @@
 </section>
 
 <section class="closing reveal">
-  <p>Ein Kraftwerk ohne Betreiber. Ein Archiv ohne Archivar. Eine Stadt ohne Bauamt.</p>
+  <p>Ein Kraftwerk ohne Betreiber. Ein Archiv ohne Archivar. Eine Stadt ohne Planungsbüro.</p>
   <p class="warm">Ordnung entsteht hier nicht durch einen Plan, sondern durch Energie, Information und sehr viel Zeit.</p>
 </section>
 
@@ -2161,6 +2306,280 @@
   layoutLabels();
 })();
 
+// --- Bauamt ---
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  function q(id) { return document.getElementById(id); }
+  function mk(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  var svg = q('bauSvg'), panel = q('bauPanel');
+  if (!svg || !panel) return;
+  var GX = [148, 290, 432], TY = 165, START = 55, END = 570;
+
+  // ---- Texte: je Tor eine Prüffrage und Fehlerfälle. Paare sind [Zelle, Stadt]. ----
+  var GATES = [
+    { tab: ['G1', 'Bauantrag'], pill: ['G1', 'Antrag'], title: ['G1-Kontrollpunkt', 'Bauantrag'],
+      q: ['Ist die Zelle groß genug und die Umgebung günstig?', 'Ist das Grundstück groß genug, und sind Material und Genehmigung da?'],
+      cell: 'Am G1-Punkt entscheidet die Zelle, ob sie sich überhaupt teilen will. Sie prüft ihre Größe, ihre Vorräte, die Wachstumssignale von außen und ob die DNA heil ist. Fehlt etwas, bleibt sie in der Wartestellung.',
+      town: 'Beim Bauantrag wird geprüft, ob das Grundstück reicht, ob Material und Strom da sind und ob der Baugrund taugt. Fehlt etwas, wird nicht gebaut.',
+      aha: 'Teilen ist teuer, also wird vorher gefragt, ob es sich lohnt.',
+      ok: ['Die Zelle ist groß genug, die Umgebung stimmt, die DNA ist heil. Das Tor öffnet sich.', 'Grundstück, Material und Baugrund passen. Der Bauantrag ist genehmigt.'],
+      cases: [
+        { lbl: ['Zelle zu klein', 'Grundstück zu klein'], fix: ['Weiter wachsen lassen', 'Grundstück erweitern'],
+          stop: ['Die Zelle ist noch zu klein. Sie wächst weiter und teilt sich erst, wenn sie groß genug ist.', 'Das Grundstück ist zu klein für zwei Städte. Es wird erst erweitert.'],
+          done: ['Die Zelle ist gewachsen. Das Tor öffnet sich.', 'Das Grundstück ist erweitert. Der Antrag geht durch.'],
+          skip: ['Die Zelle teilt sich zu klein. Die Töchter haben zu wenig Ausstattung.', 'Es wird gebaut, obwohl der Platz fehlt. Beide Städte werden zu klein.'] },
+        { lbl: ['Umgebung ungünstig', 'Material und Genehmigung fehlen'], fix: ['Warten, bis es besser wird', 'Auf die Lieferung warten'],
+          stop: ['Es fehlen Nährstoffe und Wachstumssignale von außen. Die Zelle wartet, notfalls lange.', 'Es fehlen Material und Genehmigung. Die Baustelle ruht.'],
+          done: ['Nachschub und Signale sind da. Das Tor öffnet sich.', 'Das Material ist geliefert. Der Antrag geht durch.'],
+          skip: ['Die Zelle teilt sich ohne Aufforderung und ohne Vorrat.', 'Es wird gebaut, ohne dass Material und Auftrag da sind.'] },
+        { lbl: ['DNA beschädigt', 'Plan im Archiv beschädigt'], fix: ['Reparieren', 'Plan ausbessern'],
+          stop: ['Die DNA hat einen Schaden. Reparatureiweiße werden gerufen, die Teilung wartet.', 'Im Archiv ist ein Plan beschädigt. Er wird erst ausgebessert.'],
+          done: ['Der Schaden ist behoben. Das Tor öffnet sich.', 'Der Plan ist ausgebessert. Der Antrag geht durch.'],
+          skip: ['Der Schaden wird mitkopiert und landet in beiden Töchtern.', 'Der beschädigte Plan wird vervielfältigt und in beiden Städten benutzt.'] }
+      ] },
+    { tab: ['G2', 'Bauabnahme'], pill: ['G2', 'Abnahme'], title: ['G2-Kontrollpunkt', 'Bauabnahme'],
+      q: ['Wurde die DNA vollständig und fehlerfrei kopiert?', 'Wurden alle Pläne vollständig und fehlerfrei kopiert?'],
+      cell: 'Nach dem Kopieren prüft die Zelle, ob jedes Stück DNA genau einmal kopiert wurde und die Kopie zum Original passt. Meldet ein Eiweiß noch offene Stellen oder Schäden, bleibt der Antrieb der Teilung gebremst.',
+      town: 'Bei der Bauabnahme wird jede Kopie Seite für Seite mit dem Original verglichen. Erst wenn alles stimmt, gibt es den Stempel.',
+      aha: 'Ein Fehler im Plan landet sonst in beiden Städten.',
+      ok: ['Die Kopie ist vollständig und stimmt mit dem Original überein. Das Tor öffnet sich.', 'Alle Kopien sind komplett und stimmen. Die Abnahme ist erteilt.'],
+      cases: [
+        { lbl: ['Unvollständig kopiert', 'Ordner fehlen in der Kopie'], fix: ['Fertig kopieren', 'Nachkopieren'],
+          stop: ['Ein Stück DNA ist noch nicht kopiert. Die Zelle kopiert weiter, bis alles doppelt vorliegt.', 'Einige Ordner fehlen in der Kopie. Das Archiv kopiert nach.'],
+          done: ['Alles ist doppelt vorhanden. Das Tor öffnet sich.', 'Die Kopie ist komplett. Die Abnahme ist erteilt.'],
+          skip: ['Eine Tochterzelle bekommt Chromosomen mit fehlenden Stücken.', 'Einer Stadt fehlen später Pläne, die sie braucht.'] },
+        { lbl: ['Fehler in der Kopie', 'Seite weicht vom Original ab'], fix: ['Reparieren', 'Seite neu schreiben'],
+          stop: ['Die Kopie weicht vom Original ab. Reparatureiweiße suchen die Stelle und tauschen sie aus.', 'Eine Seite der Kopie weicht vom Original ab. Sie wird neu geschrieben.'],
+          done: ['Die Stelle ist korrigiert. Das Tor öffnet sich.', 'Die Seite ist neu geschrieben. Die Abnahme ist erteilt.'],
+          skip: ['Der Fehler wird an die Tochterzellen weitergegeben. Mancher ist harmlos, mancher nicht.', 'Der Fehler steht im Plan der neuen Städte. Ob er stört, zeigt sich erst später.'] }
+      ] },
+    { tab: ['Metaphase', 'Statikprüfung'], pill: ['Metaphase', 'Statik'], title: ['Kontrollpunkt der Metaphase', 'Statikprüfung'],
+      q: ['Sind alle Chromosomen richtig an der Spindel befestigt?', 'Hängen alle Seile an beiden Seiten fest, bevor gezogen wird?'],
+      cell: 'In der Metaphase liegen die Chromosomen in der Mitte, die Spindelfasern haben angedockt. Ein Chromosom, das noch nicht von beiden Seiten gehalten wird, sendet ein Stoppsignal gegen die Trennung. Erst wenn das letzte richtig hängt, verstummt es.',
+      town: 'Bei der Statikprüfung wird vor dem Ziehen geprüft, ob jedes Seil auf beiden Seiten fest sitzt. Ein loses Seil hält den ganzen Umzug an.',
+      aha: 'Gezogen wird erst, wenn alles hält. Danach lässt sich nichts zurücknehmen.',
+      ok: ['Alle Chromosomen hängen an beiden Seiten. Das Tor öffnet sich, die Hälften werden getrennt.', 'Alle Seile sitzen fest. Die Statik ist freigegeben, der Umzug beginnt.'],
+      cases: [
+        { lbl: ['Chromosom nur einseitig befestigt', 'Seil sitzt nur an einer Seite'], fix: ['Neu befestigen', 'Seil neu befestigen'],
+          stop: ['Ein Chromosom hängt nur an einer Seite. Die Zelle hält die Trennung an, bis es richtig sitzt.', 'Ein Seil sitzt nur an einer Seite. Der Umzug wartet.'],
+          done: ['Das Chromosom hängt jetzt an beiden Seiten. Das Tor öffnet sich.', 'Das Seil sitzt fest. Die Statik ist freigegeben.'],
+          skip: ['Die Verteilung wird ungleich: Eine Tochterzelle bekommt ein Chromosom zu viel, die andere eines zu wenig.', 'Ein Ordner wandert doppelt in die eine Stadt, in der anderen fehlt er.'] },
+        { lbl: ['Chromosom nicht angedockt', 'Seil fehlt ganz'], fix: ['Andocken lassen', 'Seil anbringen'],
+          stop: ['Ein Chromosom hat noch keine Faser gefunden. Die Zelle wartet, bis alle angedockt sind.', 'Ein Seil fehlt ganz. Es wird erst angebracht.'],
+          done: ['Alle Chromosomen sind angedockt. Das Tor öffnet sich.', 'Das Seil ist angebracht. Die Statik ist freigegeben.'],
+          skip: ['Das Chromosom wird nicht mitgezogen. Einer Tochterzelle fehlt es.', 'Ein Ordner bleibt liegen. Eine der beiden Städte hat ihn nicht.'] }
+      ] }
+  ];
+  var END_LBL = ['Teilung', 'Neubau'];
+
+  // ---- Zustand ----
+  var city = false, cur = 0, cases = [null, null, null], fixed = [false, false, false], broken = false, vis = false, evN = 0;
+  function ix() { return city ? 1 : 0; }
+  function stat(g) {
+    var c = cases[g];
+    if (c === null) return 'idle';
+    if (c === 0) return 'pass';
+    if (broken) return 'bypass';
+    return fixed[g] ? 'fixed' : 'stop';
+  }
+  function passed(s) { return s === 'pass' || s === 'fixed' || s === 'bypass'; }
+  function reach() { var n = 0; while (n < 3 && passed(stat(n))) n++; return n; }
+  function emit(type, k) { evN++; panel.setAttribute('data-ev', type + ':' + k + ':' + evN); }
+
+  // ---- Zeichnen ----
+  var defs = mk('defs', {}, svg);
+  var clip = mk('clipPath', { id: 'bauClip' }, defs);
+  mk('rect', { x: -40, y: 112, width: 80, height: 86 }, clip);
+  mk('path', { 'class': 'bau-road', d: 'M20 ' + TY + 'H620' }, svg);
+  mk('path', { 'class': 'bau-roadline', d: 'M20 ' + TY + 'H620' }, svg);
+  var gEls = [];
+  GX.forEach(function (x) {
+    var g = mk('g', { transform: 'translate(' + x + ',0)', 'class': 'bau-g' }, svg);
+    mk('rect', { 'class': 'bau-post', x: -32, y: 104, width: 8, height: 92, rx: 3 }, g);
+    mk('rect', { 'class': 'bau-post', x: 24, y: 104, width: 8, height: 92, rx: 3 }, g);
+    var cg = mk('g', { 'clip-path': 'url(#bauClip)' }, g), bars = mk('g', { 'class': 'bau-bars' }, cg);
+    for (var b = -18; b <= 18; b += 12) mk('line', { x1: b, y1: 108, x2: b, y2: 196 }, bars);
+    mk('rect', { 'class': 'bau-post', x: -36, y: 96, width: 72, height: 10, rx: 4 }, g);
+    mk('circle', { 'class': 'bau-pulse', cx: 0, cy: 70, r: 19 }, g);
+    mk('circle', { 'class': 'bau-lamp', cx: 0, cy: 70, r: 12 }, g);
+    mk('path', { 'class': 'bau-gl gl-ok', d: 'M-5.5 70.5L-1.5 74.5L6 66' }, g);
+    mk('path', { 'class': 'bau-gl gl-stop', d: 'M-6 70H6' }, g);
+    mk('path', { 'class': 'bau-gl gl-bang', d: 'M0 64V71M0 75.5V75.6' }, g);
+    var pill = mk('g', { 'class': 'bau-pill', transform: 'translate(0,232)' }, g);
+    var pr = mk('rect', { y: -17, height: 34, rx: 17 }, pill), pt = mk('text', { 'text-anchor': 'middle', y: 7 }, pill);
+    gEls.push({ g: g, pr: pr, pt: pt });
+  });
+  var endPill = mk('g', { 'class': 'bau-pill', transform: 'translate(' + END + ',232)' }, svg);
+  var epr = mk('rect', { y: -17, height: 34, rx: 17 }, endPill), ept = mk('text', { 'text-anchor': 'middle', y: 7 }, endPill);
+  var out = mk('g', { 'class': 'bau-out', transform: 'translate(320,30)' }, svg);
+  var outR = mk('rect', { y: -17, height: 34, rx: 17 }, out), outT = mk('text', { 'text-anchor': 'middle', y: 7 }, out);
+  outT.textContent = 'Prüfer ausgefallen';
+  function pillFit(r, t) {
+    var w = 120;
+    try { w = t.getComputedTextLength() + 26; } catch (e) {}
+    r.setAttribute('x', -w / 2); r.setAttribute('width', w);
+  }
+  function labels() {
+    GATES.forEach(function (G, i) { gEls[i].pt.textContent = G.pill[ix()]; pillFit(gEls[i].pr, gEls[i].pt); });
+    ept.textContent = END_LBL[ix()]; pillFit(epr, ept); pillFit(outR, outT);
+  }
+  // Figur: Zelle als Kreis, Stadt als Block mit Archiv
+  function body(parent, r) {
+    var g = mk('g', { 'class': 'bau-body' }, parent);
+    mk('circle', { 'class': 'bau-sc bau-cellonly', r: r }, g);
+    mk('circle', { 'class': 'bau-sn bau-cellonly', cx: -r * 0.17, cy: -r * 0.12, r: r * 0.38 }, g);
+    mk('rect', { 'class': 'bau-sc bau-cityonly', x: -r * 0.9, y: -r * 0.9, width: r * 1.8, height: r * 1.8, rx: 5 }, g);
+    mk('rect', { 'class': 'bau-sn bau-cityonly', x: -r * 0.45, y: -r * 0.45, width: r * 0.9, height: r * 0.9, rx: 2 }, g);
+    return g;
+  }
+  function badge(parent, x, y) {
+    var b = mk('g', { 'class': 'bau-bad', transform: 'translate(' + x + ',' + y + ')' }, parent);
+    mk('circle', { r: 12 }, b);
+    mk('text', { 'text-anchor': 'middle', y: 7 }, b).textContent = '!';
+    return b;
+  }
+  var tok = mk('g', { 'class': 'bau-tok' }, svg), tokBody = body(tok, 24), tokBad = badge(tok, 18, -20);
+  var daus = [0, 1].map(function () {
+    var d = mk('g', { 'class': 'bau-dau' }, svg);
+    body(d, 17); badge(d, 13, -14);
+    return d;
+  });
+  function place(el, x, y) { el.style.transform = 'translate(' + x + 'px,' + y + 'px)'; }
+  place(tok, START, TY); daus.forEach(function (d) { place(d, END, TY); });
+
+  // ---- Oberfläche ----
+  var stepsHost = q('bauSteps'), stepBtns = [], pickHost = q('bauPick'), optBtns = [], nextBtn = q('bauNext'), fixBtn = q('bauFix'), outBtn = q('bauOut'), tagEl = q('bauTag'), msgEl = q('bauMsg'), sumEl = q('bauSum');
+  GATES.forEach(function (G, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'bau-step';
+    b.innerHTML = '<b>' + (i + 1) + '</b><span></span>';
+    b.addEventListener('click', function () { if (i !== cur) { cur = i; render(); emit('gate', i); } });
+    stepsHost.appendChild(b); stepBtns.push(b);
+  });
+  var TAGS = { idle: ['Offen', ''], pass: ['Durchlass', 't-pass'], fixed: ['Durchlass', 't-pass'], stop: ['Stopp', 't-stop'], bypass: ['Prüfer ausgefallen', 't-out'] };
+  var STATE_LBL = { idle: 'noch nicht geprüft', pass: 'Durchlass', fixed: 'Durchlass nach Reparatur', stop: 'Stopp', bypass: 'Durchlass ohne Prüfer' };
+  var builtFor = -1, builtCity = null;
+  function buildOpts() {
+    pickHost.textContent = ''; optBtns = [];
+    var all = [{ lbl: ['Alles in Ordnung', 'Alles in Ordnung'] }].concat(GATES[cur].cases);
+    all.forEach(function (c, k) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'bau-opt' + (k ? ' fault' : '');
+      b.textContent = c.lbl[ix()];
+      b.addEventListener('click', function () { choose(k); });
+      pickHost.appendChild(b); optBtns.push(b);
+    });
+  }
+  function statusText(g) {
+    var G = GATES[g], c = cases[g], s = stat(g), i = ix();
+    if (s === 'idle') return broken ? 'Der Prüfer ist ausgefallen. Dieses Tor bemerkt keine Fehler mehr.' : 'Wähle, was an diesem Tor ankommt.';
+    if (c === 0) return G.ok[i];
+    var K = G.cases[c - 1];
+    if (s === 'stop') return K.stop[i];
+    if (s === 'fixed') return K.done[i];
+    return 'Das Tor öffnet sich trotz des Fehlers. ' + K.skip[i];
+  }
+  function render() {
+    var i = ix(), n = reach(), maxG = Math.min(2, n), flawed = 0, repaired = 0, g;
+    if (cur > maxG) cur = maxG;
+    var G = GATES[cur], st = stat(cur);
+    if (builtFor !== cur || builtCity !== city) { buildOpts(); builtFor = cur; builtCity = city; }
+    for (g = 0; g < 3; g++) {
+      var s = stat(g);
+      if (s === 'bypass' && cases[g] > 0) flawed++;
+      if (s === 'fixed') repaired++;
+      gEls[g].g.setAttribute('class', 'bau-g s-' + s + (g === cur ? ' is-cur' : ''));
+      var sb = stepBtns[g];
+      sb.querySelector('span').textContent = GATES[g].tab[i];
+      sb.disabled = g > maxG;
+      sb.classList.toggle('done', passed(s));
+      if (g === cur) sb.setAttribute('aria-current', 'step'); else sb.removeAttribute('aria-current');
+      sb.setAttribute('aria-label', 'Tor ' + (g + 1) + ': ' + GATES[g].tab[i] + ', ' + STATE_LBL[s]);
+    }
+    q('bauEyebrow').textContent = 'Tor ' + (cur + 1) + ' von 3';
+    q('bauTitle').textContent = G.title[i];
+    q('bauQ').textContent = G.q[i];
+    q('bauCell').textContent = G.cell; q('bauTown').textContent = G.town; q('bauAha').textContent = '→ ' + G.aha;
+    optBtns.forEach(function (b, k) { b.setAttribute('aria-pressed', String(cases[cur] === k)); });
+    tagEl.textContent = TAGS[st][0]; tagEl.className = 'bau-tag ' + TAGS[st][1];
+    msgEl.textContent = statusText(cur);
+    fixBtn.hidden = st !== 'stop';
+    if (st === 'stop') fixBtn.textContent = G.cases[cases[cur] - 1].fix[i];
+    nextBtn.hidden = cur === 2;
+    nextBtn.textContent = 'Weiter zu Tor ' + (cur + 2) + ' →';
+    nextBtn.disabled = !passed(st);
+    outBtn.setAttribute('aria-pressed', String(broken));
+    outBtn.textContent = broken ? 'Prüfer wieder einsetzen' : 'Prüfer ausfallen lassen';
+    svg.classList.toggle('broken', broken);
+    svg.classList.toggle('city', city);
+    q('bauViewBio').setAttribute('aria-pressed', String(!city));
+    q('bauViewCity').setAttribute('aria-pressed', String(city));
+    // Figur: wartet vor dem Tor, das sie als Nächstes passieren muss
+    var small = cases[0] === 1 && !fixed[0];
+    tokBody.style.transform = small ? 'scale(0.7)' : 'scale(1)';
+    var done = n === 3, tx = n === 0 && cases[0] === null ? START : done ? END : GX[n] - 62;
+    place(tok, tx, TY);
+    tok.style.opacity = done ? 0 : 1;
+    var wait = !done && cases[n] !== null && stat(n) === 'stop';
+    tokBad.setAttribute('class', 'bau-bad' + (wait ? ' on' : ''));
+    daus.forEach(function (d, k) {
+      d.setAttribute('class', 'bau-dau' + (done ? ' on' : '') + (flawed ? ' flawed' : ''));
+      d.querySelector('.bau-bad').setAttribute('class', 'bau-bad' + (done && flawed ? ' on' : ''));
+      d.querySelector('.bau-body').style.transform = small ? 'scale(0.75)' : 'scale(1)';
+      place(d, done ? END + (k ? 26 : -26) : END, TY);
+    });
+    // Ergebnis
+    if (done) {
+      var txt;
+      if (flawed) txt = city ? 'Die Baustellen wurden ohne Prüfer genehmigt. Die Fehler stecken in beiden neuen Städten und werden mitgebaut.'
+        : 'Die Teilung lief ohne Kontrolle, ' + flawed + (flawed === 1 ? ' Fehler geht' : ' Fehler gehen') + ' in die Tochterzellen mit. So können sich Fehler von Teilung zu Teilung ansammeln. Bei vielen Krebserkrankungen sind Kontrollpunkte gestört. Krebs hat aber viele Ursachen, und meist müssen mehrere Veränderungen zusammenkommen.';
+      else txt = (city ? 'Zwei Städte mit geprüftem Plan. ' : 'Zwei Tochterzellen mit vollständigem, geprüftem Bauplan. ') + (repaired ? 'Unterwegs hat es ' + repaired + (repaired === 1 ? ' Stopp' : ' Stopps') + ' gegeben, jeder wurde behoben.' : 'Alle Tore haben ohne Beanstandung geöffnet.');
+      sumEl.innerHTML = '<b>Ergebnis des Rundgangs</b>';
+      sumEl.appendChild(document.createTextNode(txt));
+      sumEl.hidden = false; sumEl.classList.toggle('flawed', !!flawed);
+    } else { sumEl.hidden = true; sumEl.textContent = ''; }
+    return { done: done, flawed: flawed };
+  }
+
+  function choose(k) {
+    cases[cur] = k; fixed[cur] = false;
+    var r = render(), s = stat(cur);
+    if (r.done) emit(r.flawed ? 'bypass' : 'done', cur);
+    else emit(s === 'stop' ? 'stop' : s === 'bypass' ? 'bypass' : 'pass', cur);
+  }
+  fixBtn.addEventListener('click', function () {
+    fixed[cur] = true;
+    var r = render();
+    emit(r.done ? 'done' : 'fix', cur);
+    (nextBtn.hidden || nextBtn.disabled ? optBtns[cases[cur]] : nextBtn).focus();
+  });
+  nextBtn.addEventListener('click', function () {
+    if (cur < 2) { cur++; render(); emit('gate', cur); optBtns[0].focus(); }
+  });
+  outBtn.addEventListener('click', function () {
+    broken = !broken; render(); emit(broken ? 'out' : 'fix', cur);
+  });
+  q('bauReset').addEventListener('click', function () {
+    cases = [null, null, null]; fixed = [false, false, false]; broken = false; cur = 0;
+    render(); emit('gate', 0); optBtns[0].focus();
+  });
+  q('bauViewBio').addEventListener('click', function () { city = false; labels(); render(); });
+  q('bauViewCity').addEventListener('click', function () { city = true; labels(); render(); });
+
+  // Sichtbarkeit: außerhalb des Bildschirms stehen die Ringe still
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; svg.classList.toggle('paused', !vis); }, { threshold: 0.05 }).observe(panel);
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(labels);
+  labels(); render();
+})();
+
 // --- Signale ---
 (function () {
   'use strict';
@@ -2747,7 +3166,7 @@
     n.connect(nf); nf.connect(ng); ng.connect(out); n.start(); nl.start();
     bed = { filters: filters, out: out };
   }
-  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, teilung: 540, signale: 580 };
+  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, teilung: 540, signale: 580, bauamt: 560 };
   function updateBed() {
     if (!bed) return;
     var base = (BED_BRIGHT[section] || 500) + (zoomed ? 140 : 0) + (cityMode ? 90 : 0), t = ctx.currentTime;
@@ -2872,7 +3291,7 @@
       if (next !== section) { section = next; updateBed(); }
     }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
     var h = document.querySelector('.hero'); if (h) io.observe(h);
-    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'teilung', 'signale'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
+    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'teilung', 'bauamt', 'signale'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
   }
   var BASE_TONE = { A: 293.66, C: 369.99, G: 440.0, T: 493.88 }, BASE_ORDER = ['A', 'C', 'G', 'T'];
   function watchDna() {
@@ -2941,6 +3360,34 @@
         else { note(293.66, { dur: 0.9, attack: 0.03, peak: 0.045 }); note(440, { dur: 0.9, attack: 0.03, peak: 0.03, delay: 0.1 }); }
       }).observe(fault, { attributes: true, attributeFilter: ['aria-pressed'] });
     }
+  }
+
+  // ---- Bauamt: Tor öffnet, Stopp dumpf, Reparatur löst auf, Durchlass steigt; ohne Prüfer hohl ----
+  function watchBauamt() {
+    var panel = $('bauPanel');
+    if (!panel) return;
+    new MutationObserver(function () {
+      var v = (panel.getAttribute('data-ev') || '').split(':');
+      if (v.length < 3 || !live()) return;
+      var type = v[0], k = parseInt(v[1], 10) || 0, f = PENTA[Math.min(PENTA.length - 1, k)];
+      if (type === 'gate') {
+        note(262, { type: 'triangle', dur: 0.45, attack: 0.01, peak: 0.03, to: 330, lp: 1400 });
+      } else if (type === 'pass') {
+        note(f, { dur: 0.9, attack: 0.02, peak: 0.04, lp: 2000 });
+        note(f * 1.5, { dur: 0.9, attack: 0.03, peak: 0.028, delay: 0.1, lp: 2000 });
+      } else if (type === 'stop') {
+        note(130.81, { type: 'triangle', dur: 0.8, attack: 0.01, peak: 0.055, to: 98, lp: 700 });
+        note(65.41, { dur: 0.9, attack: 0.01, peak: 0.06, to: 49 });
+      } else if (type === 'fix') {
+        note(293.66, { dur: 0.9, attack: 0.03, peak: 0.045 });
+        note(440, { dur: 0.9, attack: 0.03, peak: 0.03, delay: 0.1 });
+      } else if (type === 'bypass' || type === 'out') {
+        note(220, { type: 'triangle', dur: 0.8, attack: 0.01, peak: 0.03, lp: 1000 });
+        note(233.08, { type: 'triangle', dur: 0.8, attack: 0.01, peak: 0.03, lp: 1000 });
+      } else if (type === 'done') {
+        [0, 2, 4].forEach(function (i) { note(PENTA[i], { dur: 1.0, attack: 0.02, peak: 0.035, delay: i * 0.07, lp: 2000, pan: (i - 2) * 0.12 }); });
+      }
+    }).observe(panel, { attributes: true, attributeFilter: ['data-ev'] });
   }
 
   // ---- Signale: Absenden, Ankunft, Antwort je Zelle; Störung dissonant ----
@@ -3038,7 +3485,7 @@
   });
   timers.upd = setInterval(function () { if (built && live()) updateTurbine(); }, 120);
 
-  watchCell(); watchTurbine(); watchSections(); watchDna(); watchEvolution(); watchTeilung(); watchSignale();
+  watchCell(); watchTurbine(); watchSections(); watchDna(); watchEvolution(); watchTeilung(); watchBauamt(); watchSignale();
 })();
 </script>
 </body>
