@@ -15,29 +15,25 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 
 ## Offen, Priorität hoch
 
-1. **Prüfskript `tests/check.mjs`.** Headless-Chrome-Skript (puppeteer-core, kein Build): öffnet jede Seite bei 1280, 768, 390 und 360 px und meldet Konsolenfehler, 404er, horizontalen Überlauf, Tippflächen unter 44 px, tote Links und Anker. Anfangs Warnungen statt Fehler. Aufwand M. Akzeptanz: läuft ohne Argumente, Exit-Code 1 bei eingebautem Fehler, Überlauf mit Seite und Selektor gemeldet.
-2. **Roter Faden und Einstieg.** Wegweiser mit drei Punkten (Düsseldorf, Karte, Zelle) auf jeder Seite, "In 2 Minuten" oder "Ganz in Ruhe" im Kopf, Weiter-Block mit Leitfrage am Ende, feste Mini-Begriffsliste (Versorgung, Puffer, Altlast, Ausfall, Bauplan). Aufwand S bis M. Akzeptanz: gleiche Reihenfolge auf allen Seiten, Kernaussagen per Anker auch ohne JavaScript erreichbar.
-3. **Barrierefreiheit.** Kontraste messen (mindestens 4,5:1), Skip-Link, ein h1 und Landmarks je Seite, alle `.part` und Karten-Elemente per Tastatur, Start/Pause in der Evolution nur einmal beschriften, Ton-Schalter nach Seitencache-Rücksprung, Reduced Motion einheitlich, Fallbacks für `color-mix` und `:has`. Aufwand M. Akzeptanz: Messwerte im PR, alles per Tab und Enter bedienbar.
-4. **Teilen und Einstieg.** Meta-Beschreibung und Open-Graph-Tags mit Vorschaubild je Seite (unter 150 KB), Link-kopieren-Symbol an den Überschriften, `scroll-margin-top` für Anker. Aufwand S bis M. Akzeptanz: Bilder laden, `zelle.html#teilung` scrollt sauber, Kopieren per Tastatur.
-5. **Bauamt mit Kontrollpunkten (Zellzyklus).** Drei Tore (G1, G2, Metaphase) mit je zwei Fehlerfällen, Stopp oder Durchlass. Schärft den Schlusssatz zu "Eine Stadt ohne Planungsbüro", weil es Abnahmen vor dem Bau gibt. Hinweis: Das Bauamt ist ein Bild, Eiweiße prüfen sich gegenseitig. Aufwand M.
-6. **Ausfall in der Zell-Stadt.** Vier Schalter (Kraftwerk, Müllabfuhr, Zoll, Archiv), abhängige Bauteile fallen in Stufen aus, je ein Beispiel einer realen Krankheitsgruppe. Brücke zur Ausfall-Logik der Düsseldorf-Seite. Hinweis: Krankheiten sind selten ein einzelner Ausfall, kein Ersatz für ärztlichen Rat. Aufwand M.
+1. **Teilen, Rest.** Meta und Vorschaubilder sind erledigt (#19). Offen: Link-kopieren-Symbol an den Überschriften (Tastatur, Rückmeldung \"Link kopiert\") und `scroll-margin-top` für Anker. Aufwand S.
+2. **Bauamt mit Kontrollpunkten (Zellzyklus).** Drei Tore (G1, G2, Metaphase) mit je zwei Fehlerfällen, Stopp oder Durchlass. Schärft den Schlusssatz zu "Eine Stadt ohne Planungsbüro", weil es Abnahmen vor dem Bau gibt. Hinweis: Das Bauamt ist ein Bild, Eiweiße prüfen sich gegenseitig. Aufwand M.
+3. **Ausfall in der Zell-Stadt.** Vier Schalter (Kraftwerk, Müllabfuhr, Zoll, Archiv), abhängige Bauteile fallen in Stufen aus, je ein Beispiel einer realen Krankheitsgruppe. Brücke zur Ausfall-Logik der Düsseldorf-Seite. Hinweis: Krankheiten sind selten ein einzelner Ausfall, kein Ersatz für ärztlichen Rat. Aufwand M.
 
 ## Offen, Priorität mittel
 
-7. **Signale zwischen Zellen als Postsystem** (Hormon langsam, Nerv schnell). Branch `claude/zelle-signale`, in Arbeit.
-8. **Immunsystem als Stadtwache.** Zwillingspaar zu den Signalen, gleicher Aufbau. Hinweis: Immunität ist verteilt und kann Eigenes angreifen, kein Impf- oder Therapierat. Aufwand M bis L.
-9. **Gemeinsame Bausteine.** `assets/shared.css` und `assets/shared.js` (Tokens, Fokus-Stil, Topnav, Reveal, einmaliger Ton-Code, Zelle/Stadt-Schalter), ohne Build, in drei PRs: erst CSS, dann Ton, dann Schalter. Aufwand L. Akzeptanz: eine Farbänderung wirkt auf alle Seiten, Screenshots vor und nach dem Umbau unter 1 Prozent Abweichung.
-10. **Performance.** Schleifen nur laufen lassen, wenn Element und Tab sichtbar sind, Canvas-Auflösung deckeln, `index.html` (218 KB) prüfen. Vorher und nachher messen. Aufwand M.
-11. **Lernpfad.** Schmale Abschnittsleiste mit Fortschritt und "schon gesehen" in localStorage, Zurücksetzen im Fuß, Datenschutztext anpassen. Aufwand M.
-12. **Ton-Feinschliff.** Lautstärke-Regler, Stummschaltung pro Klangquelle, ein gemeinsamer Zustand, Rücksprung aus dem Seitencache. Sinnvoll nach den gemeinsamen Bausteinen. Aufwand M.
-13. **Müllabfuhr und Recycling.** Müllregler, Abfuhr zum Lysosom, Streik als Rückstau. Hinweis: Entsorgung ist dezentral (Proteasom), kein Anti-Aging-Versprechen. Aufwand M.
-14. **Dorf oder Stadt.** Bakterium gegen Zelle mit Kern als Größenregler. Hinweis: Bakterien sind keine primitive Vorstufe, Endosymbiose ist gut belegt, Details offen. Aufwand M.
-15. **Abschlussseite "Eine Stadt, ein Körper, ein Netz".** Dieselben fünf Fragen für Düsseldorf, Zelle, Körper und Internet, je Spalte ein Feld "Wo das Bild hinkt". Erst nach mindestens drei neuen Abschnitten. Aufwand M.
+4. **Immunsystem als Stadtwache.** Zwillingspaar zu den Signalen, gleicher Aufbau. Hinweis: Immunität ist verteilt und kann Eigenes angreifen, kein Impf- oder Therapierat. Aufwand M bis L.
+5. **Gemeinsame Bausteine.** `assets/shared.css` und `assets/shared.js` (Tokens, Fokus-Stil, Topnav, Reveal, einmaliger Ton-Code, Zelle/Stadt-Schalter), ohne Build, in drei PRs: erst CSS, dann Ton, dann Schalter. Aufwand L. Akzeptanz: eine Farbänderung wirkt auf alle Seiten, Screenshots vor und nach dem Umbau unter 1 Prozent Abweichung.
+6. **Performance.** Schleifen nur laufen lassen, wenn Element und Tab sichtbar sind, Canvas-Auflösung deckeln, `index.html` (218 KB) prüfen. Vorher und nachher messen. Aufwand M.
+7. **Lernpfad.** Schmale Abschnittsleiste mit Fortschritt und "schon gesehen" in localStorage, Zurücksetzen im Fuß, Datenschutztext anpassen. Aufwand M.
+8. **Ton-Feinschliff.** Lautstärke-Regler, Stummschaltung pro Klangquelle, ein gemeinsamer Zustand, Rücksprung aus dem Seitencache. Sinnvoll nach den gemeinsamen Bausteinen. Aufwand M.
+9. **Müllabfuhr und Recycling.** Müllregler, Abfuhr zum Lysosom, Streik als Rückstau. Hinweis: Entsorgung ist dezentral (Proteasom), kein Anti-Aging-Versprechen. Aufwand M.
+10. **Dorf oder Stadt.** Bakterium gegen Zelle mit Kern als Größenregler. Hinweis: Bakterien sind keine primitive Vorstufe, Endosymbiose ist gut belegt, Details offen. Aufwand M.
+11. **Abschlussseite "Eine Stadt, ein Körper, ein Netz".** Dieselben fünf Fragen für Düsseldorf, Zelle, Körper und Internet, je Spalte ein Feld "Wo das Bild hinkt". Erst nach mindestens drei neuen Abschnitten. Aufwand M.
 
 ## Offen, Priorität niedrig
 
-16. **Epigenetik in der DNA-Sektion.** Derselbe Bauplan, andere Lesezeichen je Zelltyp. Keine Lebensstil-Deutung, keine Vererbung über Generationen. Aufwand S.
-17. **Druckansicht und Lesemodus.** Zuerst nur `@media print` (hell, ohne Bedienknöpfe), Hell-Schalter erst nach den gemeinsamen Bausteinen. Aufwand S bis M.
+12. **Epigenetik in der DNA-Sektion.** Derselbe Bauplan, andere Lesezeichen je Zelltyp. Keine Lebensstil-Deutung, keine Vererbung über Generationen. Aufwand S.
+13. **Druckansicht und Lesemodus.** Zuerst nur `@media print` (hell, ohne Bedienknöpfe), Hell-Schalter erst nach den gemeinsamen Bausteinen. Aufwand S bis M.
 
 ## Entscheidungen für Björn (gesammelt)
 
@@ -48,6 +44,10 @@ Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn z
 3. **Höreindruck des Tons.** Klangteppich, Interaktionsklänge, Evolution, Teilung und Signale sind nur technisch getestet. Lautstärken und Klangfarben bitte anhören. Die Konstanten stehen im Sound-Block (MASTER, peak-Werte).
 4. **Zeiten in der Signal-Animation.** Hormon gestrafft, Nerv in Zeitlupe, damit man es sieht. Steht in der Notiz im Abschnitt. Annahme: so lassen.
 5. **Vorschaubilder.** Motiv und Text der drei Bilder in `og/` sind ein Vorschlag. Annahme: bleiben, bis Björn etwas ändern will.
+6. **Textfarben angehoben (Barrierefreiheit, #21).** Mehrere gedämpfte Grautöne sind heller geworden, damit Kontrast mindestens 4,5:1 erreicht (zum Beispiel #6E7689 und #5E6579 zu #8E98AC). Optik bleibt ruhig, bitte einmal ansehen. Annahme: bleibt.
+7. **Theme-Rauten auf der Startseite.** Die Pille ist etwas größer, weil die Tippfläche jetzt 44 px misst. Die Rauten selbst sind gleich klein. Annahme: bleibt.
+8. **Hero-Kette der Startseite wechselt von selbst, ohne Pause-Knopf.** Für Bewegungen über fünf Sekunden verlangt WCAG 2.2 eine Pause-Möglichkeit. Vorschlag: ein kleiner Pause-Knopf. Annahme bis dahin: unverändert, bei Reduced Motion wechselt sie nicht mehr.
+9. **Kontrast nur im Ausgangszustand gemessen.** Geöffnete Panels, Zustände nach Klicks, Theme-Farben grün und gelb und SVG-Text sind nicht erfasst. Folgepunkt für später.
 
 ## Erledigt
 
@@ -59,3 +59,4 @@ Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn z
 - Zellteilung als Stadtgründung (#13)
 - Ton für Evolution und Teilung (#14)
 - Prüfskript (#16), Signale (#17), Roter Faden (#18), Teilen und Vorschaubilder (#19)
+- Barrierefreiheit (#21): Kontraste, Skip-Link, Tastatur, Tippflächen, Reduced Motion, Fallbacks, Skripte `tests/kontrast.mjs` und `tests/tastatur.mjs`
