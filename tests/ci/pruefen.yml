@@ -1,0 +1,31 @@
+name: Prüfen
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Chrome prüfen
+        run: google-chrome --version
+      - name: Seiten prüfen (Konsole, Überlauf, Links, Meta, fremde Requests)
+        run: node tests/check.mjs --screens=${{ runner.temp }}/screens
+      - name: Kontraste prüfen
+        run: node tests/kontrast.mjs
+      - name: Tastatur prüfen
+        run: node tests/tastatur.mjs
+      - name: Screenshots bei Fehler sichern
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: ${{ runner.temp }}/screens
+          if-no-files-found: ignore
