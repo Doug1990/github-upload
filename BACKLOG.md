@@ -16,7 +16,9 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 ## Offen, Priorität hoch
 
 2. **CI-Workflow.** Vorlage liegt fertig in `tests/ci/pruefen.yml` (läuft bei Pull Request und Push auf main: `check.mjs`, `kontrast.mjs`, `tastatur.mjs`, Screenshots als Artefakt bei Fehler). Fehlt nur noch die Freigabe, siehe Entscheidung 14. Danach Datei nach `.github/workflows/` verschieben. Aufwand S.
-27. **Lieferketten: Vom Gen zum Produkt.** Weg vom Bauplan über Abschrift und Eiweißbau bis zum fertigen Teil, als Stationenkette mit Störknopf an jeder Station. Hinweis: Abschrift und Eiweißbau laufen vielfach parallel, ein Gen ergibt nicht immer ein Eiweiß, Regulation fehlt im Bild. Aufwand M. Der Bauplan steht im Text, ist aber nie in Aktion zu sehen. Nach dem Fließband bauen, Aufbau teilen. Vorher prüfen, was der Abschnitt "Gene und Genregulation" schon abdeckt (Archiv, Abschrift, Fabrik), und nur die Lücke füllen.
+35. **Düsseldorf bei Störung: Der Tag, an dem es hakt.** Die Stadtkette (Strom, Wasser, Verkehr) mit einem Knopf "Etwas fällt aus" je Leitung, danach lässt sich ablesen, wer als Nächstes betroffen ist und wer Ersatz hat. Hinweis: Reale Netze sind vielfach abgesichert und getrennt, der Dominoeffekt ist bewusst zugespitzt, die Abhängigkeiten sind Beispiele und keine Betriebsdaten. Aufwand M. Ergänzt die Startseite um den Ausfall, den die Zell-Seite schon hat (Brücke zu `#ausfall`). Vorher gegen "Du gehörst dazu" abgrenzen.
+37. **Wer hält es instand?** Zeitraffer über Jahrzehnte: Rohre, Gleise und Kabel altern, per Klick wird gewartet oder aufgeschoben, sichtbar wird der Rückstau. Brücke: Zellen erneuern ihre Teile ständig. Hinweis: Wartung in Städten ist geplant und teuer, in Zellen läuft der Umbau fortwährend ohne Plan, Lebensdauern sind frei gewählt. Aufwand M. Mit Punkt 9 (Müllabfuhr) und 19 (Alterung und Reparatur) abstimmen, damit nichts doppelt entsteht.
+41. **Mikrotexte in den SVG-Schemata auf kleinen Bildschirmen.** Ein Prüflauf misst die wirksame Schriftgröße jedes SVG-Textes bei 390 px und listet alle unter 11 px (siehe Entscheidung 29). Abgearbeitet wird durch Kürzen oder Verlegen in den Fließtext darunter. Akzeptanz: keine Beschriftung unter 11 px wirksam. Aufwand M. Die Seite wird vor allem mobil gelesen.
 
 ## Offen, Priorität mittel
 
@@ -41,6 +43,11 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 32. **Externe Links und Ladetest.** `check.mjs` prüft externe Links per HEAD-Anfrage (nur Warnung). Schalter `--langsam` drosselt auf 3G und meldet Zeit bis zum ersten Text und bis zur Bedienbarkeit. Aufwand S bis M.
 33. **Lesbarkeit.** Fließtext höchstens etwa 70 Zeichen je Zeile, mindestens 16 px mobil, Zeilenabstand mindestens 1,5, Seite bei 200 Prozent Zoom ohne Überlauf. `check.mjs` meldet Zeilen über 80 Zeichen und Text unter 16 px. Aufwand S.
 34. **Fehlertoleranz.** Seiten laufen weiter, wenn `localStorage`, `AudioContext`, `ResizeObserver` oder Canvas fehlen oder Fehler werfen. Das Prüfskript schaltet diese APIs ab, keine Konsolenfehler, alle Abschnitte lesbar. Aufwand M. Vor Lernpfad und Ton-Feinschliff.
+27. **Vom Eiweiß zum fertigen Teil.** Rest von "Lieferketten": Der Gene-Abschnitt deckt Archiv, Abschrift, Fabrik und den Buchstabentausch schon ab. Offen ist, was danach passiert: Faltung, Qualitätskontrolle, Versand an den Einsatzort, mit Störknopf je Station (falsch gefaltet, nicht geliefert). Hinweis: Faltung ist kein Fließband, viele Eiweiße falten sich von allein oder mit Helfern, und Qualitätskontrolle ist dezentral. Aufwand M. Mit Punkt 9 (Müllabfuhr) abstimmen, weil beide am Abbau falscher Eiweiße anschließen.
+36. **Wer bezahlt die Infrastruktur?** Schieber "Wie viele nutzen es" zeigt, wie sich die Kosten je Kopf bei Wasserleitung, Straßenbahn und Glasfaser verteilen, ein Klick wechselt zwischen Gebühr, Steuer und Preis. Hinweis: Echte Kosten hängen an Gelände, Alter und Politik, die Zahlen sind frei gewählt und als Beispiel markiert, keine Aussage zu Gebühren in Düsseldorf. Aufwand M.
+38. **Wie lange dauert der Weg?** Tagesschieber mit Wegen durch die Stadt, Gegenstück in der Zelle: Stoffe kommen per Diffusion langsam, per Transport schneller an. Hinweis: Diffusion hilft nur auf kurzen Strecken, deshalb sind Zellen klein, die Maßstäbe sind nicht vergleichbar, die Zeiten sind Beispiele. Aufwand M.
+40. **Wartbarkeit der großen Dateien ohne Build.** `zelle.html` und `index.html` bekommen ein Inhaltsverzeichnis am Anfang (Abschnitt, Skriptblock), `check.mjs` meldet Skriptblöcke ohne Kommentarkopf und doppelt vergebene IDs oder Funktionsnamen. Aufwand S bis M. Jeder neue Abschnitt erhöht das Risiko für Namenskollisionen.
+42. **Prüfliste für echte Geräte.** `tests/geraete.md` mit iPhone Safari, Android Chrome und Firefox (Ton, Touch, Adressleiste, Schriftladen, Vollbild-Höhe), je ein Ja/Nein-Feld. Akzeptanz: ein Durchlauf ist gemacht, Fehler stehen als eigene Punkte hier. Aufwand S. Headless-Chrome zeigt Safari-Eigenheiten nicht.
 
 ## Offen, Priorität niedrig
 
@@ -49,10 +56,31 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 22. **Mitmach-Format.** Rätsel "Wer bin ich, in Stadt und Zelle?" und Baukasten "Baue deine Stadt", alles ohne Maus lösbar. Erst nach Fließband, Zellskelett und Zoll. Aufwand M.
 23. **Rückmeldung ohne Analytics.** Fußlink "Fehler gemeldet oder Idee?" per `mailto:` mit Betreff je Seite, ein Satz in der Datenschutzseite. Aufwand S.
 24. **Glossar.** `glossar.html` und `tests/begriffe.json` mit bevorzugter Schreibweise, vom Prüfskript gelesen. Nach README und Sitemap. Aufwand M.
+39. **Alles hängt an Standards.** Stecker, Steckdose, Gleis oder Schlüssel-Schloss-Paar werden per Klick getauscht, sichtbar wird, was gleiche Normen ermöglichen. Brücke: Ein Eiweiß passt nur zu seinem Partner. Hinweis: Normen sind vereinbart, das Schlüssel-Schloss-Prinzip in Zellen entstand ohne Absprache und passt oft nur ungefähr. Aufwand S bis M.
+43. **Begriffsabgleich zwischen den Seiten.** Tabelle der Leitbegriffe (Kraftwerk, Turbine, Zoll, Bauamt, Wache) mit Schreibweise je Seite, Abweichungen werden angeglichen oder begründet. Akzeptanz: Volltextsuche je Leitbegriff findet nur die festgelegte Schreibweise. Aufwand S. Vorarbeit für das Glossar (Punkt 24).
 
 ## Entscheidungen für Björn (gesammelt)
 
 Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn zu unterbrechen. Claude arbeitet mit der naheliegendsten Annahme weiter und teilt die Liste gesammelt mit. Erledigtes wird gestrichen.
+
+### Braucht dich (Stand 3. Oktober 2026)
+
+Nur diese Punkte kann nur Björn klären. Die Nummern verweisen auf die Details weiter unten. Alles andere läuft mit der dort genannten Annahme weiter.
+
+| Dringlichkeit | Frage | Details |
+| --- | --- | --- |
+| hoch | CI freigeben: im Terminal `! gh auth refresh -h github.com -s workflow`, danach "Require status checks" für main setzen. Ohne das laufen die Prüfskripte nur lokal. | 20, 14 |
+| hoch | Datenschutztexte rechtlich gegenlesen (Schriften, Eingaben bleiben im Browser). | 1, 13 |
+| mittel | Fachtexte gegenlesen: Krankheitsbeispiele im Ausfall-Abschnitt, Zoll, Gene, Fließband, Dein Tag, "Wo das Bild hinkt". | 17, 22, 24, 28, 31, 33 |
+| mittel | Klänge anhören (Lautstärke und Klangfarbe). | 3 |
+| mittel | Pause-Knopf für die Hero-Kette der Startseite, ja oder nein? | 8 |
+| niedrig | Seitentitel von Impressum und Datenschutz ohne Gedankenstrich (Mittelpunkt)? | 2 |
+| niedrig | Adresse und Wortlaut des Rückmeldungs-Links (Punkt 23). | 15 |
+| niedrig | Optik einmal ansehen: angehobene Textfarben, Theme-Rauten, "Wo das Bild hinkt", Link-Knöpfe, Kontrast-Fixes. | 6, 7, 25, 26, 35 |
+
+### Details und Annahmen
+
+Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Die Nummern bleiben stabil, damit Verweise im Backlog gelten.
 
 1. **Datenschutztext zu den Schriften.** Der Agent hat den Abschnitt "Google Fonts" durch "Schriftarten" ersetzt (lokal ausgeliefert, keine Verbindung zu Google). Bitte rechtlich gegenlesen. Annahme bis dahin: bleibt so.
 2. **Seitentitel von Impressum und Datenschutz** enthalten einen Gedankenstrich ("Datenschutz — Was trägt deinen Tag?"). Das widerspricht Björns Schreibstil. Vorschlag: Mittelpunkt statt Strich. Annahme bis dahin: unverändert.
@@ -93,6 +121,8 @@ Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn z
 
 ## Erledigt
 
+- Pflege der Entscheidungsliste: Tabelle "Braucht dich" oben, Details darunter (die Nummern der Details bleiben stabil, weil Verweise im Backlog auf sie zeigen)
+- Konzept-Runde 3: Vorschläge 35 bis 43 eingetragen, Punkt 27 auf den Rest verkleinert (Gene-Abschnitt deckt den Rest ab)
 - Touch-Bedienung der Regler und Zieher: Skript `tests/touch.mjs` (emulierter Touch bei 390 px, senkrechtes Wischen scrollt über jeder Bedienfläche, Doppeltipp zoomt nicht, Schieber folgen dem Finger). Die Seiten bestanden schon, es waren keine Änderungen nötig.
 - Kontrast und Tastatur nach Klicks: Zustandstreiber in `tests/chrome.mjs`, `kontrast.mjs` und `tastatur.mjs` messen in mehreren Zuständen
 - Gene und Genregulation: Abschnitte `#gen` (Archiv, Abschrift, Fabrik, Buchstaben tauschen, Zeitstrahl) und `#regulation` (vier Zelltypen, sechs Akten, Blutzucker-Schalter) auf der Zell-Seite, Skript `tests/gene.mjs` (#35)
