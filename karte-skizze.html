@@ -89,6 +89,13 @@
   .you .ring { fill: none; stroke: #F2C48D; stroke-width: 1.4; animation: ring 2.4s ease-out infinite; transform-box: fill-box; transform-origin: center; }
   .you .core { fill: #FFE3B0; }
   .you text { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; fill: #FFE3B0; font-weight: 500; paint-order: stroke; stroke: #0B1220; stroke-width: 4px; }
+  /* Schmale Ansicht: Die Karte ist 820 px breit und wird gescrollt, die Schrift im Bild wird dort um 0,84 skaliert.
+     Größere Schrift im Bild, damit Beschriftungen, Nummern und Stadtteile wirksam mindestens 11 px erreichen. */
+  @media (max-width: 860px) {
+    .district, .lbl, .badge text, .you text { font-size: 13.4px; }
+    .badge circle { transform: scale(1.4); }
+    .badge text { transform: translateY(1.2px); }
+  }
 
   @keyframes flow { to { stroke-dashoffset: -20; } }
   @keyframes ring { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.4); opacity: 0; } }
