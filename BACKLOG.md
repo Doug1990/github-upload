@@ -22,7 +22,6 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 
 ## Offen, Priorität mittel
 
-4. **Immunsystem als Stadtwache.** Zwillingspaar zu den Signalen, gleicher Aufbau. Hinweis: Immunität ist verteilt und kann Eigenes angreifen, kein Impf- oder Therapierat. Aufwand M bis L.
 5. **Gemeinsame Bausteine.** `assets/shared.css` und `assets/shared.js` (Tokens, Fokus-Stil, Topnav, Reveal, einmaliger Ton-Code, Zelle/Stadt-Schalter), ohne Build, in drei PRs: erst CSS, dann Ton, dann Schalter. Aufwand L. Akzeptanz: eine Farbänderung wirkt auf alle Seiten, Screenshots vor und nach dem Umbau unter 1 Prozent Abweichung.
 6. **Performance.** Schleifen nur laufen lassen, wenn Element und Tab sichtbar sind, Canvas-Auflösung deckeln, `index.html` (218 KB) prüfen. Vorher und nachher messen. Aufwand M.
 7. **Lernpfad.** Schmale Abschnittsleiste mit Fortschritt und "schon gesehen" in localStorage, Zurücksetzen im Fuß, Datenschutztext anpassen. Aufwand M.
@@ -71,7 +70,7 @@ Nur diese Punkte kann nur Björn klären. Die Nummern verweisen auf die Details 
 | --- | --- | --- |
 | hoch | CI freigeben: im Terminal `! gh auth refresh -h github.com -s workflow`, danach "Require status checks" für main setzen. Ohne das laufen die Prüfskripte nur lokal. | 20, 14 |
 | hoch | Datenschutztexte rechtlich gegenlesen (Schriften, Eingaben bleiben im Browser). | 1, 13 |
-| mittel | Fachtexte gegenlesen: Krankheitsbeispiele im Ausfall-Abschnitt, Zoll, Gene, Fließband, Dein Tag, "Wo das Bild hinkt". | 17, 22, 24, 28, 31, 33 |
+| mittel | Fachtexte gegenlesen: Krankheitsbeispiele im Ausfall-Abschnitt, Zoll, Gene, Immunsystem, Fließband, Dein Tag, "Wo das Bild hinkt". | 17, 22, 24, 28, 31, 33, 37 |
 | mittel | Klänge anhören (Lautstärke und Klangfarbe). | 3 |
 | mittel | Pause-Knopf für die Hero-Kette der Startseite, ja oder nein? | 8 |
 | niedrig | Seitentitel von Impressum und Datenschutz ohne Gedankenstrich (Mittelpunkt)? | 2 |
@@ -119,10 +118,16 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 35. **Kontrast nach Klicks: drei Funde behoben.** Der neue Lauf fand drei Stellen, die nur in einem Zustand zu blass waren: der Pfeil in der Reise-Kette auf der Startseite (jetzt #8E98AC, für Screenreader versteckt), abgeschaltete Ebenen-Knöpfe auf der Karte (statt 40 Prozent Deckkraft jetzt Durchstreichen und blasses Farbfeld) und ausgeschaltete Karten bei der Genregulation (statt halber Deckkraft jetzt gestrichelter Rahmen und gedämpfte Überschrift). Bitte einmal ansehen. Annahme: bleibt.
 36. **Tastaturtest: Warnung zu "Mitochondrien".** Das gewählte Bauteil (`g.part.sel`) bekommt beim Fokus keinen zusätzlich sichtbaren Stil, weil die Auswahl schon dieselbe Hervorhebung zeigt. Gab es vorher schon, bleibt eine Warnung. Annahme: so lassen oder bei Gelegenheit einen Ring ergänzen.
 
+37. **Immunsystem (#43): Fachcheck.** Bitte gegenlesen: Haut, Schleim, Flimmerhärchen und Magensäure als erste Barriere, "Fresszellen erkennen typische Muster auf Bakterien (z.B. Bestandteile ihrer Hülle)", "einzelne Zellen tragen Bruchstücke zum nächsten Lymphknoten", "beim ersten Kontakt dauert das einige Tage", "beim nächsten Kontakt mit demselben Erreger geht es meist schneller", "Abwehrzellen, die stark auf Eigenes reagieren, werden bei ihrer Reifung meist aussortiert oder später gebremst", "Ursachen oft nur teilweise geklärt (Erbanlagen, Infekte und Umwelt spielen wohl zusammen)", "der Alarm kann anhalten oder in Schüben wiederkommen". Keine Krankheitsnamen, keine Zahlen, kein Impf- oder Therapierat (steht so in der Notiz). Annahme: bleibt.
+38. **Immunsystem: Platzierung und Titel.** Der Abschnitt steht direkt nach den Signalen und vor "Drei Fragen zum Schluss", Titel "Eine Stadtwache ohne Wachstube." In der Kurz-Liste steht er nach dem Bauamt. Dabei aufgefallen: Die Signale selbst haben noch keinen Eintrag in der Kurz-Liste. Annahme: bleibt so, den Signale-Eintrag ergänze ich, wenn du magst.
+39. **Immunsystem: Ton und Bilder.** Der Schalter heißt hier "Körper" und "Stadt" (die Abwehr ist Sache des Körpers, keiner einzelnen Zelle). Stadtbilder: Streife, Funkspruch, Fahndungsfoto, Treffpunkt der Wache, "Wachmann mit Foto" für die Gedächtniszelle. Statt eines Merksatzes steht unter den Spalten eine Zeile "Im Bild: ...", die erklärt, was gerade zu sehen ist. Der Klang (Schritt als Stufe, Fehlalarm leicht schief, Entwarnung als Dreiklang) ist nur technisch getestet, siehe Entscheidung 3. Annahme: bleibt.
+40. **Immunsystem: Optik.** Das Bild bewegt sich nicht von selbst, nur kurze Überblendungen beim Schrittwechsel (bei Reduced Motion keine). Auf dem Handy steht die Szene hochkant, die Schrittknöpfe zeigen nur die Nummer (der Name steht im Vorlesetext und in der Überschrift), und die Kennzahlen "Eigene Häuser" und "Alarm hält an" brechen bei 390 px in zwei Zeilen um. Annahme: bleibt.
+
 ## Erledigt
 
 - Pflege der Entscheidungsliste: Tabelle "Braucht dich" oben, Details darunter (die Nummern der Details bleiben stabil, weil Verweise im Backlog auf sie zeigen)
 - Konzept-Runde 3: Vorschläge 35 bis 43 eingetragen, Punkt 27 auf den Rest verkleinert (Gene-Abschnitt deckt den Rest ab)
+- Immunsystem als Stadtwache: Abschnitt `#immun` nach den Signalen (Eindringling und Fehlalarm gegen Eigenes, fünf Schritte, Körper und Stadt, Ton), Skript `tests/immun.mjs` mit Gegenprobe (`--gegenprobe`) (#43)
 - Touch-Bedienung der Regler und Zieher: Skript `tests/touch.mjs` (emulierter Touch bei 390 px, senkrechtes Wischen scrollt über jeder Bedienfläche, Doppeltipp zoomt nicht, Schieber folgen dem Finger). Die Seiten bestanden schon, es waren keine Änderungen nötig.
 - Kontrast und Tastatur nach Klicks: Zustandstreiber in `tests/chrome.mjs`, `kontrast.mjs` und `tastatur.mjs` messen in mehreren Zuständen
 - Gene und Genregulation: Abschnitte `#gen` (Archiv, Abschrift, Fabrik, Buchstaben tauschen, Zeitstrahl) und `#regulation` (vier Zelltypen, sechs Akten, Blutzucker-Schalter) auf der Zell-Seite, Skript `tests/gene.mjs` (#35)
