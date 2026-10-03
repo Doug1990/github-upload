@@ -18,7 +18,6 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 2. **CI-Workflow.** Vorlage liegt fertig in `tests/ci/pruefen.yml` (läuft bei Pull Request und Push auf main: `check.mjs`, `kontrast.mjs`, `tastatur.mjs`, Screenshots als Artefakt bei Fehler). Fehlt nur noch die Freigabe, siehe Entscheidung 14. Danach Datei nach `.github/workflows/` verschieben. Aufwand S.
 27. **Lieferketten: Vom Gen zum Produkt.** Weg vom Bauplan über Abschrift und Eiweißbau bis zum fertigen Teil, als Stationenkette mit Störknopf an jeder Station. Hinweis: Abschrift und Eiweißbau laufen vielfach parallel, ein Gen ergibt nicht immer ein Eiweiß, Regulation fehlt im Bild. Aufwand M. Der Bauplan steht im Text, ist aber nie in Aktion zu sehen. Nach dem Fließband bauen, Aufbau teilen. Vorher prüfen, was der Abschnitt "Gene und Genregulation" schon abdeckt (Archiv, Abschrift, Fabrik), und nur die Lücke füllen.
 28. **Zustände nach Klicks im Kontrast- und Tastaturtest.** `kontrast.mjs` und `tastatur.mjs` klicken je Seite Schalter, Theme-Rauten und Panels durch und messen danach erneut (löst Entscheidung 9 ein, inklusive Theme grün und gelb). Akzeptanz: Lauf über alle Seiten ohne Verstoß, das Skript meldet, in welchem Zustand ein Fehler auftrat. Aufwand M.
-29. **Touch-Bedienung der Regler und Zieher.** Schieber, Zoomflächen und Karte per emulierter Touch-Eingabe bei 390 px testen: senkrechtes Scrollen über jedem Abschnitt bleibt möglich, `touch-action` gezielt gesetzt, Doppeltipp zoomt nicht ungewollt. Aufwand M. Die Seite wird viel auf dem Handy gelesen.
 
 ## Offen, Priorität mittel
 
@@ -93,6 +92,7 @@ Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn z
 
 ## Erledigt
 
+- Touch-Bedienung der Regler und Zieher: Skript `tests/touch.mjs` (emulierter Touch bei 390 px, senkrechtes Wischen scrollt über jeder Bedienfläche, Doppeltipp zoomt nicht, Schieber folgen dem Finger). Die Seiten bestanden schon, es waren keine Änderungen nötig.
 - Gene und Genregulation: Abschnitte `#gen` (Archiv, Abschrift, Fabrik, Buchstaben tauschen, Zeitstrahl) und `#regulation` (vier Zelltypen, sechs Akten, Blutzucker-Schalter) auf der Zell-Seite, Skript `tests/gene.mjs` (#35)
 - Zelle verstehen, Fragen zum Schluss: Abschnitt auf der Zell-Seite, Skript `tests/fragen.mjs`
 - Einstieg "Dein Tag in einer Zelle": Abschnitt auf der Zell-Seite, Skript `tests/tag.mjs`
