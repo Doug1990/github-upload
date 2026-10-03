@@ -577,6 +577,23 @@
     .bau-svg .bau-pulse { animation: none; }
   }
 
+  /* Dein Tag in einer Zelle */
+  .tag-strip { position: relative; height: 12px; margin: 6px 4px 18px; border-radius: 6px; background: linear-gradient(90deg, #14223A 0%, #14223A 18%, #E7B95A 38%, #F2D58E 55%, #E08A4F 78%, #14223A 92%, #14223A 100%); }
+  .tag-mark { position: absolute; top: -5px; width: 4px; height: 22px; margin-left: -2px; border-radius: 2px; background: var(--ink); box-shadow: 0 0 0 2px rgba(10,19,16,0.8); transition: left 0.15s linear; }
+  .tag-time { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; font-family: 'IBM Plex Sans', sans-serif; margin-bottom: 10px; }
+  .tag-time b { font-family: 'Fraunces', serif; font-weight: 500; font-size: 26px; font-variant-numeric: tabular-nums; }
+  .tag-time span { font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim); }
+  .tag-rows { display: grid; gap: 10px; margin: 12px 0 4px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; color: var(--muted); }
+  .tag-row { display: grid; grid-template-columns: 140px 1fr 56px; align-items: center; gap: 12px; }
+  .tag-row .bar { margin-top: 0; height: 8px; }
+  .tag-row .bar i { background: var(--accent); transition: width 0.25s ease; }
+  .tag-row output { font-size: 12.5px; color: var(--dim); text-align: right; }
+  .tag-ctl { margin-top: 14px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); }
+  .tag-ctl label { display: flex; align-items: center; gap: 12px; min-height: 44px; }
+  .tag-ctl input[type=range] { flex: 1; min-height: 44px; accent-color: var(--accent); }
+  @media (max-width: 560px) { .tag-row { grid-template-columns: 1fr 52px; } .tag-row > span { grid-column: 1 / -1; } .tag-row .bar { grid-column: 1; } }
+  @media (prefers-reduced-motion: reduce) { .tag-mark, .tag-row .bar i { transition: none; } }
+
   /* Fließband */
   .fb-svg { touch-action: manipulation; }
   .fb-svg .fb-belt { stroke: #2F3D36; stroke-width: 10; stroke-linecap: round; fill: none; }
@@ -877,6 +894,7 @@
   <p class="pfad-vor">Wer wenig Zeit hat, liest hier den Kern. Jeder Satz führt zum Abschnitt, in dem mehr dazu steht.</p>
   <ol>
     <li><a href="#stadt"><b>Die Zelle ist eine Stadt in klein</b>Eine Zelle ist organisiert wie eine kleine Stadt, als Bild gemeint. Tippe auf einen Bestandteil, um zu sehen, was dort passiert.</a></li>
+    <li><a href="#tag"><b>Dein Tag in einer Zelle</b>Eine Zelle hat keinen Stundenplan. Vieles läuft gleichzeitig, nur die Gewichte verschieben sich im Lauf des Tages. Die Balken sind ein Bild.</a></li>
     <li><a href="#kraftwerk"><b>Das Kraftwerk</b>Die Zelle macht ihre Energiewährung ATP nach dem Prinzip eines Stausees. Die Simulation ist vereinfacht.</a></li>
     <li><a href="#fliessband"><b>Das Fließband</b>Ein Stoffwechselweg ist eine Kette von Stationen. Die langsamste bestimmt das Tempo, davor staut es sich, und das Endprodukt kann die erste Station bremsen. Stark vereinfacht.</a></li>
     <li><a href="#robust"><b>Gut genug schlägt perfekt</b>Das Leben wurde nie geplant, nur verändert. Darum gibt es Redundanz, alte Reste und Reserven, und es läuft trotzdem zuverlässig.</a></li>
@@ -990,6 +1008,29 @@
   <p class="livecap sans" id="liveCap" aria-live="polite"></p>
   <div class="infocard" id="info" aria-live="polite"></div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zell-Zoom</span></summary><div class="hinkt-body"><p>Eine Stadt hat ein Rathaus und Leute, die etwas wollen. Die Zelle hat keinen Bürgermeister und keine Absicht, ihre Teile folgen chemischen Regeln.</p><p>Auch die Anordnung ist geschönt: Hier liegen die Bauteile getrennt und ordentlich nebeneinander, in einer echten Zelle ist es dichter und ständig in Bewegung.</p><p class="hinkt-frage">Wer entscheidet in einer Zelle, was wo gebaut wird?</p></div></details>
+</section>
+
+<!-- 1a. Dein Tag in einer Zelle -->
+<section class="sec reveal" id="tag">
+  <h2>Auch eine Zelle hat einen Tag, nur keinen Stundenplan.</h2>
+  <p class="lead">Auf der <a href="index.html">Düsseldorf-Seite</a> ging es darum, was deinen Tag trägt. Hier geht es darum, was in dir währenddessen passiert. Schieb die Uhr und sieh, was gerade im Vordergrund steht. Alles läuft immer gleichzeitig, nur die Gewichte verschieben sich.</p>
+  <div class="panel" id="tagPanel">
+    <div class="tag-time"><b id="tagT">7 Uhr</b><span id="tagPh">Morgen</span></div>
+    <div class="tag-strip" aria-hidden="true"><i class="tag-mark" id="tagM"></i></div>
+    <div class="tag-rows">
+      <div class="tag-row"><span>Energie liefern</span><div class="bar" aria-hidden="true"><i id="tagB0"></i></div><output id="tagW0"></output></div>
+      <div class="tag-row"><span>Bauen und Vorrat</span><div class="bar" aria-hidden="true"><i id="tagB1"></i></div><output id="tagW1"></output></div>
+      <div class="tag-row"><span>Aufräumen, Reparatur</span><div class="bar" aria-hidden="true"><i id="tagB2"></i></div><output id="tagW2"></output></div>
+      <div class="tag-row"><span>Signale empfangen</span><div class="bar" aria-hidden="true"><i id="tagB3"></i></div><output id="tagW3"></output></div>
+    </div>
+    <div class="tag-ctl"><label>Uhrzeit <input type="range" id="tagH" min="0" max="23" step="1" value="7" aria-valuetext="7 Uhr, Morgen"></label></div>
+  </div>
+  <div class="fb-cols" id="tagCols" aria-live="polite">
+    <div class="col"><b>In der Zelle</b><span id="tagZ"></span></div>
+    <div class="col city"><b>In der Stadt</b><span id="tagS"></span></div>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Dein Tag</span></summary><div class="hinkt-body"><p>Zellen haben eine innere Uhr aus Eiweißen, die einen Rhythmus mitgibt. Aber niemand liest dort einen Plan ab. Was gerade gebraucht wird, entscheiden Signale, das Angebot und der Zelltyp.</p><p>Herzzellen arbeiten Tag und Nacht, Nervenzellen speichern kaum etwas, und wer nachts arbeitet, verschiebt alles. Die Balken zeigen ein Bild der Gewichte, keine Messwerte.</p><p class="hinkt-frage">Woher weiß eine Zelle, dass es Morgen ist?</p></div></details>
+  <p class="note">Stark vereinfacht: Aufräumen, Reparatur und Bau laufen immer, nur in unterschiedlichem Maß. Die Werte hinter den Balken sind frei gewählt. Der Tag ist ein Beispiel für einen Menschen mit gewöhnlichem Rhythmus, nicht für jede Zelle und nicht für jeden Körper.</p>
 </section>
 
 <!-- 2. Kraftwerk -->
@@ -3796,6 +3837,44 @@
   else window.addEventListener('resize', layout);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
   applyStatic(); updateText(); layout(); render(0); ui();
+})();
+
+// --- Dein Tag ---
+(function () {
+  'use strict';
+  function $(id) { return document.getElementById(id); }
+  var slider = $('tagH');
+  if (!slider) return;
+  // Stützpunkte: Stunde, Energie, Bauen, Aufräumen, Signale (0 bis 100, frei gewählt)
+  var KEY = [[0, 20, 40, 80, 15], [6, 45, 35, 60, 50], [9, 80, 50, 35, 75], [12, 70, 70, 30, 55], [15, 80, 50, 35, 60], [18, 65, 65, 35, 55], [21, 40, 55, 55, 35], [24, 20, 40, 80, 15]];
+  var PH = [
+    { n: 'Nacht', z: 'Wenig Verbrauch, viel Pflege. Die Müllabfuhr räumt auf, und Schäden an der DNA werden oft jetzt repariert.', s: 'Nachtschicht der Stadtreinigung. Die Straßen sind leer, also wird gewartet und repariert.' },
+    { n: 'Morgen', z: 'Hormone und Nervensignale melden, dass der Tag beginnt. Die Kraftwerke fahren hoch, und der Bedarf an ATP steigt.', s: 'Die Stadt wacht auf. Strom und Wasser ziehen an, die Bahnen füllen sich.' },
+    { n: 'Tag', z: 'Volle Fahrt. Viel Verbrauch, und ATP wird ständig nachgeliefert. Gebaut wird gleichzeitig, nur mit weniger Gewicht.', s: 'Tagesbetrieb. Alle Leitungen laufen, und zugleich wird gebaut und geliefert.' },
+    { n: 'Nachmittag', z: 'Es läuft weiter. Nach dem Essen nehmen viele Zellen Zucker auf und legen Vorräte an.', s: 'Der Betrieb läuft, und die Lager werden aufgefüllt.' },
+    { n: 'Abend', z: 'Der Betrieb fährt runter. Vorräte werden aufgefüllt, und das Aufräumen nimmt wieder zu.', s: 'Feierabend. Der Verkehr nimmt ab, und die Stadtwerke fahren herunter.' }
+  ];
+  function phase(h) { return h >= 22 || h < 6 ? 0 : h < 10 ? 1 : h < 14 ? 2 : h < 18 ? 3 : 4; }
+  function at(h) {
+    var i = 0;
+    while (i < KEY.length - 2 && KEY[i + 1][0] <= h) i++;
+    var a = KEY[i], b = KEY[i + 1], t = (h - a[0]) / (b[0] - a[0]), out = [];
+    for (var k = 1; k <= 4; k++) out.push(a[k] + (b[k] - a[k]) * t);
+    return out;
+  }
+  function word(v) { return v < 35 ? 'wenig' : v < 65 ? 'mittel' : 'viel'; }
+  var shownPh = -1;
+  function update() {
+    var h = parseInt(slider.value, 10) || 0, p = phase(h), v = at(h);
+    $('tagT').textContent = h + ' Uhr';
+    $('tagPh').textContent = PH[p].n;
+    $('tagM').style.left = (h / 23 * 100).toFixed(1) + '%';
+    for (var k = 0; k < 4; k++) { $('tagB' + k).style.width = v[k].toFixed(0) + '%'; $('tagW' + k).textContent = word(v[k]); }
+    if (p !== shownPh) { shownPh = p; $('tagZ').textContent = PH[p].z; $('tagS').textContent = PH[p].s; }
+    slider.setAttribute('aria-valuetext', h + ' Uhr, ' + PH[p].n);
+  }
+  slider.addEventListener('input', update);
+  update();
 })();
 
 // --- Fließband ---

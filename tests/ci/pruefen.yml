@@ -26,6 +26,8 @@ jobs:
         run: node tests/teilen.mjs --screens=${{ runner.temp }}/screens
       - name: Fließband prüfen
         run: node tests/fliessband.mjs --screens=${{ runner.temp }}/screens
+      - name: Tag in der Zelle prüfen
+        run: node tests/tag.mjs --screens=${{ runner.temp }}/screens
       - name: Screenshots bei Fehler sichern
         if: failure()
         uses: actions/upload-artifact@v4
