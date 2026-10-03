@@ -30,6 +30,12 @@ jobs:
         run: node tests/tag.mjs --screens=${{ runner.temp }}/screens
       - name: Fragen zum Schluss prüfen
         run: node tests/fragen.mjs --screens=${{ runner.temp }}/screens
+      - name: Mikrotexte in Schemata prüfen
+        run: node tests/mikrotext.mjs
+      - name: Touch-Bedienung prüfen
+        run: node tests/touch.mjs
+      - name: Gene und Genregulation prüfen
+        run: node tests/gene.mjs
       - name: Screenshots bei Fehler sichern
         if: failure()
         uses: actions/upload-artifact@v4
