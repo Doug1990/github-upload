@@ -292,6 +292,46 @@
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; scroll-behavior: auto !important; }
   }
 
+
+  /* Gene und Genregulation */
+  .gen-panel { --gb: 36px; }
+  .gen-row { margin-bottom: 14px; }
+  .gen-lab { display: block; font-family: 'IBM Plex Sans', sans-serif; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 6px; }
+  .gen-row[hidden] { display: none; }
+  .gen-cods { display: flex; flex-wrap: wrap; gap: 8px 12px; }
+  .gen-cod { display: flex; gap: 3px; }
+  .gen-b { width: var(--gb); height: var(--gb); display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; border: 0; padding: 0; font: 600 15px 'IBM Plex Sans', sans-serif; color: #0A1310; }
+  button.gen-b { cursor: pointer; }
+  button.gen-b:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  .gen-b.chg { box-shadow: 0 0 0 2px var(--coral); }
+  .gen-aa { width: calc(3 * var(--gb) + 6px); height: var(--gb); display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; border: 1px solid #3A4A42; font: 600 13px 'IBM Plex Sans', sans-serif; color: var(--ink); }
+  .gen-aa.chg { border-color: var(--coral); color: var(--coral); }
+  .gen-aa.stop { border-color: var(--coral); color: var(--coral); border-style: dashed; }
+  .gen-aa.off { opacity: 0.35; border-style: dotted; }
+  .gen-zeit { max-width: min(94vw, 560px); margin: 18px auto 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.6; color: var(--muted); }
+  .gen-zeit summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; color: var(--accent); }
+  .gen-zeit summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .gen-zeit ol { list-style: none; margin: 4px 0 0; padding: 0; border-left: 1px solid #3A4A42; }
+  .gen-zeit li { padding: 4px 0 8px 14px; }
+  .gen-zeit li b { display: block; color: var(--gold); font-weight: 600; font-size: 12px; letter-spacing: 0.06em; }
+  .reg-seg { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 14px; }
+  .reg-seg .btn[aria-pressed="true"], #regSugar[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: rgba(var(--accent-rgb),0.12); }
+  .reg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .reg-card { background: rgba(255,255,255,0.03); border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.5; color: var(--muted); transition: opacity 0.2s, border-color 0.2s; }
+  .reg-card b { display: block; font-family: 'Fraunces', serif; font-weight: 500; font-size: 15px; color: var(--ink); margin-bottom: 2px; }
+  .reg-card.zu { opacity: 0.5; border-style: dashed; }
+  .reg-lv { display: flex; gap: 3px; margin-top: 8px; align-items: center; }
+  .reg-lv i { flex: 1; height: 6px; border-radius: 3px; background: #25332C; }
+  .reg-lv i.on { background: var(--accent); }
+  .reg-lv span { font-size: 11.5px; margin-left: 8px; color: var(--gold); min-width: 70px; text-align: right; }
+  @media (max-width: 640px) {
+    .gen-panel { --gb: 44px; }
+    .reg-grid { grid-template-columns: 1fr 1fr; }
+    .reg-seg .btn, #regSugar, #genBack, #genNext, #genRand, #genReset { min-height: 44px; }
+  }
+  @media (max-width: 400px) { .reg-grid { grid-template-columns: 1fr; } }
+  @media (pointer: coarse) { .gen-panel { --gb: 44px; } .reg-seg .btn, #regSugar, #genBack, #genNext, #genRand, #genReset { min-height: 44px; } }
+
   /* Teilung */
   .teil-seg { display: flex; justify-content: center; margin: 0 auto 14px; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
   .teil-seg button { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 7px 18px; background: transparent; color: var(--muted); border: none; cursor: pointer; min-height: 36px; }
@@ -813,6 +853,8 @@
     <li><a href="#ausfall"><b>Fällt eine Stelle aus, merkt es der Rest</b>Fällt Kraftwerk, Müllabfuhr, Zoll oder Archiv aus, werden abhängige Teile in Stufen mit lahm. Krankheiten sind selten ein einzelner Ausfall, die Beispiele ersetzen keinen ärztlichen Rat.</a></li>
     <li><a href="#evolution"><b>Ohne Bauamt</b>Ohne Bauamt bleibt, was bei knapper Versorgung besteht. Niemand entwirft das Ergebnis.</a></li>
     <li><a href="#dna"><b>Der Bauplan ist digital</b>DNA schreibt mit vier Buchstaben, das sind zwei Bit pro Base. Dein Wort in DNA ist nur ein Gedankenspiel.</a></li>
+    <li><a href="#gen"><b>Das Archiv gibt die Originale nie heraus</b>Ein Gen wird abgeschrieben und als Kopie zur Fabrik gebracht, die daraus ein Eiweiß baut. Ein Tausch einzelner Buchstaben kann folgenlos bleiben, ein Eiweiß verändern oder es abbrechen. Stark vereinfacht.</a></li>
+    <li><a href="#regulation"><b>Gleiches Archiv, andere Akten</b>Fast jede Zelle hat dieselbe DNA, liest aber je nach Zelltyp und Lage andere Gene und je nach Signal mal mehr, mal weniger. Stark vereinfacht.</a></li>
     <li><a href="#teilung"><b>Eine Stadt gründet eine zweite</b>Eine Zelle kopiert erst den Bauplan, verdoppelt die Infrastruktur, sortiert und zieht zuletzt eine Grenze. Stark vereinfacht.</a></li>
     <li><a href="#bauamt"><b>Geprüft wird vor dem Bau</b>Vor der Teilung prüft die Zelle an drei Kontrollpunkten Größe, Kopie und Spindel. Ein Bauamt gibt es dafür nicht, Eiweiße prüfen sich gegenseitig. Stark vereinfacht.</a></li>
   </ol>
@@ -1251,6 +1293,56 @@
   <div class="dna-out" id="dnaOut" aria-live="polite"></div>
   <p class="dna-sum" id="dnaSum"></p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: DNA</span></summary><div class="hinkt-body"><p>Ein Bauplan zeigt das fertige Haus. Die DNA enthält Anleitungen für Eiweiße und anderes, wie die Zelle am Ende aussieht, entsteht erst im Zusammenspiel.</p><p>Dazu liest eine Zelle immer nur einen Teil davon, je nach Zelltyp und Lage.</p><p class="hinkt-frage">Was fehlt einem Bauplan, damit aus ihm eine lebende Zelle wird?</p></div></details>
+</section>
+
+<!-- 4b. Gene: Abschrift und Fabrik -->
+<section class="sec reveal" id="gen">
+  <h2>Das Archiv gibt die Originale nie heraus.</h2>
+  <p class="lead">Ein Gen ist eine Akte im Archiv der Zelle. Wird sie gebraucht, schreibt die Zelle eine Kopie ab und bringt sie zur Fabrik, und die baut daraus ein Eiweiß. Das Original bleibt dabei im Archiv. Gehe die drei Schritte durch und tausche danach selbst einzelne Buchstaben aus.</p>
+  <div class="evo-steps">
+    <div class="evo-step"><b>Archiv</b>Die DNA im Zellkern hält die Gene, jeweils als Folge der vier Buchstaben A, C, G und T.<em>Stadt: Die Akte steht im Archiv.</em></div>
+    <div class="evo-step"><b>Abschrift</b>Die Zelle schreibt das Gen als RNA ab. Dort steht U statt T, und die Kopie wandert aus dem Kern.<em>Stadt: Eine Kopie geht zur Fabrik.</em></div>
+    <div class="evo-step"><b>Fabrik</b>Das Ribosom liest je drei Buchstaben und hängt den passenden Baustein an, bis ein Stoppsignal kommt.<em>Stadt: Die Fabrik baut nach der Kopie.</em></div>
+  </div>
+  <div class="panel gen-panel" id="genPanel">
+    <div class="gen-row"><span class="gen-lab">Archiv (DNA)</span><div class="gen-cods" id="genDna" role="group" aria-label="Buchstaben des Beispielgens. Tippe einen Buchstaben an, um ihn auszutauschen."></div></div>
+    <div class="gen-row" id="genRowRna" hidden><span class="gen-lab">Abschrift (RNA)</span><div class="gen-cods" id="genRna"></div></div>
+    <div class="gen-row" id="genRowPro" hidden><span class="gen-lab">Eiweiß, Baustein für Baustein</span><div class="gen-cods" id="genPro"></div></div>
+    <p class="status" id="genStatus" aria-live="polite"></p>
+    <div class="evo-btns">
+      <button type="button" class="btn" id="genBack">Zurück</button>
+      <button type="button" class="btn primary" id="genNext">Weiter</button>
+      <button type="button" class="btn" id="genRand">Zufälliger Tausch</button>
+      <button type="button" class="btn" id="genReset">Zurücksetzen</button>
+    </div>
+  </div>
+  <details class="gen-zeit"><summary>Wie man darauf kam</summary>
+    <ol>
+      <li><b>1860er</b>Der Mönch Gregor Mendel kreuzt Erbsen und findet feste Zahlenverhältnisse. Er schließt daraus auf vererbbare Elemente, die wir heute Gene nennen.</li>
+      <li><b>Um 1910</b>Thomas Hunt Morgan zeigt an Fruchtfliegen, dass Gene auf den Chromosomen im Zellkern liegen.</li>
+      <li><b>1953</b>James Watson und Francis Crick beschreiben die Doppelhelix. Wichtige Grundlage waren Röntgenaufnahmen von Rosalind Franklin und Maurice Wilkins.</li>
+      <li><b>1960er</b>Der genetische Code wird entschlüsselt: Je drei Buchstaben stehen für einen Baustein des Eiweißes.</li>
+      <li><b>1977</b>Fred Sanger entwickelt ein Verfahren, um die Reihenfolge der Buchstaben zu lesen.</li>
+      <li><b>1978</b>Bakterien bekommen das menschliche Insulin-Gen und stellen Insulin her. Auf den Markt kam es 1982.</li>
+      <li><b>2003</b>Das menschliche Genom (rund 3 Milliarden Basen) gilt als im Wesentlichen gelesen.</li>
+    </ol>
+  </details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Gene</span></summary><div class="hinkt-body"><p>Eine Akte im Archiv ist fertig geschrieben und wird nur gelesen. Eine Zelle kopiert, verändert und repariert ihre DNA laufend, und beim Abschreiben werden Teile eines Gens sogar herausgeschnitten, bevor die Fabrik anfängt.</p><p>Außerdem sitzt hinter einem Gen kein Auftraggeber, der das Eiweiß bestellt hat. Ob die Akte abgeschrieben wird, hängt von der Zelle und ihrer Lage ab (mehr dazu im nächsten Abschnitt).</p><p class="hinkt-frage">Wer hat die Akte geschrieben, die das Archiv gerade enthält?</p></div></details>
+  <p class="note">Stark vereinfacht: Gezeigt ist nur ein Strang der Doppelhelix und ein Gen mit sechs Codons (so heißen die Dreiergruppen). Echte Gene sind mehrere hundert bis viele tausend Buchstaben lang. Met, Glu, Ala, Trp und Lys sind Kürzel von Aminosäuren, den Bausteinen der Eiweiße. Nur ein kleiner Teil des Genoms (rund 1 bis 2 Prozent) codiert überhaupt für Eiweiße, deshalb bleiben viele Veränderungen in der DNA ohne spürbare Folge.</p>
+</section>
+
+<!-- 4c. Genregulation -->
+<section class="sec reveal" id="regulation">
+  <h2>Gleiches Archiv, andere Akten.</h2>
+  <p class="lead">Fast jede Zelle in deinem Körper trägt dieselbe DNA, und trotzdem ist eine Muskelzelle keine Nervenzelle. Der Unterschied liegt darin, welche Akten aufgeschlagen sind und wie oft sie abgeschrieben werden. Wähle einen Zelltyp und sieh, was in seinem Archiv offen ist.</p>
+  <div class="panel" id="regPanel">
+    <div class="reg-seg" role="group" aria-label="Zelltyp wählen" id="regSeg"></div>
+    <div class="reg-grid" id="regGrid"></div>
+    <div class="evo-btns"><button type="button" class="btn" id="regSugar" aria-pressed="false">Nach dem Essen: Blutzucker steigt</button></div>
+    <p class="status" id="regStatus" aria-live="polite"></p>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Genregulation</span></summary><div class="hinkt-body"><p>Ein Archiv mit Aktenschrank legt nahe, dass jemand die Akten heraussucht. In der Zelle sitzen Schalter-Eiweiße an der DNA, die je nach Zelltyp und Signal ein Gen anschalten oder dämpfen, ohne dass ein Sachbearbeiter entscheidet.</p><p>Eine zugeklappte Akte ist außerdem nicht für immer gesperrt. Zu heißt meist, dass die Stelle gerade nicht bereit zum Ablesen ist, und das kann sich ändern.</p><p class="hinkt-frage">Was legt fest, welche Akte eine Zelle als erste aufschlägt?</p></div></details>
+  <p class="note">Stark vereinfacht: Der Mensch hat rund 20.000 Gene, hier sind es sechs, und ob ein Gen abgelesen wird, ist ein Regler mit vielen Stufen, hier gibt es drei. Die Zuordnung ist ein Beispiel, echte Zelltypen unterscheiden sich durch Mischungen aus tausenden Genen. Bei Merkmalen wie Körpergröße oder Gewicht wirken sehr viele Gene mit Umwelt und Lebensweise zusammen, ein einzelnes Gen legt dort wenig fest.</p>
 </section>
 
 <!-- 5. Zellteilung als Stadtgründung -->
@@ -1926,6 +2018,142 @@
     $('dnaSum').textContent = txt ? (txt.length + ' Zeichen = ' + bytes.length + ' Byte = ' + total + ' Basen. Zum Vergleich: Das menschliche Genom hat rund 3 Milliarden Basen.') : 'Tippe etwas ein.';
   }
   $('dnaIn').addEventListener('input', dna); dna();
+})();
+
+// --- Gene und Genregulation ---
+(function () {
+  function $(id) { return document.getElementById(id); }
+  // --- 4b. Gene: Archiv, Abschrift, Fabrik ---
+  (function () {
+    var ORIG = 'ATGGAAGCTTGGAAATAA', B4 = ['A', 'C', 'G', 'T'], TB = 'TCAG';
+    var TABLE = 'FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG';
+    var AA = { F: 'Phe', L: 'Leu', S: 'Ser', Y: 'Tyr', C: 'Cys', W: 'Trp', P: 'Pro', H: 'His', Q: 'Gln', R: 'Arg', I: 'Ile', M: 'Met', T: 'Thr', N: 'Asn', K: 'Lys', V: 'Val', A: 'Ala', D: 'Asp', E: 'Glu', G: 'Gly', '*': 'Stopp' };
+    var seq = ORIG.split(''), step = 1, changedMsg = '';
+    var dnaEl = $('genDna'), rnaEl = $('genRna'), proEl = $('genPro'), st = $('genStatus');
+    var btns = [];
+    function aaOf(c) { return TABLE[16 * TB.indexOf(c[0]) + 4 * TB.indexOf(c[1]) + TB.indexOf(c[2])]; }
+    function codons(a) { var r = []; for (var i = 0; i < a.length; i += 3) r.push(a.slice(i, i + 3).join('')); return r; }
+    function build() {
+      dnaEl.innerHTML = ''; btns = [];
+      for (var c = 0; c < 6; c++) {
+        var g = document.createElement('div'); g.className = 'gen-cod';
+        for (var k = 0; k < 3; k++) {
+          var i = c * 3 + k, b = document.createElement('button');
+          b.type = 'button'; b.className = 'gen-b'; b.dataset.i = i;
+          g.appendChild(b); btns.push(b);
+        }
+        dnaEl.appendChild(g);
+      }
+    }
+    function render() {
+      btns.forEach(function (b, i) {
+        var base = seq[i];
+        b.textContent = base; b.dataset.b = base;
+        b.className = 'gen-b base-' + base + (base !== ORIG[i] ? ' chg' : '');
+        b.setAttribute('aria-label', 'Buchstabe ' + (i + 1) + ' von 18, ' + base + (base !== ORIG[i] ? ', verändert' : '') + '. Tippen für den nächsten Buchstaben.');
+      });
+      rnaEl.innerHTML = proEl.innerHTML = '';
+      var cs = codons(seq), oc = codons(ORIG.split(''));
+      cs.forEach(function (c, ci) {
+        var g = document.createElement('div'); g.className = 'gen-cod';
+        c.split('').forEach(function (ch, k) {
+          var s = document.createElement('span'), r = ch === 'T' ? 'U' : ch;
+          s.className = 'gen-b base-' + ch + (ch !== oc[ci][k] ? ' chg' : ''); s.textContent = r; g.appendChild(s);
+        });
+        rnaEl.appendChild(g);
+      });
+      var res = translate(cs), proto = translate(oc);
+      cs.forEach(function (c, ci) {
+        var a = document.createElement('span'), r = res.items[ci];
+        a.className = 'gen-aa'; a.textContent = r.t;
+        if (r.stop) a.className += ' stop'; if (r.off) a.className += ' off';
+        if (!r.off && r.t !== proto.items[ci].t) a.className += ' chg';
+        proEl.appendChild(a);
+      });
+      $('genRowRna').hidden = step < 2; $('genRowPro').hidden = step < 3;
+      $('genBack').disabled = step === 1; $('genNext').disabled = step === 3;
+      st.textContent = message(res, cs, oc);
+    }
+    function translate(cs) {
+      var items = [], started = cs[0] === 'ATG', done = false, len = 0, stopAt = -1;
+      cs.forEach(function (c, i) {
+        var a = aaOf(c);
+        if (!started) { items.push({ t: '·', off: true }); return; }
+        if (done) { items.push({ t: '·', off: true }); return; }
+        if (a === '*') { items.push({ t: 'Stopp', stop: true }); done = true; stopAt = i; return; }
+        items.push({ t: AA[a], aa: a }); len++;
+      });
+      return { items: items, started: started, len: len, stopAt: stopAt };
+    }
+    function message(res, cs, oc) {
+      var changes = 0; seq.forEach(function (b, i) { if (b !== ORIG[i]) changes++; });
+      if (step === 1) return changes ? 'Du hast ' + changes + (changes === 1 ? ' Buchstaben' : ' Buchstaben') + ' im Archiv verändert. Gehe weiter bis zur Fabrik, um zu sehen, was das bewirkt.' : 'Das ist die Akte im Archiv: 18 Buchstaben in sechs Dreiergruppen. Tippe einen Buchstaben an, um ihn zu tauschen, oder gehe weiter zur Abschrift.';
+      if (step === 2) return 'Die Zelle schreibt die Akte ab. In der Abschrift steht U statt T, das Original bleibt im Archiv.' + (changes ? ' Die Änderung ist in der Kopie mit drin.' : '');
+      if (!changes) return 'Die Fabrik liest je drei Buchstaben und baut Met, Glu, Ala, Trp, Lys. Beim sechsten Dreier kommt das Stoppsignal. Tausche jetzt einen Buchstaben im Archiv.';
+      if (!res.started) return 'Das Startsignal fehlt (ATG). Die Fabrik fängt gar nicht erst an zu bauen.';
+      var short = res.stopAt !== -1 && res.stopAt < 5;
+      if (short) return 'Abbruch: An Stelle ' + (res.stopAt + 1) + ' steht jetzt ein Stoppsignal. Das Eiweiß hat nur ' + res.len + ' Bausteine und ist meist nicht mehr brauchbar.';
+      if (res.stopAt === -1) return 'Das Stoppsignal am Ende fehlt. Die Fabrik baut über das Ende hinaus weiter, bis sie irgendwo ein neues findet.';
+      var proto = translate(oc), diff = [];
+      res.items.forEach(function (r, i) { if (r.t !== proto.items[i].t) diff.push(i); });
+      if (!diff.length) return 'Stille Mutation: Aus dem veränderten Dreier wird derselbe Baustein, das Eiweiß bleibt gleich. Das geht, weil mehrere Dreiergruppen für denselben Baustein stehen.';
+      var i0 = diff[0];
+      return 'Fehlsinn: An Stelle ' + (i0 + 1) + ' baut die Fabrik ' + res.items[i0].t + ' statt ' + proto.items[i0].t + (diff.length > 1 ? ' (und ' + (diff.length - 1) + ' weitere Änderungen)' : '') + '. Ob das etwas ausmacht, hängt davon ab, wo im Eiweiß der Baustein sitzt.';
+    }
+    dnaEl.addEventListener('click', function (e) {
+      var b = e.target.closest('button.gen-b'); if (!b) return;
+      var i = +b.dataset.i; seq[i] = B4[(B4.indexOf(seq[i]) + 1) % 4]; render();
+    });
+    $('genNext').addEventListener('click', function () { if (step < 3) { step++; render(); } });
+    $('genBack').addEventListener('click', function () { if (step > 1) { step--; render(); } });
+    $('genRand').addEventListener('click', function () {
+      var i = Math.floor(Math.random() * 18), o = seq[i], n;
+      do { n = B4[Math.floor(Math.random() * 4)]; } while (n === o);
+      seq[i] = n; if (step < 3) step = 3; render();
+    });
+    $('genReset').addEventListener('click', function () { seq = ORIG.split(''); step = 1; render(); });
+    build(); render();
+  })();
+
+  // --- 4c. Genregulation ---
+  (function () {
+    var TYPES = [
+      { id: 'muskel', n: 'Muskelzelle' }, { id: 'nerv', n: 'Nervenzelle' },
+      { id: 'beta', n: 'Betazelle der Bauchspeicheldrüse' }, { id: 'haut', n: 'Hautzelle' }
+    ];
+    var GENES = [
+      { n: 'Kraftwerk-Enzyme', d: 'Eiweiße, die ATP herstellen.', on: ['muskel', 'nerv', 'beta', 'haut'] },
+      { n: 'Zellskelett', d: 'Gerüst und Wege in der Zelle.', on: ['muskel', 'nerv', 'beta', 'haut'] },
+      { n: 'Myosin der Muskelfaser', d: 'Zieht Muskelfasern zusammen.', on: ['muskel'] },
+      { n: 'Synapsen-Eiweiße', d: 'Kontaktstellen zwischen Nervenzellen.', on: ['nerv'] },
+      { n: 'Insulin', d: 'Hormon, das den Blutzucker senkt.', on: ['beta'], sugar: true },
+      { n: 'Keratin der Haut', d: 'Hornschicht, die Haut schützt.', on: ['haut'] }
+    ];
+    var cur = 'muskel', sugar = false, seg = $('regSeg'), grid = $('regGrid'), segBtns = {};
+    TYPES.forEach(function (t) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = t.n;
+      b.addEventListener('click', function () { cur = t.id; render(); }); seg.appendChild(b); segBtns[t.id] = b;
+    });
+    var LV = ['zu', 'offen', 'stark offen'];
+    function level(g) { if (g.on.indexOf(cur) < 0) return 0; return g.sugar && sugar ? 2 : 1; }
+    function render() {
+      TYPES.forEach(function (t) { segBtns[t.id].setAttribute('aria-pressed', String(t.id === cur)); });
+      $('regSugar').setAttribute('aria-pressed', String(sugar));
+      grid.innerHTML = ''; var open = 0, names = [];
+      GENES.forEach(function (g) {
+        var l = level(g), c = document.createElement('div'); c.className = 'reg-card' + (l ? '' : ' zu');
+        if (l) { open++; }
+        c.innerHTML = '<b>' + g.n + '</b>' + g.d + '<div class="reg-lv" role="img" aria-label="' + g.n + ': ' + LV[l] + '"><i class="' + (l >= 1 ? 'on' : '') + '"></i><i class="' + (l >= 2 ? 'on' : '') + '"></i><span aria-hidden="true">' + LV[l] + '</span></div>';
+        grid.appendChild(c);
+      });
+      var tn = TYPES.filter(function (t) { return t.id === cur; })[0].n;
+      var msg = tn + ': ' + open + ' von 6 Akten sind offen. Die anderen ' + (6 - open) + ' liegen weiter im Archiv, werden aber nicht abgeschrieben.';
+      if (sugar) msg += cur === 'beta' ? ' Nach dem Essen liest die Zelle die Insulin-Akte deutlich öfter ab. Dieselbe DNA, dieselbe Zelle, anderer Zustand.' : ' Der Blutzucker ändert an diesen sechs Akten hier nichts.';
+      $('regStatus').textContent = msg;
+    }
+    $('regSugar').addEventListener('click', function () { sugar = !sugar; render(); });
+    render();
+  })();
 })();
 
 // --- Evolution ---
@@ -4295,7 +4523,7 @@
     n.connect(nf); nf.connect(ng); ng.connect(out); n.start(); nl.start();
     bed = { filters: filters, out: out };
   }
-  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, teilung: 540, signale: 580, bauamt: 560, ausfall: 540, zoll: 550 };
+  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, gen: 620, regulation: 600, teilung: 540, signale: 580, bauamt: 560, ausfall: 540, zoll: 550 };
   function updateBed() {
     if (!bed) return;
     var base = (BED_BRIGHT[section] || 500) + (zoomed ? 140 : 0) + (cityMode ? 90 : 0), t = ctx.currentTime;
@@ -4420,7 +4648,7 @@
       if (next !== section) { section = next; updateBed(); }
     }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
     var h = document.querySelector('.hero'); if (h) io.observe(h);
-    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'teilung', 'bauamt', 'zoll', 'ausfall', 'signale'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
+    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'gen', 'regulation', 'teilung', 'bauamt', 'zoll', 'ausfall', 'signale'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
   }
   var BASE_TONE = { A: 293.66, C: 369.99, G: 440.0, T: 493.88 }, BASE_ORDER = ['A', 'C', 'G', 'T'];
   function watchDna() {
@@ -4431,6 +4659,18 @@
       seq.slice(0, 8).forEach(function (b, i) {
         note(BASE_TONE[b], { dur: 0.5, attack: 0.012, peak: 0.028, delay: i * 0.075, pan: (i % 2 ? 0.2 : -0.2) });
       });
+    });
+  }
+
+  function watchGen() {
+    var d = $('genDna'), r = $('regPanel');
+    if (d) d.addEventListener('click', function (e) {
+      var b = e.target.closest('button.gen-b'); if (!live() || !b) return;
+      note(BASE_TONE[b.dataset.b] || 330, { dur: 0.45, attack: 0.012, peak: 0.03 });
+    });
+    if (r) r.addEventListener('click', function (e) {
+      if (!live() || !e.target.closest('button')) return;
+      note(440, { dur: 0.5, attack: 0.015, peak: 0.024 }); note(587.33, { dur: 0.6, attack: 0.015, peak: 0.02, delay: 0.09 });
     });
   }
 
@@ -4671,7 +4911,7 @@
   });
   timers.upd = setInterval(function () { if (built && live()) updateTurbine(); }, 120);
 
-  watchCell(); watchTurbine(); watchSections(); watchDna(); watchEvolution(); watchTeilung(); watchBauamt(); watchSignale(); watchAusfall(); watchZoll();
+  watchCell(); watchTurbine(); watchSections(); watchDna(); watchGen(); watchEvolution(); watchTeilung(); watchBauamt(); watchSignale(); watchAusfall(); watchZoll();
 })();
 </script>
 <style>
