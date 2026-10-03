@@ -56,3 +56,30 @@ export async function start() {
   b.close = () => { ws.close(); chrome.kill(); server.close(); try { fs.rmSync(profile, { recursive: true, force: true }); } catch {} };
   return b;
 }
+
+// Zustandstreiber für Kontrast- und Tastaturprüfung: bringt die geladene Seite Schritt für Schritt in Zustände,
+// die im Ausgangszustand nicht zu sehen sind. Die Schritte bauen aufeinander auf, ein Fehler wird dem Schritt
+// zugeordnet, nach dem er zuerst auftrat. Gedrückt wird nur, was zur Seite gehört: Knöpfe, Tabs, Teile, Chips.
+// Ausgelassen sind Knöpfe, die Dateien speichern, Dialoge öffnen oder Eingaben absenden.
+const SKIP_IDS = ['exportBtn', 'packBtn', 'packApply', 'packClose', 'submitBtn', 'heroScrollBtn', 'shelfCheckout'];
+const KLICK = 'button, [role=button], [role=tab], g.part, .cg-chip, .journey-tab, .now-you-chip, .chain-tag';
+
+export async function zustandsSchritte(b) {
+  const parts = await b.ev(`document.querySelectorAll('g.part').length`);
+  const themes = await b.ev(`[...document.querySelectorAll('.theme-dot[data-theme]:not(.active)')].map((e) => e.dataset.theme)`);
+  const klicke = (nurSchalter) => b.ev(`(async () => {
+    const skip = ${JSON.stringify(SKIP_IDS)};
+    const ok = (e) => !e.disabled && !skip.includes(e.id) && !e.classList.contains('theme-dot') && !e.closest('[inert]') && e.checkVisibility({ checkVisibilityCSS: true });
+    const sel = ${nurSchalter ? "'[aria-pressed=\"false\"]'" : JSON.stringify(KLICK)};
+    const liste = [...document.querySelectorAll(sel)].filter(ok);
+    for (const e of liste) { if (e.isConnected && ok(e)) e.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true })); await new Promise((r) => setTimeout(r, 80)); }
+    return liste.length;
+  })()`);
+  const steps = [{ name: 'alle Details offen', run: () => b.ev(`document.querySelectorAll('details').forEach((d) => { d.open = true; })`) }];
+  for (let i = 0; i < parts; i++) steps.push({ name: `Bauteil ${i + 1} angetippt`, run: () => b.ev(`(() => { const p = document.querySelectorAll('g.part')[${i}]; if (p) p.dispatchEvent(new MouseEvent('click', { bubbles: true })); })()`) });
+  steps.push({ name: 'Schalter umgelegt', run: () => klicke(true) });
+  for (const t of themes) steps.push({ name: `Theme ${t}`, run: () => b.ev(`document.querySelector('.theme-dot[data-theme="${t}"]').click()`) });
+  if (themes.length) steps.push({ name: 'Theme zurück', run: () => b.ev(`document.querySelector('.theme-dot[data-theme="blue"]').click()`) });
+  steps.push({ name: 'alle Knöpfe gedrückt', run: () => klicke(false) });
+  return steps;
+}

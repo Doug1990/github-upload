@@ -2,9 +2,12 @@
 // gegen die effektive Hintergrundfarbe gemessen. Hintergrund = nächster deckender Hintergrund, halbtransparente
 // Schichten davor werden aufgerechnet, bei Verläufen zählen alle Farbstopps (schlechtester Fall).
 // Grenzwerte: 4,5:1 normaler Text, 3:1 großer Text (ab 24 px oder 18,66 px fett).
-// Aufruf: node tests/kontrast.mjs [--breiten=1280,390] [--seite=zelle.html] [--chrome=<pfad>]
+// Danach werden die Seiten per Klick in weitere Zustände gebracht (Details offen, Bauteile, Schalter, Themes,
+// alle Knöpfe, siehe chrome.mjs) und jeweils neu gemessen. Ein Verstoß wird dem Schritt zugeordnet, nach dem er
+// zuerst auftrat. Mit --ohne-zustaende wird nur der Ausgangszustand gemessen.
+// Aufruf: node tests/kontrast.mjs [--breiten=1280,390] [--seite=zelle.html] [--ohne-zustaende] [--chrome=<pfad>]
 // Exit-Code 1 bei Verstößen.
-import { start, arg } from './chrome.mjs';
+import { start, arg, sleep, zustandsSchritte } from './chrome.mjs';
 
 const widths = (arg('breiten') || '1280,390').split(',').map(Number);
 const only = arg('seite');
@@ -89,8 +92,26 @@ for (const page of b.pages) {
     await b.open(page, w);
     const r = await b.ev(MEASURE);
     r.out.sort((x, y) => x.ratio - y.ratio);
-    summary.push(`${page} @${w}px: ${r.total} Textknoten, ${r.out.length} Verstöße, schlechtester Wert ${r.out[0]?.ratio ?? '-'}`);
+    const bekannt = new Set(r.out.map((v) => [v.sel, v.fg, v.bg, v.text].join('|')));
+    let n = r.out.length, schlecht = r.out[0]?.ratio, knoten = r.total;
     for (const v of r.out) { bad++; console.log(`  X ${page} @${w}px ${v.sel} "${v.text}" ${v.fg} auf ${v.bg} = ${v.ratio}:1 (nötig ${v.need}:1, ${v.size}px)`); }
+    let schritte = 0;
+    if (!process.argv.includes('--ohne-zustaende')) {
+      for (const s of await zustandsSchritte(b)) {
+        schritte++;
+        await s.run(); await sleep(900);
+        const z = await b.ev(MEASURE);
+        knoten = Math.max(knoten, z.total);
+        z.out.sort((x, y) => x.ratio - y.ratio);
+        for (const v of z.out) {
+          const key = [v.sel, v.fg, v.bg, v.text].join('|');
+          if (bekannt.has(key)) continue; bekannt.add(key);
+          n++; bad++; schlecht = Math.min(schlecht ?? Infinity, v.ratio);
+          console.log(`  X ${page} @${w}px [nach: ${s.name}] ${v.sel} "${v.text}" ${v.fg} auf ${v.bg} = ${v.ratio}:1 (nötig ${v.need}:1, ${v.size}px)`);
+        }
+      }
+    }
+    summary.push(`${page} @${w}px: bis zu ${knoten} Textknoten, ${schritte} Zustandsschritte, ${n} Verstöße, schlechtester Wert ${schlecht ?? '-'}`);
   }
 }
 console.log('\n' + summary.join('\n'));
