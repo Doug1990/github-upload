@@ -1,0 +1,26 @@
+{
+  "index.html|cubeScene": {
+    "n": 6,
+    "min": 8.6
+  },
+  "index.html|graph": {
+    "n": 24,
+    "min": 4.2
+  },
+  "index.html|journeyScene": {
+    "n": 10,
+    "min": 5
+  },
+  "index.html|knoten": {
+    "n": 17,
+    "min": 7.5
+  },
+  "index.html|shelfSvg": {
+    "n": 1,
+    "min": 6.8
+  },
+  "karte-skizze.html|map": {
+    "n": 37,
+    "min": 8.4
+  }
+}

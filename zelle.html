@@ -690,9 +690,9 @@
   .fb-svg .fb-st.s-b rect { fill: #4A2F28; stroke: #FF8A65; }
   .fb-svg .fb-st.s-h rect { fill: #2B303A; stroke: #8791A6; stroke-dasharray: 6 5; }
   .fb-svg .fb-t, .fb-svg .fb-d { font-family: 'IBM Plex Sans', sans-serif; text-anchor: middle; }
-  .fb-svg .fb-t { font-size: 19px; fill: #E4ECE6; }
-  .fb-svg .fb-n { font-family: 'IBM Plex Sans', sans-serif; font-size: 26px; font-weight: 600; fill: #E4ECE6; text-anchor: middle; }
-  .fb-svg .fb-d { font-size: 19px; fill: #A9AFC0; }
+  .fb-svg .fb-t { font-size: 22px; fill: #E4ECE6; }
+  .fb-svg .fb-n { font-family: 'IBM Plex Sans', sans-serif; font-size: 30px; font-weight: 600; fill: #E4ECE6; text-anchor: middle; }
+  .fb-svg .fb-d { font-size: 22px; fill: #A9AFC0; }
   .fb-svg .fb-d.s-b { fill: #FF8A65; }
   .fb-svg .fb-d.s-w { fill: #7FD9A8; }
   .fb-svg .fb-tap { fill: #3A2F18; stroke: #F2C46B; stroke-width: 3; transition: stroke 0.3s ease, fill 0.3s ease; }
@@ -700,7 +700,7 @@
   .fb-svg .fb-tank { fill: none; stroke: #8E7FD6; stroke-width: 3; }
   .fb-svg .fb-fill { fill: #B79CFF; }
   .fb-svg .fb-fbarrow { fill: none; stroke: #F2C46B; stroke-width: 3; stroke-dasharray: 8 7; transition: opacity 0.3s ease; }
-  .fb-svg .fb-fbtxt { font-family: 'IBM Plex Sans', sans-serif; font-size: 19px; fill: #F2C46B; text-anchor: middle; transition: opacity 0.3s ease; }
+  .fb-svg .fb-fbtxt { font-family: 'IBM Plex Sans', sans-serif; font-size: 22px; fill: #F2C46B; text-anchor: middle; transition: opacity 0.3s ease; }
   .fb-controls label { min-height: 44px; }
   .fb-controls input[type=range] { min-height: 44px; }
   .fb-controls .btn { min-height: 44px; }
@@ -1134,16 +1134,16 @@
       </defs>
       <rect id="zUp" x="12" y="30" width="776" height="188" rx="10" fill="#4FC3D9" opacity="0.1"/>
       <rect id="zLow" x="12" y="254" width="776" height="188" rx="10" fill="#4FC3D9" opacity="0.1"/>
-      <text x="24" y="58" font-size="17" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Stausee: viel H⁺ (Raum zwischen den Membranen)</text>
-      <text x="24" y="432" font-size="17" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Unten: wenig H⁺ (Matrix)</text>
+      <text x="24" y="58" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Stausee: viel H⁺ (Raum zwischen den Membranen)</text>
+      <text x="24" y="432" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Unten: wenig H⁺ (Matrix)</text>
       <g id="membrane"></g>
 
       <!-- Pumpe -->
       <g id="pump">
         <rect x="170" y="208" width="60" height="52" rx="12" fill="#6B3F2A" stroke="#F2C46B" stroke-width="3"/>
         <path class="pumparrow" d="M200,252 V218 M188,230 L200,217 L212,230" fill="none" stroke="#F2C46B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="200" y="196" text-anchor="middle" font-size="16" fill="#F2C46B" font-family="IBM Plex Sans, sans-serif">Pumpe</text>
-        <text x="200" y="304" text-anchor="middle" font-size="15" fill="#C9A878" font-family="IBM Plex Sans, sans-serif">Nahrung + O₂</text>
+        <text x="200" y="196" text-anchor="middle" font-size="28" fill="#F2C46B" font-family="IBM Plex Sans, sans-serif">Pumpe</text>
+        <text x="200" y="304" text-anchor="middle" font-size="28" fill="#C9A878" font-family="IBM Plex Sans, sans-serif">Nahrung + O₂</text>
         <path d="M200,284 V264" stroke="#C9A878" stroke-width="2" stroke-dasharray="3 4" fill="none"/>
       </g>
 
@@ -1161,8 +1161,8 @@
           <circle id="lobe2" cx="0" cy="14" r="19" fill="#F2C46B" opacity="0"/>
           <line id="rotbar" x1="-26" y1="0" x2="26" y2="0" stroke="#E8E6E0" stroke-width="5" stroke-linecap="round"/>
         </g>
-        <text x="560" y="372" text-anchor="middle" font-size="16" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">ATP-Synthase</text>
-        <text x="560" y="196" text-anchor="middle" font-size="16" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Turbine</text>
+        <text x="560" y="372" text-anchor="middle" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">ATP-Synthase</text>
+        <text x="560" y="196" text-anchor="middle" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Turbine</text>
       </g>
       <g id="floaters"></g>
       <g id="protons"></g>
@@ -1188,7 +1188,7 @@
   <h2>Das Fließband: Wo es eng wird, staut es sich.</h2>
   <p class="lead">Aus Nahrung wird nicht in einem Schritt ein Baustein. Es geht Station für Station, und an jeder arbeitet ein Enzym. Drossle Station 3 und sieh, wie sich der Stau nach hinten ausbreitet. Dann schalte die Rückkopplung ein: Das Endprodukt bremst die erste Station.</p>
   <div class="panel fb-panel" id="fbPanel">
-    <svg id="fbSvg" class="fb-svg" viewBox="0 0 640 290" role="img" aria-labelledby="fbSvgT">
+    <svg id="fbSvg" class="fb-svg" viewBox="0 0 640 296" role="img" aria-labelledby="fbSvgT">
       <title id="fbSvgT">Schema eines Stoffwechselwegs mit vier Stationen. Links kommt Rohstoff aufs Band, jede Station macht einen Schritt, rechts sammelt sich das Endprodukt. Ist eine Station langsamer, staut sich das Material davor.</title>
       <defs>
         <marker id="fbHead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1,1 L9,5 L1,9 Z" fill="#F2C46B"/></marker>
@@ -1197,10 +1197,10 @@
       <path class="fb-fbarrow" id="fbArrow" d="M592,104 V62 H146 V162" marker-end="url(#fbHead)" opacity="0"/>
       <text class="fb-fbtxt" id="fbArrowT" x="370" y="46" opacity="0">Rückkopplung: Endprodukt bremst Station 1</text>
       <g id="fbStacks"></g>
-      <rect class="fb-tap" id="fbTap" x="12" y="172" width="48" height="56" rx="10"/>
-      <text class="fb-t" x="36" y="196">Roh-</text>
-      <text class="fb-t" x="36" y="218">stoff</text>
-      <text class="fb-d" id="fbTapS" x="36" y="252">läuft</text>
+      <rect class="fb-tap" id="fbTap" x="2" y="172" width="64" height="56" rx="10"/>
+      <text class="fb-t" x="34" y="196">Roh-</text>
+      <text class="fb-t" x="34" y="219">stoff</text>
+      <text class="fb-d" id="fbTapS" x="34" y="252">läuft</text>
       <g id="fbStations">
         <g class="fb-st s-s" id="fbSt0"><rect x="110" y="170" width="72" height="60" rx="10"/><text class="fb-t" x="146" y="193">Enzym</text><text class="fb-n" x="146" y="220">1</text></g>
         <g class="fb-st s-s" id="fbSt1"><rect x="228" y="170" width="72" height="60" rx="10"/><text class="fb-t" x="264" y="193">Enzym</text><text class="fb-n" x="264" y="220">2</text></g>
@@ -1214,7 +1214,8 @@
       <g id="fbTrav"></g>
       <rect class="fb-tank" x="560" y="110" width="64" height="120" rx="8"/>
       <rect class="fb-fill" id="fbFill" x="564" y="226" width="56" height="0" rx="4"/>
-      <text class="fb-d" x="586" y="252">Endprodukt</text>
+      <text class="fb-d" x="592" y="252">End-</text>
+      <text class="fb-d" x="592" y="274">produkt</text>
     </svg>
   </div>
   <div class="stats" aria-live="off">
@@ -1966,8 +1967,8 @@
   var vb = { x: 0, y: 0, w: 800, h: 520 };
   function applyVB() {
     csvg.setAttribute('viewBox', vb.x.toFixed(1) + ' ' + vb.y.toFixed(1) + ' ' + vb.w.toFixed(1) + ' ' + vb.h.toFixed(1));
-    // Schrift auf dem Bildschirm mindestens 10,5 px, auf großen Flächen wie bisher 15 px
-    var cw = csvg.clientWidth || 800, s = (vb.w / cw) * Math.max(10.5, 15 * cw / 800) / 15;
+    // Schrift auf dem Bildschirm mindestens 11 px, auf großen Flächen wie bisher 15 px
+    var cw = csvg.clientWidth || 800, s = (vb.w / cw) * Math.max(11, 15 * cw / 800) / 15;
     lblObjs.forEach(function (o) {
       // Beim Zoom wandert das Label des gewählten Teils an den unteren Bildrand, damit es im Bild bleibt
       var pin = zoomed && o.part === curPart, x = pin ? vb.x + vb.w / 2 : o.x, y = pin ? vb.y + vb.h - 14 * s : o.y;
