@@ -577,6 +577,36 @@
     .bau-svg .bau-pulse { animation: none; }
   }
 
+  /* Fließband */
+  .fb-svg { touch-action: manipulation; }
+  .fb-svg .fb-belt { stroke: #2F3D36; stroke-width: 10; stroke-linecap: round; fill: none; }
+  .fb-svg .fb-st rect { fill: #2E4A6B; stroke: #7FD9A8; stroke-width: 3; transition: stroke 0.3s ease, fill 0.3s ease; }
+  .fb-svg .fb-st.s-s rect { fill: #262E3C; stroke: #8791A6; }
+  .fb-svg .fb-st.s-b rect { fill: #4A2F28; stroke: #FF8A65; }
+  .fb-svg .fb-st.s-h rect { fill: #2B303A; stroke: #8791A6; stroke-dasharray: 6 5; }
+  .fb-svg .fb-t, .fb-svg .fb-d { font-family: 'IBM Plex Sans', sans-serif; text-anchor: middle; }
+  .fb-svg .fb-t { font-size: 19px; fill: #E4ECE6; }
+  .fb-svg .fb-n { font-family: 'IBM Plex Sans', sans-serif; font-size: 26px; font-weight: 600; fill: #E4ECE6; text-anchor: middle; }
+  .fb-svg .fb-d { font-size: 19px; fill: #A9AFC0; }
+  .fb-svg .fb-d.s-b { fill: #FF8A65; }
+  .fb-svg .fb-d.s-w { fill: #7FD9A8; }
+  .fb-svg .fb-tap { fill: #3A2F18; stroke: #F2C46B; stroke-width: 3; transition: stroke 0.3s ease, fill 0.3s ease; }
+  .fb-svg .fb-tap.zu { fill: #2B303A; stroke: #8791A6; }
+  .fb-svg .fb-tank { fill: none; stroke: #8E7FD6; stroke-width: 3; }
+  .fb-svg .fb-fill { fill: #B79CFF; }
+  .fb-svg .fb-fbarrow { fill: none; stroke: #F2C46B; stroke-width: 3; stroke-dasharray: 8 7; transition: opacity 0.3s ease; }
+  .fb-svg .fb-fbtxt { font-family: 'IBM Plex Sans', sans-serif; font-size: 19px; fill: #F2C46B; text-anchor: middle; transition: opacity 0.3s ease; }
+  .fb-controls label { min-height: 44px; }
+  .fb-controls input[type=range] { min-height: 44px; }
+  .fb-controls .btn { min-height: 44px; }
+  .fb-cols { margin-top: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: #C7CAD6; }
+  .fb-cols .col { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 11px 13px; border-left: 3px solid var(--accent); }
+  .fb-cols .col.city { border-left-color: var(--gold); }
+  .fb-cols .col b { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
+  .fb-cols .aha { grid-column: 1 / -1; margin: 0; color: var(--gold); font-size: 13px; }
+  @media (max-width: 560px) { .fb-cols { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .fb-svg *, .fb-svg { transition: none !important; } }
+
   /* Zoll im Detail */
   .zoll-seg { display: flex; justify-content: center; margin: 0 auto 14px; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
   .zoll-seg button { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 0 22px; background: transparent; color: var(--muted); border: none; cursor: pointer; min-height: 44px; }
@@ -848,6 +878,7 @@
   <ol>
     <li><a href="#stadt"><b>Die Zelle ist eine Stadt in klein</b>Eine Zelle ist organisiert wie eine kleine Stadt, als Bild gemeint. Tippe auf einen Bestandteil, um zu sehen, was dort passiert.</a></li>
     <li><a href="#kraftwerk"><b>Das Kraftwerk</b>Die Zelle macht ihre Energiewährung ATP nach dem Prinzip eines Stausees. Die Simulation ist vereinfacht.</a></li>
+    <li><a href="#fliessband"><b>Das Fließband</b>Ein Stoffwechselweg ist eine Kette von Stationen. Die langsamste bestimmt das Tempo, davor staut es sich, und das Endprodukt kann die erste Station bremsen. Stark vereinfacht.</a></li>
     <li><a href="#robust"><b>Gut genug schlägt perfekt</b>Das Leben wurde nie geplant, nur verändert. Darum gibt es Redundanz, alte Reste und Reserven, und es läuft trotzdem zuverlässig.</a></li>
     <li><a href="#zoll"><b>Der Zoll: Drei Wege über die Grenze</b>Pore, Pumpe und Tor: Nur die Pumpe arbeitet gegen das Gefälle und kostet ATP. Ohne ATP gleicht sich das Gefälle aus. Stark vereinfacht.</a></li>
     <li><a href="#ausfall"><b>Fällt eine Stelle aus, merkt es der Rest</b>Fällt Kraftwerk, Müllabfuhr, Zoll oder Archiv aus, werden abhängige Teile in Stufen mit lahm. Krankheiten sind selten ein einzelner Ausfall, die Beispiele ersetzen keinen ärztlichen Rat.</a></li>
@@ -1019,6 +1050,63 @@
   <div class="legend"><span><i style="background:#FF8A65"></i>Proton (H⁺)</span><span><i style="background:#F2C46B"></i>ATP (fertige Energiewährung)</span><span><i style="background:#4FC3D9"></i>Turbine dreht sich mit dem Rückfluss</span></div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kraftwerk</span></summary><div class="hinkt-body"><p>Ein Stausee füllt sich und speichert Energie für Tage. Von ATP hat eine Zelle nur wenig auf Vorrat, es wird laufend neu gemacht.</p><p>Auch die Turbine sieht anders aus: In der Zelle ist sie ein winziges Eiweiß in einer Membran, das von Protonen angetrieben wird.</p><p class="hinkt-frage">Was passiert in einer Zelle, wenn das Nachliefern nur kurz stockt?</p></div></details>
   <p class="note">Vereinfacht: In der Simulation braucht ein ATP vier Protonen. Der echte Wert liegt grob bei drei bis vier und hängt von der Zellart ab. Alles hier ist eine Skizze des Prinzips, kein exaktes Modell.</p>
+</section>
+
+<!-- 2a. Fließband -->
+<section class="sec reveal" id="fliessband">
+  <h2>Das Fließband: Wo es eng wird, staut es sich.</h2>
+  <p class="lead">Aus Nahrung wird nicht in einem Schritt ein Baustein. Es geht Station für Station, und an jeder arbeitet ein Enzym. Drossle Station 3 und sieh, wie sich der Stau nach hinten ausbreitet. Dann schalte die Rückkopplung ein: Das Endprodukt bremst die erste Station.</p>
+  <div class="panel fb-panel" id="fbPanel">
+    <svg id="fbSvg" class="fb-svg" viewBox="0 0 640 290" role="img" aria-labelledby="fbSvgT">
+      <title id="fbSvgT">Schema eines Stoffwechselwegs mit vier Stationen. Links kommt Rohstoff aufs Band, jede Station macht einen Schritt, rechts sammelt sich das Endprodukt. Ist eine Station langsamer, staut sich das Material davor.</title>
+      <defs>
+        <marker id="fbHead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1,1 L9,5 L1,9 Z" fill="#F2C46B"/></marker>
+      </defs>
+      <path class="fb-belt" d="M60,200 H556"/>
+      <path class="fb-fbarrow" id="fbArrow" d="M592,104 V62 H146 V162" marker-end="url(#fbHead)" opacity="0"/>
+      <text class="fb-fbtxt" id="fbArrowT" x="370" y="46" opacity="0">Rückkopplung: Endprodukt bremst Station 1</text>
+      <g id="fbStacks"></g>
+      <rect class="fb-tap" id="fbTap" x="12" y="172" width="48" height="56" rx="10"/>
+      <text class="fb-t" x="36" y="196">Roh-</text>
+      <text class="fb-t" x="36" y="218">stoff</text>
+      <text class="fb-d" id="fbTapS" x="36" y="252">läuft</text>
+      <g id="fbStations">
+        <g class="fb-st s-s" id="fbSt0"><rect x="110" y="170" width="72" height="60" rx="10"/><text class="fb-t" x="146" y="193">Enzym</text><text class="fb-n" x="146" y="220">1</text></g>
+        <g class="fb-st s-s" id="fbSt1"><rect x="228" y="170" width="72" height="60" rx="10"/><text class="fb-t" x="264" y="193">Enzym</text><text class="fb-n" x="264" y="220">2</text></g>
+        <g class="fb-st s-s" id="fbSt2"><rect x="346" y="170" width="72" height="60" rx="10"/><text class="fb-t" x="382" y="193">Enzym</text><text class="fb-n" x="382" y="220">3</text></g>
+        <g class="fb-st s-s" id="fbSt3"><rect x="464" y="170" width="72" height="60" rx="10"/><text class="fb-t" x="500" y="193">Enzym</text><text class="fb-n" x="500" y="220">4</text></g>
+      </g>
+      <text class="fb-d" id="fbD0" x="146" y="252"></text><text class="fb-d" id="fbR0" x="146" y="274"></text>
+      <text class="fb-d" id="fbD1" x="264" y="252"></text><text class="fb-d" id="fbR1" x="264" y="274"></text>
+      <text class="fb-d" id="fbD2" x="382" y="252"></text><text class="fb-d" id="fbR2" x="382" y="274"></text>
+      <text class="fb-d" id="fbD3" x="500" y="252"></text><text class="fb-d" id="fbR3" x="500" y="274"></text>
+      <g id="fbTrav"></g>
+      <rect class="fb-tank" x="560" y="110" width="64" height="120" rx="8"/>
+      <rect class="fb-fill" id="fbFill" x="564" y="226" width="56" height="0" rx="4"/>
+      <text class="fb-d" x="586" y="252">Endprodukt</text>
+    </svg>
+  </div>
+  <div class="stats" aria-live="off">
+    <div class="stat"><small>Auf dem Band</small><span id="fbBand">0</span></div>
+    <div class="stat"><small>Endprodukt-Pegel</small><span id="fbPct">0 %</span><div class="bar"><i id="fbBar"></i></div></div>
+    <div class="stat"><small>Ausstoß pro Sekunde</small><span id="fbOutS">0</span></div>
+  </div>
+  <div class="controls fb-controls">
+    <label>Rohstoff-Zulauf <input type="range" id="fbIn" min="0" max="100" value="60"></label>
+    <label>Station 3: Enzymmenge <input type="range" id="fbE3" min="0" max="100" value="100"></label>
+    <label>Verbrauch am Ende <input type="range" id="fbOut" min="0" max="100" value="70"></label>
+    <button type="button" class="btn" id="fbFb" aria-pressed="false">Rückkopplung: aus</button>
+    <button type="button" class="btn" id="fbPause" aria-pressed="false">Anhalten</button>
+  </div>
+  <p class="status" id="fbStatus" aria-live="polite"></p>
+  <div class="legend"><span><i style="background:#FF8A65"></i>Rohstoff, Station 1</span><span><i style="background:#F2C46B"></i>Zwischenstufe 2</span><span><i style="background:#7FD9A8"></i>Zwischenstufe 3</span><span><i style="background:#4FC3D9"></i>Fast fertig, Station 4</span><span><i style="background:#B79CFF"></i>Endprodukt</span></div>
+  <div class="fb-cols">
+    <div class="col"><b>In der Zelle</b>Ein Stoffwechselweg ist eine Kette von Schritten. Jeden Schritt macht ein Enzym, und ist eines langsam, bestimmt es das Tempo des ganzen Wegs. Oft bremst das Endprodukt selbst das erste Enzym, damit nicht mehr entsteht, als gebraucht wird.</div>
+    <div class="col city"><b>In der Stadt</b>Ein Fließband in einer Fabrik. Die langsamste Station gibt den Takt vor, davor staut sich das Material. Meldet das Lager "voll", wird der Zulauf gedrosselt, und das Band bleibt leer statt überfüllt.</div>
+    <p class="aha">Die Rückkopplung spart am Anfang, nicht am Ende: Es wird nur Rohstoff eingesetzt, der auch gebraucht wird.</p>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Fließband</span></summary><div class="hinkt-body"><p>Ein Fließband hat eine feste Reihenfolge und jemanden, der es plant. In der Zelle bilden die Wege ein Netz. Viele Stoffe gehören zu mehreren Wegen, und ein Enzym ist kein Arbeiter, der Teile weiterreicht. Es beschleunigt eine Reaktion, und der Stoff wandert weiter, weil die Reaktion abläuft.</p><p>Die Kästchen auf dem Band sind einzelne Teile. In der Zelle sind es Milliarden Moleküle, die sich zufällig bewegen.</p><p class="hinkt-frage">Was passiert, wenn zwei Wege dasselbe Enzym brauchen?</p></div></details>
+  <p class="note">Stark vereinfacht: Die Zahlen sind frei gewählt und keine Messwerte. Echte Wege haben meist mehr Stationen, Verzweigungen und mehrere Stellen, an denen gebremst wird. Die Warteschlange vor einer Station steht für die Menge an Zwischenprodukt, nicht für Teile in einer Reihe.</p>
 </section>
 
 <!-- 3. Robust statt perfekt -->
@@ -3708,6 +3796,168 @@
   else window.addEventListener('resize', layout);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
   applyStatic(); updateText(); layout(); render(0); ui();
+})();
+
+// --- Fließband ---
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  function $(id) { return document.getElementById(id); }
+  var panel = $('fbPanel'), svg = $('fbSvg');
+  if (!panel || !svg) return;
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+  // Stationen bei SX, Breite SW. Warteschlange je Station höchstens CAP, Endprodukt-Tank höchstens PCAP.
+  var N = 4, CAP = 8, PCAP = 10, RATE = 3, TRAVEL = 0.35, SX = [110, 228, 346, 464], SW = 72;
+  var COL = ['#FF8A65', '#F2C46B', '#7FD9A8', '#4FC3D9'];
+  var WORD = { w: 'arbeitet', s: 'wartet', b: 'gestaut', h: 'steht', g: 'gehemmt' };
+
+  var q = [0, 0, 0, 0], acc = [0, 0, 0, 0], fly = [[], [], [], []], P = 0, accIn = 0, accOut = 0;
+  var done = [], clock = 0, fbOn = false, paused = false, vis = true, raf = 0, last = 0, lastSay = 0, shown = '';
+  var stacks = [], trav = [], cache = {};
+
+  function mk(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    parent.appendChild(e);
+    return e;
+  }
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function num(v) { return (Math.round(v * 10) / 10).toFixed(1).replace('.', ','); }
+  function val(id) { return clamp(parseInt($(id).value, 10) || 0, 0, 100); }
+  function put(key, fn) { return function (v) { if (cache[key] !== v) { cache[key] = v; fn(v); } }; }
+
+  // ---- Aufbau: Stapel vor jeder Station, fliegende Kästchen ----
+  (function build() {
+    var layer = $('fbStacks'), tl = $('fbTrav');
+    for (var i = 0; i < N; i++) {
+      var cx = SX[i] - (i === 0 ? 25 : 23), row = [];
+      for (var k = 0; k < CAP; k++) row.push(mk('rect', { x: cx - 17, y: 196 - (k + 1) * 12, width: 34, height: 10, rx: 2, fill: COL[i], visibility: 'hidden' }, layer));
+      stacks.push(row);
+    }
+    for (var j = 0; j < N * CAP; j++) trav.push(mk('rect', { width: 10, height: 10, rx: 2, y: 195, fill: '#fff', visibility: 'hidden' }, tl));
+  })();
+
+  function params() {
+    return { lam: 4 * val('fbIn') / 100, r3: RATE * val('fbE3') / 100, mu: 4 * val('fbOut') / 100 };
+  }
+  function inhibit() { return fbOn ? clamp((8 - P) / 5, 0, 1) : 1; }
+  function room(i) { return i === N - 1 ? P < PCAP : (q[i + 1] + fly[i + 1].length) < CAP; }
+
+  function step(dt) {
+    var p = params(), f = inhibit(), rate = [RATE * f, RATE, p.r3, RATE], i, j;
+    for (i = 0; i < N; i++) for (j = fly[i].length - 1; j >= 0; j--) {
+      fly[i][j] -= dt;
+      if (fly[i][j] <= 0) { fly[i].splice(j, 1); q[i]++; }
+    }
+    accOut = Math.min(accOut + p.mu * dt, 1);
+    if (accOut >= 1 && P >= 1) { P--; accOut -= 1; }
+    for (i = N - 1; i >= 0; i--) {
+      acc[i] = Math.min(acc[i] + rate[i] * dt, 1);
+      if (acc[i] >= 1 && q[i] > 0 && room(i)) {
+        q[i]--; acc[i] -= 1;
+        if (i === N - 1) { P++; done.push(clock); } else fly[i + 1].push(reduce ? 0 : TRAVEL);
+      }
+    }
+    accIn = Math.min(accIn + p.lam * dt, 1);
+    if (accIn >= 1 && q[0] + fly[0].length < CAP) { q[0]++; accIn -= 1; }
+    clock += dt;
+    while (done.length && clock - done[0] > 5) done.shift();
+  }
+
+  function outRate() { return done.length / Math.min(5, Math.max(clock, 1)); }
+  function stateOf(i, rate) {
+    if (q[i] > 0 && !room(i)) return 'b';
+    if (rate < 0.01) return (i === 0 && fbOn && inhibit() < 0.05) ? 'g' : 'h';
+    return q[i] > 0 ? 'w' : 's';
+  }
+
+  function render() {
+    var p = params(), f = inhibit(), rate = [RATE * f, RATE, p.r3, RATE], i, k, n = 0, band = 0;
+    for (i = 0; i < N; i++) {
+      if (i > 0) band += q[i] + fly[i].length;
+      var st = stateOf(i, rate[i]);
+      put('st' + i, function (ii) { return function (s) {
+        $('fbSt' + ii).setAttribute('class', 'fb-st s-' + (s === 'g' ? 'h' : s));
+        var d = $('fbD' + ii); d.textContent = WORD[s]; d.setAttribute('class', 'fb-d s-' + (s === 'g' ? 'h' : s));
+      }; }(i))(st);
+      put('rt' + i, function (ii) { return function (t) { $('fbR' + ii).textContent = t; }; }(i))(num(rate[i]) + ' / s');
+      for (k = 0; k < CAP; k++) stacks[i][k].setAttribute('visibility', k < q[i] ? 'visible' : 'hidden');
+      for (var j = 0; j < fly[i].length; j++) {
+        var x0 = SX[i - 1] + SW, x1 = SX[i], t = clamp(1 - fly[i][j] / TRAVEL, 0, 1), e = trav[n++];
+        e.setAttribute('x', (x0 + (x1 - x0) * t - 5).toFixed(1)); e.setAttribute('fill', COL[i - 1]); e.setAttribute('visibility', 'visible');
+      }
+    }
+    for (; n < trav.length; n++) trav[n].setAttribute('visibility', 'hidden');
+    put('tap', function (z) { $('fbTap').setAttribute('class', 'fb-tap' + (z ? ' zu' : '')); $('fbTapS').textContent = p.lam < 0.05 ? 'aus' : (z ? 'zu' : 'läuft'); })(
+      (p.lam < 0.05 ? 'a' : '') + (q[0] + fly[0].length >= CAP ? 'z' : ''));
+    $('fbFill').setAttribute('height', (116 * P / PCAP).toFixed(1));
+    $('fbFill').setAttribute('y', (226 - 116 * P / PCAP).toFixed(1));
+    var op = fbOn ? (0.3 + 0.7 * (1 - f)).toFixed(2) : '0';
+    put('arrow', function (o) { $('fbArrow').setAttribute('opacity', o); $('fbArrowT').setAttribute('opacity', o); })(op);
+    put('band', function (v) { $('fbBand').textContent = v; })(band);
+    var pct = Math.round(100 * P / PCAP);
+    put('pct', function (v) { $('fbPct').textContent = v + ' %'; $('fbBar').style.width = v + '%'; })(pct);
+    put('out', function (v) { $('fbOutS').textContent = v; })(num(outRate()));
+    panel.setAttribute('data-fb', q.join(',') + '|' + P);
+  }
+
+  function message() {
+    var p = params(), f = inhibit(), jam = -1, i;
+    for (i = N - 1; i >= 0; i--) if (q[i] >= CAP - 1) { jam = i; break; }
+    if (P >= PCAP - 1 && q[N - 1] >= CAP - 2) return 'Das Endprodukt wird nicht abgenommen. Die letzte Station kann nichts mehr abgeben, und der Stau läuft Station für Station nach vorn.' + (fbOn ? ' Die Rückkopplung hilft erst, wenn wieder etwas verbraucht wird.' : '');
+    if (fbOn && f < 0.9) return 'Das Endprodukt bremst Station 1. Es kommt nur so viel Rohstoff aufs Band, wie am Ende gebraucht wird.';
+    if (jam >= 0) return 'Vor Station ' + (jam + 1) + ' staut es sich. Die Stationen davor kommen nicht weiter, die dahinter warten auf Nachschub.';
+    if (p.lam < 0.05) return 'Kein Zulauf, also gibt es nichts zu tun.';
+    return 'Es läuft rund. Jede Station bekommt so viel, wie sie verarbeitet.';
+  }
+  function say(force) {
+    var now = performance.now(), m = message();
+    if (m === shown) return;
+    if (!force && now - lastSay < 1200) return;
+    shown = m; lastSay = now;
+    $('fbStatus').textContent = m;
+  }
+
+  function settle() {
+    for (var i = 0; i < 600; i++) step(0.05);
+    render(); say(true);
+  }
+
+  function running() { return !reduce && vis && !paused && !document.hidden; }
+  function frame(t) {
+    raf = 0;
+    if (!running()) return;
+    step(Math.min(0.1, (t - last) / 1000)); last = t;
+    render(); say(false);
+    raf = requestAnimationFrame(frame);
+  }
+  function kick() { if (!raf && running()) { last = performance.now(); raf = requestAnimationFrame(frame); } }
+
+  ['fbIn', 'fbE3', 'fbOut'].forEach(function (id) {
+    $(id).addEventListener('input', function () { if (reduce) settle(); else { render(); say(false); } });
+  });
+  $('fbFb').addEventListener('click', function () {
+    fbOn = !fbOn;
+    this.setAttribute('aria-pressed', fbOn ? 'true' : 'false');
+    this.textContent = 'Rückkopplung: ' + (fbOn ? 'an' : 'aus');
+    if (reduce) settle(); else { render(); say(true); }
+  });
+  var pb = $('fbPause');
+  if (reduce) pb.hidden = true;
+  pb.addEventListener('click', function () {
+    paused = !paused;
+    this.setAttribute('aria-pressed', paused ? 'true' : 'false');
+    this.textContent = paused ? 'Weiterlaufen' : 'Anhalten';
+    kick();
+  });
+  document.addEventListener('visibilitychange', kick);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; kick(); }, { threshold: 0 }).observe(panel);
+  }
+
+  render();
+  if (reduce) settle(); else { say(true); kick(); }
 })();
 
 // --- Zoll ---
