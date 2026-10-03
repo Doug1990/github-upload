@@ -1,6 +1,6 @@
 # Backlog
 
-Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeitet die Punkte von oben nach unten ab: ein Punkt, ein Branch, Tests in Headless-Chrome, ein Pull Request. Gemergt wird nur von Björn.
+Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeitet die Punkte von oben nach unten ab: ein Punkt, ein Branch, Tests in Headless-Chrome, ein Pull Request. Claude mergt seine PRs nach bestandenen Tests selbst und informiert Björn kurz.
 
 ## Spielregeln
 
@@ -8,14 +8,13 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 - Vor jedem PR testen: keine Konsolenfehler, Desktop und 390 px Breite, Screenshots ansehen.
 - Akzeptanzkriterien jedes neuen Abschnitts: 390 px ohne horizontales Scrollen, Reduced Motion, Tastaturbedienung, Tippflächen mindestens 44 px, ehrlicher Hinweis zur Vereinfachung. Das läuft mit, statt am Ende gesammelt zu werden.
 - Sichtbare deutsche Texte: schlicht und direkt, keine Gedankenstriche, kein KI-Pathos.
-- Nicht mergen, nicht force-pushen, keine fremden Branches ändern.
+- Nicht force-pushen, keine fremden Branches ändern.
 - Nach jedem fertigen PR oder bei einem Blocker eine kurze Meldung an Björn.
 - Offene PRs zuerst pflegen (Konflikte, Rückmeldungen), erst dann neue Punkte beginnen.
 - Sind weniger als drei Punkte mit Priorität hoch offen, stößt Claude das Konzept-Team neu an (ein Agent mit Blick auf Inhalt, einer auf Interaktion und Qualität) und trägt dessen Vorschläge hier ein.
 
 ## Offen, Priorität hoch
 
-1. **Teilen, Rest.** Meta und Vorschaubilder sind erledigt (#19). Offen: Link-kopieren-Symbol an den Überschriften (Tastatur, Rückmeldung \"Link kopiert\") und `scroll-margin-top` für Anker. Aufwand S.
 2. **CI-Workflow.** Vorlage liegt fertig in `tests/ci/pruefen.yml` (läuft bei Pull Request und Push auf main: `check.mjs`, `kontrast.mjs`, `tastatur.mjs`, Screenshots als Artefakt bei Fehler). Fehlt nur noch die Freigabe, siehe Entscheidung 14. Danach Datei nach `.github/workflows/` verschieben. Aufwand S.
 3. **Fließband (Stoffwechselwege).** Stationen mit Enzymen, Engpass und Rückstau per Regler, Rückkopplung "Endprodukt hemmt Station 1". Schließt an das ATP-Kraftwerk an. Hinweis: Wege bilden ein Netz, ein Enzym ist kein Arbeiter. Aufwand M.
 
@@ -75,9 +74,11 @@ Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn z
 23. **Zoll-Abschnitt: Osmose.** Der Satz in der Notiz ist knapp. Soll Osmose einen eigenen Abschnitt oder ein Beispiel bekommen? Annahme: nein, erst mal nicht.
 24. **"Wo das Bild hinkt" (#32), Fachcheck.** 18 Felder (10 auf der Zell-Seite, 7 auf der Startseite, 1 auf der Karte). Sachlich zu prüfen sind vor allem Aussagen, die nicht schon auf den Seiten stehen: die Turbine als Eiweiß in der Membran (ATP-Synthase), Genregulation je Zelltyp, "Abweichungen entstehen zufällig beim Kopieren, die Auswahl kommt danach", "in einer echten Zelle ist es dichter und ständig in Bewegung", "keine der beiden Zellen ist die neue", "echte Nutzung schwankt über den Tag", "ein Stausee speichert Energie für Tage" (als Bild gemeint, bei Bedarf weicher). Annahme: bleibt.
 25. **"Wo das Bild hinkt", Ton und Optik.** Gold und gestrichelter Rahmen (Baustellenband) ist dezent, aber sichtbarer als die graue Notiz. Knappe Sätze wie "Es ist keine." (Du gehörst dazu) und "Die Zelle versteht dabei nichts. Sie reagiert." (Signale) sind fast Pointen. Zwei Gegenfragen sind etwas rhetorisch (Teilung, Signale). Das Feld ist 560 px breit und links ausgerichtet, auch in zentrierten Abschnitten. Annahme: bleibt.
+26. **Link-Knöpfe an den Überschriften.** Kettensymbol hinter jeder Abschnittsüberschrift auf Startseite (6) und Zell-Seite (10), Tippfläche 44 px, Deckkraft 45 Prozent, bei Fokus und Hover voll. Kopiert wird die Adresse ohne Parameter, Rückmeldung "Link kopiert" unten mittig. Auf Karte, Impressum und Datenschutz gibt es keine. Annahme: bleibt.
 
 ## Erledigt
 
+- Teilen, Rest: Link-kopieren-Knöpfe und `scroll-margin-top`, Skript `tests/teilen.mjs`
 - Zelle als Stadt mit ATP-Turbine (#3)
 - Überarbeitete Zelle mit Zoom und Stoffflüssen (#5)
 - Lokale Schriften (#6)
