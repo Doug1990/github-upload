@@ -16,7 +16,11 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 ## Offen, Priorität hoch
 
 2. **CI-Workflow.** Vorlage liegt fertig in `tests/ci/pruefen.yml` (läuft bei Pull Request und Push auf main: `check.mjs`, `kontrast.mjs`, `tastatur.mjs`, Screenshots als Artefakt bei Fehler). Fehlt nur noch die Freigabe, siehe Entscheidung 14. Danach Datei nach `.github/workflows/` verschieben. Aufwand S.
-3. **Fließband (Stoffwechselwege).** Stationen mit Enzymen, Engpass und Rückstau per Regler, Rückkopplung "Endprodukt hemmt Station 1". Schließt an das ATP-Kraftwerk an. Hinweis: Wege bilden ein Netz, ein Enzym ist kein Arbeiter. Aufwand M.
+25. **Einstieg "Dein Tag in einer Zelle".** Kurzer Auftakt vor dem Kraftwerk auf der Zell-Seite: Schieber von Morgen bis Nacht, dazu eine Zeile, was die Zelle gerade tut (Hunger, Reparatur, Ruhe). Hinweis: Zellen haben keinen Stundenplan, vieles läuft gleichzeitig und hängt von Zelltyp und Umgebung ab, der Tagesverlauf ist ein Bild. Aufwand S. Der Einstieg beginnt heute direkt mit dem Kraftwerk, die Brücke von Düsseldorf zur Zelle fehlt.
+26. **Zelle verstehen: Fragen zum Schluss.** Am Ende der Zell-Seite drei Fragen zum Anklicken ("Was fällt aus, wenn das Kraftwerk fehlt?"), die auf die passenden Abschnitte zurückspringen und kurz antworten. Hinweis: Die Antworten sind vereinfacht, in echten Zellen fangen Ersatzwege vieles ab. Aufwand S. Der Seite fehlt ein Abschluss, der das Gelernte bündelt und zur Karte weiterführt.
+27. **Lieferketten: Vom Gen zum Produkt.** Weg vom Bauplan über Abschrift und Eiweißbau bis zum fertigen Teil, als Stationenkette mit Störknopf an jeder Station. Hinweis: Abschrift und Eiweißbau laufen vielfach parallel, ein Gen ergibt nicht immer ein Eiweiß, Regulation fehlt im Bild. Aufwand M. Der Bauplan steht im Text, ist aber nie in Aktion zu sehen. Nach dem Fließband bauen, Aufbau teilen.
+28. **Zustände nach Klicks im Kontrast- und Tastaturtest.** `kontrast.mjs` und `tastatur.mjs` klicken je Seite Schalter, Theme-Rauten und Panels durch und messen danach erneut (löst Entscheidung 9 ein, inklusive Theme grün und gelb). Akzeptanz: Lauf über alle Seiten ohne Verstoß, das Skript meldet, in welchem Zustand ein Fehler auftrat. Aufwand M.
+29. **Touch-Bedienung der Regler und Zieher.** Schieber, Zoomflächen und Karte per emulierter Touch-Eingabe bei 390 px testen: senkrechtes Scrollen über jedem Abschnitt bleibt möglich, `touch-action` gezielt gesetzt, Doppeltipp zoomt nicht ungewollt. Aufwand M. Die Seite wird viel auf dem Handy gelesen.
 
 ## Offen, Priorität mittel
 
@@ -36,6 +40,11 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 17. **Skripte auslagern und Ladezeit messen.** Erst messen, dann nur große Skripte nach `assets/*.js` mit `defer`, nach den gemeinsamen Bausteinen. Aufwand M.
 18. **Eigene Seite zu Stromnetz, Wasser und Verkehr.** Tagesverlauf mit Schieber, Last, Erzeugung und Speicher. Keine Zahlen erfinden, Quellen nennen oder als Beispiel markieren. Aufwand L.
 19. **Erweiterungen.** Quorum Sensing als Zusatzfall im Signale-Abschnitt, Alterung und Reparatur im Müllabfuhr-Abschnitt. Je Aufwand S.
+30. **Reserven und Speicher.** Fettdepot, Glykogen und Vorratsraum als Lager der Zelle, per Regler "Lieferung fällt aus" ablesbar, wie lange die Reserve reicht. Hinweis: Speicher sind je Zelltyp sehr verschieden, Nervenzellen speichern kaum, die Laufzeiten sind frei gewählt. Aufwand M. Ergänzt den Robustheitsabschnitt.
+31. **Zellen im Verbund.** Gewebe als Stadtviertel: Nachbarzellen teilen Nährstoffe und Signale über Kontaktstellen, ein Klick isoliert ein Viertel. Hinweis: Gewebe bestehen aus vielen Zelltypen, Aufgaben sind verteilt, Viertel sind keine festen Grenzen. Aufwand M. Leitet von der Zelle zum Körper über und bereitet die Abschlussseite vor.
+32. **Externe Links und Ladetest.** `check.mjs` prüft externe Links per HEAD-Anfrage (nur Warnung). Schalter `--langsam` drosselt auf 3G und meldet Zeit bis zum ersten Text und bis zur Bedienbarkeit. Aufwand S bis M.
+33. **Lesbarkeit.** Fließtext höchstens etwa 70 Zeichen je Zeile, mindestens 16 px mobil, Zeilenabstand mindestens 1,5, Seite bei 200 Prozent Zoom ohne Überlauf. `check.mjs` meldet Zeilen über 80 Zeichen und Text unter 16 px. Aufwand S.
+34. **Fehlertoleranz.** Seiten laufen weiter, wenn `localStorage`, `AudioContext`, `ResizeObserver` oder Canvas fehlen oder Fehler werfen. Das Prüfskript schaltet diese APIs ab, keine Konsolenfehler, alle Abschnitte lesbar. Aufwand M. Vor Lernpfad und Ton-Feinschliff.
 
 ## Offen, Priorität niedrig
 
@@ -75,9 +84,13 @@ Alles, was eine Entscheidung von Björn braucht, wird hier gesammelt statt ihn z
 24. **"Wo das Bild hinkt" (#32), Fachcheck.** 18 Felder (10 auf der Zell-Seite, 7 auf der Startseite, 1 auf der Karte). Sachlich zu prüfen sind vor allem Aussagen, die nicht schon auf den Seiten stehen: die Turbine als Eiweiß in der Membran (ATP-Synthase), Genregulation je Zelltyp, "Abweichungen entstehen zufällig beim Kopieren, die Auswahl kommt danach", "in einer echten Zelle ist es dichter und ständig in Bewegung", "keine der beiden Zellen ist die neue", "echte Nutzung schwankt über den Tag", "ein Stausee speichert Energie für Tage" (als Bild gemeint, bei Bedarf weicher). Annahme: bleibt.
 25. **"Wo das Bild hinkt", Ton und Optik.** Gold und gestrichelter Rahmen (Baustellenband) ist dezent, aber sichtbarer als die graue Notiz. Knappe Sätze wie "Es ist keine." (Du gehörst dazu) und "Die Zelle versteht dabei nichts. Sie reagiert." (Signale) sind fast Pointen. Zwei Gegenfragen sind etwas rhetorisch (Teilung, Signale). Das Feld ist 560 px breit und links ausgerichtet, auch in zentrierten Abschnitten. Annahme: bleibt.
 26. **Link-Knöpfe an den Überschriften.** Kettensymbol hinter jeder Abschnittsüberschrift auf Startseite (6) und Zell-Seite (10), Tippfläche 44 px, Deckkraft 45 Prozent, bei Fokus und Hover voll. Kopiert wird die Adresse ohne Parameter, Rückmeldung "Link kopiert" unten mittig. Auf Karte, Impressum und Datenschutz gibt es keine. Annahme: bleibt.
+27. **Fließband (#35): Platzierung, Titel, Zahlen.** Der Abschnitt steht nach dem Kraftwerk und vor "Gut genug schlägt perfekt", Titel "Das Fließband: Wo es eng wird, staut es sich." Alle Raten sind frei gewählt (je Station 3 pro Sekunde, Zulauf und Verbrauch bis 4). Station 3 ist fest der Engpass, eine freie Wahl der Station gibt es nicht. Annahme: bleibt.
+28. **Fließband: Fachcheck.** "Der Endprodukt-Pegel bremst Station 1" ist als Rückkopplungshemmung gemeint (feedback inhibition, wie bei vielen Biosynthesewegen). Die Warteschlange vor einer Station steht in der Notiz für die Menge an Zwischenprodukt. Der Hinweis "ein Enzym ist kein Arbeiter" steht im Feld "Wo das Bild hinkt". Annahme: bleibt.
+29. **Fließband: Mobil und Ton.** Auf 390 px sind die Beschriftungen im Schema klein (rund 11 px wirksam), die Bedienung läuft über die Regler darunter. Der Abschnitt hat noch keinen Ton und keinen Eintrag im Stadtbild. Reduced Motion: kein Dauerlauf, das Ergebnis steht nach jeder Eingabe sofort. Sonst gibt es einen Anhalten-Knopf. Annahme: bleibt.
 
 ## Erledigt
 
+- Fließband (Stoffwechselwege): Abschnitt auf der Zell-Seite, Skript `tests/fliessband.mjs` (#35)
 - Teilen, Rest: Link-kopieren-Knöpfe und `scroll-margin-top`, Skript `tests/teilen.mjs`
 - Zelle als Stadt mit ATP-Turbine (#3)
 - Überarbeitete Zelle mit Zoom und Stoffflüssen (#5)
