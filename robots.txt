@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://doug1990.github.io/github-upload/sitemap.xml
