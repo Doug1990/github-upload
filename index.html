@@ -409,6 +409,8 @@
     paint-order: stroke fill; stroke: #0B1220; stroke-width: 5px; stroke-linejoin: round;
   }
   .knoten .k-head { font-family: 'IBM Plex Sans', sans-serif; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; fill: #8E98AC; }
+  /* Schmale Ansicht: Die Zeichnung wird auf etwa 0,75 verkleinert, darum größere Schrift im Bild (wirksam mindestens 11 px) */
+  @media (max-width: 560px) { .knoten .k-label, .knoten .k-head, .knoten .k-bubble, .knoten .k-zaehler { font-size: 14.8px; } .knoten .k-head { letter-spacing: 0.1em; } }
   .knoten g.on .k-line { opacity: 1; stroke-width: 2.2; }
   .knoten g.on .k-label { font-weight: 600; }
   .knoten-actions { text-align: center; min-height: 40px; margin-top: 4px; }
@@ -3110,7 +3112,7 @@ function playDayChord(counts) {
     kn.appendChild(du);
 
     const kernRing = kn.querySelector('.kn-ring');
-    const zaehler = el('text', { x: CX, y: CY + 26, 'text-anchor': 'middle', fill: '#8892A6', 'font-size': 10.5, 'font-family': "'IBM Plex Sans', sans-serif" });
+    const zaehler = el('text', { class: 'k-zaehler', x: CX, y: CY + 26, 'text-anchor': 'middle', fill: '#8892A6', 'font-size': 10.5, 'font-family': "'IBM Plex Sans', sans-serif" });
     kn.appendChild(zaehler);
 
     function updateKnoten() {
@@ -3719,8 +3721,8 @@ document.getElementById('packApply').addEventListener('click', () => {
 
   const sign = el('g');
   sign.appendChild(el('line', { x1: 320, y1: -72, x2: 320, y2: -12, stroke: '#5E6579', 'stroke-width': 2 }));
-  sign.appendChild(el('rect', { x: 300, y: -98, width: 40, height: 26, rx: 5, fill: '#2B2440', stroke: '#8FC9D4', 'stroke-width': 1.3 }));
-  const signTxt = el('text', { x: 320, y: -80, 'text-anchor': 'middle', fill: '#8FC9D4', 'font-size': 13, 'font-weight': 700, 'font-family': "'IBM Plex Sans', sans-serif" });
+  sign.appendChild(el('rect', { x: 295, y: -106, width: 50, height: 34, rx: 6, fill: '#2B2440', stroke: '#8FC9D4', 'stroke-width': 1.3 }));
+  const signTxt = el('text', { x: 320, y: -81, 'text-anchor': 'middle', fill: '#8FC9D4', 'font-size': 22, 'font-weight': 700, 'font-family': "'IBM Plex Sans', sans-serif" });
   signTxt.textContent = '7';
   sign.appendChild(signTxt);
   svg.appendChild(sign);
@@ -3934,6 +3936,7 @@ function personalStrand(label) {
   txt.setAttribute('y', y);
   txt.setAttribute('text-anchor', 'end');
   txt.setAttribute('fill', '#FFE3B0');
+  txt.setAttribute('class', 'k-bubble');
   txt.setAttribute('font-size', '12');
   txt.setAttribute('font-family', "'IBM Plex Sans', sans-serif");
   txt.setAttribute('style', 'paint-order: stroke fill; stroke: #0B1220; stroke-width: 5px; stroke-linejoin: round;');
