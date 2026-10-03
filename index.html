@@ -4405,5 +4405,58 @@ setTimeout(() => {
   setTimeout(() => { if (!userInteracted) { selected = null; render(); } }, 2800);
 }, 700);
 </script>
+<style>
+  section[id] { scroll-margin-top: 16px; }
+  .linkbtn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin: -14px 0 -14px 2px; padding: 0; vertical-align: middle; background: none; border: 0; border-radius: 50%; color: inherit; opacity: 0.45; cursor: pointer; font: inherit; }
+  .linkbtn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .linkbtn:hover, .linkbtn:focus-visible { opacity: 1; }
+  .linkbtn:focus-visible { outline: 2px solid #F2C46B; outline-offset: 0; }
+  .linkmsg { position: fixed; left: 50%; bottom: 24px; z-index: 10001; transform: translateX(-50%); padding: 11px 18px; border-radius: 8px; background: #E8E6E0; color: #0B1220; font: 500 14px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+  .linkmsg.on { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .linkmsg { transition: none; } }
+  @media print { .linkbtn, .linkmsg { display: none; } }
+</style>
+<div class="linkmsg" id="linkMsg" role="status" aria-live="polite"></div>
+<script>
+(function () {
+  var skip = { hero: 1, landing: 1 };
+  var msg = document.getElementById('linkMsg'), timer;
+  function say(t) {
+    msg.textContent = '';
+    setTimeout(function () { msg.textContent = t; msg.classList.add('on'); }, 30);
+    clearTimeout(timer);
+    timer = setTimeout(function () { msg.classList.remove('on'); }, 2200);
+  }
+  function copy(url, done) {
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = url; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta); done(ok);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function () { done(true); }, fallback);
+    else fallback();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('section[id]'), function (sec) {
+    if (skip[sec.id]) return;
+    var h = sec.querySelector('h2');
+    if (!h) return;
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'linkbtn';
+    b.setAttribute('aria-label', 'Link zu diesem Abschnitt kopieren');
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 18.7l1-1"/></svg>';
+    b.addEventListener('click', function () {
+      var url = location.origin + location.pathname + '#' + sec.id;
+      copy(url, function (ok) {
+        if (ok) say('Link kopiert');
+        else { location.hash = sec.id; say('Link steht in der Adresszeile'); }
+      });
+    });
+    h.appendChild(b);
+  });
+})();
+</script>
 </body>
 </html>
