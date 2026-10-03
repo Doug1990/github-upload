@@ -454,7 +454,7 @@
   .journey-station { margin: 18px 0 8px; min-height: 30px; }
   .journey-station-name { font-family: 'Fraunces', serif; font-size: 19px; color: #FFE3B0; letter-spacing: 0.01em; transition: opacity 0.4s; }
   .journey-chain { min-height: 20px; font-size: 12.5px; color: #8E98AC; margin: 0 0 22px; line-height: 1.6; max-width: 520px; margin-left: auto; margin-right: auto; }
-  .journey-chain .jc-link { color: #4A5A78; margin: 0 6px; }
+  .journey-chain .jc-link { color: #8E98AC; margin: 0 6px; }
   .journey-chain .jc-cur { color: #FFE3B0; font-weight: 600; }
   .journey-btn { font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; padding: 10px 22px; border-radius: 999px; border: 1px solid #8FC9D4; color: #8FC9D4; background: transparent; cursor: pointer; transition: background 0.25s; }
   .journey-btn:hover { background: #8FC9D41a; }
@@ -3259,6 +3259,7 @@ document.getElementById('packApply').addEventListener('click', () => {
     if (chainEl.children.length > 0 || chainEl.textContent) {
       const sep = document.createElement('span');
       sep.className = 'jc-link';
+      sep.setAttribute('aria-hidden', 'true');
       sep.textContent = '→';
       chainEl.appendChild(sep);
     }

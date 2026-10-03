@@ -5,9 +5,12 @@
 //  - Nicht-Standard-Elemente, die auf Enter oder Leertaste nicht reagieren,
 //  - Fokusfallen (Fokus kommt nicht mehr aus einer kleinen Gruppe heraus).
 // Außerdem: Der Skip-Link ist der erste Tab-Stopp und springt zu <main>.
-// Aufruf: node tests/tastatur.mjs [--breiten=1280,390] [--seite=zelle.html] [--chrome=<pfad>]
+// Jede Seite läuft zweimal: im Ausgangszustand und nach Klicks (Details offen, Bauteile, Schalter, Themes, alle
+// Knöpfe, siehe chrome.mjs), damit auch Elemente geprüft werden, die erst dann erscheinen. Mit --ohne-zustaende
+// entfällt der zweite Lauf.
+// Aufruf: node tests/tastatur.mjs [--breiten=1280,390] [--seite=zelle.html] [--ohne-zustaende] [--chrome=<pfad>]
 // Exit-Code 1 bei Fehlern, Warnungen (kein Fokus-Stil) lassen ihn auf 0.
-import { start, arg, sleep } from './chrome.mjs';
+import { start, arg, sleep, zustandsSchritte } from './chrome.mjs';
 
 const widths = (arg('breiten') || '1280').split(',').map(Number);
 const only = arg('seite');
@@ -63,9 +66,14 @@ const W = (m) => { warns++; console.log('  ! ' + m); };
 
 for (const page of b.pages) {
   if (only && page !== only) continue;
-  for (const w of widths) {
-    console.log(`${page} @${w}px`);
+  for (const w of widths) for (const nach of process.argv.includes('--ohne-zustaende') ? [false] : [false, true]) {
+    console.log(`${page} @${w}px${nach ? ' (nach Klicks)' : ''}`);
     await b.open(page, w);
+    if (nach) {
+      for (const s of await zustandsSchritte(b)) { await s.run(); await sleep(400); }
+      // Startpunkt der Tab-Folge zurück an den Seitenanfang (er bleibt sonst beim zuletzt geklickten Element)
+      await b.ev(`document.activeElement && document.activeElement.blur(); document.documentElement.style.scrollBehavior = 'auto'; scrollTo(0, 0); const m = document.createElement('span'); m.tabIndex = -1; document.body.prepend(m); m.focus(); m.remove(); true`);
+    }
     await b.send('Page.bringToFront');
     await b.ev(HELP);
     const kand = await b.send('Runtime.evaluate', { expression: CANDIDATES, returnByValue: true, includeCommandLineAPI: true }).then((r) => r.result?.value || []);
@@ -139,7 +147,7 @@ for (const page of b.pages) {
     }
     // Enter und Leertaste bei Nicht-Standard-Elementen
     const nonNative = [...new Set(seq.filter((s) => !s.nativ))].filter((s, i, a) => a.findIndex((x) => x.sel === s.sel) === i);
-    for (const s of nonNative.slice(0, 40)) {
+    for (const s of (nach ? [] : nonNative.slice(0, 40))) {
       const idx = seq.findIndex((x) => x.sel === s.sel);
       // Fokus direkt setzen über data-kand, falls vorhanden, sonst über Selektor-Suche
       const res = await b.ev(`(() => { const all = [...window.__seen]; const e = all.find((x) => window.__sel(x) === ${JSON.stringify(s.sel)}); if (!e) return null; e.focus(); window.__clicks = 0; const h = () => { window.__clicks++; }; document.addEventListener('click', h, true); window.__h = h;
