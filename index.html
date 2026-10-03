@@ -735,6 +735,36 @@
     .station-panel-inner { max-height: 92vh; border-radius: 20px 20px 0 0; }
     .hud-progress { display: none; }
   }
+  /* --- Wenn es hakt: Ausfall in der Stadt ------------------------------- */
+  .stoer { max-width: min(94vw, 900px); width: 100%; margin: 0 auto; padding: 18px 24px 20px; text-align: center; position: relative; }
+  .stoer-eyebrow { font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #E8A090; margin: 0 0 8px; }
+  .stoer-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 25px; color: #F3EEEA; margin: 0 0 10px; }
+  .stoer-lead { font-size: 12.5px; color: #A8A2A0; margin: 0 auto 22px; max-width: 480px; line-height: 1.65; }
+  .stoer-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 0 12px; }
+  .stoer-btn { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; min-height: 44px; padding: 8px 16px; border-radius: 999px; border: 1px solid #4A4F5E; color: #C9CCD6; background: transparent; cursor: pointer; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+  .stoer-btn:hover { background: #ffffff0a; }
+  .stoer-btn[aria-pressed="true"] { border-color: #FF8A65; color: #FF8A65; background: #FF8A6514; }
+  .stoer-seg { display: flex; justify-content: center; width: fit-content; margin: 0 auto 14px; border: 1px solid #4A4F5E; border-radius: 999px; overflow: hidden; }
+  .stoer-seg button { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; min-height: 44px; padding: 0 20px; background: transparent; color: #A9AFC0; border: none; cursor: pointer; }
+  .stoer-seg button[aria-pressed="true"] { background: #F2C46B1f; color: #F2C46B; }
+  .stoer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin: 6px 0 14px; text-align: left; font-family: 'IBM Plex Sans', sans-serif; }
+  .st-card { border: 1px solid #3A4048; border-radius: 12px; padding: 11px 13px; background: #ffffff06; transition: border-color 0.4s, background 0.4s; }
+  .st-card h3 { margin: 0; font-family: 'Fraunces', serif; font-weight: 500; font-size: 16px; color: #F0ECE8; }
+  .st-card .st-eg { margin: 1px 0 7px; font-size: 11.5px; color: #8E98AC; }
+  .st-card .st-state { margin: 0; font-size: 12.5px; font-weight: 600; color: #8FD9A8; }
+  .st-card .st-need { margin: 6px 0 0; font-size: 11.5px; line-height: 1.5; color: #A9AFC0; }
+  .st-card[data-status="res"] { border-color: #F2C46B; border-style: dashed; background: #F2C46B0d; }
+  .st-card[data-status="res"] .st-state { color: #F2C46B; }
+  .st-card[data-status="out"], .st-card[data-status="src"] { border-color: #FF8A65; border-width: 2px; padding: 10px 12px; background: #FF8A650f; }
+  .st-card[data-status="out"] .st-state, .st-card[data-status="src"] .st-state { color: #FF8A65; }
+  .st-card[data-status="out"] h3, .st-card[data-status="src"] h3 { text-decoration: line-through; text-decoration-color: #FF8A65aa; }
+  .stoer-status { min-height: 44px; margin: 0 auto 6px; max-width: 560px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.6; color: #F2C46B; }
+  .stoer-link { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: #A9AFC0; margin: 10px auto 0; max-width: 520px; line-height: 1.7; }
+  .stoer-link a { color: #8FC9D4; }
+  @media (max-width: 560px) { .stoer { padding: 34px 16px 30px; border-radius: 18px; } .stoer-title { font-size: 20px; } .stoer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 380px) { .stoer-grid { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .st-card, .stoer-btn { transition: none; } }
+
   /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
   .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
   .hinkt summary { list-style: none; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 14px; cursor: pointer; border: 1px dashed rgba(242,196,107,0.5); border-radius: 10px; background: rgba(242,196,107,0.06); color: #F2C46B; font-size: 13px; line-height: 1.4; }
@@ -953,6 +983,22 @@
     Nicht jede Leitung ist für jeden gleich wichtig. Getragen zu werden und selbst zu tragen gehört beides dazu.
   </p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehörst dazu</span></summary><div class="hinkt-body"><p>Zwei Spalten mit je fünf Leitungen sehen nach einer Bilanz aus. Es ist keine. Die Auswahl ist klein, und die Seiten lassen sich nicht gegeneinander aufrechnen.</p><p>In der Mitte steht auch nur eine Person. In Wirklichkeit hängen viele Menschen an denselben Leitungen.</p><p class="hinkt-frage">Welche Leitung würdest du bei dir ergänzen?</p></div></details>
+</section>
+
+<section class="stoer" id="stoerung">
+  <p class="stoer-eyebrow sans">Wenn es hakt</p>
+  <h2 class="stoer-title">Fällt eine Leitung aus, merkt es die nächste.</h2>
+  <p class="stoer-lead sans">Strom, Wasser, Datennetz und Verkehr hängen aneinander. Schalte eine Leitung ab und sieh, was als Nächstes wackelt. Manche Stellen haben Ersatz, der trägt aber nur eine Weile. Mit dem Schalter wechselst du zwischen den ersten Stunden und dem Zustand nach Tagen.</p>
+  <div class="stoer-seg" role="group" aria-label="Zeitpunkt">
+    <button type="button" id="stoerH" aria-pressed="true">Erste Stunden</button>
+    <button type="button" id="stoerD" aria-pressed="false">Nach Tagen</button>
+  </div>
+  <div class="stoer-bar" id="stoerBar" role="group" aria-label="Leitung abschalten"></div>
+  <div class="stoer-grid" id="stoerGrid"></div>
+  <p class="stoer-status" id="stoerStatus" aria-live="polite"></p>
+  <p class="stoer-link sans">Dasselbe Muster gibt es in der Zelle, nur ohne Leitstelle: <a href="zelle.html#ausfall">Fällt eine Stelle aus, merkt es der Rest</a>.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wenn es hakt</span></summary><div class="hinkt-body"><p>Echte Netze sind vielfach abgesichert, getrennt und werden von Menschen gesteuert, die umschalten und priorisieren. Der Dominoeffekt ist hier bewusst zugespitzt. Krankenhäuser zum Beispiel sind besonders gut abgesichert.</p><p>Die Abhängigkeiten sind Beispiele, keine Betriebsdaten aus Düsseldorf. Wie lange ein Ersatz trägt, hängt von Vorrat, Wetter und Einsatz ab, und "nach Tagen" ist ein Bild für "irgendwann reicht der Ersatz nicht mehr".</p><p class="hinkt-frage">Wer entscheidet im Ernstfall, welche Stelle zuerst wieder Strom bekommt?</p></div></details>
+  <p class="belong-note sans">Zugespitzt dargestellt: Die Karten zeigen Abhängigkeiten als Beispiele, nicht den Zustand echter Anlagen.</p>
 </section>
 
 <section class="now" id="now">
@@ -4405,6 +4451,112 @@ setTimeout(() => {
   render();
   setTimeout(() => { if (!userInteracted) { selected = null; render(); } }, 2800);
 }, 700);
+</script>
+<script>
+// --- Wenn es hakt: Ausfall in der Stadt ---
+(function () {
+  'use strict';
+  var grid = document.getElementById('stoerGrid');
+  if (!grid) return;
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  // Beispiele, keine Betriebsdaten. d = braucht, e = Ersatz (trägt nur in den ersten Stunden)
+  var NODES = [
+    { id: 'strom', n: 'Strom', eg: 'Stromnetz', sw: 'Strom fällt aus', deps: [] },
+    { id: 'wasser', n: 'Wasser', eg: 'Wasserwerk und Pumpen', sw: 'Wasser fällt aus', deps: [{ d: 'strom', e: 'Hochbehälter' }] },
+    { id: 'daten', n: 'Datennetz', eg: 'Mobilfunk und Internet', sw: 'Datennetz fällt aus', deps: [{ d: 'strom', e: 'Batterien an den Knoten' }] },
+    { id: 'verkehr', n: 'Verkehr', eg: 'Ampeln und Bahnen', sw: 'Verkehr fällt aus', deps: [{ d: 'strom' }, { d: 'daten', e: 'feste Fahrpläne' }] },
+    { id: 'klaer', n: 'Klärwerk', eg: 'Abwasser reinigen', deps: [{ d: 'strom', e: 'Notstrom' }] },
+    { id: 'klinik', n: 'Krankenhaus', eg: 'Pflege und Notaufnahme', deps: [{ d: 'strom', e: 'Notstrom' }, { d: 'wasser', e: 'Vorrat' }, { d: 'daten', e: 'Papier und Telefon' }] },
+    { id: 'laden', n: 'Supermarkt', eg: 'Kühlung und Kasse', deps: [{ d: 'strom' }, { d: 'daten', e: 'Bargeld' }] },
+    { id: 'muell', n: 'Müllabfuhr', eg: 'Touren und Fahrzeuge', deps: [{ d: 'verkehr' }, { d: 'daten', e: 'Papiertouren' }] }
+  ];
+  var BY = {}; NODES.forEach(function (n) { BY[n.id] = n; });
+  var WORD = { ok: 'läuft', res: 'läuft auf Ersatz', out: 'fällt aus', src: 'abgeschaltet' };
+  var failed = {}, mode = 'hours', hist = [], shown = 0, timer = 0;
+
+  function needText(n) {
+    if (!n.deps.length) return 'Braucht nichts von den anderen.';
+    return 'Braucht: ' + n.deps.map(function (x) { return BY[x.d].n + (x.e ? ' (Ersatz: ' + x.e + ')' : ''); }).join(', ') + '.';
+  }
+  // Ausbreitung Stufe für Stufe: aus den Zuständen der Vorstufe wird die nächste berechnet
+  function cascade() {
+    var cur = {}, stage = {};
+    NODES.forEach(function (n) { cur[n.id] = failed[n.id] ? 'src' : 'ok'; stage[n.id] = failed[n.id] ? 0 : -1; });
+    var out = [{ s: cur, st: stage }];
+    for (var s = 1; s <= 8; s++) {
+      var nxt = {}, changed = false, st2 = {};
+      NODES.forEach(function (n) {
+        st2[n.id] = stage[n.id];
+        if (failed[n.id]) { nxt[n.id] = 'src'; return; }
+        var down = n.deps.filter(function (x) { return cur[x.d] === 'src' || cur[x.d] === 'out'; });
+        var v = !down.length ? 'ok' : (mode === 'hours' && down.every(function (x) { return !!x.e; }) ? 'res' : 'out');
+        nxt[n.id] = v;
+        if (v !== cur[n.id]) { changed = true; st2[n.id] = s; }
+      });
+      if (!changed) break;
+      cur = nxt; stage = st2; out.push({ s: cur, st: stage });
+    }
+    return out;
+  }
+  function build() {
+    var bar = document.getElementById('stoerBar');
+    NODES.filter(function (n) { return n.sw; }).forEach(function (n) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'stoer-btn'; b.id = 'stoerSw-' + n.id; b.setAttribute('aria-pressed', 'false'); b.textContent = n.sw;
+      b.addEventListener('click', function () { failed[n.id] = !failed[n.id]; if (!failed[n.id]) delete failed[n.id]; b.setAttribute('aria-pressed', failed[n.id] ? 'true' : 'false'); run(); });
+      bar.appendChild(b);
+    });
+    var r = document.createElement('button');
+    r.type = 'button'; r.className = 'stoer-btn'; r.id = 'stoerReset'; r.textContent = 'Alles läuft wieder';
+    r.addEventListener('click', function () { failed = {}; bar.querySelectorAll('[aria-pressed]').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); }); run(); });
+    bar.appendChild(r);
+    NODES.forEach(function (n) {
+      var c = document.createElement('div');
+      c.className = 'st-card'; c.id = 'stoerC-' + n.id; c.setAttribute('data-id', n.id);
+      c.innerHTML = '<h3>' + n.n + '</h3><p class="st-eg">' + n.eg + '</p><p class="st-state"></p><p class="st-need">' + needText(n) + '</p>';
+      grid.appendChild(c);
+    });
+  }
+  function paint(step) {
+    var h = hist[Math.min(step, hist.length - 1)];
+    NODES.forEach(function (n) {
+      var c = document.getElementById('stoerC-' + n.id), v = h.s[n.id], st = h.st[n.id];
+      c.setAttribute('data-status', v); c.setAttribute('data-stufe', st < 0 ? '' : String(st));
+      c.querySelector('.st-state').textContent = WORD[v] + (v === 'out' || v === 'res' ? ', Stufe ' + st : '');
+    });
+  }
+  function summary() {
+    var h = hist[hist.length - 1], src = [], out = [], res = [];
+    NODES.forEach(function (n) { var v = h.s[n.id]; if (v === 'src') src.push(n.n); else if (v === 'out') out.push(n.n); else if (v === 'res') res.push(n.n); });
+    var el = document.getElementById('stoerStatus');
+    if (!src.length) { el.textContent = 'Alles läuft. Schalte eine Leitung ab.'; return; }
+    var t = src.join(' und ') + ' fällt aus. ';
+    t += out.length ? 'Danach fällt aus: ' + out.join(', ') + '. ' : 'Sonst fällt nichts aus. ';
+    if (res.length) t += 'Auf Ersatz laufen: ' + res.join(', ') + (mode === 'hours' ? '. Der Ersatz trägt nur eine Weile.' : '.');
+    el.textContent = t.trim();
+  }
+  function run() {
+    if (timer) { clearInterval(timer); timer = 0; }
+    hist = cascade();
+    if (reduce || hist.length === 1) { shown = hist.length - 1; paint(shown); summary(); return; }
+    shown = 0; paint(0);
+    document.getElementById('stoerStatus').textContent = '';
+    timer = setInterval(function () {
+      shown++; paint(shown);
+      if (shown >= hist.length - 1) { clearInterval(timer); timer = 0; summary(); }
+    }, 900);
+  }
+  function setMode(m) {
+    mode = m;
+    document.getElementById('stoerH').setAttribute('aria-pressed', m === 'hours' ? 'true' : 'false');
+    document.getElementById('stoerD').setAttribute('aria-pressed', m === 'days' ? 'true' : 'false');
+    run();
+  }
+  build();
+  document.getElementById('stoerH').addEventListener('click', function () { setMode('hours'); });
+  document.getElementById('stoerD').addEventListener('click', function () { setMode('days'); });
+  run();
+})();
 </script>
 <style>
   section[id] { scroll-margin-top: 16px; }
