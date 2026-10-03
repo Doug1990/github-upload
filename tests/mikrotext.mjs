@@ -4,6 +4,8 @@
 // unter der Grenze und kleinster Wert). Fehler (Exit-Code 1) gibt es nur, wenn eine Zeichenfläche mehr Texte
 // unter der Grenze hat oder einen kleineren Wert als in der Basis. Wer Altlasten behebt, schreibt die Basis
 // mit --basis-schreiben neu, so wird die Liste Schritt für Schritt kürzer. Ziel ist eine leere Basis.
+// Flächen mit zeitabhängigen Texten (zum Beispiel wechselnde Sätze) bekommen in der Basis einen "spielraum":
+// so viele Texte mehr sind erlaubt, solange der kleinste Wert nicht sinkt.
 // Aufruf: node tests/mikrotext.mjs [--breite=390] [--grenze=11] [--seite=zelle.html] [--ohne-zustaende]
 //         [--basis-schreiben] [--liste] [--chrome=<pfad>]
 import fs from 'node:fs';
@@ -64,7 +66,7 @@ for (const page of b.pages) {
 if (schreiben) {
   const neu = { ...basis };
   for (const p of page2) for (const k of Object.keys(neu)) if (k.startsWith(p + '|')) delete neu[k];
-  for (const [k, a] of Object.entries(aktuell)) neu[k] = { n: a.n, min: a.min };
+  for (const [k, a] of Object.entries(aktuell)) neu[k] = { n: a.n, min: a.min, ...(basis[k] && basis[k].spielraum ? { spielraum: basis[k].spielraum } : {}) };
   const sortiert = Object.fromEntries(Object.entries(neu).sort(([x], [y]) => x.localeCompare(y)));
   fs.writeFileSync(BASIS, JSON.stringify(sortiert, null, 2) + '\n');
   console.log(`Basis geschrieben: ${Object.keys(sortiert).length} Zeichenflächen mit Altlasten.`);
@@ -76,7 +78,7 @@ if (process.argv.includes('--liste')) for (const [k, a] of Object.entries(aktuel
 for (const [k, a] of Object.entries(aktuell)) {
   const bs = basis[k] || { n: 0, min: Infinity };
   altlast += Math.min(a.n, bs.n);
-  if (a.n > bs.n || a.min < bs.min - 0.05) {
+  if (a.n > bs.n + (bs.spielraum || 0) || a.min < bs.min - 0.05) {
     fehler++;
     console.log(`  X ${k} @${width}px: ${a.n} Texte unter ${limit} px (Basis ${bs.n}), kleinster Wert ${a.min} px (Basis ${bs.min === Infinity ? '-' : bs.min})`);
     a.texte.forEach((t) => console.log('      ' + t));

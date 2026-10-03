@@ -1,23 +1,28 @@
 {
   "index.html|cubeScene": {
     "n": 6,
-    "min": 8.6
+    "min": 8.6,
+    "spielraum": 3
   },
   "index.html|graph": {
     "n": 24,
-    "min": 4.2
+    "min": 4.2,
+    "spielraum": 8
   },
   "index.html|journeyScene": {
     "n": 10,
-    "min": 5
+    "min": 5,
+    "spielraum": 4
   },
   "index.html|knoten": {
     "n": 17,
-    "min": 7.5
+    "min": 7.5,
+    "spielraum": 4
   },
   "index.html|shelfSvg": {
     "n": 1,
-    "min": 6.8
+    "min": 6.8,
+    "spielraum": 2
   },
   "karte-skizze.html|map": {
     "n": 37,
