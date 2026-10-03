@@ -769,6 +769,37 @@
   @media (max-width: 380px) { .stoer-grid { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .st-card, .stoer-btn { transition: none; } }
 
+  /* --- Wer hält es instand: Alterung und Erneuerung ----------------------- */
+  .instand { max-width: min(94vw, 900px); width: 100%; margin: 0 auto; padding: 18px 24px 20px; text-align: center; position: relative; }
+  .inst-eyebrow { font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #C9B88A; margin: 0 0 8px; }
+  .inst-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 25px; color: #F3EFE6; margin: 0 0 10px; }
+  .inst-lead { font-size: 12.5px; color: #A8A8A0; margin: 0 auto 22px; max-width: 480px; line-height: 1.65; }
+  .inst-seg { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 0 0 8px; }
+  .inst-btn { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; min-height: 44px; padding: 8px 16px; border-radius: 999px; border: 1px solid #4A4F5E; color: #C9CCD6; background: transparent; cursor: pointer; transition: background 0.2s, border-color 0.2s, color 0.2s; }
+  .inst-btn:hover { background: #ffffff0a; }
+  .inst-btn[aria-pressed="true"] { border-color: #F2C46B; color: #F2C46B; background: #F2C46B14; }
+  .inst-desc { min-height: 40px; margin: 0 auto 14px; max-width: 480px; font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; line-height: 1.6; color: #A9AFC0; }
+  .inst-panel { text-align: left; font-family: 'IBM Plex Sans', sans-serif; border: 1px solid #3A4048; border-radius: 14px; padding: 14px; background: #ffffff05; }
+  .inst-net { margin: 0 0 14px; }
+  .inst-net h3 { margin: 0; font-family: 'Fraunces', serif; font-weight: 500; font-size: 16px; color: #F0ECE8; }
+  .inst-net .inst-eg { margin: 1px 0 6px; font-size: 11.5px; color: #8E98AC; }
+  .inst-cells { display: flex; gap: 3px; }
+  .inst-cell { flex: 1; min-width: 0; height: 24px; border-radius: 3px; background: #8FD9A8; border: 1px solid #8FD9A8; transition: background 0.3s, border-color 0.3s; }
+  .inst-cell[data-s="alt"] { background: #F2C46B; border-color: #F2C46B; }
+  .inst-cell[data-s="def"] { background: repeating-linear-gradient(135deg, #FF8A65 0 3px, #2A1814 3px 6px); border-color: #FF8A65; }
+  .inst-count { margin: 6px 0 0; font-size: 12px; color: #A9AFC0; }
+  .inst-time { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 4px; font-size: 13px; color: #C9CCD6; }
+  .inst-time label { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 220px; min-height: 44px; }
+  .inst-time input[type=range] { flex: 1; min-height: 44px; accent-color: #F2C46B; }
+  .inst-year { min-width: 64px; font-family: 'Fraunces', serif; font-size: 19px; font-variant-numeric: tabular-nums; color: #F3EFE6; }
+  .inst-status { min-height: 48px; margin: 12px auto 0; max-width: 560px; font-size: 13px; line-height: 1.6; color: #F2C46B; text-align: center; font-family: 'IBM Plex Sans', sans-serif; }
+  .inst-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 10px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #A9AFC0; }
+  .inst-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -2px; }
+  .inst-link { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: #A9AFC0; margin: 10px auto 0; max-width: 520px; line-height: 1.7; }
+  .inst-link a { color: #8FC9D4; }
+  @media (max-width: 560px) { .instand { padding: 34px 16px 30px; border-radius: 18px; } .inst-title { font-size: 20px; } }
+  @media (prefers-reduced-motion: reduce) { .inst-cell, .inst-btn { transition: none; } }
+
   /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
   .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
   .hinkt summary { list-style: none; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 14px; cursor: pointer; border: 1px dashed rgba(242,196,107,0.5); border-radius: 10px; background: rgba(242,196,107,0.06); color: #F2C46B; font-size: 13px; line-height: 1.4; }
@@ -1003,6 +1034,31 @@
   <p class="stoer-link sans">Dasselbe Muster gibt es in der Zelle, nur ohne Leitstelle: <a href="zelle.html#ausfall">Fällt eine Stelle aus, merkt es der Rest</a>.</p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wenn es hakt</span></summary><div class="hinkt-body"><p>Echte Netze sind vielfach abgesichert, getrennt und werden von Menschen gesteuert, die umschalten und priorisieren. Der Dominoeffekt ist hier bewusst zugespitzt. Krankenhäuser zum Beispiel sind besonders gut abgesichert.</p><p>Die Abhängigkeiten sind Beispiele, keine Betriebsdaten aus Düsseldorf. Wie lange ein Ersatz trägt, hängt von Vorrat, Wetter und Einsatz ab, und "nach Tagen" ist ein Bild für "irgendwann reicht der Ersatz nicht mehr".</p><p class="hinkt-frage">Wer entscheidet im Ernstfall, welche Stelle zuerst wieder Strom bekommt?</p></div></details>
   <p class="belong-note sans">Zugespitzt dargestellt: Die Karten zeigen Abhängigkeiten als Beispiele, nicht den Zustand echter Anlagen.</p>
+</section>
+
+<section class="instand" id="instand">
+  <p class="inst-eyebrow sans">Instandhaltung</p>
+  <h2 class="inst-title">Was alt wird, muss erneuert werden.</h2>
+  <p class="inst-lead sans">Rohre, Gleise und Kabel altern. Wähle, wie erneuert wird, und schieb die Zeit vor. Jedes Kästchen ist ein Abschnitt. Sieh, was sich staut und wo etwas ausfällt.</p>
+  <div class="inst-seg" id="instSeg" role="group" aria-label="Wie wird erneuert?">
+    <button type="button" class="inst-btn" id="instA" data-m="a" aria-pressed="true">Laufend erneuern</button>
+    <button type="button" class="inst-btn" id="instB" data-m="b" aria-pressed="false">Erst aufschieben</button>
+    <button type="button" class="inst-btn" id="instC" data-m="c" aria-pressed="false">Erst bei Schaden</button>
+  </div>
+  <p class="inst-desc" id="instDesc"></p>
+  <div class="inst-panel" id="instPanel">
+    <div id="instNets"></div>
+    <div class="inst-time">
+      <label>Jahr <input type="range" id="instJahr" min="0" max="40" step="1" value="0"></label>
+      <span class="inst-year" id="instYearOut">0</span>
+      <button type="button" class="inst-btn" id="instPlay" aria-pressed="false">Zeitraffer</button>
+    </div>
+  </div>
+  <div class="inst-legend"><span><i style="background:#8FD9A8"></i>in Ordnung</span><span><i style="background:#F2C46B"></i>fast am Ende</span><span><i style="background:repeating-linear-gradient(135deg,#FF8A65 0 3px,#2A1814 3px 6px)"></i>überfällig, ausgefallen</span></div>
+  <p class="inst-status" id="instStatus" aria-live="polite"></p>
+  <p class="inst-link sans">Eine Zelle macht das ohne Plan: Ihre Teile werden ständig abgebaut und neu gebaut. Wie das aufgeräumt wird, steht bei <a href="zelle.html#ausfall">Fällt eine Stelle aus, merkt es der Rest</a>.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer. In Zellen läuft der Umbau ständig, ohne Plan und ohne Kasse: Eiweiße werden nach Minuten bis Monaten abgebaut und neu gebaut.</p><p>Echte Netze bestehen aus Millionen Teilen und werden nach Zustand und Risiko erneuert, nicht strikt nach Alter. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt, es sind keine Angaben zu Düsseldorfer Netzen.</p><p class="hinkt-frage">Wer entscheidet, welches Rohr zuerst dran ist?</p></div></details>
+  <p class="belong-note sans">Zugespitzt dargestellt: Zwanzig Abschnitte je Netz, feste Lebensdauer, erneuert wird immer das älteste Stück.</p>
 </section>
 
 <section class="now" id="now">
@@ -4561,6 +4617,117 @@ setTimeout(() => {
   document.getElementById('stoerH').addEventListener('click', function () { setMode('hours'); });
   document.getElementById('stoerD').addEventListener('click', function () { setMode('days'); });
   run();
+})();
+</script>
+<script>
+// --- Wer hält es instand: Alterung und Erneuerung ---
+(function () {
+  'use strict';
+  var nets = document.getElementById('instNets');
+  if (!nets) return;
+  var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  // Beispiele mit frei gewählten Lebensdauern, keine Angaben zu echten Netzen
+  var NET = [
+    { id: 'rohre', n: 'Rohre', eg: 'Wasser und Abwasser', life: 60 },
+    { id: 'gleise', n: 'Gleise', eg: 'Straßenbahn und Bahn', life: 30 },
+    { id: 'kabel', n: 'Kabel', eg: 'Strom und Glasfaser', life: 40 }
+  ];
+  var N = 20, YEARS = 40, ALT = 0.85;
+  var DESC = {
+    a: 'Jedes Jahr wird das älteste Stück ersetzt, etwas mehr, als nachaltert. Das kostet jedes Jahr ein bisschen.',
+    b: 'Fünfzehn Jahre passiert nichts, dann wird mit doppeltem Tempo nachgeholt. Es spart erst Geld und holt es später doppelt ein.',
+    c: 'Erneuert wird erst, wenn ein Abschnitt ausgefallen ist. Das spart Planung, aber jeder Ausfall trifft jemanden.'
+  };
+  var mode = 'a', year = 0, hist = [], timer = 0;
+
+  function simulate(m) {
+    var st = NET.map(function (n) {
+      var ages = []; for (var i = 0; i < N; i++) ages.push(Math.round(i * n.life * 0.9 / (N - 1)));
+      return { ages: ages, acc: 0, aus: 0, ern: 0 };
+    });
+    var out = [];
+    function snap() {
+      out.push(st.map(function (s, k) {
+        var life = NET[k].life, ok = 0, alt = 0, def = 0, cells = [];
+        s.ages.forEach(function (a) {
+          var c = a > life ? 'def' : (a > life * ALT ? 'alt' : 'ok');
+          cells.push(c); if (c === 'def') def++; else if (c === 'alt') alt++; else ok++;
+        });
+        return { cells: cells, ok: ok, alt: alt, def: def, aus: s.aus, ern: s.ern };
+      }));
+    }
+    snap();
+    for (var y = 1; y <= YEARS; y++) {
+      st.forEach(function (s, k) {
+        var life = NET[k].life, rate = N / life, i;
+        for (i = 0; i < N; i++) { s.ages[i]++; if (s.ages[i] === life + 1) s.aus++; }
+        function renewOldest() {
+          var j = 0; for (i = 1; i < N; i++) if (s.ages[i] > s.ages[j]) j = i;
+          s.ages[j] = 0; s.ern++;
+        }
+        if (m === 'c') { for (i = 0; i < N; i++) if (s.ages[i] > life) { s.ages[i] = 0; s.ern++; } }
+        else if (m === 'a' || y > 15) { s.acc += (m === 'a' ? 1.1 * rate : 2 * rate); while (s.acc >= 1) { renewOldest(); s.acc -= 1; } }
+      });
+      snap();
+    }
+    return out;
+  }
+  function build() {
+    NET.forEach(function (n) {
+      var d = document.createElement('div');
+      d.className = 'inst-net'; d.id = 'instN-' + n.id;
+      var cells = ''; for (var i = 0; i < N; i++) cells += '<span class="inst-cell" data-s="ok"></span>';
+      d.innerHTML = '<h3>' + n.n + '</h3><p class="inst-eg">' + n.eg + ', Lebensdauer ' + n.life + ' Jahre (Beispiel)</p><div class="inst-cells">' + cells + '</div><p class="inst-count"></p>';
+      nets.appendChild(d);
+    });
+  }
+  function paint() {
+    var h = hist[year], tot = { def: 0, alt: 0, aus: 0, ern: 0 };
+    NET.forEach(function (n, k) {
+      var d = h[k], root = document.getElementById('instN-' + n.id), cells = root.querySelectorAll('.inst-cell');
+      d.cells.forEach(function (c, i) { if (cells[i].getAttribute('data-s') !== c) cells[i].setAttribute('data-s', c); });
+      root.querySelector('.inst-count').textContent = 'in Ordnung ' + d.ok + ', fast am Ende ' + d.alt + ', überfällig ' + d.def + ' von ' + N;
+      tot.def += d.def; tot.alt += d.alt; tot.aus += d.aus; tot.ern += d.ern;
+    });
+    document.getElementById('instYearOut').textContent = year === 0 ? 'heute' : 'Jahr ' + year;
+    document.getElementById('instJahr').setAttribute('aria-valuetext', year === 0 ? 'heute' : 'Jahr ' + year);
+    document.getElementById('instPanel').setAttribute('data-inst', [year, tot.def, tot.alt, tot.aus, tot.ern].join('|'));
+    return tot;
+  }
+  var lastSay = 0, shown = '';
+  function say(tot, force) {
+    var t = year === 0 ? 'Heute ist alles in Betrieb. Die Abschnitte sind unterschiedlich alt.' :
+      (tot.def ? tot.def + ' Abschnitte sind überfällig. ' : 'Nichts ist überfällig. ') + tot.alt + ' sind fast am Ende. Bisher gab es ' + tot.aus + ' Ausfälle, und ' + tot.ern + ' Abschnitte wurden erneuert.';
+    if (t === shown) return;
+    var now = Date.now();
+    if (!force && now - lastSay < 1500) return;
+    shown = t; lastSay = now;
+    document.getElementById('instStatus').textContent = t;
+  }
+  function setMode(m) {
+    mode = m;
+    ['a', 'b', 'c'].forEach(function (x) { document.getElementById('inst' + x.toUpperCase()).setAttribute('aria-pressed', x === m ? 'true' : 'false'); });
+    document.getElementById('instDesc').textContent = DESC[m];
+    hist = simulate(m);
+    say(paint(), true);
+  }
+  function stop() {
+    if (timer) { clearInterval(timer); timer = 0; }
+    var p = document.getElementById('instPlay'); p.setAttribute('aria-pressed', 'false'); p.textContent = 'Zeitraffer';
+  }
+  function setYear(y) { year = Math.max(0, Math.min(YEARS, y)); document.getElementById('instJahr').value = year; say(paint(), false); }
+  build();
+  document.getElementById('instSeg').addEventListener('click', function (e) { var b = e.target.closest('button[data-m]'); if (b) setMode(b.getAttribute('data-m')); });
+  document.getElementById('instJahr').addEventListener('input', function () { stop(); year = parseInt(this.value, 10) || 0; say(paint(), true); });
+  var play = document.getElementById('instPlay');
+  if (reduce) play.hidden = true;
+  play.addEventListener('click', function () {
+    if (timer) { stop(); return; }
+    if (year >= YEARS) setYear(0);
+    play.setAttribute('aria-pressed', 'true'); play.textContent = 'Anhalten';
+    timer = setInterval(function () { setYear(year + 1); if (year >= YEARS) { stop(); say(paint(), true); } }, 350);
+  });
+  setMode('a');
 })();
 </script>
 <style>

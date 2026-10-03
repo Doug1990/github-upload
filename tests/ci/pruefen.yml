@@ -40,6 +40,8 @@ jobs:
         run: node tests/immun.mjs
       - name: Ausfall in der Stadt prüfen
         run: node tests/stoerung.mjs
+      - name: Instandhaltung prüfen
+        run: node tests/instand.mjs
       - name: Screenshots bei Fehler sichern
         if: failure()
         uses: actions/upload-artifact@v4
