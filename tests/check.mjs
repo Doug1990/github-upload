@@ -2,7 +2,8 @@
 // Aufruf: node tests/check.mjs [--screens=<ordner>] [--chrome=<pfad>]
 // Keine Abhängigkeiten, nur Node 22 (eingebauter WebSocket) und ein lokales Chrome.
 // Fehler (Exit-Code 1): Konsolenfehler, Ausnahmen, fehlgeschlagene Requests, horizontaler Überlauf,
-// tote interne Links und Anker. Warnungen (Exit-Code 0): Tippflächen unter 44 px bei schmaler Breite.
+// tote interne Links und Anker, fehlender title, fehlende Beschreibung, falsches oder fehlendes canonical, og:title ohne og:image,
+// ungültiges JSON-LD, tote Adressen in der sitemap.xml. Warnungen (Exit-Code 0): Tippflächen unter 44 px bei schmaler Breite.
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -96,18 +97,38 @@ for (const page of pages) {
   }
 }
 
-// Meta-Angaben: Beschreibung für alle Seiten, og:image muss lokal existieren (Pages-URL auf lokalen Server abgebildet)
+// Meta-Angaben je Seite: title, Beschreibung, canonical (muss auf die eigene Pages-Adresse zeigen), og:image (lokal vorhanden,
+// Pflicht bei Seiten mit og:title), dazu Gedankenstriche im sichtbaren Text. Die Pages-URL wird auf den lokalen Server abgebildet.
 const PAGES_URL = 'https://doug1990.github.io/github-upload/';
 for (const page of pages) {
   await send('Page.navigate', { url: `${BASE}/${page}` }); await sleep(600);
-  const meta = await ev(`({d:document.querySelector('meta[name=description]')?.content||'',img:document.querySelector('meta[property="og:image"]')?.content||'',t:document.title})`);
-  if (!meta.d) warn(page, '-', 'keine Meta-Beschreibung');
+  const meta = await ev(`({d:document.querySelector('meta[name=description]')?.content||'',img:document.querySelector('meta[property="og:image"]')?.content||'',ogt:!!document.querySelector('meta[property="og:title"]'),can:[...document.querySelectorAll('link[rel=canonical]')].map(l=>l.href),t:document.title.trim(),ld:[...document.querySelectorAll('script[type="application/ld+json"]')].map(s=>s.textContent),txt:document.body.innerText})`);
+  if (!meta.t) err(page, '-', 'kein title');
+  if (!meta.d) err(page, '-', 'keine Meta-Beschreibung');
+  else if (meta.d.length > 200) warn(page, '-', `Meta-Beschreibung mit ${meta.d.length} Zeichen (Suchmaschinen kürzen ab etwa 160)`);
+  const soll = PAGES_URL + (page === 'index.html' ? '' : page);
+  if (meta.can.length !== 1) err(page, '-', `canonical: ${meta.can.length} Angaben, erwartet genau eine`);
+  else if (meta.can[0] !== soll) err(page, '-', `canonical zeigt auf ${meta.can[0]}, erwartet ${soll}`);
+  if (meta.ogt && !meta.img) err(page, '-', 'og:title ohne og:image');
+  for (const j of meta.ld) { try { JSON.parse(j); } catch { err(page, '-', 'JSON-LD ist kein gültiges JSON'); } }
   if (meta.img) {
     const local = meta.img.startsWith(PAGES_URL) ? meta.img.slice(PAGES_URL.length) : null;
     if (!local) err(page, '-', 'og:image zeigt nicht auf die Pages-Adresse: ' + meta.img);
     else { const r = await fetch(`${BASE}/${local}`); if (r.status !== 200) err(page, '-', `og:image fehlt (${r.status}): ${local}`); else if ((await r.arrayBuffer()).byteLength > 300000) warn(page, '-', 'og:image größer als 300 KB: ' + local); }
   }
+  const strich = meta.txt.match(/[^\n]{0,24}[\u2014\u2013][^\n]{0,24}/g) || [];
+  for (const z of strich.slice(0, 3)) warn(page, '-', 'Gedankenstrich im sichtbaren Text: "' + z.trim() + '"');
 }
+
+// sitemap.xml und robots.txt: jede gelistete Adresse muss auf eine vorhandene Seite zeigen
+if (fs.existsSync(path.join(ROOT, 'sitemap.xml'))) {
+  const sm = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
+  for (const [, u] of sm.matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    const f = u.startsWith(PAGES_URL) ? (u.slice(PAGES_URL.length) || 'index.html') : null;
+    if (!f || !fs.existsSync(path.join(ROOT, f))) errors.push(`sitemap.xml: ${u} zeigt auf keine vorhandene Seite`);
+  }
+} else warnings.push('sitemap.xml fehlt');
+if (!fs.existsSync(path.join(ROOT, 'robots.txt'))) warnings.push('robots.txt fehlt');
 
 ws.close(); chrome.kill(); server.close();
 try { fs.rmSync(profile, { recursive: true, force: true }); } catch {}
