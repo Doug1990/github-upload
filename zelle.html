@@ -473,6 +473,76 @@
     .sig-svg .sig-vflow { animation: none; }
   }
 
+  /* Immunsystem als Stadtwache (.imm), Zwilling der Signale */
+  .imm-bar { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 16px; margin: 0 auto 14px; }
+  .imm-seg { display: flex; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
+  .imm-seg button { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 7px 18px; background: transparent; color: var(--muted); border: none; cursor: pointer; min-height: 44px; }
+  .imm-seg button[aria-pressed="true"] { background: rgba(var(--accent-rgb),0.16); color: var(--accent); }
+  .imm-panel svg { touch-action: manipulation; }
+  .imm-svg .imm-fx { transition: opacity 0.5s ease, transform 0.8s cubic-bezier(.5,0,.2,1); }
+  .imm-svg .imm-out { fill: #0E1714; }
+  .imm-svg.city .imm-out { fill: #17140C; }
+  .imm-svg .imm-grid { opacity: 0; transition: opacity 0.8s ease; }
+  .imm-svg.city .imm-grid { opacity: 0.1; }
+  .imm-svg .imm-wall { fill: none; stroke: #B5574A; stroke-width: 14; stroke-linecap: round; opacity: 0.75; transition: stroke 0.6s ease; }
+  .imm-svg.city .imm-wall { stroke: #8A7F62; stroke-dasharray: 16 3; stroke-linecap: butt; }
+  .imm-svg .imm-scar { fill: none; stroke: #E8B56A; stroke-width: 6; stroke-dasharray: 3 4; }
+  .imm-svg .imm-bug path { fill: #FF8A65; stroke: #FFD0BF; stroke-width: 1; }
+  .imm-svg .imm-own .b { fill: url(#immCellG); stroke: #3C9E78; stroke-width: 1.6; transition: fill 0.6s ease, stroke 0.6s ease, opacity 0.5s ease; }
+  .imm-svg .imm-own .n { fill: #2D3A6E; opacity: 0.85; transition: fill 0.6s ease; }
+  .imm-svg.city .imm-own .b { fill: url(#immCellC); stroke: #B88A3A; }
+  .imm-svg.city .imm-own .n { fill: #7A5E2A; }
+  .imm-svg .imm-own.hurt .b { opacity: 0.45; }
+  .imm-svg .imm-mac { fill: #1E3A4A; stroke: #4FC3D9; stroke-width: 2; transition: fill 0.6s ease; }
+  .imm-svg.city .imm-mac { fill: #23303A; }
+  .imm-svg .imm-ring { fill: none; stroke: #FF8A65; stroke-width: 2; stroke-dasharray: 5 4; }
+  .imm-svg .imm-bang { font-family: 'IBM Plex Sans', sans-serif; font-weight: 700; font-size: 16px; fill: #FF8A65; }
+  .imm-svg .imm-msg { fill: #F2C46B; stroke: #FFE9A8; stroke-width: 0.8; }
+  .imm-svg .imm-msgpath { fill: none; stroke: #F2C46B; stroke-width: 1.2; stroke-dasharray: 2 6; opacity: 0.5; }
+  .imm-svg .imm-ab { fill: none; stroke: #F2C46B; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .imm-svg .imm-node { fill: #18222E; stroke: #6E8DB0; stroke-width: 1.6; }
+  .imm-svg.city .imm-node { fill: #241F14; stroke: #B88A3A; }
+  .imm-svg .imm-ly { fill: #2A3346; stroke: #8E98AC; stroke-width: 1.2; }
+  .imm-svg .imm-ly.hit { fill: #4FC3D9; stroke: #D5F6FF; }
+  .imm-svg .imm-star { fill: #E8E6E0; stroke: #0A1310; stroke-width: 1; }
+  .imm-svg .imm-x { fill: none; stroke: #FF8A65; stroke-width: 3; stroke-linecap: round; }
+  .imm-svg .imm-heat { fill: #FF8A65; }
+  .imm-lbl text { font-family: 'IBM Plex Sans', sans-serif; fill: #E4ECE6; }
+  .imm-lbl rect { fill: rgba(10,19,16,0.82); stroke: #3A4A42; }
+  .imm-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; color: var(--muted); }
+  .imm-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .imm-legend svg { width: 18px; height: 18px; flex: none; display: inline-block; }
+  .imm-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 14px; }
+  .imm-step { font-family: 'IBM Plex Sans', sans-serif; min-height: 48px; padding: 6px 4px; border-radius: 12px; border: 1px solid #3A4A42; background: transparent; color: var(--muted); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; line-height: 1.2; }
+  .imm-step b { font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .imm-step span { font-size: 11.5px; }
+  .imm-step:hover { border-color: var(--accent); color: var(--accent); }
+  .imm-step.done { border-color: rgba(var(--accent-rgb),0.45); color: var(--ink); }
+  .imm-step[aria-current="step"] { background: rgba(var(--accent-rgb),0.16); border-color: var(--accent); color: var(--accent); }
+  .imm-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .imm-btns .btn { min-height: 44px; padding: 8px 16px; }
+  .imm-btns .btn[disabled] { opacity: 0.4; cursor: default; border-color: #3A4A42; color: var(--ink); }
+  .imm-btns .primary { border-color: var(--accent); color: var(--accent); }
+  #immPanel .stat span { font-size: 17px; }
+  .imm-head { margin: 18px 0 8px; }
+  .imm-head small { display: block; font-family: 'IBM Plex Sans', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); margin-bottom: 3px; }
+  .imm-head h3 { margin: 0; font-weight: 500; font-size: 21px; }
+  .imm-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: #C7CAD6; }
+  .imm-cols .col { background: rgba(255,255,255,0.03); border-radius: 10px; padding: 11px 13px; border-left: 3px solid var(--accent); }
+  .imm-cols .col.city { border-left-color: var(--gold); }
+  .imm-cols .col b { display: block; font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 3px; }
+  .imm-cols .aha { grid-column: 1 / -1; color: var(--gold); font-size: 13.5px; margin: 0; }
+  @media (max-width: 640px) {
+    .imm-cols { grid-template-columns: 1fr; }
+    .imm-step span { display: none; }
+    .imm-step b { font-size: 17px; }
+    #immPanel .stat { padding: 9px 9px; }
+    #immPanel .stat span { font-size: 15px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .imm-svg *, .imm-step { transition: none !important; }
+  }
+
   /* Bauamt (.bau) */
   .bau-seg { display: flex; justify-content: center; margin: 0 auto 14px; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
   .bau-seg button { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; padding: 7px 18px; background: transparent; color: var(--muted); border: none; cursor: pointer; min-height: 36px; }
@@ -923,6 +993,7 @@
     <li><a href="#regulation"><b>Gleiches Archiv, andere Akten</b>Fast jede Zelle hat dieselbe DNA, liest aber je nach Zelltyp und Lage andere Gene und je nach Signal mal mehr, mal weniger. Stark vereinfacht.</a></li>
     <li><a href="#teilung"><b>Eine Stadt gründet eine zweite</b>Eine Zelle kopiert erst den Bauplan, verdoppelt die Infrastruktur, sortiert und zieht zuletzt eine Grenze. Stark vereinfacht.</a></li>
     <li><a href="#bauamt"><b>Geprüft wird vor dem Bau</b>Vor der Teilung prüft die Zelle an drei Kontrollpunkten Größe, Kopie und Spindel. Ein Bauamt gibt es dafür nicht, Eiweiße prüfen sich gegenseitig. Stark vereinfacht.</a></li>
+    <li><a href="#immun"><b>Eine Stadtwache ohne Wachstube</b>Die Abwehr ist über den Körper verteilt und hat keine Zentrale. Sie hält Eindringlinge draußen, schlägt Alarm, ruft Verstärkung und merkt sich Erreger, und sie kann sich auch gegen Eigenes richten. Stark vereinfacht und kein medizinischer Rat.</a></li>
     <li><a href="#fragen"><b>Drei Fragen zum Schluss</b>Was fällt aus, wer entscheidet, was hat das mit Düsseldorf zu tun? Kurze, vereinfachte Antworten mit Sprung zurück in den Abschnitt.</a></li>
   </ol>
 </aside>
@@ -1644,6 +1715,48 @@
   </div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Signale</span></summary><div class="hinkt-body"><p>Ein Brief hat einen Absender, eine Adresse und einen, der ihn liest und versteht. Ein Hormon wird an niemanden adressiert, es treibt im Blut an alle, und nur Zellen mit dem passenden Rezeptor reagieren.</p><p>Die Zelle versteht dabei nichts. Sie reagiert.</p><p class="hinkt-frage">Wer liest hier eigentlich, und wer hat die Nachricht gewollt?</p></div></details>
   <p class="note">Stark vereinfacht: Der Körper kennt viel mehr Signalwege, und sie überlappen. Manche Botenstoffe wirken im Blut, andere nur auf Nachbarzellen, und derselbe Stoff ist in einem Nerv ein Überträger und im Blut ein Hormon. Hier sind es vier Empfänger und ein Rezeptortyp. Auch die Zeiten stimmen nicht: Ein Hormon braucht in echt Sekunden bis Minuten, ein Nervenimpuls wenige Millisekunden. Die Animation zieht beides zusammen und dehnt den Nerv, damit man ihn sehen kann.</p>
+</section>
+
+<!-- 6b. Immunsystem als Stadtwache, Zwilling der Signale -->
+<section class="sec reveal" id="immun">
+  <h2>Eine Stadtwache ohne Wachstube.</h2>
+  <p class="lead">Der Körper hat keine Zentrale für seine Abwehr, und trotzdem fällt auf, wenn etwas eindringt. Die Abwehrzellen sind über den ganzen Körper verteilt und reagieren auf Signale in ihrer Nähe. Geh die fünf Schritte durch, einmal mit einem Eindringling und einmal mit einem Fehlalarm gegen Eigenes. Der Schalter wechselt wieder zwischen Biologie und Stadt.</p>
+  <div class="imm-bar">
+    <div class="imm-seg" role="group" aria-label="Fall zum Ausprobieren">
+      <button type="button" id="immCaseIn" aria-pressed="true">Eindringling</button>
+      <button type="button" id="immCaseSelf" aria-pressed="false">Fehlalarm gegen Eigenes</button>
+    </div>
+    <div class="imm-seg" role="group" aria-label="Ansicht der Abwehr">
+      <button type="button" id="immViewBio" aria-pressed="true">Körper</button>
+      <button type="button" id="immViewCity" aria-pressed="false">Stadt</button>
+    </div>
+  </div>
+  <div class="panel imm-panel" id="immPanel" data-case="in" data-step="1">
+    <svg id="immSvg" class="imm-svg" viewBox="0 0 640 320" role="img" aria-labelledby="immSvgT">
+      <title id="immSvgT">Schema: Links liegt außen, dann die Barriere aus Haut und Schleim, rechts davon Gewebe mit eigenen Zellen, eine Fresszelle und ganz rechts ein Lymphknoten. Je nach Schritt sind Eindringlinge, Botenstoffe, Antikörper, eine Gedächtniszelle und Schäden an eigenen Zellen zu sehen. Was gerade passiert, steht im Text unter dem Bild.</title>
+    </svg>
+    <div class="imm-legend" id="immLegend"></div>
+    <div class="stats" aria-live="off">
+      <div class="stat"><small>Schritt</small><span id="immStepN">1 von 5</span></div>
+      <div class="stat"><small>Ziel</small><span id="immTarget">&nbsp;</span></div>
+      <div class="stat"><small>Lage</small><span id="immState">&nbsp;</span></div>
+    </div>
+    <div class="imm-steps" id="immSteps" role="group" aria-label="Schritte der Abwehr, auch mit den Pfeiltasten wählbar"></div>
+    <div class="imm-btns">
+      <button type="button" class="btn" id="immBack" disabled>&larr; Zurück</button>
+      <button type="button" class="btn primary" id="immNext">Weiter &rarr;</button>
+      <button type="button" class="btn" id="immReset">Neu beginnen</button>
+    </div>
+    <p class="status" id="immStatus" aria-live="polite"></p>
+  </div>
+  <div class="imm-head" aria-live="polite"><small id="immEyebrow"></small><h3 id="immTitle"></h3></div>
+  <div class="imm-cols">
+    <div class="col"><b>Im Körper</b><span id="immCell"></span></div>
+    <div class="col city"><b>In der Stadt</b><span id="immTown"></span></div>
+    <p class="aha" id="immAha"></p>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Stadtwache</span></summary><div class="hinkt-body"><p>Eine Stadtwache hat eine Wachstube, einen Dienstplan und jemanden, der Befehle gibt. Die Abwehr im Körper hat nichts davon. Ihre Zellen sind über Blut, Lymphe und Gewebe verteilt und reagieren auf Botenstoffe in ihrer Nähe, und auch der Lymphknoten ist eher ein Treffpunkt als eine Zentrale.</p><p>Eine Wache wird ausgebildet, bevor sie Dienst tut, und weiß dann, wen sie sucht. Die Spezialeinheiten im Körper entstehen dagegen in riesiger Vielfalt und zum großen Teil zufällig, und erst der Kontakt mit einem Merkmal entscheidet, welche davon sich vermehren. Trainiert wird also erst nach dem Kontakt. Ein Wachmann kann außerdem nachfragen, ob er den Richtigen hat, eine Abwehrzelle prüft nur, ob ein Merkmal passt (darum kann sie auch Eigenes treffen).</p><p class="hinkt-frage">Wer merkt im Körper eigentlich, dass ein Alarm falsch war?</p></div></details>
+  <p class="note">Stark vereinfacht: Das Immunsystem hat viel mehr Zelltypen und Wege, und die Schritte laufen in echt überlappend und gleichzeitig. Viele Eindringlinge erledigt die angeborene Abwehr allein, ohne dass eine Spezialeinheit ausrückt. Der Fehlalarm steht hier für viele verschiedene Autoimmunerkrankungen, die sehr unterschiedlich verlaufen und deren Ursachen oft nur teilweise bekannt sind. Diese Seite gibt keinen Rat zu Impfungen, Therapien oder dazu, wie man die eigene Abwehr beeinflusst. Das gehört in ärztliche Hände.</p>
 </section>
 
 <!-- 4. Fragen zum Schluss -->
@@ -3880,6 +3993,404 @@
   applyStatic(); updateText(); layout(); render(0); ui();
 })();
 
+// ---- Immunsystem als Stadtwache: fünf Schritte, zwei Fälle, Körper und Stadt ----
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg';
+  function q(id) { return document.getElementById(id); }
+  function mk(name, attrs, parent) {
+    var e = document.createElementNS(NS, name);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  var svg = q('immSvg'), panel = q('immPanel');
+  if (!svg || !panel) return;
+
+  // ---- Geometrie (Querformat 640 x 320, Hochformat dreht die Szene um 90 Grad) ----
+  var W = 640, H = 320, N = 5;
+  var WALL_X = 96, GAP = [148, 180];
+  var OUT = [[40, 64], [26, 128], [54, 206], [34, 268]];
+  var I1 = [150, 164], I1_EATEN = [228, 166], I2 = [172, 98], I3 = [180, 236];
+  var MAC = [252, 168], MAC_R = 26;
+  var OWN = [[342, 66], [318, 258], [410, 168], [470, 84], [462, 258]], OWN_R = 20, TARGET = [2, 4];
+  var NODE = [566, 165];
+  var PATH_IN = 'M276,156 C340,112 452,112 512,146', PATH_SELF = 'M432,158 C458,136 488,134 512,150';
+
+  // ---- Zustand ----
+  var cas = 'in', city = false, step = 0, evN = 0, portrait = false, scale = 1;
+
+  // ---- Texte ----
+  var STEP_NAMES = ['Barriere', 'Alarm', 'Meldung', 'Spezialeinheit', 'Entwarnung'];
+  var TXT = {
+    'in': [
+      { title: ['Barriere: Haut und Schleimhäute', 'Die Stadtmauer'],
+        cell: 'Die erste Abwehr sind Haut und Schleimhäute. Sie halten das meiste draußen, und Schleim, Flimmerhärchen und die Säure im Magen erledigen vieles, bevor überhaupt eine Abwehrzelle etwas merkt. Durch eine kleine Wunde kommt hier trotzdem ein Eindringling herein.',
+        town: 'Die Stadtmauer hält die meisten Einbrecher draußen. Durch eine Lücke in der Mauer schlüpft aber einer durch, und noch hat ihn niemand bemerkt.',
+        aha: ['Im Bild: Die meisten Eindringlinge (gezackt) bleiben vor der Barriere, einer ist durch die Lücke gekommen.', 'Im Bild: Die meisten Einbrecher (gezackt) bleiben vor der Mauer, einer ist durch die Lücke gekommen.'],
+        status: ['Barriere: Die meisten Eindringlinge bleiben draußen, einer ist durch eine Wunde gekommen.', 'Mauer: Die meisten Einbrecher bleiben draußen, einer ist durch eine Lücke gekommen.'],
+        target: ['noch keins', 'noch keins'], state: 'Noch ruhig' },
+      { title: ['Alarm: Eine Fresszelle erkennt den Eindringling', 'Eine Streife bemerkt den Einbrecher'],
+        cell: 'Fresszellen sitzen verteilt im Gewebe und erkennen typische Muster auf Bakterien und anderen Fremdlingen (z.B. Bestandteile ihrer Hülle). Sie schlucken, was sie erwischen, und geben dabei Alarm. Eine Zentrale fragen sie vorher nicht, sie reagieren einfach auf das, was vor Ort passt.',
+        town: 'Eine Streife, die gerade in der Nähe ist, erkennt den Einbrecher an Kleidung und Werkzeug und hält ihn fest. Gemeldet wird erst danach, eine Anweisung von oben braucht sie dafür nicht.',
+        aha: ['Im Bild: Die Fresszelle hat den Eindringling geschluckt, der gestrichelte Ring zeigt den Alarm.', 'Im Bild: Die Streife hat den Einbrecher geschnappt, der gestrichelte Ring zeigt den Alarm.'],
+        status: ['Alarm: Eine Fresszelle hat den Eindringling erkannt und schluckt ihn.', 'Alarm: Eine Streife hat den Einbrecher erkannt und hält ihn fest.'],
+        target: ['Eindringling', 'Einbrecher'], state: 'Alarm' },
+      { title: ['Meldung: Botenstoffe rufen Verstärkung', 'Funkspruch und Fahndungsfoto'],
+        cell: 'Fresszellen und Gewebe geben Botenstoffe ab. Die Stelle wird stärker durchblutet, sie wird warm, rot und schwillt an (das ist die Entzündung), und weitere Abwehrzellen wandern dorthin. Einzelne Zellen tragen Bruchstücke des Eindringlings zum nächsten Lymphknoten. Die Eindringlinge vermehren sich derweil.',
+        town: 'Die Streife ruft per Funk Verstärkung, und die Straße wird abgesperrt. Ein Bote bringt ein Fahndungsfoto zum Treffpunkt der Wache, während drinnen schon weitere Einbrecher unterwegs sind.',
+        aha: ['Im Bild: Botenstoffe (Rauten) ziehen zum Lymphknoten, die Entzündung leuchtet rötlich, und drinnen sind es mehr Eindringlinge geworden.', 'Im Bild: Funksprüche (Rauten) gehen zum Treffpunkt, die Absperrung leuchtet rötlich, und drinnen sind es mehr Einbrecher geworden.'],
+        status: ['Meldung: Botenstoffe rufen Verstärkung, die Stelle entzündet sich.', 'Meldung: Funk ruft Verstärkung, die Straße ist abgesperrt.'],
+        target: ['Eindringling', 'Einbrecher'], state: 'Alarm' },
+      { title: ['Spezialeinheit: Antikörper und Gedächtnis', 'Die passende Einheit rückt aus'],
+        cell: 'Im Lymphknoten treffen die Bruchstücke auf sehr viele verschiedene T- und B-Zellen. Nur die wenigen, die genau dieses Merkmal erkennen, vermehren sich. B-Zellen bilden Antikörper, die am Eindringling haften und ihn für die Fresszellen markieren, T-Zellen helfen dabei oder greifen befallene Zellen direkt an. Beim ersten Kontakt dauert das einige Tage, und ein Teil bleibt danach als Gedächtniszellen übrig.',
+        town: 'Am Treffpunkt sehen sich viele Einheiten das Fahndungsfoto an, und nur die passende rückt aus. Sie markiert die Einbrecher so, dass die Streife sie leicht findet. Ein paar aus der Einheit behalten das Foto im Kopf.',
+        aha: ['Im Bild: Antikörper (Y) haften an den Eindringlingen, im Lymphknoten haben sich die passenden Zellen vermehrt, und eine Gedächtniszelle (Stern) bleibt.', 'Im Bild: Markierungen (Y) hängen an den Einbrechern, am Treffpunkt ist die passende Einheit größer geworden, und einer behält das Foto (Stern).'],
+        status: ['Spezialeinheit: Antikörper markieren die Eindringlinge, Gedächtniszellen entstehen.', 'Spezialeinheit: Die Einbrecher sind markiert, ein paar Wachleute merken sich das Foto.'],
+        target: ['Eindringling', 'Einbrecher'], state: 'Alarm' },
+      { title: ['Aufräumen und Entwarnung', 'Die Absperrung wird aufgehoben'],
+        cell: 'Sind die Eindringlinge beseitigt, fehlt der Reiz für neuen Alarm. Bremsende Botenstoffe und Zellen fahren die Entzündung herunter, Fresszellen räumen Reste weg, und das Gewebe wird repariert. Die Gedächtniszellen bleiben, und beim nächsten Kontakt mit demselben Erreger geht es meist schneller.',
+        town: 'Die Einbrecher sind gefasst, die Absperrung wird aufgehoben, und die Stadtreinigung kehrt die Straße. Wer das Fahndungsfoto kennt, bleibt in der Stadt und erkennt den Einbrecher beim nächsten Mal früher.',
+        aha: ['Im Bild: Die Eindringlinge sind weg, die Wunde ist geschlossen (gestrichelte Narbe), und nur die Gedächtniszelle (Stern) bleibt.', 'Im Bild: Die Einbrecher sind weg, die Lücke ist geflickt (gestrichelt), und nur der Wachmann mit dem Foto (Stern) bleibt.'],
+        status: ['Entwarnung: Die Eindringlinge sind beseitigt, und die Entzündung klingt ab.', 'Entwarnung: Die Einbrecher sind gefasst, und die Absperrung ist aufgehoben.'],
+        target: ['keins mehr', 'keiner mehr'], state: 'Entwarnung' }
+    ],
+    self: [
+      { title: ['Barriere: Von außen kommt diesmal nichts', 'Die Mauer ist dicht'],
+        cell: 'Diesmal kommt nichts von außen, die Barriere hält. Ärger kann es trotzdem geben, weil sich die Abwehr gegen ein Merkmal richten kann, das der Körper selbst trägt.',
+        town: 'Die Mauer ist dicht und kein Einbrecher in Sicht. Der Ärger beginnt diesmal in der Stadt selbst.',
+        aha: ['Im Bild: Die Barriere ist dicht, und es ist kein Eindringling zu sehen.', 'Im Bild: Die Mauer ist dicht, und es ist kein Einbrecher zu sehen.'],
+        status: ['Barriere: Es kommt nichts von außen.', 'Mauer: Kein Einbrecher in Sicht.'],
+        target: ['noch keins', 'noch keins'], state: 'Ruhig' },
+      { title: ['Fehlalarm: Ein eigenes Merkmal gilt als fremd', 'Ein Nachbar wird für einen Einbrecher gehalten'],
+        cell: 'Abwehrzellen, die stark auf Eigenes reagieren, werden bei ihrer Reifung meist aussortiert oder später gebremst. Das klappt nicht immer vollständig. Hier hält die Abwehr ein Merkmal eigener Zellen für fremd. Warum das passiert, ist oft nur teilweise geklärt (Erbanlagen, Infekte und Umwelt spielen wohl zusammen).',
+        town: 'Eine Streife hält einen Nachbarn für einen Einbrecher, weil er einem Fahndungsfoto ähnlich sieht. Nachfragen kann sie nicht, sie prüft nur, ob das Merkmal passt.',
+        aha: ['Im Bild: Eine eigene Zelle ist fälschlich markiert (gestrichelter Ring mit Ausrufezeichen).', 'Im Bild: Ein eigenes Haus ist fälschlich markiert (gestrichelter Ring mit Ausrufezeichen).'],
+        status: ['Fehlalarm: Ein Merkmal eigener Zellen wird für fremd gehalten.', 'Fehlalarm: Ein Nachbar wird für einen Einbrecher gehalten.'],
+        target: ['Eigene Zellen', 'Eigene Häuser'], state: 'Fehlalarm' },
+      { title: ['Meldung: Der Alarm läuft wie immer', 'Funkspruch ohne Einbrecher'],
+        cell: 'Die Meldung läuft genauso wie bei einem echten Eindringling. Botenstoffe locken weitere Abwehrzellen an, und die Stelle entzündet sich, obwohl es nichts Fremdes zu bekämpfen gibt.',
+        town: 'Der Funkspruch klingt wie immer, Verstärkung rückt an, und die Straße wird abgesperrt, obwohl es gar keinen Einbrecher gibt.',
+        aha: ['Im Bild: Botenstoffe (Rauten) laufen wie bei einem echten Alarm zum Lymphknoten, und die Stelle leuchtet rötlich.', 'Im Bild: Funksprüche (Rauten) gehen wie bei einem echten Alarm zum Treffpunkt, und die Straße leuchtet rötlich.'],
+        status: ['Meldung: Botenstoffe rufen Verstärkung, obwohl es keinen Eindringling gibt.', 'Meldung: Funk ruft Verstärkung, obwohl es keinen Einbrecher gibt.'],
+        target: ['Eigene Zellen', 'Eigene Häuser'], state: 'Fehlalarm' },
+      { title: ['Spezialeinheit gegen Eigenes', 'Die Einheit rückt gegen die eigenen Häuser aus'],
+        cell: 'Spezialeinheiten, die das eigene Merkmal erkennen, vermehren sich. Antikörper oder T-Zellen greifen eigene Zellen an, und auch dafür entsteht ein Gedächtnis.',
+        town: 'Die Spezialeinheit rückt mit dem falschen Foto aus und nimmt sich Häuser der eigenen Stadt vor. Das Foto bleibt im Gedächtnis.',
+        aha: ['Im Bild: Antikörper (Y) haften an eigenen Zellen, und im Lymphknoten bleibt eine Gedächtniszelle (Stern).', 'Im Bild: Markierungen (Y) hängen an eigenen Häusern, und am Treffpunkt behält einer das falsche Foto (Stern).'],
+        status: ['Spezialeinheit: Antikörper haften an eigenen Zellen.', 'Spezialeinheit: Eigene Häuser sind markiert.'],
+        target: ['Eigene Zellen', 'Eigene Häuser'], state: 'Fehlalarm' },
+      { title: ['Die Entwarnung bleibt aus', 'Die Absperrung bleibt'],
+        cell: 'Es gibt keinen Eindringling, der verschwinden könnte, und das eigene Merkmal ist immer wieder da. Darum kann der Alarm anhalten oder in Schüben wiederkommen, und Gewebe nimmt Schaden. Solche Autoimmunerkrankungen gibt es viele, sie verlaufen sehr verschieden, und ob und wie behandelt wird, gehört in ärztliche Hände.',
+        town: 'Weil der gesuchte Einbrecher nie gefasst wird (es gibt ihn ja nicht), wird die Absperrung nicht aufgehoben. Die Wache bleibt in Alarm und beschädigt dabei eigene Häuser.',
+        aha: ['Im Bild: Die markierten eigenen Zellen sind beschädigt (Kreuz), und die Botenstoffe laufen weiter.', 'Im Bild: Die markierten Häuser sind beschädigt (Kreuz), und der Funk läuft weiter.'],
+        status: ['Entwarnung bleibt aus: Das eigene Merkmal ist weiter da, also läuft der Alarm weiter, und eigenes Gewebe nimmt Schaden.', 'Entwarnung bleibt aus: Den Einbrecher gibt es nicht, also bleibt die Absperrung, und eigene Häuser nehmen Schaden.'],
+        target: ['Eigene Zellen', 'Eigene Häuser'], state: 'Alarm hält an' }
+    ]
+  };
+
+  // ---- Bauteile der Szene ----
+  var defs = mk('defs', {}, svg);
+  var g1 = mk('radialGradient', { id: 'immCellG', cx: '50%', cy: '45%', r: '65%' }, defs);
+  [['0', '#2A5A44'], ['0.7', '#1B3A2C'], ['1', '#112419']].forEach(function (s) { mk('stop', { offset: s[0], 'stop-color': s[1] }, g1); });
+  var g2 = mk('radialGradient', { id: 'immCellC', cx: '50%', cy: '45%', r: '65%' }, defs);
+  [['0', '#5A4A2A'], ['0.7', '#3A2F1A'], ['1', '#241C10']].forEach(function (s) { mk('stop', { offset: s[0], 'stop-color': s[1] }, g2); });
+  var fl = mk('filter', { id: 'immBlur', x: '-60%', y: '-60%', width: '220%', height: '220%' }, defs);
+  mk('feGaussianBlur', { stdDeviation: 18 }, fl);
+  var pat = mk('pattern', { id: 'immGridP', width: 36, height: 36, patternUnits: 'userSpaceOnUse' }, defs);
+  mk('path', { d: 'M36 0H0V36', fill: 'none', stroke: '#F2C46B', 'stroke-width': 0.8 }, pat);
+
+  var scene = mk('g', {}, svg);
+  mk('rect', { 'class': 'imm-grid', x: WALL_X, y: 0, width: W - WALL_X, height: H, fill: 'url(#immGridP)' }, scene);
+  mk('rect', { 'class': 'imm-out', x: 0, y: 0, width: WALL_X, height: H }, scene);
+
+  function spiky(r) {
+    var d = '', n = 9;
+    for (var i = 0; i < n * 2; i++) {
+      var a = i * Math.PI / n, rr = i % 2 ? r * 0.62 : r;
+      d += (i ? 'L' : 'M') + (rr * Math.cos(a)).toFixed(1) + ',' + (rr * Math.sin(a)).toFixed(1);
+    }
+    return d + 'Z';
+  }
+  function bug(x, y, parent) {
+    var g = mk('g', { 'class': 'imm-bug imm-fx' }, parent);
+    mk('path', { d: spiky(10) }, g);
+    g.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+    return g;
+  }
+  function yShape(parent) { return mk('path', { 'class': 'imm-ab', d: 'M0,9 L0,1 M0,1 L-5,-5 M0,1 L5,-5' }, parent); }
+  function star(cx, cy, r, parent) {
+    var d = '';
+    for (var i = 0; i < 10; i++) { var a = -Math.PI / 2 + i * Math.PI / 5, rr = i % 2 ? r * 0.45 : r; d += (i ? 'L' : 'M') + (cx + rr * Math.cos(a)).toFixed(1) + ',' + (cy + rr * Math.sin(a)).toFixed(1); }
+    return mk('path', { 'class': 'imm-star', d: d + 'Z' }, parent);
+  }
+
+  // Entzündung (weicher, rötlicher Schein)
+  var heatIn = mk('circle', { 'class': 'imm-heat imm-fx', cx: 196, cy: 168, r: 78, filter: 'url(#immBlur)', opacity: 0 }, scene);
+  var heatSelf = mk('circle', { 'class': 'imm-heat imm-fx', cx: 436, cy: 210, r: 70, filter: 'url(#immBlur)', opacity: 0 }, scene);
+
+  // Barriere mit Wunde
+  mk('path', { 'class': 'imm-wall', d: 'M' + WALL_X + ',10 V' + GAP[0] + ' M' + WALL_X + ',' + GAP[1] + ' V' + (H - 10) }, scene);
+  var wallGap = mk('path', { 'class': 'imm-wall imm-fx', d: 'M' + WALL_X + ',' + GAP[0] + ' V' + GAP[1] }, scene);
+  var scar = mk('path', { 'class': 'imm-scar imm-fx', d: 'M' + WALL_X + ',' + (GAP[0] + 2) + ' V' + (GAP[1] - 2), opacity: 0 }, scene);
+
+  // Eindringlinge draußen und drinnen
+  var outBugs = OUT.map(function (p) { return bug(p[0], p[1], scene); });
+
+  // Eigene Zellen
+  var ownEls = OWN.map(function (p) {
+    var g = mk('g', { 'class': 'imm-own' }, scene);
+    mk('circle', { 'class': 'b', cx: p[0], cy: p[1], r: OWN_R }, g);
+    mk('circle', { 'class': 'n', cx: p[0] + 6, cy: p[1] - 4, r: 6 }, g);
+    var x = mk('path', { 'class': 'imm-x imm-fx', d: 'M' + (p[0] - 9) + ',' + (p[1] - 9) + ' L' + (p[0] + 9) + ',' + (p[1] + 9) + ' M' + (p[0] + 9) + ',' + (p[1] - 9) + ' L' + (p[0] - 9) + ',' + (p[1] + 9), opacity: 0 }, g);
+    return { g: g, x: x };
+  });
+
+  // Fresszelle: unregelmäßiger Umriss mit Ausläufer nach links
+  var mac = mk('path', { 'class': 'imm-mac', d: 'M' + (MAC[0] - 34) + ',' + (MAC[1] - 4) + ' C' + (MAC[0] - 30) + ',' + (MAC[1] - 26) + ' ' + (MAC[0] - 6) + ',' + (MAC[1] - 30) + ' ' + (MAC[0] + 10) + ',' + (MAC[1] - 24) + ' C' + (MAC[0] + 30) + ',' + (MAC[1] - 18) + ' ' + (MAC[0] + 30) + ',' + (MAC[1] + 14) + ' ' + (MAC[0] + 16) + ',' + (MAC[1] + 24) + ' C' + (MAC[0] - 2) + ',' + (MAC[1] + 34) + ' ' + (MAC[0] - 24) + ',' + (MAC[1] + 22) + ' ' + (MAC[0] - 22) + ',' + (MAC[1] + 8) + ' C' + (MAC[0] - 28) + ',' + (MAC[1] + 6) + ' ' + (MAC[0] - 38) + ',' + (MAC[1] + 8) + ' ' + (MAC[0] - 34) + ',' + (MAC[1] - 4) + 'Z' }, scene);
+  mk('circle', { cx: MAC[0] + 8, cy: MAC[1] + 2, r: 7, fill: '#2D3A6E', opacity: 0.9 }, scene);
+
+  var inBugs = [bug(I1[0], I1[1], scene), bug(I2[0], I2[1], scene), bug(I3[0], I3[1], scene)];
+
+  // Alarmringe
+  function ring(cx, cy, r) {
+    var g = mk('g', { 'class': 'imm-fx', opacity: 0 }, scene);
+    mk('circle', { 'class': 'imm-ring', cx: cx, cy: cy, r: r }, g);
+    mk('text', { 'class': 'imm-bang', x: cx + r * 0.72, y: cy - r * 0.72, 'text-anchor': 'middle', 'dominant-baseline': 'central' }, g).textContent = '!';
+    return g;
+  }
+  var ringIn = ring(MAC[0] - 6, MAC[1], 44);
+  var ringSelf = ring(OWN[2][0], OWN[2][1], 32);
+
+  // Lymphknoten mit vielen verschiedenen Abwehrzellen
+  mk('ellipse', { 'class': 'imm-node', cx: NODE[0], cy: NODE[1], rx: 54, ry: 76 }, scene);
+  var LY = [[-26, 8], [-6, 2], [16, 6], [32, 22], [-30, 30], [-10, 26], [12, 30], [-18, 50], [4, 52], [24, 46]], lyEls = [];
+  LY.forEach(function (o, i) {
+    var cx = NODE[0] + o[0], cy = NODE[1] + o[1];
+    var c = mk('circle', { 'class': 'imm-ly' + (i === 1 ? ' match' : ''), cx: cx, cy: cy, r: 7 }, scene);
+    var a = i * 0.9;
+    mk('path', { d: 'M' + (cx + 4 * Math.cos(a)).toFixed(1) + ',' + (cy + 4 * Math.sin(a)).toFixed(1) + ' L' + (cx + 9 * Math.cos(a)).toFixed(1) + ',' + (cy + 9 * Math.sin(a)).toFixed(1), stroke: '#8E98AC', 'stroke-width': 1.4 }, scene);
+    lyEls.push(c);
+  });
+  var clones = mk('g', { 'class': 'imm-fx', opacity: 0 }, scene);
+  [[-34, -18], [-14, -24], [8, -22], [28, -14]].forEach(function (o) { mk('circle', { 'class': 'imm-ly hit', cx: NODE[0] + o[0], cy: NODE[1] + o[1] + 34, r: 6 }, clones); });
+  var memo = mk('g', { 'class': 'imm-fx', opacity: 0 }, scene);
+  star(NODE[0] + 34, NODE[1] + 62, 9, memo);
+
+  // Botenstoffe entlang zweier Wege
+  function msgs(d, n) {
+    var g = mk('g', { 'class': 'imm-fx', opacity: 0 }, scene);
+    var p = mk('path', { 'class': 'imm-msgpath', d: d }, g), L = p.getTotalLength();
+    for (var i = 0; i < n; i++) {
+      var pt = p.getPointAtLength(L * (0.12 + 0.8 * i / Math.max(1, n - 1)));
+      mk('rect', { 'class': 'imm-msg', x: -4, y: -4, width: 8, height: 8, transform: 'translate(' + pt.x.toFixed(1) + ' ' + pt.y.toFixed(1) + ') rotate(45)' }, g);
+    }
+    return g;
+  }
+  var msgIn = msgs(PATH_IN, 5), msgSelf = msgs(PATH_SELF, 3);
+
+  // Antikörper an Zielen (Arme zeigen zum Ziel)
+  function abs(targets) {
+    var g = mk('g', { 'class': 'imm-fx', opacity: 0 }, scene);
+    targets.forEach(function (t, j) {
+      [0.6, 2.4, 4.2].forEach(function (a0) {
+        var a = a0 + j * 0.8, x = t[0] + (t[2] + 9) * Math.cos(a), y = t[1] + (t[2] + 9) * Math.sin(a);
+        var deg = (a + Math.PI) * 180 / Math.PI + 90;
+        var y1 = yShape(g); y1.setAttribute('transform', 'translate(' + x.toFixed(1) + ' ' + y.toFixed(1) + ') rotate(' + deg.toFixed(0) + ')');
+      });
+    });
+    return g;
+  }
+  var absIn = abs([[I2[0], I2[1], 10], [I3[0], I3[1], 10]]);
+  var absSelf = abs(TARGET.map(function (k) { return [OWN[k][0], OWN[k][1], OWN_R]; }));
+
+  // Beschriftungen als Pillen (liegen außerhalb der gedrehten Szene)
+  var glbl = mk('g', { 'class': 'imm-lbl', 'pointer-events': 'none' }, svg);
+  // Pillenmitte je Ausrichtung in Bildkoordinaten: L Querformat, P Hochformat (Szene gedreht)
+  var LBL = [
+    { id: 'wall', L: [WALL_X, 296], P: [64, WALL_X] },
+    { id: 'bug', L: [OUT[0][0], OUT[0][1] + 29], P: [H - OUT[0][1], OUT[0][0] + 29] },
+    { id: 'mac', L: [MAC[0], MAC[1] + 49], P: [H - MAC[1], MAC[0] + 49] },
+    { id: 'own', L: [OWN[4][0], OWN[4][1] + 37], P: [H - OWN[4][1], OWN[4][0] + 37] },
+    { id: 'node', L: [NODE[0], NODE[1] + 76], P: [H - NODE[1], NODE[0] + 62] }
+  ];
+  LBL.forEach(function (l) {
+    l.g = mk('g', {}, glbl);
+    l.rect = mk('rect', {}, l.g);
+    l.text = mk('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central' }, l.g);
+  });
+  function lblText(l) {
+    var c = city ? 1 : 0;
+    if (l.id === 'wall') return ['Haut und Schleim', 'Stadtmauer'][c];
+    if (l.id === 'bug') return cas === 'in' ? ['Eindringlinge', 'Einbrecher'][c] : '';
+    if (l.id === 'mac') return ['Fresszelle', 'Streife'][c];
+    if (l.id === 'own') return ['Eigene Zellen', 'Häuser'][c];
+    return ['Lymphknoten', 'Treffpunkt'][c];
+  }
+  function placeLabels() {
+    var fs = 12 / scale, h = fs * 1.75, padX = fs * 0.7, vbW = portrait ? H : W, vbH = portrait ? W : H;
+    LBL.forEach(function (l) {
+      var txt = lblText(l);
+      l.g.setAttribute('display', txt ? '' : 'none');
+      if (!txt) return;
+      l.text.setAttribute('font-size', fs);
+      l.text.textContent = txt;
+      var w = (l.text.getComputedTextLength ? l.text.getComputedTextLength() : 0) || txt.length * fs * 0.58;
+      var P = portrait ? l.P : l.L, bw = w + padX * 2, cx = P[0], cy = P[1];
+      cx = Math.min(vbW - bw / 2 - 2, Math.max(bw / 2 + 2, cx));
+      cy = Math.min(vbH - h / 2 - 2, Math.max(h / 2 + 2, cy));
+      l.rect.setAttribute('x', cx - bw / 2); l.rect.setAttribute('y', cy - h / 2);
+      l.rect.setAttribute('width', bw); l.rect.setAttribute('height', h); l.rect.setAttribute('rx', h / 2);
+      l.rect.setAttribute('stroke-width', 1 / scale);
+      l.text.setAttribute('x', cx); l.text.setAttribute('y', cy + fs * 0.04);
+    });
+  }
+  function layout() {
+    var w = panel.clientWidth - 28;
+    if (w < 40) return;
+    portrait = w < 520;
+    svg.setAttribute('viewBox', portrait ? '0 0 ' + H + ' ' + W : '0 0 ' + W + ' ' + H);
+    scene.setAttribute('transform', portrait ? 'translate(' + H + ' 0) rotate(90)' : '');
+    scale = w / (portrait ? H : W);
+    placeLabels();
+  }
+
+  // ---- Zeichnen: alles folgt aus Fall und Schritt ----
+  function op(el, v) { el.style.opacity = v; }
+  function move(el, p) { el.style.transform = 'translate(' + p[0] + 'px,' + p[1] + 'px)'; }
+  function render() {
+    var s = step, inCase = cas === 'in';
+    outBugs.forEach(function (b) { op(b, inCase ? 1 : 0); });
+    // Wunde: offen nur im Normalfall von Schritt 1 bis 4
+    var open = inCase && s < 4;
+    op(wallGap, open ? 0 : (inCase ? 0 : 0.75)); op(scar, inCase && s === 4 ? 1 : 0);
+    // Eindringling 1: durch die Lücke, ab Alarm in der Fresszelle
+    move(inBugs[0], inCase && s >= 1 ? I1_EATEN : I1);
+    op(inBugs[0], !inCase || s >= 4 ? 0 : s >= 1 ? 0.55 : 1);
+    op(inBugs[1], inCase && (s === 2 || s === 3) ? 1 : 0);
+    op(inBugs[2], inCase && (s === 2 || s === 3) ? 1 : 0);
+    op(ringIn, inCase && s >= 1 && s <= 3 ? 1 : 0);
+    op(ringSelf, !inCase && s >= 1 ? 1 : 0);
+    op(heatIn, inCase && (s === 2 || s === 3) ? 0.22 : 0);
+    op(heatSelf, !inCase && s >= 2 ? 0.22 : 0);
+    op(msgIn, inCase && (s === 2 || s === 3) ? 1 : 0);
+    op(msgSelf, !inCase && s >= 2 ? 1 : 0);
+    op(absIn, inCase && s === 3 ? 1 : 0);
+    op(absSelf, !inCase && s >= 3 ? 1 : 0);
+    var army = s >= 3 && !(inCase && s === 4);
+    op(clones, army ? 1 : 0);
+    lyEls[1].setAttribute('class', 'imm-ly' + (army ? ' hit' : ''));
+    op(memo, s >= 3 ? 1 : 0);
+    ownEls.forEach(function (o, k) {
+      var hurt = !inCase && s === 4 && TARGET.indexOf(k) >= 0;
+      o.g.setAttribute('class', 'imm-own' + (hurt ? ' hurt' : ''));
+      op(o.x, hurt ? 1 : 0);
+    });
+  }
+
+  function updateText() {
+    var t = TXT[cas][step], c = city ? 1 : 0;
+    q('immEyebrow').textContent = (cas === 'in' ? 'Eindringling' : 'Fehlalarm gegen Eigenes') + ', Schritt ' + (step + 1) + ' von ' + N + ': ' + STEP_NAMES[step];
+    q('immTitle').textContent = t.title[c];
+    q('immCell').textContent = t.cell; q('immTown').textContent = t.town; q('immAha').textContent = '→ ' + t.aha[c];
+    q('immStatus').textContent = t.status[c];
+    q('immStepN').textContent = (step + 1) + ' von ' + N;
+    q('immTarget').textContent = t.target[c];
+    q('immState').textContent = t.state;
+    var bs = q('immSteps').children;
+    for (var i = 0; i < bs.length; i++) {
+      if (i === step) bs[i].setAttribute('aria-current', 'step'); else bs[i].removeAttribute('aria-current');
+      bs[i].classList.toggle('done', i < step);
+    }
+    q('immBack').disabled = step === 0;
+    q('immNext').disabled = step === N - 1;
+    panel.setAttribute('data-case', cas); panel.setAttribute('data-step', String(step + 1));
+    legend(); placeLabels();
+  }
+
+  // Legende mit Formen, damit Farbe nicht allein trägt
+  function icon(kind) {
+    var s = '<svg viewBox="-10 -10 20 20" aria-hidden="true">';
+    if (kind === 'bug') s += '<path d="' + spiky(8) + '" fill="#FF8A65" stroke="#FFD0BF" stroke-width="1"/>';
+    else if (kind === 'mac') s += '<path d="M-8,0 C-8,-7 6,-9 8,-2 C9,6 -2,9 -8,0Z" fill="#1E3A4A" stroke="#4FC3D9" stroke-width="1.6"/>';
+    else if (kind === 'own') s += '<circle r="7.5" fill="' + (city ? '#3A2F1A' : '#1B3A2C') + '" stroke="' + (city ? '#B88A3A' : '#3C9E78') + '" stroke-width="1.6"/>';
+    else if (kind === 'msg') s += '<rect x="-4" y="-4" width="8" height="8" transform="rotate(45)" fill="#F2C46B"/>';
+    else if (kind === 'ab') s += '<path d="M0,8 L0,0 M0,0 L-5,-6 M0,0 L5,-6" fill="none" stroke="#F2C46B" stroke-width="2.2" stroke-linecap="round"/>';
+    else if (kind === 'star') s += '<path d="M0,-8 L2.2,-2.6 L7.6,-2.5 L3.4,1.2 L4.7,6.5 L0,3.6 L-4.7,6.5 L-3.4,1.2 L-7.6,-2.5 L-2.2,-2.6Z" fill="#E8E6E0"/>';
+    else if (kind === 'ring') s += '<circle r="7.5" fill="none" stroke="#FF8A65" stroke-width="1.8" stroke-dasharray="3 2.5"/>';
+    else if (kind === 'x') s += '<path d="M-6,-6 L6,6 M6,-6 L-6,6" stroke="#FF8A65" stroke-width="2.6" stroke-linecap="round"/>';
+    return s + '</svg>';
+  }
+  function legend() {
+    var c = city ? 1 : 0, inCase = cas === 'in';
+    var items = [
+      inCase ? ['bug', ['Eindringling', 'Einbrecher'][c]] : null,
+      ['mac', ['Fresszelle', 'Streife'][c]],
+      ['own', ['Eigene Zelle', 'Haus'][c]],
+      ['ring', ['Alarm', 'Alarm'][c]],
+      ['msg', ['Botenstoff', 'Funkspruch'][c]],
+      ['ab', ['Antikörper', 'Markierung'][c]],
+      ['star', ['Gedächtniszelle', 'Wachmann mit Foto'][c]],
+      !inCase ? ['x', ['Schaden an eigener Zelle', 'Schaden am Haus'][c]] : null
+    ];
+    var lg = q('immLegend'), html = '';
+    items.forEach(function (it) { if (it) html += '<span>' + icon(it[0]) + it[1] + '</span>'; });
+    lg.innerHTML = html;
+  }
+
+  // ---- Ereignisse für den Ton ----
+  function emit(type, k) { evN++; panel.setAttribute('data-ev', type + ':' + k + ':' + evN); }
+
+  // ---- Bedienung ----
+  function go(s, fromKey) {
+    s = Math.max(0, Math.min(N - 1, s));
+    if (s === step) return;
+    step = s; render(); updateText(); emit('step', step);
+    if (fromKey) q('immSteps').children[step].focus();
+  }
+  function setCase(c) {
+    if (c === cas) return;
+    cas = c; step = 0;
+    svg.classList.toggle('self', c === 'self');
+    q('immCaseIn').setAttribute('aria-pressed', String(c === 'in')); q('immCaseSelf').setAttribute('aria-pressed', String(c === 'self'));
+    render(); updateText(); emit('case', c === 'self' ? 1 : 0);
+  }
+  function setView(c) {
+    city = c; svg.classList.toggle('city', c);
+    q('immViewBio').setAttribute('aria-pressed', String(!c)); q('immViewCity').setAttribute('aria-pressed', String(c));
+    updateText();
+  }
+  var sb = q('immSteps');
+  STEP_NAMES.forEach(function (name, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'imm-step';
+    b.setAttribute('aria-label', 'Schritt ' + (i + 1) + ': ' + name);
+    b.innerHTML = '<b>' + (i + 1) + '</b><span>' + name + '</span>';
+    b.addEventListener('click', function () { go(i); });
+    sb.appendChild(b);
+  });
+  sb.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowDown') { e.preventDefault(); go(step + 1, true); }
+    else if (k === 'ArrowLeft' || k === 'ArrowUp') { e.preventDefault(); go(step - 1, true); }
+    else if (k === 'Home') { e.preventDefault(); go(0, true); }
+    else if (k === 'End') { e.preventDefault(); go(N - 1, true); }
+  });
+  q('immCaseIn').addEventListener('click', function () { setCase('in'); });
+  q('immCaseSelf').addEventListener('click', function () { setCase('self'); });
+  q('immViewBio').addEventListener('click', function () { setView(false); });
+  q('immViewCity').addEventListener('click', function () { setView(true); });
+  q('immBack').addEventListener('click', function () { go(step - 1); });
+  q('immNext').addEventListener('click', function () { go(step + 1); });
+  q('immReset').addEventListener('click', function () { if (step !== 0) go(0); });
+
+  // ---- Start und Größe ----
+  if ('ResizeObserver' in window) new ResizeObserver(layout).observe(panel);
+  else window.addEventListener('resize', layout);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  render(); updateText(); layout();
+})();
+
 // --- Dein Tag ---
 (function () {
   'use strict';
@@ -4893,7 +5404,7 @@
     n.connect(nf); nf.connect(ng); ng.connect(out); n.start(); nl.start();
     bed = { filters: filters, out: out };
   }
-  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, gen: 620, regulation: 600, teilung: 540, signale: 580, bauamt: 560, ausfall: 540, zoll: 550 };
+  var BED_BRIGHT = { hero: 420, stadt: 560, kraftwerk: 720, robust: 520, evolution: 600, dna: 640, gen: 620, regulation: 600, teilung: 540, signale: 580, immun: 570, bauamt: 560, ausfall: 540, zoll: 550 };
   function updateBed() {
     if (!bed) return;
     var base = (BED_BRIGHT[section] || 500) + (zoomed ? 140 : 0) + (cityMode ? 90 : 0), t = ctx.currentTime;
@@ -5018,7 +5529,7 @@
       if (next !== section) { section = next; updateBed(); }
     }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
     var h = document.querySelector('.hero'); if (h) io.observe(h);
-    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'gen', 'regulation', 'teilung', 'bauamt', 'zoll', 'ausfall', 'signale'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
+    ['stadt', 'kraftwerk', 'robust', 'evolution', 'dna', 'gen', 'regulation', 'teilung', 'bauamt', 'zoll', 'ausfall', 'signale', 'immun'].forEach(function (id) { var s = $(id); if (s) io.observe(s); });
   }
   var BASE_TONE = { A: 293.66, C: 369.99, G: 440.0, T: 493.88 }, BASE_ORDER = ['A', 'C', 'G', 'T'];
   function watchDna() {
@@ -5161,6 +5672,33 @@
     }
   }
 
+  // ---- Immunsystem: Schritt als Stufe, Fehlalarm dissonant, Entwarnung löst auf ----
+  function watchImmun() {
+    var panel = $('immPanel');
+    if (!panel) return;
+    new MutationObserver(function () {
+      var v = (panel.getAttribute('data-ev') || '').split(':');
+      if (v.length < 3 || !live()) return;
+      var type = v[0], k = parseInt(v[1], 10) || 0, self = panel.getAttribute('data-case') === 'self';
+      if (type === 'case') {
+        if (k) { note(220, { type: 'triangle', dur: 0.8, attack: 0.01, peak: 0.035, lp: 1200 }); note(233.08, { type: 'triangle', dur: 0.8, attack: 0.01, peak: 0.035, lp: 1200 }); }
+        else { note(293.66, { dur: 0.8, attack: 0.03, peak: 0.04 }); note(440, { dur: 0.8, attack: 0.03, peak: 0.028, delay: 0.1 }); }
+      } else if (type === 'step') {
+        var f = PENTA[Math.min(PENTA.length - 1, k)];
+        if (k === 1) note(880, { type: 'triangle', dur: 0.3, attack: 0.005, peak: 0.022, lp: 2400 });
+        if (self && k >= 1) {
+          note(f, { type: 'triangle', dur: 0.9, attack: 0.02, peak: 0.032, lp: 1400 });
+          note(f * 1.06, { type: 'triangle', dur: 0.9, attack: 0.02, peak: 0.026, lp: 1400 });
+          if (k === 4) note(110, { dur: 1.4, attack: 0.02, peak: 0.05, lp: 600 });
+        } else if (k === 4) {
+          [0, 2, 4].forEach(function (i) { note(PENTA[i], { dur: 1.0, attack: 0.02, peak: 0.035, delay: i * 0.07, lp: 2000, pan: (i - 2) * 0.12 }); });
+        } else {
+          note(f, { dur: 0.9, attack: 0.02, peak: 0.04, lp: 2000 });
+        }
+      }
+    }).observe(panel, { attributes: true, attributeFilter: ['data-ev'] });
+  }
+
   // ---- Zoll: Weg wählen, ATP an und aus; einzelne Teilchen klingen selten und leise ----
   function watchZoll() {
     var panel = $('zollPanel');
@@ -5281,7 +5819,7 @@
   });
   timers.upd = setInterval(function () { if (built && live()) updateTurbine(); }, 120);
 
-  watchCell(); watchTurbine(); watchSections(); watchDna(); watchGen(); watchEvolution(); watchTeilung(); watchBauamt(); watchSignale(); watchAusfall(); watchZoll();
+  watchCell(); watchTurbine(); watchSections(); watchDna(); watchGen(); watchEvolution(); watchTeilung(); watchBauamt(); watchSignale(); watchImmun(); watchAusfall(); watchZoll();
 })();
 </script>
 <style>
