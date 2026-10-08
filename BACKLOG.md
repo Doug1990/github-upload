@@ -55,7 +55,6 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 
 ## Offen, Priorität niedrig
 
-20. **Epigenetik in der DNA-Sektion.** Derselbe Bauplan, andere Lesezeichen je Zelltyp. Keine Lebensstil-Deutung, keine Vererbung über Generationen. Aufwand S.
 21. **Druckansicht und Lesemodus.** Zuerst nur `@media print` (hell, ohne Bedienknöpfe), Hell-Schalter erst nach den gemeinsamen Bausteinen. Aufwand S bis M.
 22. **Mitmach-Format.** Rätsel "Wer bin ich, in Stadt und Zelle?" und Baukasten "Baue deine Stadt", alles ohne Maus lösbar. Erst nach Fließband, Zellskelett und Zoll. Aufwand M.
 24. **Glossar.** `glossar.html` und `tests/begriffe.json` mit bevorzugter Schreibweise, vom Prüfskript gelesen. Nach README und Sitemap. Aufwand M.
@@ -141,6 +140,7 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 
 ## Erledigt
 
+- Epigenetik: Schalter "Lesezeichen zeigen" im Abschnitt Genregulation (`#regulation`) auf der Zell-Seite, Hinweis zu Grenzen im Feld "Wo das Bild hinkt", Prüfung in `tests/gene.mjs`
 - Wartbarkeit: Inhaltsverzeichnis am Anfang von `index.html` und `zelle.html`, Kommentarköpfe für alle Skriptblöcke, `check.mjs` meldet doppelte IDs und doppelte Namen auf oberster Ebene als Fehler, Skriptblöcke ohne Kopf und Sections ohne Eintrag im Verzeichnis als Warnung
 - Prüfliste für echte Geräte: `tests/geraete.md` angelegt (Durchlauf steht noch aus, Punkt 42)
 - Rückmeldung ohne Analytics: Fußlink "Fehler gemeldet oder Idee?" per mailto mit Betreff je Seite (Startseite, Zell-Seite, Karte), Absatz in der Datenschutzseite

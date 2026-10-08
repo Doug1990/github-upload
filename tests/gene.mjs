@@ -52,6 +52,8 @@ for (const w of [1280, 390]) {
     seg[2].click(); document.getElementById('regSugar').click();
     out.betaZucker = document.querySelectorAll('#regGrid .reg-lv i.on').length;
     seg[0].click(); out.muskelZucker = document.querySelectorAll('#regGrid .reg-lv i.on').length;
+    document.getElementById('regMarks').click();
+    out.marken = document.querySelectorAll('#regGrid .reg-mark').length;
     return out;
   })()`);
   for (const [k, v] of Object.entries(reg)) {
@@ -59,6 +61,7 @@ for (const w of [1280, 390]) {
   }
   if (reg.betaZucker !== 4) fehler.push(`@${w}px Betazelle mit Zucker: ${reg.betaZucker} gefüllte Segmente statt 4`);
   if (reg.muskelZucker !== 3) fehler.push(`@${w}px Muskelzelle mit Zucker: ${reg.muskelZucker} Segmente statt 3`);
+  if (reg.marken !== 6) fehler.push(`@${w}px Lesezeichen: ${reg.marken} Markierungen statt 6`);
 
   if (w === 390) {
     const klein = await b.ev(`[...document.querySelectorAll('#genPanel button, #regPanel button, .gen-zeit summary')].filter((e) => e.offsetParent).map((e) => { const r = e.getBoundingClientRect(); return [e.textContent.trim().slice(0, 20), Math.round(r.width), Math.round(r.height)]; }).filter((x) => x[1] < 44 || x[2] < 44)`);
