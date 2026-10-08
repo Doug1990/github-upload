@@ -454,6 +454,16 @@
   .quorum-lbl { display: flex; justify-content: space-between; font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; color: var(--muted); margin: 6px 0 12px; }
   .quorum input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
   @media (prefers-reduced-motion: reduce) { .quorum-field i, .quorum-bar { transition: none; } }
+  .alt { margin-top: 22px; }
+  .alt h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; margin: 0 0 6px; }
+  .alt-txt { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0 0 12px; }
+  .alt-row { display: grid; grid-template-columns: 110px 1fr 36px; gap: 10px; align-items: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; margin-bottom: 8px; }
+  .alt-bar { height: 10px; border-radius: 5px; background: #25332C; overflow: hidden; }
+  .alt-bar i { display: block; height: 100%; width: 0; background: #FF8A65; transition: width 0.3s; }
+  .alt-bar i.mit { background: var(--accent); }
+  .alt-row output { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .alt input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
+  @media (prefers-reduced-motion: reduce) { .alt-bar i { transition: none; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1563,7 +1573,15 @@
     <button type="button" class="btn" id="ausReset">Alles wieder herstellen</button>
   </div>
   <p class="aus-status" id="ausStatus" aria-live="polite"></p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Ausfall</span></summary><div class="hinkt-body"><p>Die Stufen wirken wie ein Fahrplan: erst fällt das eine aus, dann das nächste. Die Seite nennt sie selbst ein Bild für Abhängigkeiten, und wie schnell etwas in einer echten Zelle folgt, hängt vom Fall ab.</p><p>Sieben Bauteile sind eine kleine Auswahl. In einer Zelle hängt mehr zusammen, in mehr Richtungen, als diese Skizze zeigt.</p><p class="hinkt-frage">Welche Abhängigkeit fehlt in dieser Skizze?</p></div></details>
+  <div class="panel alt" id="alt">
+    <h3>Zusatzfall: Alterung und Reparatur</h3>
+    <p class="alt-txt">Jede Zelle sammelt mit der Zeit Schäden an Eiweißen, Kraftwerken und DNA. Reparatur und Müllabfuhr räumen das meiste weg. Was übrig bleibt, summiert sich. Stelle das Alter ein und sieh, wie viel liegen bleibt.</p>
+    <div class="alt-row"><span>Ohne Reparatur</span><div class="alt-bar"><i id="altOhne"></i></div><output id="altOhneO">0</output></div>
+    <div class="alt-row"><span>Mit Reparatur</span><div class="alt-bar"><i id="altMit" class="mit"></i></div><output id="altMitO">0</output></div>
+    <label class="sig-slider" for="altAge"><span class="row"><span>Alter der Zelle</span><output id="altAgeO" for="altAge">0 Jahre</output></span><input type="range" id="altAge" min="0" max="80" step="1" value="10"></label>
+    <p class="status" id="altStatus" aria-live="polite"></p>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Ausfall</span></summary><div class="hinkt-body"><p>Die Stufen wirken wie ein Fahrplan: erst fällt das eine aus, dann das nächste. Die Seite nennt sie selbst ein Bild für Abhängigkeiten, und wie schnell etwas in einer echten Zelle folgt, hängt vom Fall ab.</p><p>Sieben Bauteile sind eine kleine Auswahl. In einer Zelle hängt mehr zusammen, in mehr Richtungen, als diese Skizze zeigt.</p><p>Beim Zusatzfall sind die Werte erfundene Beispielzahlen, keine Messwerte. Zellen altern je nach Typ sehr verschieden: Manche werden nach Tagen ersetzt, manche (etwa viele Nervenzellen) halten ein Leben lang. Alter ist hier ein Regler, in echt hängt es von vielen Dingen ab und sagt nichts über einen einzelnen Menschen.</p><p class="hinkt-frage">Welche Abhängigkeit fehlt in dieser Skizze?</p></div></details>
   <p class="note">Stark vereinfacht: Echte Krankheiten sind selten ein einzelner Ausfall. Meist stecken genetische und mehrstufige Ursachen dahinter, und die Bauteile hängen in echt in viel mehr Richtungen zusammen als hier. Die Stufen sind ein Bild für Abhängigkeiten, kein Zeitplan. Die Krankheitsgruppen sind nur Beispiele, keine Diagnose und keine Heilversprechen. Kein Beispiel hier ersetzt ärztlichen Rat.</p>
   <p class="aus-hint" id="ausHint">Noch läuft alles. Schalte oben eine Stelle aus, dann steht hier Stufe für Stufe, was daran hängt.</p>
   <div class="aus-detail" id="ausDetail" hidden>
@@ -5480,6 +5498,32 @@
   restart();
   wake();
 })();
+// --- Alterung und Reparatur: Zusatzfall im Ausfall-Abschnitt ---
+(function () {
+  'use strict';
+  var A = document.getElementById('altAge');
+  function werte(alter) {
+    // Beispielmodell: pro Jahr fallen 1,25 Schadenspunkte an, die Reparatur schafft mit dem Alter weniger (95 Prozent bis 35 Prozent).
+    var ohne = 0, mit = 0;
+    for (var y = 0; y < alter; y++) { ohne += 1.25; mit += 1.25 * (1 - (0.95 - 0.6 * y / 80)); }
+    return { ohne: Math.min(100, ohne), mit: Math.min(100, mit) };
+  }
+  function render() {
+    var a = parseInt(A.value, 10), w = werte(a);
+    document.getElementById('altAgeO').textContent = a + (a === 1 ? ' Jahr' : ' Jahre');
+    document.getElementById('altOhne').style.width = w.ohne + '%';
+    document.getElementById('altMit').style.width = w.mit + '%';
+    document.getElementById('altOhneO').textContent = Math.round(w.ohne);
+    document.getElementById('altMitO').textContent = Math.round(w.mit);
+    var t = a < 25 ? 'Jung: Die Reparatur räumt fast alles weg, es bleibt wenig liegen.'
+      : a < 55 ? 'Mittleres Alter: Die Reparatur schafft weniger als früher, die Reste summieren sich langsam.'
+      : 'Spät: Die Reparatur arbeitet schwächer und es ist mehr zu tun. Die Reste häufen sich, und die Zelle kommt schlechter mit Belastung zurecht.';
+    document.getElementById('altStatus').textContent = t + ' (Beispielwerte auf einer Skala bis 100)';
+  }
+  A.addEventListener('input', render);
+  render();
+})();
+
 // --- Ausfall ---
 (function () {
   'use strict';

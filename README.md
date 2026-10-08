@@ -41,7 +41,7 @@ Die Skripte brauchen nur Node 22 und ein lokales Chrome (Pfad bei Bedarf mit `--
 | `node tests/stoerung.mjs` | Startseite, "Wenn es hakt": Ausbreitung nach dem Abschalten, Leitungen, Reset, Tastatur |
 | `node tests/instand.mjs` | Startseite, "Wer hält es instand": Strategien über die Jahre, Zeitraffer, Regler |
 | `node tests/dorf.mjs` | Zell-Seite, "Dorf oder Stadt": Größenregler, Kennzahlen, Hinweise (`--gegenprobe` baut absichtlich Fehler ein) |
-| `node tests/gene.mjs`, `immun.mjs`, `fliessband.mjs`, `tag.mjs`, `fragen.mjs`, `quorum.mjs` | Je ein Abschnitt der Zell-Seite (`immun.mjs` kennt ebenfalls `--gegenprobe`) |
+| `node tests/gene.mjs`, `immun.mjs`, `fliessband.mjs`, `tag.mjs`, `fragen.mjs`, `quorum.mjs`, `alterung.mjs` | Je ein Abschnitt der Zell-Seite (`immun.mjs` kennt ebenfalls `--gegenprobe`) |
 
 `tests/chrome.mjs` ist keine eigene Prüfung, sondern die gemeinsame Hilfe der Skripte (eigener Server auf das Repo, headless Chrome über das DevTools-Protokoll). `tests/mikrotext-basis.json` hält die bekannten Altlasten für `mikrotext.mjs`. In `tests/ci/pruefen.yml` liegt die Vorlage für einen CI-Workflow. Sie läuft erst, wenn sie nach `.github/workflows/` kopiert ist (Stand siehe `BACKLOG.md`).
 
