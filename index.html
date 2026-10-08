@@ -820,6 +820,25 @@
 </style>
 </head>
 <body>
+<!-- Inhaltsverzeichnis (check.mjs prüft, dass jede Section mit id hier steht)
+  Abschnitte:
+    #hero
+    #journey
+    #shelfScene
+    #chainGame
+    #belonging
+    #stoerung
+    #instand
+    #now
+    #cubeSection
+    #landing
+  Skriptblöcke, in Reihenfolge:
+    // --- Hero: Wurzeln wachsen einmal beim Laden ---
+    // --- Hauptskript: Werkzeug, Graph, Szenen, Ton (Startseite) ---
+    // --- Wenn es hakt: Ausfall in der Stadt ---
+    // --- Wer hält es instand: Alterung und Erneuerung ---
+    // --- Abschnittslinks: Knopf je Überschrift, kopiert die Adresse ---
+-->
 <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
 <!-- ============ Begleiterin: fixiert, bewegt sich mit dem Scrollen tiefer ============ -->
@@ -1148,6 +1167,7 @@
 </script>
 
 <script>
+// --- Hauptskript: Werkzeug, Graph, Szenen, Ton (Startseite) ---
 const NS = 'http://www.w3.org/2000/svg';
 
 // Globale Akzentfarbe der Seite — Standard blau, umschaltbar per Theme-Schalter.
@@ -4746,6 +4766,7 @@ setTimeout(() => {
 </style>
 <div class="linkmsg" id="linkMsg" role="status" aria-live="polite"></div>
 <script>
+// --- Abschnittslinks: Knopf je Überschrift, kopiert die Adresse ---
 (function () {
   var skip = { hero: 1, landing: 1 };
   var msg = document.getElementById('linkMsg'), timer;
