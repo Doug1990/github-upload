@@ -442,6 +442,18 @@
   .sig-rb[aria-pressed="true"] i { background: var(--gold); border-color: var(--gold); }
   .sig-cap { font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; color: var(--dim); margin: 8px 0 0; line-height: 1.5; }
   .sig-ctl { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; margin-top: 14px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); }
+  .quorum { margin-top: 22px; }
+  .quorum h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; margin: 0 0 6px; }
+  .quorum-txt { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; line-height: 1.6; color: var(--muted); margin: 0 0 12px; }
+  .quorum-field { display: grid; grid-template-columns: repeat(auto-fill, 22px); gap: 6px; padding: 12px; min-height: 96px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,0.02); justify-content: center; align-content: start; }
+  .quorum-field i { width: 22px; height: 22px; border-radius: 50%; background: #4B6B5A; transition: background 0.4s, box-shadow 0.4s; }
+  .quorum-field i.on { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+  .quorum-meter { position: relative; height: 10px; margin-top: 14px; border-radius: 5px; background: #25332C; }
+  .quorum-bar { height: 100%; width: 0; border-radius: 5px; background: var(--accent); transition: width 0.3s; }
+  .quorum-mark { position: absolute; top: -4px; bottom: -4px; left: 50%; width: 2px; background: var(--gold); }
+  .quorum-lbl { display: flex; justify-content: space-between; font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; color: var(--muted); margin: 6px 0 12px; }
+  .quorum input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
+  @media (prefers-reduced-motion: reduce) { .quorum-field i, .quorum-bar { transition: none; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1871,7 +1883,16 @@
     <div class="col city"><b>In der Stadt</b><span id="sigTown"></span></div>
     <p class="aha" id="sigAha"></p>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Signale</span></summary><div class="hinkt-body"><p>Ein Brief hat einen Absender, eine Adresse und einen, der ihn liest und versteht. Ein Hormon wird an niemanden adressiert, es treibt im Blut an alle, und nur Zellen mit dem passenden Rezeptor reagieren.</p><p>Die Zelle versteht dabei nichts. Sie reagiert.</p><p class="hinkt-frage">Wer liest hier eigentlich, und wer hat die Nachricht gewollt?</p></div></details>
+  <div class="panel quorum" id="quorum">
+    <h3>Zusatzfall: Bakterien zählen sich</h3>
+    <p class="quorum-txt">Bakterien geben ständig einen Botenstoff ab. Sind wenige da, verflüchtigt er sich. Sind viele da, steigt die Menge, und ab einer Schwelle schalten alle gleichzeitig um, zum Beispiel auf Leuchten oder auf die Bildung eines Biofilms. Verändere die Zahl und sieh, wo die Schwelle liegt.</p>
+    <div class="quorum-field" id="quorumField" role="img" aria-label="Feld mit Bakterien"></div>
+    <div class="quorum-meter"><div class="quorum-bar" id="quorumBar"></div><div class="quorum-mark" aria-hidden="true"></div></div>
+    <div class="quorum-lbl"><span>wenig Botenstoff</span><span>Schwelle</span><span>viel</span></div>
+    <label class="sig-slider" for="quorumN"><span class="row"><span>Zahl der Bakterien</span><output id="quorumO" for="quorumN">8</output></span><input type="range" id="quorumN" min="2" max="60" step="2" value="8"></label>
+    <p class="status" id="quorumStatus" aria-live="polite"></p>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Signale</span></summary><div class="hinkt-body"><p>Ein Brief hat einen Absender, eine Adresse und einen, der ihn liest und versteht. Ein Hormon wird an niemanden adressiert, es treibt im Blut an alle, und nur Zellen mit dem passenden Rezeptor reagieren.</p><p>Die Zelle versteht dabei nichts. Sie reagiert.</p><p>Beim Zusatzfall zählt kein Bakterium. Der Botenstoff steigt mit der Dichte, und jedes Bakterium reagiert auf seine eigene Messung. Die Schwelle ist hier ein fester Wert, echte Bakterien stellen sie je nach Art und Umgebung anders ein.</p><p class="hinkt-frage">Wer liest hier eigentlich, und wer hat die Nachricht gewollt?</p></div></details>
   <p class="note">Stark vereinfacht: Der Körper kennt viel mehr Signalwege, und sie überlappen. Manche Botenstoffe wirken im Blut, andere nur auf Nachbarzellen, und derselbe Stoff ist in einem Nerv ein Überträger und im Blut ein Hormon. Hier sind es vier Empfänger und ein Rezeptortyp. Auch die Zeiten stimmen nicht: Ein Hormon braucht in echt Sekunden bis Minuten, ein Nervenimpuls wenige Millisekunden. Die Animation zieht beides zusammen und dehnt den Nerv, damit man ihn sehen kann.</p>
 </section>
 
@@ -3669,6 +3690,28 @@
   }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(labels);
   labels(); render();
+})();
+
+// --- Quorum Sensing: Zusatzfall im Signale-Abschnitt ---
+(function () {
+  'use strict';
+  var N = document.getElementById('quorumN'), field = document.getElementById('quorumField'), bar = document.getElementById('quorumBar');
+  var out = document.getElementById('quorumO'), st = document.getElementById('quorumStatus');
+  var MAX = 60, SCHWELLE = 30;
+  function render() {
+    var n = parseInt(N.value, 10), an = n >= SCHWELLE;
+    out.textContent = n;
+    while (field.children.length < n) field.appendChild(document.createElement('i'));
+    while (field.children.length > n) field.removeChild(field.lastChild);
+    Array.prototype.forEach.call(field.children, function (d) { d.classList.toggle('on', an); });
+    bar.style.width = (n / MAX * 100) + '%';
+    field.setAttribute('aria-label', n + ' Bakterien, ' + (an ? 'alle leuchten' : 'keines leuchtet'));
+    st.textContent = an
+      ? n + ' Bakterien: Der Botenstoff liegt über der Schwelle, alle schalten gleichzeitig um und leuchten.'
+      : n + ' Bakterien: Der Botenstoff bleibt unter der Schwelle, keines schaltet um. Erst ab ' + SCHWELLE + ' Bakterien reicht die Menge.';
+  }
+  N.addEventListener('input', render);
+  render();
 })();
 
 // --- Signale ---
