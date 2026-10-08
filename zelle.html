@@ -480,6 +480,14 @@
   @media (prefers-reduced-motion: reduce) { .skel-svg .fracht { transition: none; } }
   @media (max-width: 560px) { #skelSchritt, #skelEnde, #skelReset { min-height: 44px; } }
   @media (pointer: coarse) { #skelSchritt, #skelEnde, #skelReset { min-height: 44px; } }
+  .res-row { display: grid; grid-template-columns: 170px 1fr 48px; gap: 10px; align-items: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; margin-bottom: 10px; }
+  .res-bar { height: 12px; border-radius: 6px; background: #25332C; overflow: hidden; }
+  .res-bar i { display: block; height: 100%; width: 100%; background: var(--accent); transition: width 0.3s; }
+  .res-bar i.fett { background: var(--gold); }
+  .res-row output { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .res input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
+  @media (max-width: 560px) { .res-row { grid-template-columns: 1fr 48px; } .res-row .res-bar { grid-column: 1 / -1; order: 3; } .res-row output { order: 2; } }
+  @media (prefers-reduced-motion: reduce) { .res-bar i { transition: none; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1088,6 +1096,7 @@
     #kraftwerk
     #fliessband
     #robust
+    #reserve
     #zoll
     #ausfall
     #muell
@@ -1428,6 +1437,27 @@
 </section>
 
 <!-- 3a. Zoll im Detail -->
+<section class="sec reveal" id="reserve">
+  <h2>Ein Lager macht Ausfälle erträglich.</h2>
+  <p class="lead">Zellen horten Vorräte, damit sie nicht jede Lieferung sofort brauchen. Wähle einen Zelltyp, lasse die Lieferung ausfallen und stelle ein, wie viele Stunden vergangen sind. Sieh, welches Lager zuerst leer wird und wie lange die Reserve reicht.</p>
+  <div class="panel res">
+    <div class="reg-seg" role="group" aria-label="Zelltyp wählen" id="resSeg"></div>
+    <div class="res-row"><span>Glykogen (schnelles Lager)</span><div class="res-bar"><i id="resGlyk"></i></div><output id="resGlykO">100 %</output></div>
+    <div class="res-row"><span>Fett (großes Lager)</span><div class="res-bar"><i id="resFett" class="fett"></i></div><output id="resFettO">100 %</output></div>
+    <div class="stats" aria-live="off">
+      <div class="stat"><small>Reserve gesamt</small><span id="resGes">0 h</span></div>
+      <div class="stat"><small>Noch übrig</small><span id="resRest">0 h</span></div>
+    </div>
+    <label class="sig-slider" for="resH"><span class="row"><span>Stunden ohne Lieferung</span><output id="resHO" for="resH">0 h</output></span><input type="range" id="resH" min="0" max="120" step="1" value="0"></label>
+    <p class="status" id="resStatus" aria-live="polite"></p>
+    <div class="aus-cols">
+      <div class="col"><b>In der Zelle</b><span>Glykogen ist ein Zuckerlager, das schnell zur Hand ist. Fett speichert viel mehr Energie, ist aber langsamer abrufbar. Eine Zelle nutzt zuerst das, was schnell geht.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Der Vorratsraum im Supermarkt für den Alltag, das große Zentrallager für den Notfall. Wer nichts lagert, hängt an jeder Lieferung.</span></div>
+    </div>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Reserven</span></summary><div class="hinkt-body"><p>Ein Lager in der Stadt hat eine Menge und einen Preis. Zellen steuern ihre Speicher laufend über Hormone und Signale, und je nach Zelltyp sind sie sehr verschieden: Nervenzellen speichern kaum etwas und hängen an der Lieferung, Fettzellen sind fast nur Lager. Der Körper hat zusätzlich zentrale Reserven, etwa in der Leber.</p><p>Die Stunden sind frei gewählte Beispielwerte. Das Bild sagt nichts darüber, wie lange ein Mensch ohne Nahrung auskommt, und es ist keine Empfehlung zum Essen oder Fasten.</p><p class="hinkt-frage">Warum speichern Nervenzellen kaum etwas?</p></div></details>
+</section>
+
 <section class="sec reveal" id="zoll">
   <h2>Der Zoll: Drei Wege über die Grenze.</h2>
   <p class="lead">Der Zoll an der Zellmembran ist kein einzelner Wächter. Es sind drei Wege, und nur einer kostet Energie. Wähle einen Weg, ändere das Gefälle und schalte das ATP ab. Dann siehst du, wer das Gefälle hält und wer es nur nutzt. Der Schalter wechselt zwischen Biologie und Stadt.</p>
@@ -5643,6 +5673,43 @@
   $('skelEnde').addEventListener('click', function () { var n = 0; while (schritt() && n++ < 20); render(); });
   $('skelReset').addEventListener('click', function () { for (var i = 0; i < T; i++) pos[i] = 0; schritte = 0; $('skelAb').value = 0; render(); });
   $('skelAb').addEventListener('input', render);
+  render();
+})();
+
+// --- Reserven und Speicher ---
+(function () {
+  'use strict';
+  // Beispielwerte in Stunden: Glykogen reicht kurz, Fett lange. Nervenzellen speichern kaum.
+  var TYPEN = [
+    { id: 'muskel', n: 'Muskelzelle', g: 6, f: 30 },
+    { id: 'nerv', n: 'Nervenzelle', g: 0.5, f: 0 },
+    { id: 'fett', n: 'Fettzelle', g: 2, f: 100 }
+  ];
+  var cur = 0, segBtns = [];
+  var $ = function (id) { return document.getElementById(id); };
+  function fmt(h) { return (Math.round(h * 10) / 10).toString().replace('.', ',') + ' h'; }
+  TYPEN.forEach(function (t, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = t.n;
+    b.addEventListener('click', function () { cur = i; render(); }); $('resSeg').appendChild(b); segBtns.push(b);
+  });
+  function render() {
+    var t = TYPEN[cur], h = parseInt($('resH').value, 10), ges = t.g + t.f;
+    var gl = Math.max(0, t.g - h), fe = Math.max(0, t.f - Math.max(0, h - t.g));
+    var pg = t.g ? Math.round(gl / t.g * 100) : 0, pf = t.f ? Math.round(fe / t.f * 100) : 0;
+    segBtns.forEach(function (b, i) { b.setAttribute('aria-pressed', String(i === cur)); });
+    $('resGlyk').style.width = pg + '%'; $('resFett').style.width = pf + '%';
+    $('resGlykO').textContent = pg + ' %'; $('resFettO').textContent = pf + ' %';
+    $('resGes').textContent = fmt(ges); $('resRest').textContent = fmt(gl + fe);
+    $('resHO').textContent = h + ' h';
+    var tx;
+    if (h === 0) tx = t.n + ': Beide Lager sind voll. Die Reserve reicht insgesamt etwa ' + fmt(ges) + '.';
+    else if (gl + fe <= 0) tx = 'Beide Lager sind leer. Bei dieser ' + t.n + ' ist die Reserve nach etwa ' + fmt(ges) + ' aufgebraucht.';
+    else if (gl <= 0) tx = 'Das schnelle Lager ist leer, die Zelle lebt vom Fett. Es reicht noch etwa ' + fmt(fe) + '.';
+    else tx = 'Die Zelle nutzt zuerst das Glykogen. Es reicht noch etwa ' + fmt(gl) + ', danach kommt das Fett.';
+    if (t.f === 0 && h > 0 && gl > 0) tx += ' Diese Zelle hat kein Fettlager.';
+    $('resStatus').textContent = tx + ' (Beispielwerte)';
+  }
+  $('resH').addEventListener('input', render);
   render();
 })();
 
