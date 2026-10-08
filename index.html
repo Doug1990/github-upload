@@ -147,6 +147,17 @@
   .activity-group text { pointer-events: none; }
   .band-label { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; pointer-events: none; }
   .band-gloss { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; pointer-events: none; }
+  .graph-scroll { width: 100%; max-width: min(94vw, 900px); }
+  .graph-hint { display: none; margin: 2px 0 -6px; }
+  /* Schmale Ansicht: Das Schema bekommt eine Mindestbreite von 720 px (Maßstab etwa 0,8) und lässt sich seitlich wischen.
+     Die Beschriftung ist so groß, dass sie wirksam mindestens 11 px erreicht. */
+  @media (max-width: 560px) {
+    .graph-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -3vw; max-width: none; width: 100vw; }
+    .graph-hint { display: block; }
+    #graph { width: 720px; max-width: none; min-width: 720px; }
+    #graph .band-label, #graph .band-bolt, #graph .bubble-txt { font-size: 14px; }
+    #graph .band-gloss { font-size: 13.8px; }
+  }
   .root-path { fill: none; stroke-linecap: round; }
   .crack-icon { cursor: pointer; }
 
@@ -928,7 +939,8 @@
   </div>
 
   <p class="hint sans" style="margin: 14px 0 -4px;">Je weiter unten, desto grundlegender. Jede Ebene trägt die, die darüber liegt.</p>
-  <svg id="graph"></svg>
+  <p class="hint sans graph-hint">Seitlich wischen, um alle Tätigkeiten zu sehen.</p>
+  <div class="graph-scroll" id="graphScroll"><svg id="graph"></svg></div>
 
   <div class="panel-wrap" id="panelWrap"></div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was hast du heute gemacht</span></summary><div class="hinkt-body"><p>Vier Ebenen wirken wie Stockwerke, die sich sauber trennen lassen. In Wirklichkeit greifen sie ineinander: Ein Wasserwerk ist Technik, Menschen, Regeln und Vertrauen zugleich.</p><p>Die Einordnung hier ist ein Vorschlag. Bei einer eigenen Eingabe sortiert die Seite nach Stichworten und versteht nicht, was du meinst.</p><p class="hinkt-frage">Zu welcher Ebene gehört eine Leitstelle, und was spricht für eine zweite?</p></div></details>
@@ -1807,7 +1819,7 @@ function render() {
     const failG = el('g', { class: 'crack-icon', tabindex: 0, role: 'button', 'aria-label': `${b.label} Störfall umschalten` });
     failG.style.pointerEvents = 'auto';
     failG.appendChild(el('circle', { cx: WIDTH - 28, cy: (b.yTop + b.yBot) / 2, r: 11, fill: isFailed ? '#E05D5D' : 'rgba(255,255,255,0.06)', opacity: dim ? 0.3 : 1 }));
-    const bolt = el('text', { x: WIDTH - 28, y: (b.yTop + b.yBot) / 2 + 4, 'text-anchor': 'middle', 'font-size': 12, fill: isFailed ? '#0B1220' : '#8892A6', opacity: dim ? 0.3 : 1 });
+    const bolt = el('text', { class: 'band-bolt', x: WIDTH - 28, y: (b.yTop + b.yBot) / 2 + 4, 'text-anchor': 'middle', 'font-size': 12, fill: isFailed ? '#0B1220' : '#8892A6', opacity: dim ? 0.3 : 1 });
     bolt.textContent = '⚡';
     failG.appendChild(bolt);
     failG.addEventListener('click', (e) => toggleFailed(b.id, e));
@@ -1910,7 +1922,7 @@ function render() {
     const lineHeight = 13.5;
     const startY = BUBBLE_CY + 12 - ((lines.length - 1) * lineHeight) / 2;
     lines.forEach((line, i) => {
-      const t = el('text', { x: a.x, y: startY + i * lineHeight, 'text-anchor': 'middle', fill: '#0B1220', 'font-size': 12, 'font-weight': 600, 'font-family': "'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif", opacity: dim ? 0.3 : 1 });
+      const t = el('text', { class: 'bubble-txt', x: a.x, y: startY + i * lineHeight, 'text-anchor': 'middle', fill: '#0B1220', 'font-size': 12, 'font-weight': 600, 'font-family': "'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif", opacity: dim ? 0.3 : 1 });
       t.textContent = line;
       g.appendChild(t);
     });
