@@ -36,6 +36,7 @@ Die Skripte brauchen nur Node 22 und ein lokales Chrome (Pfad bei Bedarf mit `--
 | `node tests/tastatur.mjs` | Tabreihenfolge, Fokus-Stil, Erreichbarkeit, auch nach Klicks |
 | `node tests/teilen.mjs` | Link-kopieren-Knöpfe an den Überschriften |
 | `node tests/touch.mjs` | Touch-Bedienung bei 390 px (Scrollen über Flächen, Doppeltipp, Schieber) |
+| `node tests/begriffe.mjs` | Festgelegte Schreibweise der Leitbegriffe (siehe `BEGRIFFE.md`), ohne Chrome |
 | `node tests/mikrotext.mjs` | Wirksame Schriftgröße von SVG-Beschriftungen bei schmaler Breite |
 | `node tests/stoerung.mjs` | Startseite, "Wenn es hakt": Ausbreitung nach dem Abschalten, Leitungen, Reset, Tastatur |
 | `node tests/instand.mjs` | Startseite, "Wer hält es instand": Strategien über die Jahre, Zeitraffer, Regler |

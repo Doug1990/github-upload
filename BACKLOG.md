@@ -52,7 +52,6 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 23. **Rückmeldung ohne Analytics.** Fußlink "Fehler gemeldet oder Idee?" per `mailto:` mit Betreff je Seite, ein Satz in der Datenschutzseite. Aufwand S.
 24. **Glossar.** `glossar.html` und `tests/begriffe.json` mit bevorzugter Schreibweise, vom Prüfskript gelesen. Nach README und Sitemap. Aufwand M.
 39. **Alles hängt an Standards.** Stecker, Steckdose, Gleis oder Schlüssel-Schloss-Paar werden per Klick getauscht, sichtbar wird, was gleiche Normen ermöglichen. Brücke: Ein Eiweiß passt nur zu seinem Partner. Hinweis: Normen sind vereinbart, das Schlüssel-Schloss-Prinzip in Zellen entstand ohne Absprache und passt oft nur ungefähr. Aufwand S bis M.
-43. **Begriffsabgleich zwischen den Seiten.** Tabelle der Leitbegriffe (Kraftwerk, Turbine, Zoll, Bauamt, Wache) mit Schreibweise je Seite, Abweichungen werden angeglichen oder begründet. Akzeptanz: Volltextsuche je Leitbegriff findet nur die festgelegte Schreibweise. Aufwand S. Vorarbeit für das Glossar (Punkt 24).
 
 ## Entscheidungen für Björn (gesammelt)
 
@@ -133,6 +132,7 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 
 ## Erledigt
 
+- Begriffsabgleich: `BEGRIFFE.md` mit Leitbegriffen und Schreibweise, Skript `tests/begriffe.mjs` mit `tests/begriffe.json` (#43). Bestand war schon einheitlich, das Skript hält ihn so. Vorarbeit für das Glossar (Punkt 24).
 - Wer hält es instand: Abschnitt `#instand` auf der Startseite (drei Netze, drei Strategien, Zeitraffer), Skript `tests/instand.mjs`
 - Mikrotexte, Teil "Du gehörst dazu" und Regal (Startseite): Beschriftung bei 390 px mindestens 11 px
 - Dorf oder Stadt: Abschnitt `#dorf` auf der Zell-Seite nach der Evolution (Bakterium und Zelle mit Kern, Größenregler von etwa 1 bis 100 µm, Kugelrechnung, Woher kommen die Kraftwerke?, Ton), Skript `tests/dorf.mjs` mit Gegenprobe (`--gegenprobe`)
