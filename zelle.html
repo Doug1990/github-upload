@@ -471,6 +471,15 @@
   .muell input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
   @media (max-width: 560px) { #muellWeiter, #muellFuenf, #muellStreik, #muellReset { min-height: 44px; } }
   @media (pointer: coarse) { #muellWeiter, #muellFuenf, #muellStreik, #muellReset { min-height: 44px; } }
+  .skel-svg { max-width: 100%; }
+  .skel-svg .seg { stroke: #7FD9A8; stroke-width: 5; stroke-linecap: round; }
+  .skel-svg .seg.weg { stroke: #FF8A65; stroke-dasharray: 2 9; opacity: 0.8; }
+  .skel-svg .fracht { fill: var(--gold); stroke: #0B1220; stroke-width: 1.5; transition: cx 0.4s, cy 0.4s; }
+  .skel-svg .fracht.da { fill: #7FD9A8; }
+  .skel input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
+  @media (prefers-reduced-motion: reduce) { .skel-svg .fracht { transition: none; } }
+  @media (max-width: 560px) { #skelSchritt, #skelEnde, #skelReset { min-height: 44px; } }
+  @media (pointer: coarse) { #skelSchritt, #skelEnde, #skelReset { min-height: 44px; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1084,6 +1093,7 @@
     #muell
     #evolution
     #dorf
+    #skelett
     #dna
     #gen
     #regulation
@@ -1741,6 +1751,33 @@
 </section>
 
 <!-- 4. Information -->
+<section class="sec reveal" id="skelett">
+  <h2>Das Gerüst ist auch die Straße.</h2>
+  <p class="lead">In der Zelle gibt es Fäden, die ihr Form geben und zugleich Wege bilden. Kleine Motorproteine tragen Fracht an ihnen entlang, von der Mitte nach außen. Schicke Fracht los und baue danach Teile des Gerüsts ab. Dort, wo ein Stück fehlt, bleibt die Fracht stehen.</p>
+  <div class="panel skel">
+    <svg id="skelSvg" class="skel-svg" viewBox="0 0 640 260" role="img" aria-labelledby="skelSvgT">
+      <title id="skelSvgT">Schema: Links der Zellkern, rechts fünf Ziele am Rand der Zelle. Fünf Wege aus je sechs Stücken verbinden sie. Auf jedem Weg trägt ein Motorprotein ein Frachtstück. Fehlt ein Wegstück, bleibt die Fracht davor stehen.</title>
+    </svg>
+    <div class="stats" aria-live="off">
+      <div class="stat"><small>Angekommen</small><span id="skelAn">0 von 5</span></div>
+      <div class="stat"><small>Wegstücke fehlen</small><span id="skelFehl">0 von 30</span></div>
+      <div class="stat"><small>Schritte</small><span id="skelSchr">0</span></div>
+    </div>
+    <label class="sig-slider" for="skelAb"><span class="row"><span>Gerüst abbauen</span><output id="skelAbO" for="skelAb">0 %</output></span><input type="range" id="skelAb" min="0" max="100" step="10" value="0"></label>
+    <div class="evo-btns">
+      <button type="button" class="btn primary" id="skelSchritt">Ein Schritt</button>
+      <button type="button" class="btn" id="skelEnde">Bis zum Ende</button>
+      <button type="button" class="btn" id="skelReset">Neu starten</button>
+    </div>
+    <p class="status" id="skelStatus" aria-live="polite"></p>
+    <div class="aus-cols">
+      <div class="col"><b>In der Zelle</b><span>Mikrotubuli sind hohle Fäden aus Eiweiß. Motorproteine laufen darauf Schritt für Schritt und tragen Bläschen, Kraftwerke und Eiweiße an ihren Zielort.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Straßen und Schienen. Ist ein Stück gesperrt, steht der Verkehr davor, auch wenn der Rest in Ordnung ist.</span></div>
+    </div>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zellskelett</span></summary><div class="hinkt-body"><p>Eine Straße ist fest, und Fahrzeuge folgen einem Fahrplan. Das Zellskelett baut sich ständig um, und Motorproteine schreiten in kleinen Stufen, ohne Fahrplan und mit zufälligen Pausen. Es gibt viele Wege gleichzeitig, auch in Gegenrichtung, und die Zelle baut neue, wenn alte fehlen.</p><p>Hier sind es fünf gerade Wege mit je sechs Stücken, und das Gerüst fällt in fester Reihenfolge aus. Das ist ein Beispiel und kein Abbild.</p><p class="hinkt-frage">Wer sagt dem Motorprotein, wohin es soll?</p></div></details>
+</section>
+
 <section class="sec reveal" id="dna">
   <h2>Der Bauplan ist digital.</h2>
   <p class="lead">DNA schreibt mit vier Buchstaben: A, C, G und T. Vier Möglichkeiten sind genau zwei Bit pro Base. Tippe ein Wort und sieh, wie es in diesem Alphabet aussähe. Das ist nur ein Gedankenspiel und kein echter biologischer Code.</p>
@@ -5550,6 +5587,65 @@
   restart();
   wake();
 })();
+// --- Zellskelett: Wege und Fracht ---
+(function () {
+  'use strict';
+  var NS = 'http://www.w3.org/2000/svg', svg = document.getElementById('skelSvg');
+  var T = 5, S = 6, X0 = 90, X1 = 560, Y0 = 130, YS = [30, 80, 130, 180, 230];
+  var REIHE = [2, 4, 0, 5, 1, 3];
+  var $ = function (id) { return document.getElementById(id); };
+  var pos = [], schritte = 0, segEls = [], frEls = [];
+  function el(n, a, p) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+  function pt(t, k) { return [X0 + (X1 - X0) * k / S, Y0 + (YS[t] - Y0) * k / S]; }
+  var kern = el('circle', { cx: 60, cy: 130, r: 34, fill: '#2C3E50', stroke: '#8FC9D4', 'stroke-width': 2 }, svg);
+  el('text', { x: 60, y: 135, 'text-anchor': 'middle', fill: '#E8E6E0', 'font-size': 24, 'font-family': "'IBM Plex Sans', sans-serif" }, svg).textContent = 'Kern';
+  for (var t = 0; t < T; t++) {
+    segEls[t] = [];
+    for (var k = 0; k < S; k++) { var a = pt(t, k), b = pt(t, k + 1); segEls[t][k] = el('line', { class: 'seg', x1: a[0], y1: a[1], x2: b[0], y2: b[1] }, svg); }
+    el('circle', { cx: X1 + 24, cy: YS[t], r: 12, fill: 'none', stroke: '#8892A6', 'stroke-width': 2 }, svg);
+    var p0 = pt(t, 0); frEls[t] = el('circle', { class: 'fracht', cx: p0[0], cy: p0[1], r: 8 }, svg);
+  }
+  function fehlt() {
+    var n = Math.round(parseInt($('skelAb').value, 10) / 100 * T * S), m = {};
+    for (var r = 0; r < n; r++) m[(r % T) + ':' + REIHE[Math.floor(r / T)]] = true;
+    return { n: n, m: m };
+  }
+  function render() {
+    var f = fehlt(), da = 0;
+    for (var t = 0; t < T; t++) {
+      for (var k = 0; k < S; k++) segEls[t][k].setAttribute('class', 'seg' + (f.m[t + ':' + k] ? ' weg' : ''));
+      var p = pt(t, pos[t]);
+      frEls[t].setAttribute('cx', p[0]); frEls[t].setAttribute('cy', p[1]);
+      frEls[t].setAttribute('class', 'fracht' + (pos[t] === S ? ' da' : ''));
+      if (pos[t] === S) da++;
+    }
+    $('skelAn').textContent = da + ' von ' + T;
+    $('skelFehl').textContent = f.n + ' von ' + (T * S);
+    $('skelSchr').textContent = schritte;
+    $('skelAbO').textContent = parseInt($('skelAb').value, 10) + ' %';
+    var stehen = 0;
+    for (var u = 0; u < T; u++) if (pos[u] < S && f.m[u + ':' + pos[u]]) stehen++;
+    var tx;
+    if (da === T) tx = 'Alle Frachtstücke sind angekommen.';
+    else if (stehen === T - da && stehen > 0) tx = stehen + (stehen === 1 ? ' Frachtstück steht' : ' Frachtstücke stehen') + ' vor einem fehlenden Wegstück und' + (stehen === 1 ? ' kommt' : ' kommen') + ' nicht weiter.' + (stehen < T ? ' Die anderen sind angekommen oder schon darüber hinweg.' : '');
+    else if (schritte === 0) tx = 'Die Fracht wartet am Kern. Mach einen Schritt oder baue vorher Gerüst ab.';
+    else tx = 'Die Fracht ist unterwegs.';
+    $('skelStatus').textContent = tx + ' (Beispiel)';
+  }
+  function schritt() {
+    var f = fehlt(), bewegt = false;
+    for (var t = 0; t < T; t++) if (pos[t] < S && !f.m[t + ':' + pos[t]]) { pos[t]++; bewegt = true; }
+    if (bewegt) schritte++;
+    return bewegt;
+  }
+  for (var i = 0; i < T; i++) pos[i] = 0;
+  $('skelSchritt').addEventListener('click', function () { schritt(); render(); });
+  $('skelEnde').addEventListener('click', function () { var n = 0; while (schritt() && n++ < 20); render(); });
+  $('skelReset').addEventListener('click', function () { for (var i = 0; i < T; i++) pos[i] = 0; schritte = 0; $('skelAb').value = 0; render(); });
+  $('skelAb').addEventListener('input', render);
+  render();
+})();
+
 // --- Müllabfuhr und Recycling ---
 (function () {
   'use strict';
