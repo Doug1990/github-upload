@@ -2646,6 +2646,7 @@
   var cvP = document.getElementById('evoPop'), cvC = document.getElementById('evoChart');
   if (!cvP || !cvC || !cvP.getContext) return;
   var xP = cvP.getContext('2d'), xC = cvC.getContext('2d');
+  if (!xP || !xC) return;
   function $(id) { return document.getElementById(id); }
   var reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   var SANS = "'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif";
@@ -2737,7 +2738,8 @@
   function nearestFree(free, p) {
     var best = -1, bd = 1e12;
     for (var k = 0; k < free.length; k++) {
-      var q = pos[free[k]], dx = q.x - p.x, dy = q.y - p.y, d = dx * dx + dy * dy + rng() * R * R * 2;
+      var q = pos[free[k]]; if (!q || !p) continue;
+      var dx = q.x - p.x, dy = q.y - p.y, d = dx * dx + dy * dy + rng() * R * R * 2;
       if (d < bd) { bd = d; best = k; }
     }
     return best;
