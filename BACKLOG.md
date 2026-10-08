@@ -34,7 +34,6 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 13. **Visuelle Regression.** `tests/visuell.mjs`: Referenzbilder je Seite und Breite, Vergleich per Canvas, Differenzbild bei Abweichung, Baseline mit `--update`. Voraussetzung für die gemeinsamen Bausteine. Aufwand M.
 14. **Zellskelett als Straßen und Gerüst.** Fracht läuft per Motorprotein am Mikrotubulus, "Gerüst abbauen" lässt Wege reißen. Hinweis: Motorproteine schreiten in Stufen, es gibt keinen Fahrplan. Aufwand M.
 15. **Zwei Skalen, dieselbe Frage.** Düsseldorf und Zelle nebeneinander, Schieber "Skala" blendet über, Feld "Gleicher Name, anderer Mechanismus". Vorstufe der Abschlussseite. Aufwand M.
-16. **Robuste Kompatibilität.** `noscript`-Hinweis je Seite, iOS-Audio entsperren (erste Geste, Zustand `interrupted`), Test mit abgeschaltetem JavaScript im Prüfskript, Prüfliste für echte Geräte. Entsperr-Code mit dem Ton-Feinschliff zusammenführen. Aufwand M.
 17. **Skripte auslagern und Ladezeit messen.** Erst messen, dann nur große Skripte nach `assets/*.js` mit `defer`, nach den gemeinsamen Bausteinen. Aufwand M.
 18. **Eigene Seite zu Stromnetz, Wasser und Verkehr.** Tagesverlauf mit Schieber, Last, Erzeugung und Speicher. Keine Zahlen erfinden, Quellen nennen oder als Beispiel markieren. Aufwand L.
 30. **Reserven und Speicher.** Fettdepot, Glykogen und Vorratsraum als Lager der Zelle, per Regler "Lieferung fällt aus" ablesbar, wie lange die Reserve reicht. Hinweis: Speicher sind je Zelltyp sehr verschieden, Nervenzellen speichern kaum, die Laufzeiten sind frei gewählt. Aufwand M. Ergänzt den Robustheitsabschnitt.
@@ -141,6 +140,7 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 
 ## Erledigt
 
+- Robuste Kompatibilität: `noscript`-Hinweis und Sichtbarkeit der Texte ohne JavaScript auf allen Seiten (`check.mjs` prüft mit abgeschaltetem Skript), iOS-Audio weckt sich bei der nächsten Geste, Prüfliste für Geräte steht in `tests/geraete.md`
 - Lesbarkeit: Fließtext auf dem Handy (bis 560 px) mindestens 16 px, Zeilenabstand mindestens 1,5, Zeilenlänge etwa 70 Zeichen (Textbreite in ch), `check.mjs` meldet Verstöße jetzt als Fehler
 - Mikrotexte, Teil `graph` (Kopfbereich der Startseite): Schema bis 560 px Breite mit Mindestbreite 720 px in seitlich wischbarem Rahmen, Beschriftung wirksam mindestens 11 px, Hinweis "Seitlich wischen". Die Mikrotext-Basis ist leer (Punkt 41 komplett)
 - Fehlertoleranz: `tests/fehlertoleranz.mjs` schaltet localStorage, AudioContext, ResizeObserver und Canvas vor dem Laden ab und drückt alle Knöpfe. Behoben: Startseite ohne Canvas (Beschriftungsmaß, Export) und Zell-Seite (Evolution ohne Canvas, Schritt vor dem Layout). Lauf je Seite: `--seite=<datei>` (Zell-Seite dauert einige Minuten)
