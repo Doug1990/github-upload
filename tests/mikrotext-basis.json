@@ -1,6 +1,6 @@
 {
   "index.html|cubeScene": {
-    "n": 7,
+    "n": 6,
     "min": 8.6,
     "spielraum": 3
   },
@@ -8,10 +8,5 @@
     "n": 24,
     "min": 4.2,
     "spielraum": 8
-  },
-  "index.html|journeyScene": {
-    "n": 10,
-    "min": 5,
-    "spielraum": 4
   }
 }
