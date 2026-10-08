@@ -138,6 +138,24 @@ if (fs.existsSync(path.join(ROOT, 'sitemap.xml'))) {
 } else warnings.push('sitemap.xml fehlt');
 if (!fs.existsSync(path.join(ROOT, 'robots.txt'))) warnings.push('robots.txt fehlt');
 
+// Wartbarkeit der großen Dateien: doppelte IDs, Skriptblöcke ohne Kommentarkopf, doppelt vergebene Namen auf oberster
+// Ebene (außerhalb von Funktionsblöcken, dort kollidiert nichts) und Sections mit id, die im Inhaltsverzeichnis fehlen.
+for (const page of pages) {
+  const src = fs.readFileSync(path.join(ROOT, page), 'utf8');
+  const count = {};
+  for (const [, id] of src.matchAll(/\sid="([^"]+)"/g)) count[id] = (count[id] || 0) + 1;
+  for (const [id, n] of Object.entries(count)) if (n > 1) errors.push(`${page}: id="${id}" ist ${n}-mal vergeben`);
+  const blocks = [...src.matchAll(/<script(?![^>]*\bsrc=)(?![^>]*type="application\/ld\+json")[^>]*>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+  const names = {};
+  blocks.forEach((b, i) => {
+    if (!/^\s*(\/\/|\/\*)/.test(b)) warnings.push(`${page}: Skriptblock ${i + 1} ohne Kommentarkopf`);
+    for (const m of b.matchAll(/^(?:async\s+)?function\s+([A-Za-z_$][\w$]*)|^(?:const|let|var)\s+([A-Za-z_$][\w$]*)/gm)) (names[m[1] || m[2]] ||= new Set()).add(i + 1);
+  });
+  for (const [n, set] of Object.entries(names)) if (set.size > 1) errors.push(`${page}: Name "${n}" steht auf oberster Ebene in den Skriptblöcken ${[...set].join(' und ')}`);
+  const toc = (src.match(/<!-- Inhaltsverzeichnis[\s\S]*?-->/) || [''])[0];
+  if (toc) for (const [, id] of src.matchAll(/<section[^>]*\bid="([^"]+)"/g)) if (!toc.includes('#' + id)) warnings.push(`${page}: Section #${id} fehlt im Inhaltsverzeichnis`);
+}
+
 ws.close(); chrome.kill(); server.close();
 try { fs.rmSync(profile, { recursive: true, force: true }); } catch {}
 const uniq = (a) => [...new Set(a)];

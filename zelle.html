@@ -1026,6 +1026,30 @@
 </style>
 </head>
 <body>
+<!-- Inhaltsverzeichnis (check.mjs prüft, dass jede Section mit id hier steht)
+  Abschnitte:
+    #stadt
+    #tag
+    #kraftwerk
+    #fliessband
+    #robust
+    #zoll
+    #ausfall
+    #evolution
+    #dorf
+    #dna
+    #gen
+    #regulation
+    #teilung
+    #bauamt
+    #signale
+    #immun
+    #fragen
+  Skriptblöcke, in Reihenfolge:
+    // --- Hauptskript: Abschnitte der Zell-Seite von Stadt bis Fragen ---
+    // --- Sound ---
+    // --- Abschnittslinks: Knopf je Überschrift, kopiert die Adresse ---
+-->
 <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
 <button type="button" class="sound-toggle" id="soundBtn" aria-pressed="false" aria-label="Ton" title="Ton ein- oder ausschalten">
@@ -1945,6 +1969,7 @@
 </footer>
 
 <script>
+// --- Hauptskript: Abschnitte der Zell-Seite von Stadt bis Fragen ---
 (function () {
   'use strict';
   var NS = 'http://www.w3.org/2000/svg';
@@ -6283,6 +6308,7 @@
 </style>
 <div class="linkmsg" id="linkMsg" role="status" aria-live="polite"></div>
 <script>
+// --- Abschnittslinks: Knopf je Überschrift, kopiert die Adresse ---
 (function () {
   var skip = { hero: 1, landing: 1 };
   var msg = document.getElementById('linkMsg'), timer;
