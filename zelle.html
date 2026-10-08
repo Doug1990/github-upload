@@ -316,12 +316,13 @@
   .gen-zeit li { padding: 4px 0 8px 14px; }
   .gen-zeit li b { display: block; color: var(--gold); font-weight: 600; font-size: 12px; letter-spacing: 0.06em; }
   .reg-seg { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 14px; }
-  .reg-seg .btn[aria-pressed="true"], #regSugar[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: rgba(var(--accent-rgb),0.12); }
+  .reg-seg .btn[aria-pressed="true"], #regSugar[aria-pressed="true"], #regMarks[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: rgba(var(--accent-rgb),0.12); }
   .reg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
   .reg-card { background: rgba(255,255,255,0.03); border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.5; color: var(--muted); transition: opacity 0.2s, border-color 0.2s; }
   .reg-card b { display: block; font-family: 'Fraunces', serif; font-weight: 500; font-size: 15px; color: var(--ink); margin-bottom: 2px; }
   .reg-card.zu { border-style: dashed; background: transparent; }
   .reg-card.zu b { color: var(--muted); }
+  .reg-mark { display: block; margin-top: 8px; font-size: 11.5px; color: var(--gold); }
   .reg-lv { display: flex; gap: 3px; margin-top: 8px; align-items: center; }
   .reg-lv i { flex: 1; height: 6px; border-radius: 3px; background: #25332C; }
   .reg-lv i.on { background: var(--accent); }
@@ -329,10 +330,10 @@
   @media (max-width: 640px) {
     .gen-panel { --gb: 44px; }
     .reg-grid { grid-template-columns: 1fr 1fr; }
-    .reg-seg .btn, #regSugar, #genBack, #genNext, #genRand, #genReset { min-height: 44px; }
+    .reg-seg .btn, #regSugar, #regMarks, #genBack, #genNext, #genRand, #genReset { min-height: 44px; }
   }
   @media (max-width: 400px) { .reg-grid { grid-template-columns: 1fr; } }
-  @media (pointer: coarse) { .gen-panel { --gb: 44px; } .reg-seg .btn, #regSugar, #genBack, #genNext, #genRand, #genReset { min-height: 44px; } }
+  @media (pointer: coarse) { .gen-panel { --gb: 44px; } .reg-seg .btn, #regSugar, #regMarks, #genBack, #genNext, #genRand, #genReset { min-height: 44px; } }
 
   /* Teilung */
   .teil-seg { display: flex; justify-content: center; margin: 0 auto 14px; width: fit-content; border: 1px solid #3A4A42; border-radius: 999px; overflow: hidden; }
@@ -1713,10 +1714,10 @@
   <div class="panel" id="regPanel">
     <div class="reg-seg" role="group" aria-label="Zelltyp wählen" id="regSeg"></div>
     <div class="reg-grid" id="regGrid"></div>
-    <div class="evo-btns"><button type="button" class="btn" id="regSugar" aria-pressed="false">Nach dem Essen: Blutzucker steigt</button></div>
+    <div class="evo-btns"><button type="button" class="btn" id="regSugar" aria-pressed="false">Nach dem Essen: Blutzucker steigt</button><button type="button" class="btn" id="regMarks" aria-pressed="false">Lesezeichen zeigen</button></div>
     <p class="status" id="regStatus" aria-live="polite"></p>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Genregulation</span></summary><div class="hinkt-body"><p>Ein Archiv mit Aktenschrank legt nahe, dass jemand die Akten heraussucht. In der Zelle sitzen Schalter-Eiweiße an der DNA, die je nach Zelltyp und Signal ein Gen anschalten oder dämpfen, ohne dass ein Sachbearbeiter entscheidet.</p><p>Eine zugeklappte Akte ist außerdem nicht für immer gesperrt. Zu heißt meist, dass die Stelle gerade nicht bereit zum Ablesen ist, und das kann sich ändern.</p><p class="hinkt-frage">Was legt fest, welche Akte eine Zelle als erste aufschlägt?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Genregulation</span></summary><div class="hinkt-body"><p>Ein Archiv mit Aktenschrank legt nahe, dass jemand die Akten heraussucht. In der Zelle sitzen Schalter-Eiweiße an der DNA, die je nach Zelltyp und Signal ein Gen anschalten oder dämpfen, ohne dass ein Sachbearbeiter entscheidet.</p><p>Eine zugeklappte Akte ist außerdem nicht für immer gesperrt. Zu heißt meist, dass die Stelle gerade nicht bereit zum Ablesen ist, und das kann sich ändern.</p><p>Die Lesezeichen sind stark vereinfacht. Sie verändern die Buchstaben nicht und lassen sich teils wieder umstellen. Sie sind kein Hinweis darauf, dass Lebensstil oder Erlebnisse über Generationen weitergegeben werden. Das ist beim Menschen nicht belegt.</p><p class="hinkt-frage">Was legt fest, welche Akte eine Zelle als erste aufschlägt?</p></div></details>
   <p class="note">Stark vereinfacht: Der Mensch hat rund 20.000 Gene, hier sind es sechs, und ob ein Gen abgelesen wird, ist ein Regler mit vielen Stufen, hier gibt es drei. Die Zuordnung ist ein Beispiel, echte Zelltypen unterscheiden sich durch Mischungen aus tausenden Genen. Bei Merkmalen wie Körpergröße oder Gewicht wirken sehr viele Gene mit Umwelt und Lebensweise zusammen, ein einzelnes Gen legt dort wenig fest.</p>
 </section>
 
@@ -2570,7 +2571,7 @@
       { n: 'Insulin', d: 'Hormon, das den Blutzucker senkt.', on: ['beta'], sugar: true },
       { n: 'Keratin der Haut', d: 'Hornschicht, die Haut schützt.', on: ['haut'] }
     ];
-    var cur = 'muskel', sugar = false, seg = $('regSeg'), grid = $('regGrid'), segBtns = {};
+    var cur = 'muskel', sugar = false, marks = false, seg = $('regSeg'), grid = $('regGrid'), segBtns = {};
     TYPES.forEach(function (t) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = t.n;
       b.addEventListener('click', function () { cur = t.id; render(); }); seg.appendChild(b); segBtns[t.id] = b;
@@ -2580,18 +2581,21 @@
     function render() {
       TYPES.forEach(function (t) { segBtns[t.id].setAttribute('aria-pressed', String(t.id === cur)); });
       $('regSugar').setAttribute('aria-pressed', String(sugar));
+      $('regMarks').setAttribute('aria-pressed', String(marks));
       grid.innerHTML = ''; var open = 0, names = [];
       GENES.forEach(function (g) {
         var l = level(g), c = document.createElement('div'); c.className = 'reg-card' + (l ? '' : ' zu');
         if (l) { open++; }
-        c.innerHTML = '<b>' + g.n + '</b>' + g.d + '<div class="reg-lv" role="img" aria-label="' + g.n + ': ' + LV[l] + '"><i class="' + (l >= 1 ? 'on' : '') + '"></i><i class="' + (l >= 2 ? 'on' : '') + '"></i><span aria-hidden="true">' + LV[l] + '</span></div>';
+        c.innerHTML = '<b>' + g.n + '</b>' + g.d + '<div class="reg-lv" role="img" aria-label="' + g.n + ': ' + LV[l] + '"><i class="' + (l >= 1 ? 'on' : '') + '"></i><i class="' + (l >= 2 ? 'on' : '') + '"></i><span aria-hidden="true">' + LV[l] + '</span></div>' + (marks ? '<span class="reg-mark">' + (l ? 'Lesezeichen: leicht zu öffnen' : 'Lesezeichen: fest verschlossen') + '</span>' : '');
         grid.appendChild(c);
       });
       var tn = TYPES.filter(function (t) { return t.id === cur; })[0].n;
       var msg = tn + ': ' + open + ' von 6 Akten sind offen. Die anderen ' + (6 - open) + ' liegen weiter im Archiv, werden aber nicht abgeschrieben.';
       if (sugar) msg += cur === 'beta' ? ' Nach dem Essen liest die Zelle die Insulin-Akte deutlich öfter ab. Dieselbe DNA, dieselbe Zelle, anderer Zustand.' : ' Der Blutzucker ändert an diesen sechs Akten hier nichts.';
+      if (marks) msg += ' Die Lesezeichen sind kleine chemische Markierungen an der DNA und ihrer Verpackung. Die Buchstaben bleiben dieselben, die Markierungen bestimmen, wie leicht eine Akte aufgeht. Sie werden bei der Teilung meist weitergegeben, deshalb bleibt eine Hautzelle eine Hautzelle.';
       $('regStatus').textContent = msg;
     }
+    $('regMarks').addEventListener('click', function () { marks = !marks; render(); });
     $('regSugar').addEventListener('click', function () { sugar = !sugar; render(); });
     render();
   })();
