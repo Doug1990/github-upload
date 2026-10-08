@@ -1550,6 +1550,8 @@ let _measureCanvas = null;
 function measureWidth(text, font) {
   if (!_measureCanvas) _measureCanvas = document.createElement('canvas');
   const ctx = _measureCanvas.getContext('2d');
+  // Ohne Canvas (gesperrt oder nicht vorhanden): grobe Schätzung nach Zeichenzahl, die Beschriftung bleibt lesbar.
+  if (!ctx) return text.length * (parseFloat(font.match(/(\d+(\.\d+)?)px/)?.[1]) || 12) * 0.55;
   ctx.font = font;
   return ctx.measureText(text).width;
 }
@@ -2525,6 +2527,7 @@ function exportPNG() {
     canvas.width = vb.width * scale;
     canvas.height = vb.height * scale;
     const ctx = canvas.getContext('2d');
+    if (!ctx) { URL.revokeObjectURL(url); return; }
     ctx.fillStyle = '#0B1220';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.scale(scale, scale);
