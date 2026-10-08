@@ -59,7 +59,6 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 20. **Epigenetik in der DNA-Sektion.** Derselbe Bauplan, andere Lesezeichen je Zelltyp. Keine Lebensstil-Deutung, keine Vererbung über Generationen. Aufwand S.
 21. **Druckansicht und Lesemodus.** Zuerst nur `@media print` (hell, ohne Bedienknöpfe), Hell-Schalter erst nach den gemeinsamen Bausteinen. Aufwand S bis M.
 22. **Mitmach-Format.** Rätsel "Wer bin ich, in Stadt und Zelle?" und Baukasten "Baue deine Stadt", alles ohne Maus lösbar. Erst nach Fließband, Zellskelett und Zoll. Aufwand M.
-23. **Rückmeldung ohne Analytics.** Fußlink "Fehler gemeldet oder Idee?" per `mailto:` mit Betreff je Seite, ein Satz in der Datenschutzseite. Aufwand S.
 24. **Glossar.** `glossar.html` und `tests/begriffe.json` mit bevorzugter Schreibweise, vom Prüfskript gelesen. Nach README und Sitemap. Aufwand M.
 39. **Alles hängt an Standards.** Stecker, Steckdose, Gleis oder Schlüssel-Schloss-Paar werden per Klick getauscht, sichtbar wird, was gleiche Normen ermöglichen. Brücke: Ein Eiweiß passt nur zu seinem Partner. Hinweis: Normen sind vereinbart, das Schlüssel-Schloss-Prinzip in Zellen entstand ohne Absprache und passt oft nur ungefähr. Aufwand S bis M.
 
@@ -143,6 +142,7 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 
 ## Erledigt
 
+- Rückmeldung ohne Analytics: Fußlink "Fehler gemeldet oder Idee?" per mailto mit Betreff je Seite (Startseite, Zell-Seite, Karte), Absatz in der Datenschutzseite
 - Begriffsabgleich: `BEGRIFFE.md` mit Leitbegriffen und Schreibweise, Skript `tests/begriffe.mjs` mit `tests/begriffe.json` (#43). Bestand war schon einheitlich, das Skript hält ihn so. Vorarbeit für das Glossar (Punkt 24).
 - Mikrotexte, Teil Reise (`journeyScene`): Stationsnamen auf schmalen Bildschirmen aus dem Bild genommen
 - Konzept-Runde 4: Vorschläge 44 bis 53 eingetragen (Körper, Rückblick, Screenreader, Fokus, Seitengewicht, Prüfskripte)
