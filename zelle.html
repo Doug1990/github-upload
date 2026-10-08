@@ -464,6 +464,13 @@
   .alt-row output { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); }
   .alt input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
   @media (prefers-reduced-motion: reduce) { .alt-bar i { transition: none; } }
+  .muell-field { display: grid; grid-template-columns: repeat(auto-fill, 18px); gap: 5px; padding: 12px; min-height: 96px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,0.02); justify-content: center; align-content: start; margin-bottom: 12px; }
+  .muell-field i { width: 18px; height: 18px; border-radius: 4px; background: #8C6B4F; }
+  .muell-field.voll i { background: #FF8A65; }
+  #muellStreik[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: rgba(var(--accent-rgb),0.12); }
+  .muell input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
+  @media (max-width: 560px) { #muellWeiter, #muellFuenf, #muellStreik, #muellReset { min-height: 44px; } }
+  @media (pointer: coarse) { #muellWeiter, #muellFuenf, #muellStreik, #muellReset { min-height: 44px; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1074,6 +1081,7 @@
     #robust
     #zoll
     #ausfall
+    #muell
     #evolution
     #dorf
     #dna
@@ -1613,6 +1621,32 @@
 </section>
 
 <!-- 3b. Evolution -->
+<section class="sec reveal" id="muell">
+  <h2>Was liegen bleibt, stört.</h2>
+  <p class="lead">Jede Zelle erzeugt Abfall: beschädigte Eiweiße, abgenutzte Kraftwerke, Reste. Spezielle Anlagen holen ihn ab und zerlegen ihn in Bausteine, die wieder gebraucht werden. Stelle ein, wie viel anfällt, und sieh, was passiert, wenn die Abfuhr streikt.</p>
+  <div class="panel muell">
+    <div class="muell-field" id="muellField" role="img" aria-label="Müllhaufen"></div>
+    <div class="stats" aria-live="off">
+      <div class="stat"><small>Tag</small><span id="muellTag">0</span></div>
+      <div class="stat"><small>Haufen</small><span id="muellHaufen">0</span></div>
+      <div class="stat"><small>Abfuhr je Tag</small><span id="muellAbfuhr">4</span></div>
+    </div>
+    <label class="sig-slider" for="muellAnfall"><span class="row"><span>Müll pro Tag</span><output id="muellAnfallO" for="muellAnfall">3</output></span><input type="range" id="muellAnfall" min="1" max="8" step="1" value="3"></label>
+    <div class="evo-btns">
+      <button type="button" class="btn primary" id="muellWeiter">Einen Tag weiter</button>
+      <button type="button" class="btn" id="muellFuenf">Fünf Tage weiter</button>
+      <button type="button" class="btn" id="muellStreik" aria-pressed="false">Abfuhr streikt</button>
+      <button type="button" class="btn" id="muellReset">Zurücksetzen</button>
+    </div>
+    <p class="status" id="muellStatus" aria-live="polite"></p>
+    <div class="aus-cols">
+      <div class="col"><b>In der Zelle</b><span>Lysosomen zerlegen Abfall mit Enzymen. Das Proteasom baut beschädigte Eiweiße einzeln ab. Beim Recycling entstehen Aminosäuren, die neu verbaut werden.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Müllabfuhr und Recyclinghof. Stoppt die Abfuhr, stapelt sich der Abfall in den Straßen, bis nichts mehr geht.</span></div>
+    </div>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Müllabfuhr</span></summary><div class="hinkt-body"><p>Eine Stadt hat eine zentrale Abfuhr. In der Zelle ist die Entsorgung verteilt: Lysosomen, Proteasomen und die Selbstverdauung (Autophagie) arbeiten an vielen Stellen gleichzeitig, und die Zelle steuert sie je nach Bedarf. Es gibt keinen Fahrplan und keinen Streik im engeren Sinn, sondern Störungen, etwa durch Mangel an Enzymen.</p><p>Die Zahlen sind Beispielwerte. Das Bild verspricht nichts: Eine gut arbeitende Entsorgung ist ein Teil von vielen und kein Mittel gegen das Altern.</p><p class="hinkt-frage">Wer entscheidet in der Zelle, was Abfall ist?</p></div></details>
+</section>
+
 <section class="sec reveal" id="evolution">
   <h2>Ohne Bauamt: Was sich bewährt, bleibt.</h2>
   <p class="lead">Stell dir jede Zelle als Stadtviertel vor. Reicht die Versorgung nicht oder hält die Mauer nicht, ist das Viertel bald weg. Die übrigen bauen weiter, mit kleinen Zufällen im Bauplan. Niemand entwirft das Ergebnis. Drehe an den Reglern und sieh, was sich durchsetzt.</p>
@@ -5516,6 +5550,45 @@
   restart();
   wake();
 })();
+// --- Müllabfuhr und Recycling ---
+(function () {
+  'use strict';
+  var KAPA = 4, VOLL = 40, MAXPUNKTE = 60;
+  var tag = 0, haufen = 0, streik = false;
+  var $ = function (id) { return document.getElementById(id); };
+  var field = $('muellField');
+  function render() {
+    var a = parseInt($('muellAnfall').value, 10), kap = streik ? 0 : KAPA;
+    $('muellAnfallO').textContent = a;
+    $('muellTag').textContent = tag;
+    $('muellHaufen').textContent = haufen;
+    $('muellAbfuhr').textContent = kap;
+    $('muellStreik').setAttribute('aria-pressed', String(streik));
+    var n = Math.min(haufen, MAXPUNKTE);
+    while (field.children.length < n) field.appendChild(document.createElement('i'));
+    while (field.children.length > n) field.removeChild(field.lastChild);
+    field.classList.toggle('voll', haufen >= VOLL);
+    field.setAttribute('aria-label', haufen + ' Müllstücke' + (haufen >= VOLL ? ', zu viele' : ''));
+    var t;
+    if (haufen >= VOLL) t = 'Der Haufen ist so groß, dass er den Betrieb stört. In der Zelle sammeln sich beschädigte Eiweiße an, in der Stadt staut sich der Müll.';
+    else if (streik) t = tag ? 'Die Abfuhr steht. Es fällt weiter Müll an, der Haufen wächst um ' + a + ' pro Tag.' : 'Die Abfuhr streikt. Lass Tage vergehen und sieh, wie der Haufen wächst.';
+    else if (a > kap) t = 'Es fällt mehr an, als abgeholt wird. Der Haufen wächst um ' + (a - kap) + ' pro Tag, bis die Abfuhr nachkommt oder der Müllanfall sinkt.';
+    else if (haufen === 0) t = 'Alles abgeholt. Die Abfuhr schafft ' + kap + ' pro Tag und es fallen ' + a + ' an.';
+    else t = 'Die Abfuhr kommt mit und der Haufen schrumpft Stück für Stück.';
+    $('muellStatus').textContent = t + ' (Beispielwerte)';
+  }
+  function tagWeiter() {
+    var a = parseInt($('muellAnfall').value, 10), kap = streik ? 0 : KAPA;
+    tag++; haufen += a; haufen -= Math.min(haufen, kap);
+  }
+  $('muellWeiter').addEventListener('click', function () { tagWeiter(); render(); });
+  $('muellFuenf').addEventListener('click', function () { for (var i = 0; i < 5; i++) tagWeiter(); render(); });
+  $('muellStreik').addEventListener('click', function () { streik = !streik; render(); });
+  $('muellReset').addEventListener('click', function () { tag = 0; haufen = 0; streik = false; render(); });
+  $('muellAnfall').addEventListener('input', render);
+  render();
+})();
+
 // --- Alterung und Reparatur: Zusatzfall im Ausfall-Abschnitt ---
 (function () {
   'use strict';
