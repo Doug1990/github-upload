@@ -1,5 +1,6 @@
 // Prüfskript: öffnet jede HTML-Seite im Repo in Headless-Chrome bei mehreren Breiten.
-// Aufruf: node tests/check.mjs [--screens=<ordner>] [--chrome=<pfad>]
+// Aufruf: node tests/check.mjs [--screens=<ordner>] [--chrome=<pfad>] [--langsam] [--ohne-extern]
+// --langsam: Ladezeit bei gedrosseltem Netz (3G). Externe Links werden per HEAD geprüft (nur Warnung), --ohne-extern überspringt das.
 // Keine Abhängigkeiten, nur Node 22 (eingebauter WebSocket) und ein lokales Chrome.
 // Fehler (Exit-Code 1): Konsolenfehler, Ausnahmen, fehlgeschlagene Requests, horizontaler Überlauf,
 // tote interne Links und Anker, fehlender title, fehlende Beschreibung, falsches oder fehlendes canonical, og:title ohne og:image,
@@ -138,6 +139,38 @@ for (const page of pages) {
   if (r.verborgen) err(page, '-', `ohne JavaScript: ${r.verborgen} Abschnitte unsichtbar (Opacity unter 0,5)`);
 }
 await send('Emulation.setScriptExecutionDisabled', { value: false });
+
+// Externe Links: HEAD-Anfrage (bei 405 oder 403 ein GET), nur Warnung. Ohne Netz oder mit --ohne-extern wird übersprungen.
+if (!process.argv.includes('--ohne-extern')) {
+  const ext = new Map();
+  for (const page of pages) {
+    const src = fs.readFileSync(path.join(ROOT, page), 'utf8');
+    for (const [, u] of src.matchAll(/href="(https?:\/\/[^"#]+)/g)) if (!u.startsWith('https://doug1990.github.io/github-upload')) (ext.get(u) || ext.set(u, []).get(u)).push(page);
+  }
+  const pruefe = async (u) => {
+    const versuch = async (method) => { const c = new AbortController(); const t = setTimeout(() => c.abort(), 8000); try { return (await fetch(u, { method, redirect: 'follow', signal: c.signal, headers: { 'user-agent': 'Mozilla/5.0 (Linkprüfung)' } })).status; } finally { clearTimeout(t); } };
+    try { let s = await versuch('HEAD'); if (s === 405 || s === 403 || s === 501) s = await versuch('GET'); return s; } catch { return 0; }
+  };
+  const ergebnisse = await Promise.all([...ext.keys()].map(async (u) => [u, await pruefe(u)]));
+  const keinNetz = ergebnisse.length > 0 && ergebnisse.every(([, s]) => s === 0);
+  if (keinNetz) warnings.push('externe Links nicht geprüft (kein Netz erreichbar)');
+  else for (const [u, s] of ergebnisse) if (s === 0 || s >= 400) warnings.push(`${ext.get(u)[0]}: externer Link ${u} antwortet ${s || 'nicht'}`);
+}
+
+// Ladetest mit --langsam: gedrosselt auf etwa 3G (400 ms Latenz, 400 kbit/s), meldet Zeit bis zum ersten Text und bis load.
+if (process.argv.includes('--langsam')) {
+  await send('Network.emulateNetworkConditions', { offline: false, latency: 400, downloadThroughput: 50000, uploadThroughput: 12500 });
+  console.log('\nLadezeit bei 3G (400 ms Latenz, 400 kbit/s):');
+  for (const page of pages) {
+    await send('Page.navigate', { url: `${BASE}/${page}` });
+    await sleep(500);
+    let r = null;
+    for (let i = 0; i < 90 && !(r && r.load); i++) { await sleep(1000); r = await ev(`(() => { const n = performance.getEntriesByType('navigation')[0]; const fcp = performance.getEntriesByName('first-contentful-paint')[0]; return { load: n && n.loadEventEnd > 0 ? Math.round(n.loadEventEnd) : 0, fcp: fcp ? Math.round(fcp.startTime) : 0, kb: Math.round(performance.getEntriesByType('resource').reduce((a, e) => a + (e.transferSize || 0), 0) / 1024) }; })()`); }
+    console.log(`  ${page.padEnd(20)} erster Text ${r && r.fcp ? (r.fcp / 1000).toFixed(1) + ' s' : '?'}, load ${r && r.load ? (r.load / 1000).toFixed(1) + ' s' : 'nicht fertig'}, ${r ? r.kb : '?'} KB Unterressourcen`);
+    if (r && r.fcp > 5000) warn(page, '-', `erster Text erst nach ${(r.fcp / 1000).toFixed(1)} s bei 3G`);
+  }
+  await send('Network.emulateNetworkConditions', { offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1 });
+}
 
 // sitemap.xml und robots.txt: jede gelistete Adresse muss auf eine vorhandene Seite zeigen
 if (fs.existsSync(path.join(ROOT, 'sitemap.xml'))) {
