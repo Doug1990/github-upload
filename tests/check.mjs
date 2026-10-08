@@ -85,9 +85,9 @@ for (const page of pages) {
       return {sw:document.documentElement.scrollWidth,iw:innerWidth,over,small,noName,lang,klein,eng,nfl:fl.length};})()`);
     if (r.sw > r.iw + 1) err(page, w, `horizontaler Überlauf (${r.sw} > ${r.iw}): ${r.over.join(', ') || 'Verursacher unklar'}`);
     if (w <= 390 && r.small.length) warn(page, w, 'Tippflächen unter 40 px: ' + r.small.join('; '));
-    if (r.lang.length) warn(page, w, 'Zeilen über 80 Zeichen: ' + r.lang.join('; '));
-    if (w <= 390 && r.klein) warn(page, w, `Fließtext unter 16 px: ${r.klein} von ${r.nfl} Absätzen`);
-    if (r.eng.length) warn(page, w, 'Zeilenabstand unter 1,45: ' + r.eng.join('; '));
+    if (r.lang.length) err(page, w, 'Zeilen über 80 Zeichen: ' + r.lang.join('; '));
+    if (w <= 390 && r.klein) err(page, w, `Fließtext unter 16 px: ${r.klein} von ${r.nfl} Absätzen`);
+    if (r.eng.length) err(page, w, 'Zeilenabstand unter 1,45: ' + r.eng.join('; '));
     if (r.noName.length) warn(page, w, 'Buttons ohne Name: ' + r.noName.join(', '));
     if (SCREENS) { const s = await send('Page.captureScreenshot', { format: 'png' }); fs.writeFileSync(path.join(SCREENS, `${page.replace('.html', '')}-${w}.png`), Buffer.from(s.data, 'base64')); }
   }
