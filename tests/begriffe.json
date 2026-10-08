@@ -1,0 +1,17 @@
+{
+  "Powerhouse": "Kraftwerk",
+  "Zellkraftwerk": "Kraftwerk",
+  "Eiweißfabrik": "Fabrik",
+  "Proteinfabrik": "Fabrik",
+  "Kommandozentrale": "Archiv oder Rathaus",
+  "Zollamt": "Zoll",
+  "Zollstation": "Zoll",
+  "Zollbehörde": "Zoll",
+  "Grenzkontrolle": "Zoll",
+  "Bauaufsicht": "Bauamt",
+  "Bauordnungsamt": "Bauamt",
+  "Planungsamt": "Bauamt",
+  "Stadtwacht": "Stadtwache",
+  "Abwehrsystem": "Immunsystem",
+  "\\bProteine?n?\\b": "Eiweiß"
+}
