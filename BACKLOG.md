@@ -38,7 +38,7 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 16. **Robuste Kompatibilität.** `noscript`-Hinweis je Seite, iOS-Audio entsperren (erste Geste, Zustand `interrupted`), Test mit abgeschaltetem JavaScript im Prüfskript, Prüfliste für echte Geräte. Entsperr-Code mit dem Ton-Feinschliff zusammenführen. Aufwand M.
 17. **Skripte auslagern und Ladezeit messen.** Erst messen, dann nur große Skripte nach `assets/*.js` mit `defer`, nach den gemeinsamen Bausteinen. Aufwand M.
 18. **Eigene Seite zu Stromnetz, Wasser und Verkehr.** Tagesverlauf mit Schieber, Last, Erzeugung und Speicher. Keine Zahlen erfinden, Quellen nennen oder als Beispiel markieren. Aufwand L.
-19. **Erweiterungen.** Quorum Sensing als Zusatzfall im Signale-Abschnitt, Alterung und Reparatur im Müllabfuhr-Abschnitt. Je Aufwand S.
+19. **Erweiterung: Alterung und Reparatur im Müllabfuhr-Abschnitt.** Quorum Sensing ist erledigt. Offen: Alterung und Reparatur als Zusatzfall im Abschnitt `#ausfall` (Müllabfuhr der Zelle). Aufwand S.
 30. **Reserven und Speicher.** Fettdepot, Glykogen und Vorratsraum als Lager der Zelle, per Regler "Lieferung fällt aus" ablesbar, wie lange die Reserve reicht. Hinweis: Speicher sind je Zelltyp sehr verschieden, Nervenzellen speichern kaum, die Laufzeiten sind frei gewählt. Aufwand M. Ergänzt den Robustheitsabschnitt.
 31. **Zellen im Verbund.** Gewebe als Stadtviertel: Nachbarzellen teilen Nährstoffe und Signale über Kontaktstellen, ein Klick isoliert ein Viertel. Hinweis: Gewebe bestehen aus vielen Zelltypen, Aufgaben sind verteilt, Viertel sind keine festen Grenzen. Aufwand M. Leitet von der Zelle zum Körper über und bereitet die Abschlussseite vor.
 32. **Externe Links und Ladetest.** `check.mjs` prüft externe Links per HEAD-Anfrage (nur Warnung). Schalter `--langsam` drosselt auf 3G und meldet Zeit bis zum ersten Text und bis zur Bedienbarkeit. Aufwand S bis M.
@@ -140,6 +140,7 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 
 ## Erledigt
 
+- Quorum Sensing: Zusatzfall "Bakterien zählen sich" im Signale-Abschnitt der Zell-Seite (Regler für die Zahl, Schwelle bei 30 von 60, Hinweis im Feld "Wo das Bild hinkt"), Skript `tests/quorum.mjs`
 - Epigenetik: Schalter "Lesezeichen zeigen" im Abschnitt Genregulation (`#regulation`) auf der Zell-Seite, Hinweis zu Grenzen im Feld "Wo das Bild hinkt", Prüfung in `tests/gene.mjs`
 - Wartbarkeit: Inhaltsverzeichnis am Anfang von `index.html` und `zelle.html`, Kommentarköpfe für alle Skriptblöcke, `check.mjs` meldet doppelte IDs und doppelte Namen auf oberster Ebene als Fehler, Skriptblöcke ohne Kopf und Sections ohne Eintrag im Verzeichnis als Warnung
 - Prüfliste für echte Geräte: `tests/geraete.md` angelegt (Durchlauf steht noch aus, Punkt 42)
