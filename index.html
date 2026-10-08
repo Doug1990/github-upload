@@ -302,6 +302,8 @@
   .cube-role-label { font-family: 'IBM Plex Sans', sans-serif; font-size: 10.5px; fill: #8FA0B8; }
   .cube-node-ring { transition: opacity 0.6s ease, stroke-width 0.6s ease; }
   @media (max-width: 560px) { .cube-scene-wrap { height: 1100px; } .cube-title { font-size: 21px; } }
+  /* Schmale Ansicht: Szene ist auf etwa 0,8 verkleinert, Beschriftung wird so vergrößert, dass sie mindestens 11 px erreicht. */
+  @media (max-width: 560px) { .cube-level-label { font-size: 14px; } .cube-role-label { font-size: 13.5px; } }
 
   /* --- Ambient-Füllung im Turm: Leerraum soll gefüllte Stille sein, nicht Leere --- */
   .cube-mote { fill: #8FA8E0; animation: moteTwinkle ease-in-out infinite; }
