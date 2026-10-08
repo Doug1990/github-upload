@@ -128,6 +128,17 @@ for (const page of pages) {
   for (const z of strich.slice(0, 3)) warn(page, '-', 'Gedankenstrich im sichtbaren Text: "' + z.trim() + '"');
 }
 
+// Ohne JavaScript: Text bleibt lesbar (nichts steckt hinter einer per Skript gesetzten Einblendung), Hinweis ist da.
+await send('Emulation.setScriptExecutionDisabled', { value: true });
+for (const page of pages) {
+  await send('Page.navigate', { url: `${BASE}/${page}` }); await sleep(900);
+  const r = await ev(`(() => ({ hinweis: !!document.querySelector('.nojs-note') && document.querySelector('.nojs-note').offsetHeight > 0, text: document.body.innerText.length, verborgen: [...document.querySelectorAll('section[id], .sec, main')].filter((e) => e.getBoundingClientRect().height > 60 && parseFloat(getComputedStyle(e).opacity) < 0.5).length }))()`);
+  if (!r.hinweis) err(page, '-', 'ohne JavaScript: kein sichtbarer Hinweis (noscript)');
+  if (r.text < 400) err(page, '-', `ohne JavaScript: nur ${r.text} Zeichen sichtbarer Text`);
+  if (r.verborgen) err(page, '-', `ohne JavaScript: ${r.verborgen} Abschnitte unsichtbar (Opacity unter 0,5)`);
+}
+await send('Emulation.setScriptExecutionDisabled', { value: false });
+
 // sitemap.xml und robots.txt: jede gelistete Adresse muss auf eine vorhandene Seite zeigen
 if (fs.existsSync(path.join(ROOT, 'sitemap.xml'))) {
   const sm = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');

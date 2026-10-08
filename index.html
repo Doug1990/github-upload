@@ -845,6 +845,10 @@
 </style>
 </head>
 <body>
+<noscript>
+<style>.reveal { opacity: 1 !important; transform: none !important; } .nojs-note { margin: 0; padding: 14px 18px; background: #2A2A1E; color: #F2E3B3; font: 15px/1.5 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-align: center; border-bottom: 1px solid #F2C46B; }</style>
+<p class="nojs-note" role="note">Ohne JavaScript bleiben die Texte lesbar. Die interaktiven Teile (Regler, Schalter, Karte, Ton) brauchen JavaScript.</p>
+</noscript>
 <!-- Inhaltsverzeichnis (check.mjs prüft, dass jede Section mit id hier steht)
   Abschnitte:
     #hero
@@ -2730,6 +2734,12 @@ const LAYER_TONE = { bio: 98.00, phys: 146.83, digi: 220.00, kult: 329.63 };
 const TONE_ORDER = ['bio', 'phys', 'digi', 'kult'];
 let toneCtx = null;
 let tonePlaying = false;
+// iOS: Nach einem Anruf oder Wechsel der App steht der Kontext auf 'interrupted' oder 'suspended'. Die nächste Geste weckt ihn wieder.
+['pointerdown', 'touchend', 'keydown'].forEach(function (ev) {
+  document.addEventListener(ev, function () {
+    if (toneCtx && toneEnabled && toneCtx.state !== 'running' && toneCtx.state !== 'closed') { try { toneCtx.resume(); } catch (e) {} }
+  }, { passive: true });
+});
 
 // Durchlaufendes Klangbett: pro Ebene ein leiser Dauerton, der mit der Auswahl atmet.
 let ambient = null;

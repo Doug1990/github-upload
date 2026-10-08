@@ -1061,6 +1061,10 @@
 </style>
 </head>
 <body>
+<noscript>
+<style>.reveal { opacity: 1 !important; transform: none !important; } .nojs-note { margin: 0; padding: 14px 18px; background: #2A2A1E; color: #F2E3B3; font: 15px/1.5 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-align: center; border-bottom: 1px solid #F2C46B; }</style>
+<p class="nojs-note" role="note">Ohne JavaScript bleiben die Texte lesbar. Die interaktiven Teile (Regler, Schalter, Karte, Ton) brauchen JavaScript.</p>
+</noscript>
 <!-- Inhaltsverzeichnis (check.mjs prüft, dass jede Section mit id hier steht)
   Abschnitte:
     #stadt
@@ -6383,6 +6387,8 @@
     EV.forEach(function (n) { window.addEventListener(n, arm, true); });
   }
   document.addEventListener('visibilitychange', function () { hidden = document.hidden; sync(); });
+  // iOS: Nach einem Anruf oder Wechsel der App steht der Kontext auf 'interrupted' oder 'suspended'. Die nächste Geste weckt ihn wieder.
+  ['pointerdown', 'touchend', 'keydown'].forEach(function (ev) { document.addEventListener(ev, function () { if (ctx && wanted && ctx.state !== 'running') sync(); }, { passive: true }); });
   window.addEventListener('pagehide', function (e) {
     if (e.persisted) { wanted = false; ui(); sync(); return; }   // Seitencache: nur stumm schalten
     clearInterval(timers.upd); clearTimeout(timers.sus);
