@@ -8,9 +8,9 @@ Live: https://doug1990.github.io/github-upload/ (GitHub Pages, Repo `doug1990/gi
 
 | Datei | Inhalt |
 | --- | --- |
-| `index.html` | Startseite: Düsseldorf, der Tag in Infrastruktur, Stadtkette, "Du gehörst dazu" |
-| `zelle.html` | Die Zelle als Stadt: Kraftwerk, Zoll, Ausfall, Evolution, Gene, Teilung, Signale, Immunsystem und mehr |
-| `karte-skizze.html` | Skizze von Düsseldorf als Karte, tippe an, was du heute gemacht hast |
+| `index.html` | Startseite: Düsseldorf, der Tag in Infrastruktur, Stadtkette, "Wenn es hakt", "Wer hält es instand", "Du gehörst dazu". Der Seitenkopf trägt noch das Etikett "in Arbeit". |
+| `zelle.html` | Die Zelle als Stadt: Kraftwerk, Zoll, Ausfall, Evolution, Gene, Teilung, Signale, Immunsystem, "Dorf oder Stadt" und mehr |
+| `karte-skizze.html` | Karte von Düsseldorf (isometrisch, schematisch): tippe an, was du heute gemacht hast, und die beteiligten Orte leuchten, mit Nummern, Ebenen-Filter und Infokarte. Elf Tätigkeiten, kombinierbar. |
 | `impressum.html`, `datenschutz.html` | Rechtliches |
 
 Alles läuft ohne Build und ohne fremde Server: eine HTML-Datei je Seite mit eigenem CSS und Skript, Schriften liegen in `fonts/`, Vorschaubilder in `og/`. Eingaben bleiben im Browser.
@@ -37,7 +37,12 @@ Die Skripte brauchen nur Node 22 und ein lokales Chrome (Pfad bei Bedarf mit `--
 | `node tests/teilen.mjs` | Link-kopieren-Knöpfe an den Überschriften |
 | `node tests/touch.mjs` | Touch-Bedienung bei 390 px (Scrollen über Flächen, Doppeltipp, Schieber) |
 | `node tests/mikrotext.mjs` | Wirksame Schriftgröße von SVG-Beschriftungen bei schmaler Breite |
-| `node tests/gene.mjs`, `immun.mjs`, `fliessband.mjs`, `tag.mjs`, `fragen.mjs` | Je ein Abschnitt der Zell-Seite |
+| `node tests/stoerung.mjs` | Startseite, "Wenn es hakt": Ausbreitung nach dem Abschalten, Leitungen, Reset, Tastatur |
+| `node tests/instand.mjs` | Startseite, "Wer hält es instand": Strategien über die Jahre, Zeitraffer, Regler |
+| `node tests/dorf.mjs` | Zell-Seite, "Dorf oder Stadt": Größenregler, Kennzahlen, Hinweise (`--gegenprobe` baut absichtlich Fehler ein) |
+| `node tests/gene.mjs`, `immun.mjs`, `fliessband.mjs`, `tag.mjs`, `fragen.mjs` | Je ein Abschnitt der Zell-Seite (`immun.mjs` kennt ebenfalls `--gegenprobe`) |
+
+`tests/chrome.mjs` ist keine eigene Prüfung, sondern die gemeinsame Hilfe der Skripte (eigener Server auf das Repo, headless Chrome über das DevTools-Protokoll). `tests/mikrotext-basis.json` hält die bekannten Altlasten für `mikrotext.mjs`. In `tests/ci/pruefen.yml` liegt die Vorlage für einen CI-Workflow. Sie läuft erst, wenn sie nach `.github/workflows/` kopiert ist (Stand siehe `BACKLOG.md`).
 
 ## Vorschaubilder erzeugen
 
@@ -51,7 +56,7 @@ Ergebnis sind `og/index.jpg`, `og/karte.jpg` und `og/zelle.jpg`.
 
 ## Arbeiten am Projekt
 
-- Aufgabenliste und offene Entscheidungen stehen in `BACKLOG.md`.
+- Aufgabenliste und offene Entscheidungen stehen in `BACKLOG.md`. Die Seite ist noch in Arbeit, einzelne Punkte dort sind offen.
 - Pro Punkt ein Branch `claude/<kurzname>`, ein Pull Request, Tests wie oben.
 - Sichtbare deutsche Texte: schlicht und direkt, keine Gedankenstriche.
 - Neue Abschnitte brauchen: 390 px ohne horizontales Scrollen, Reduced Motion, Tastaturbedienung, Tippflächen ab 44 px und einen Hinweis, wo das Bild hinkt.
