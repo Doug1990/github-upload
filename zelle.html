@@ -488,6 +488,16 @@
   .res input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
   @media (max-width: 560px) { .res-row { grid-template-columns: 1fr 48px; } .res-row .res-bar { grid-column: 1 / -1; order: 3; } .res-row output { order: 2; } }
   @media (prefers-reduced-motion: reduce) { .res-bar i { transition: none; } }
+  .verb-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; max-width: 420px; margin: 0 auto 14px; }
+  .verb-grid div { aspect-ratio: 1; border-radius: 10px; border: 2px solid transparent; background: #25332C; position: relative; transition: background 0.3s; }
+  .verb-grid div.l1 { background: #4F6F4A; } .verb-grid div.l2 { background: #5F9A5A; } .verb-grid div.l3 { background: #7FD9A8; } .verb-grid div.l4 { background: #7FD9A8; }
+  .verb-grid div.gefaess::after { content: ''; position: absolute; left: 50%; top: 50%; width: 38%; height: 38%; transform: translate(-50%,-50%); border-radius: 50%; background: #FF8A65; }
+  .verb-grid div.getrennt { border-color: var(--gold); border-style: dashed; }
+  .verb-grid div.nullv { background: #3A2F2A; }
+  #verbSeg .btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: rgba(var(--accent-rgb),0.12); }
+  @media (max-width: 560px) { #verbSeg .btn { min-height: 44px; } }
+  @media (pointer: coarse) { #verbSeg .btn { min-height: 44px; } }
+  @media (prefers-reduced-motion: reduce) { .verb-grid div { transition: none; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1110,6 +1120,7 @@
     #bauamt
     #signale
     #immun
+    #verbund
     #fragen
   Skriptblöcke, in Reihenfolge:
     // --- Hauptskript: Abschnitte der Zell-Seite von Stadt bis Fragen ---
@@ -2074,6 +2085,26 @@
 </section>
 
 <!-- 4. Fragen zum Schluss -->
+<section class="sec reveal" id="verbund">
+  <h2>Nachbarn halten sich über Wasser.</h2>
+  <p class="lead">Zellen im Gewebe sind durch winzige Kontaktstellen verbunden. Darüber geben sie Nährstoffe und Signale an Nachbarn weiter. Hier gibt es zwölf Zellen in drei Vierteln, zwei davon haben einen Anschluss ans Blutgefäß. Trenne ein Viertel von seinen Nachbarn ab und sieh, wer noch versorgt wird.</p>
+  <div class="panel verb">
+    <div class="verb-grid" id="verbGrid" role="group" aria-label="Zwölf Zellen in drei Vierteln"></div>
+    <div class="reg-seg" role="group" aria-label="Viertel abtrennen" id="verbSeg"></div>
+    <div class="stats" aria-live="off">
+      <div class="stat"><small>Gut versorgt</small><span id="verbGut">0 von 12</span></div>
+      <div class="stat"><small>Knapp</small><span id="verbKnapp">0</span></div>
+      <div class="stat"><small>Ohne Versorgung</small><span id="verbNull">0</span></div>
+    </div>
+    <p class="status" id="verbStatus" aria-live="polite"></p>
+    <div class="aus-cols">
+      <div class="col"><b>In der Zelle</b><span>Kontaktstellen sind kleine Kanäle zwischen Nachbarzellen. Kleine Moleküle und Signale wandern hindurch, größere bleiben draußen.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Stadtviertel teilen Strom, Wasser und Daten über Leitungen. Wird ein Viertel abgetrennt, hängt es nur noch an dem, was es selbst hat.</span></div>
+    </div>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zellen im Verbund</span></summary><div class="hinkt-body"><p>Ein Stadtviertel hat feste Grenzen und eine Verwaltung. Im Gewebe gibt es viele Zelltypen mit verteilten Aufgaben, und die Grenzen sind fließend. Die meisten Zellen werden über feine Blutgefäße versorgt, nicht nur über Nachbarn, und Kontaktstellen gibt es nicht zwischen allen Zellen.</p><p>Hier ist die Versorgung ein einfaches Abstandsmodell mit zwei Anschlüssen. Die Zahlen sind ein Beispiel und beschreiben kein bestimmtes Gewebe.</p><p class="hinkt-frage">Was passiert mit einer Zelle, die von ihren Nachbarn getrennt wird?</p></div></details>
+</section>
+
 <section class="sec reveal" id="fragen">
   <h2>Drei Fragen zum Schluss.</h2>
   <p class="lead">Was bleibt hängen? Tipp eine Frage an, lies die kurze Antwort und spring dorthin zurück, wo es genauer steht.</p>
@@ -5673,6 +5704,55 @@
   $('skelEnde').addEventListener('click', function () { var n = 0; while (schritt() && n++ < 20); render(); });
   $('skelReset').addEventListener('click', function () { for (var i = 0; i < T; i++) pos[i] = 0; schritte = 0; $('skelAb').value = 0; render(); });
   $('skelAb').addEventListener('input', render);
+  render();
+})();
+
+// --- Zellen im Verbund ---
+(function () {
+  'use strict';
+  var R = 2, C = 6, QUELLEN = [[0, 0], [0, 5]];
+  var NAMEN = ['linkes Viertel', 'mittleres Viertel', 'rechtes Viertel'];
+  var getrennt = [false, false, false];
+  var $ = function (id) { return document.getElementById(id); };
+  var grid = $('verbGrid'), cells = [], btns = [];
+  var viertel = function (c) { return Math.floor(c / 2); };
+  for (var r = 0; r < R; r++) for (var c = 0; c < C; c++) { var d = document.createElement('div'); grid.appendChild(d); cells.push(d); }
+  NAMEN.forEach(function (n, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = n + ' abtrennen';
+    b.addEventListener('click', function () { getrennt[i] = !getrennt[i]; render(); }); $('verbSeg').appendChild(b); btns.push(b);
+  });
+  function offen(r1, c1, r2, c2) { var v1 = viertel(c1), v2 = viertel(c2); return v1 === v2 || !(getrennt[v1] || getrennt[v2]); }
+  function rechne() {
+    var dist = [], q = [], i;
+    for (i = 0; i < R * C; i++) dist.push(-1);
+    QUELLEN.forEach(function (s) { dist[s[0] * C + s[1]] = 0; q.push(s); });
+    while (q.length) {
+      var p = q.shift(), pd = dist[p[0] * C + p[1]];
+      [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(function (dd) {
+        var nr = p[0] + dd[0], nc = p[1] + dd[1];
+        if (nr < 0 || nr >= R || nc < 0 || nc >= C || dist[nr * C + nc] !== -1) return;
+        if (!offen(p[0], p[1], nr, nc)) return;
+        dist[nr * C + nc] = pd + 1; q.push([nr, nc]);
+      });
+    }
+    return dist.map(function (dd) { return dd < 0 ? 0 : Math.max(0, 4 - dd); });
+  }
+  function render() {
+    var lv = rechne(), gut = 0, knapp = 0, nul = 0;
+    cells.forEach(function (d, i) {
+      var r = Math.floor(i / C), c = i % C, l = lv[i];
+      var isQ = QUELLEN.some(function (s) { return s[0] === r && s[1] === c; });
+      d.className = (l ? 'l' + l : 'nullv') + (isQ ? ' gefaess' : '') + (getrennt[viertel(c)] ? ' getrennt' : '');
+      if (l >= 3) gut++; else if (l >= 1) knapp++; else nul++;
+    });
+    btns.forEach(function (b, i) { b.setAttribute('aria-pressed', String(getrennt[i])); });
+    $('verbGut').textContent = gut + ' von 12'; $('verbKnapp').textContent = knapp; $('verbNull').textContent = nul;
+    var anz = getrennt.filter(Boolean).length, tx;
+    if (!anz) tx = 'Alles verbunden. Die Zellen neben den beiden Gefäßen sind gut versorgt, weiter weg kommt weniger an.';
+    else if (nul === 0) tx = 'Abgetrennt, aber alle Zellen haben noch etwas. Jedes Viertel hat eigenen Zugang oder bekommt von der anderen Seite.';
+    else tx = nul + (nul === 1 ? ' Zelle bekommt' : ' Zellen bekommen') + ' nichts mehr. Sie hängen an Nachbarn, die sie nicht mehr erreichen.';
+    $('verbStatus').textContent = tx + ' (Beispielmodell)';
+  }
   render();
 })();
 
