@@ -267,6 +267,15 @@
   .pfad-kurz { width: 100%; max-width: 640px; margin: 0 auto; padding: 56px 20px 8px; scroll-margin-top: 12px; }
   .pfad-kurz h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: clamp(20px, 3.4vw, 26px); line-height: 1.25; margin: 0 0 8px; text-align: center; text-wrap: balance; color: #E8E6E0; }
   .pfad-kurz .pfad-vor { margin: 0 auto; max-width: 480px; font-size: 13px; line-height: 1.6; color: #A9AFC0; text-align: center; }
+  .kurz-teil { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-size: 17px; margin: 22px 0 0; }
+  .kurz-teil a { color: #F2C46B; text-decoration: none; display: inline-block; min-height: 44px; padding: 10px 4px 0; }
+  .teil-kopf { max-width: 640px; margin: 72px auto 8px; padding: 0 20px; text-align: center; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; scroll-margin-top: 12px; }
+  .teil-nr { margin: 0; font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #F2C46B; }
+  .teil-titel { margin: 6px 0 6px; font-family: 'Fraunces', Georgia, serif; font-size: 26px; line-height: 1.25; color: #E8E6E0; }
+  .teil-satz { margin: 0 auto; max-width: 52ch; color: #A9AFC0; line-height: 1.6; }
+  .pfad-kurz ol.kurz-teile { margin-top: 14px; }
+  .kurz-alle { margin-top: 12px; }
+  .kurz-alle summary { display: flex; align-items: center; min-height: 48px; cursor: pointer; color: #F2C46B; font-size: 14px; }
   .pfad-kurz ol { list-style: none; margin: 16px 0 0; padding: 0; }
   .pfad-kurz li { border-bottom: 1px solid #25314a; }
   .pfad-kurz li a { display: block; min-height: 44px; padding: 11px 4px; color: #C7CAD6; text-decoration: none; font-size: 14px; line-height: 1.55; }
@@ -1251,26 +1260,66 @@
 
 <aside class="pfad-kurz" id="kurz" aria-labelledby="kurzT">
   <h2 id="kurzT">Das Wichtigste in einem Satz pro Abschnitt</h2>
-  <p class="pfad-vor">Wer wenig Zeit hat, liest hier den Kern. Jeder Satz führt zum Abschnitt, in dem mehr dazu steht.</p>
+  <p class="pfad-vor">Die Seite hat fünf Teile mit 27 Abschnitten. Wer wenig Zeit hat, liest hier den Kern. Jeder Satz führt zum Abschnitt, in dem mehr dazu steht.</p>
+  <ol class="kurz-teile">
+    <li><a href="#teil1"><b>Teil 1 von 5: Die Stadt in klein</b>Bauteile, Tag und Energieversorgung.</a></li>
+    <li><a href="#teil2"><b>Teil 2 von 5: Leben unter Druck</b>Engpässe, Grenzen und Ausfälle.</a></li>
+    <li><a href="#teil3"><b>Teil 3 von 5: Entstehung und Wege</b>Wie Zellen entstehen und wie Stoffe und Meldungen ans Ziel kommen.</a></li>
+    <li><a href="#teil4"><b>Teil 4 von 5: Der Bauplan</b>Speichern, Abschreiben, Prüfen und Weitergeben.</a></li>
+    <li><a href="#teil5"><b>Teil 5 von 5: Zusammenspiel</b>Reden, Schützen und der Weg zum Körper.</a></li>
+  </ol>
+  <details class="kurz-alle">
+    <summary>Alle 27 Abschnitte mit je einem Satz</summary>
+  <h3 class="kurz-teil"><a href="#teil1">Teil 1 von 5: Die Stadt in klein</a></h3>
   <ol>
     <li><a href="#stadt"><b>Die Zelle ist eine Stadt in klein</b>Eine Zelle ist organisiert wie eine kleine Stadt, als Bild gemeint. Tippe auf einen Bestandteil, um zu sehen, was dort passiert.</a></li>
     <li><a href="#tag"><b>Dein Tag in einer Zelle</b>Eine Zelle hat keinen Stundenplan. Vieles läuft gleichzeitig, nur die Gewichte verschieben sich im Lauf des Tages. Die Balken sind ein Bild.</a></li>
     <li><a href="#kraftwerk"><b>Das Kraftwerk</b>Die Zelle macht ihre Energiewährung ATP nach dem Prinzip eines Stausees. Die Simulation ist vereinfacht.</a></li>
     <li><a href="#fliessband"><b>Das Fließband</b>Ein Stoffwechselweg ist eine Kette von Stationen. Die langsamste bestimmt das Tempo, davor staut es sich, und das Endprodukt kann die erste Station bremsen. Stark vereinfacht.</a></li>
+  </ol>
+  <h3 class="kurz-teil"><a href="#teil2">Teil 2 von 5: Leben unter Druck</a></h3>
+  <ol>
     <li><a href="#robust"><b>Gut genug schlägt perfekt</b>Das Leben wurde nie geplant, nur verändert. Darum gibt es Redundanz, alte Reste und Reserven, und es läuft trotzdem zuverlässig.</a></li>
+    <li><a href="#reserve"><b>Ein Lager macht Ausfälle erträglich</b>Lager machen Ausfälle erträglich. Glykogen ist schnell zur Hand, Fett hält lange, und Nervenzellen speichern kaum etwas.</a></li>
     <li><a href="#zoll"><b>Der Zoll: Drei Wege über die Grenze</b>Pore, Pumpe und Tor: Nur die Pumpe arbeitet gegen das Gefälle und kostet ATP. Ohne ATP gleicht sich das Gefälle aus. Stark vereinfacht.</a></li>
     <li><a href="#ausfall"><b>Fällt eine Stelle aus, merkt es der Rest</b>Fällt Kraftwerk, Müllabfuhr, Zoll oder Archiv aus, werden abhängige Teile in Stufen mit lahm. Krankheiten sind selten ein einzelner Ausfall, die Beispiele ersetzen keinen ärztlichen Rat.</a></li>
+    <li><a href="#muell"><b>Was liegen bleibt, stört</b>Abfall und beschädigte Teile werden zerlegt und wiederverwertet. Steht die Entsorgung still, stört der Haufen den Betrieb.</a></li>
+  </ol>
+  <h3 class="kurz-teil"><a href="#teil3">Teil 3 von 5: Entstehung und Wege</a></h3>
+  <ol>
     <li><a href="#evolution"><b>Ohne Bauamt</b>Ohne Bauamt bleibt, was bei knapper Versorgung besteht. Niemand entwirft das Ergebnis.</a></li>
     <li><a href="#dorf"><b>Dorf oder Stadt</b>Je größer eine Zelle, desto weniger Außenhaut hat sie im Verhältnis zu ihrem Inhalt. Zellen mit Kern teilen ihre Arbeit deshalb in Stadtteile auf, und ihre Kraftwerke stammen sehr wahrscheinlich von Bakterien ab. Bakterien bleiben meist klein und sind trotzdem sehr erfolgreich. Stark vereinfacht.</a></li>
+    <li><a href="#weg"><b>Kurze Wege treibt die Natur, lange der Motor</b>Auf kurzen Strecken wandern Stoffe von allein schnell. Auf langen Strecken brauchen sie Motorproteine.</a></li>
+    <li><a href="#meldung"><b>Eine Meldung, drei Geschwindigkeiten</b>Dieselbe Meldung braucht je nach Weg Mikrosekunden oder Tage, vom Funk über Nerven und Hormone bis zur Post.</a></li>
+    <li><a href="#skelett"><b>Das Gerüst ist auch die Straße</b>Fäden bilden das Gerüst der Zelle und zugleich die Straßen, auf denen Motorproteine Fracht tragen.</a></li>
+  </ol>
+  <h3 class="kurz-teil"><a href="#teil4">Teil 4 von 5: Der Bauplan</a></h3>
+  <ol>
     <li><a href="#dna"><b>Der Bauplan ist digital</b>DNA schreibt mit vier Buchstaben, das sind zwei Bit pro Base. Dein Wort in DNA ist nur ein Gedankenspiel.</a></li>
     <li><a href="#gen"><b>Das Archiv gibt die Originale nie heraus</b>Ein Gen wird abgeschrieben und als Kopie zur Fabrik gebracht, die daraus ein Eiweiß baut. Ein Tausch einzelner Buchstaben kann folgenlos bleiben, ein Eiweiß verändern oder es abbrechen. Stark vereinfacht.</a></li>
     <li><a href="#regulation"><b>Gleiches Archiv, andere Akten</b>Fast jede Zelle hat dieselbe DNA, liest aber je nach Zelltyp und Lage andere Gene und je nach Signal mal mehr, mal weniger. Stark vereinfacht.</a></li>
+    <li><a href="#eiweiss"><b>Gebaut ist noch nicht geliefert</b>Ein gebautes Eiweiß muss richtig gefaltet, geprüft und geliefert werden. Sonst kommt es defekt an oder geht in den Abbau.</a></li>
     <li><a href="#teilung"><b>Eine Stadt gründet eine zweite</b>Eine Zelle kopiert erst den Bauplan, verdoppelt die Infrastruktur, sortiert und zieht zuletzt eine Grenze. Stark vereinfacht.</a></li>
     <li><a href="#bauamt"><b>Geprüft wird vor dem Bau</b>Vor der Teilung prüft die Zelle an drei Kontrollpunkten Größe, Kopie und Spindel. Ein Bauamt gibt es dafür nicht, Eiweiße prüfen sich gegenseitig. Stark vereinfacht.</a></li>
-    <li><a href="#immun"><b>Eine Stadtwache ohne Wachstube</b>Die Abwehr ist über den Körper verteilt und hat keine Zentrale. Sie hält Eindringlinge draußen, schlägt Alarm, ruft Verstärkung und merkt sich Erreger, und sie kann sich auch gegen Eigenes richten. Stark vereinfacht und kein medizinischer Rat.</a></li>
-    <li><a href="#fragen"><b>Drei Fragen zum Schluss</b>Was fällt aus, wer entscheidet, was hat das mit Düsseldorf zu tun? Kurze, vereinfachte Antworten mit Sprung zurück in den Abschnitt.</a></li>
   </ol>
+  <h3 class="kurz-teil"><a href="#teil5">Teil 5 von 5: Zusammenspiel</a></h3>
+  <ol>
+    <li><a href="#signale"><b>Zellen schreiben sich Briefe</b>Zellen schicken Botenstoffe durch das Blut oder Impulse über Nerven. Nur Zellen mit passendem Rezeptor reagieren.</a></li>
+    <li><a href="#immun"><b>Eine Stadtwache ohne Wachstube</b>Die Abwehr ist über den Körper verteilt und hat keine Zentrale. Sie hält Eindringlinge draußen, schlägt Alarm, ruft Verstärkung und merkt sich Erreger, und sie kann sich auch gegen Eigenes richten. Stark vereinfacht und kein medizinischer Rat.</a></li>
+    <li><a href="#verbund"><b>Nachbarn halten sich über Wasser</b>Nachbarzellen teilen Nährstoffe und Signale über Kontaktstellen. Wird ein Viertel abgetrennt, hängt es nur noch an sich selbst.</a></li>
+    <li><a href="#koerper"><b>Der Körper ist ein Netz aus Netzen</b>Blutkreislauf, Nerven und Verdauung sind Netze, die sich im Körper durchdringen.</a></li>
+    <li><a href="#kreislauf"><b>Das Herz liefert, die Gefäße verteilen</b>Das Herz pumpt, die Gefäße verteilen. Bei Anstrengung bekommen die Muskeln mehr Blut.</a></li>
+    <li><a href="#fragen"><b>Drei Fragen zum Schluss</b>Was fällt aus, wer entscheidet, was hat das mit Düsseldorf zu tun? Kurze, vereinfachte Antworten mit Sprung zurück in den Abschnitt.</a></li>
+    <li><a href="#rueckblick"><b>Was nimmst du mit?</b>Sechs Aussagen zum Zuordnen: Gilt das für die Stadt, die Zelle oder beide?</a></li>
+  </ol>
+  </details>
 </aside>
+
+<div class="teil-kopf" id="teil1" role="group" aria-label="Teil 1 von 5: Die Stadt in klein">
+  <p class="teil-nr">Teil 1 von 5</p>
+  <p class="teil-titel">Die Stadt in klein</p>
+  <p class="teil-satz">Eine Zelle ist organisiert wie eine kleine Stadt. Hier siehst du ihre Bauteile, ihren Tag und ihre Energieversorgung.</p>
+</div>
 
 <!-- 1. Zelle als Stadt -->
 <section class="sec reveal" id="stadt">
@@ -1521,6 +1570,12 @@
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Fließband</span></summary><div class="hinkt-body"><p>Ein Fließband hat eine feste Reihenfolge und jemanden, der es plant. In der Zelle bilden die Wege ein Netz. Viele Stoffe gehören zu mehreren Wegen, und ein Enzym ist kein Arbeiter, der Teile weiterreicht. Es beschleunigt eine Reaktion, und der Stoff wandert weiter, weil die Reaktion abläuft.</p><p>Die Kästchen auf dem Band sind einzelne Teile. In der Zelle sind es Milliarden Moleküle, die sich zufällig bewegen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert, wenn zwei Wege dasselbe Enzym brauchen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Sie konkurrieren um das Enzym. Der Weg, der es dringender braucht oder schneller bekommt, setzt sich durch, der andere staut sich.</p></div></details>
   <p class="note">Stark vereinfacht: Die Zahlen sind frei gewählt und keine Messwerte. Echte Wege haben meist mehr Stationen, Verzweigungen und mehrere Stellen, an denen gebremst wird. Die Warteschlange vor einer Station steht für die Menge an Zwischenprodukt, nicht für Teile in einer Reihe.</p>
 </section>
+
+<div class="teil-kopf" id="teil2" role="group" aria-label="Teil 2 von 5: Leben unter Druck">
+  <p class="teil-nr">Teil 2 von 5</p>
+  <p class="teil-titel">Leben unter Druck</p>
+  <p class="teil-satz">Was passiert bei Engpässen, an Grenzen und bei Ausfällen? Hier lernst du, wie die Zelle das aushält.</p>
+</div>
 
 <!-- 3. Robust statt perfekt -->
 <section class="sec reveal" id="robust">
@@ -1798,6 +1853,12 @@
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Müllabfuhr</span></summary><div class="hinkt-body"><p>Eine Stadt hat eine zentrale Abfuhr. In der Zelle ist die Entsorgung verteilt: Lysosomen, Proteasomen und die Selbstverdauung (Autophagie) arbeiten an vielen Stellen gleichzeitig, und die Zelle steuert sie je nach Bedarf. Es gibt keinen Fahrplan und keinen Streik im engeren Sinn, sondern Störungen, etwa durch Mangel an Enzymen.</p><p>Die Zahlen sind Beispielwerte. Das Bild verspricht nichts: Eine gut arbeitende Entsorgung ist ein Teil von vielen und kein Mittel gegen das Altern.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet in der Zelle, was Abfall ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Zelle markiert alte oder beschädigte Eiweiße mit einem kleinen Anhängsel (Ubiquitin). Das Proteasom erkennt diese Markierung und baut das Eiweiß ab. <a href="#eiweiss">Mehr dazu</a></p></div></details>
 </section>
 
+<div class="teil-kopf" id="teil3" role="group" aria-label="Teil 3 von 5: Entstehung und Wege">
+  <p class="teil-nr">Teil 3 von 5</p>
+  <p class="teil-titel">Entstehung und Wege</p>
+  <p class="teil-satz">Woher kommt eine Zelle, wie groß darf sie sein, und wie kommen Stoffe und Meldungen ans Ziel?</p>
+</div>
+
 <section class="sec reveal" id="evolution">
   <h2>Ohne Bauamt: Was sich bewährt, bleibt.</h2>
   <p class="lead">Stell dir jede Zelle als Stadtviertel vor. Reicht die Versorgung nicht oder hält die Mauer nicht, ist das Viertel bald weg. Die übrigen bauen weiter, mit kleinen Zufällen im Bauplan. Niemand entwirft das Ergebnis. Drehe an den Reglern und sieh, was sich durchsetzt. Fitness heißt hier, wie gut eine Zelle zu ihrer Umgebung passt. Eine Mutation ist eine zufällige Änderung im Bauplan.</p>
@@ -1951,6 +2012,12 @@
   </div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zellskelett</span></summary><div class="hinkt-body"><p>Eine Straße ist fest, und Fahrzeuge folgen einem Fahrplan. Das Zellskelett baut sich ständig um, und Motorproteine schreiten in kleinen Stufen, ohne Fahrplan und mit zufälligen Pausen. Es gibt viele Wege gleichzeitig, auch in Gegenrichtung, und die Zelle baut neue, wenn alte fehlen.</p><p>Hier sind es fünf gerade Wege mit je sechs Stücken, und das Gerüst fällt in fester Reihenfolge aus. Das ist ein Beispiel und kein Abbild.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer sagt dem Motorprotein, wohin es soll?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand. Die Fracht trägt ein Erkennungszeichen, an das sich das passende Motorprotein bindet, und die Fäden haben eine Richtung.</p></div></details>
 </section>
+
+<div class="teil-kopf" id="teil4" role="group" aria-label="Teil 4 von 5: Der Bauplan">
+  <p class="teil-nr">Teil 4 von 5</p>
+  <p class="teil-titel">Der Bauplan</p>
+  <p class="teil-satz">Wie die Zelle ihre Anleitungen speichert, abschreibt, prüft und weitergibt.</p>
+</div>
 
 <section class="sec reveal" id="dna">
   <h2>Der Bauplan ist digital.</h2>
@@ -2139,6 +2206,12 @@
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Bauamt</span></summary><div class="hinkt-body"><p>Ein Amt hat Akten, Zuständigkeiten und jemanden, der geradesteht. Die Kontrollpunkte haben nichts davon. Es sind Eiweiße, die einander bremsen oder freigeben.</p><p>Ein Stopp heißt auch nicht immer Ablehnung. Eine Zelle mit einem Schaden wird manchmal angehalten und manchmal gezielt abgebaut.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer trägt die Verantwortung, wenn eine Kontrolle versagt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand, denn es gibt keine Zuständigen. Fällt eine Kontrolle aus, können Fehler in die nächste Zelle gelangen. Bei Krebs ist das eine von vielen Ursachen.</p></div></details>
   <p class="note">Stark vereinfacht: Echte Kontrollpunkte sind mehr und komplexer, und die Fehlerfälle hier sind Beispiele. In echt gibt es Mischformen, und eine Zelle mit einem Schaden wird nicht immer nur gestoppt, manche stirbt auch gezielt. Krebs hat viele Ursachen. Ein ausgefallener Kontrollpunkt ist nur eine davon, und meist müssen mehrere Veränderungen zusammenkommen. Diese Seite ersetzt keinen ärztlichen Rat.</p>
 </section>
+
+<div class="teil-kopf" id="teil5" role="group" aria-label="Teil 5 von 5: Zusammenspiel">
+  <p class="teil-nr">Teil 5 von 5</p>
+  <p class="teil-titel">Zusammenspiel</p>
+  <p class="teil-satz">Wie Zellen miteinander reden, sich schützen und zu einem Körper werden.</p>
+</div>
 
 <!-- 6. Signale zwischen Zellen als Postsystem -->
 <section class="sec reveal" id="signale">
