@@ -582,6 +582,7 @@
   @media (prefers-reduced-motion: reduce) { #tsvg[data-step] #pump, #tsvg[data-step] #synth, #tsvg[data-step] #zUp, #tsvg[data-step] #zLow { transition: none; } }
   @media (max-width: 560px) { .kw-schritte .btn { min-height: 44px; } }
   @media (pointer: coarse) { .kw-schritte .btn { min-height: 44px; } }
+  .zoom-ort { margin: 10px 0 8px; font-family: 'IBM Plex Sans', sans-serif; color: #F2C46B; line-height: 1.5; max-width: 58ch; }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1337,6 +1338,7 @@
     <button type="button" id="viewBio" aria-pressed="true">Zelle</button>
     <button type="button" id="viewCity" aria-pressed="false">Stadt</button>
   </div>
+  <p class="zoom-ort" id="zoomOrt" aria-live="polite"></p>
   <div class="panel cellpanel" id="cellPanel">
     <button type="button" class="btn zoomback" id="zoomBack" hidden>← Ganze Zelle</button>
     <svg id="csvg" class="cellsvg" viewBox="0 0 800 520" role="group" aria-label="Schematische Zelle mit Kern, Mitochondrien, Golgi-Apparat, Lysosom, Ribosomen und Membran. Bestandteile sind anwählbar.">
@@ -2741,12 +2743,21 @@
     }
     zoomAnim = requestAnimationFrame(step);
   }
+  var gesehen = {};
+  function ort() {
+    var p = PARTS[curPart], n = Object.keys(gesehen).length, total = Object.keys(PARTS).length;
+    $('zoomOrt').textContent = zoomed
+      ? 'Du bist hier: Ganze Zelle › ' + (city ? p.city : p.bio) + '. Mit "Ganze Zelle" oder der Escape-Taste kommst du zurück.'
+      : 'Du bist hier: Ganze Zelle. Angesehen: ' + n + ' von ' + total + ' Bestandteilen.';
+  }
   function setZoom(on) {
     zoomed = on;
+    if (on) gesehen[curPart] = true;
     csvg.classList.toggle('zoomed', on);
     $('zoomBack').hidden = !on;
     if (on) { var z = ZOOM[curPart]; flyTo({ x: z.cx - z.w / 2, y: z.cy - z.w * 0.325, w: z.w, h: z.w * 0.65 }); }
     else flyTo({ x: 0, y: 0, w: 800, h: 520 });
+    ort();
   }
 
   // ---- Info, Auswahl, Schalter ----
@@ -2761,6 +2772,7 @@
     document.querySelectorAll('#csvg .part').forEach(function (g) { g.classList.toggle('sel', g.getAttribute('data-part') === curPart); });
     $('liveCap').textContent = city ? p.liveCity : p.liveBio;
     lblObjs.forEach(function (o) { o.g.classList.toggle('cur', o.part === curPart); });
+    ort();
   }
   document.querySelectorAll('#csvg .part').forEach(function (g) {
     function pick() {
