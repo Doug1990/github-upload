@@ -18,7 +18,7 @@ fs.mkdirSync(HIER, { recursive: true });
 const b = await start();
 const nur = arg('seite');
 const fehler = [];
-const FREEZE = 'html, html * { animation-duration: 0.001s !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.001s !important; transition-delay: 0s !important; caret-color: transparent !important; scroll-behavior: auto !important; } .reveal { opacity: 1 !important; transform: none !important; }';
+const FREEZE = 'html, html * { animation-duration: 0.001s !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.001s !important; transition-delay: 0s !important; caret-color: transparent !important; scroll-behavior: auto !important; } .reveal { opacity: 1 !important; transform: none !important; } #sunSvg { visibility: hidden !important; }';
 for (const seite of (nur ? [nur] : b.pages)) {
   for (const w of BREITEN) {
     await b.open(seite, w, { reduce: true });
