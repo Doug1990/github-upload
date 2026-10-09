@@ -245,6 +245,12 @@ Jede Zeile ein Schritt, neueste unten. Stand der Zell-Seite: Gewicht 133,9 KB gz
 
 - Glossar als Wiederholungssammlung (PR 101).
 - Kraftwerk Schritt B (Alltagsnamen, Schilder, Zahlenerklärung): grün, gemergt (PR 102).
+- Schlussfragen Schritt C (PR 103): 37 Fragen mit "Zum Weiterdenken" und sichtbarer Antwort.
+- Teilköpfe Schritt D (PR 104): fünf Teile, Verzeichnis mit allen 27 Abschnitten (aufklappbar).
+- Kraftwerk Schritt E (PR 105): Erklärung in vier Schritten, Zurück, Weiter, Alles zeigen.
+- Zell-Ansicht Schritt F (PR 106): "Du bist hier" und Zähler der angesehenen Bestandteile.
+- Ordnungsprüfung Schritt G (PR 107): `ordnung.mjs`. Plan 90 ist damit umgesetzt. Gewicht der Zell-Seite 137,6 KB gzip.
+- Qualitätsrunde 1 läuft: vier Laien-Test-Agenten (Sonnet) lesen Zell-Seite, Startseite, Karte und Zusatzseiten.
 - Schlussfragen Schritt C: 37 Fragen mit sichtbarer Antwort, gemergt (PR 103).
 - Teilköpfe und Inhaltsverzeichnis Schritt D: fünf Teile, 27 Abschnitte im aufklappbaren Verzeichnis, gemergt (PR 104).
 - Kraftwerk Schritt E: Erklärung in vier Schritten, gemergt (PR 105).
