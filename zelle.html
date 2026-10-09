@@ -574,6 +574,14 @@
   @media (prefers-reduced-motion: reduce) { .mel-bar i { transition: none; } }
   .stat-erkl, .fachwort-zeile { font-family: 'IBM Plex Sans', sans-serif; color: #A9AFC0; line-height: 1.6; margin: 10px 0 0; max-width: 58ch; }
   .stat-erkl b, .fachwort-zeile b { color: #E8E6E0; font-weight: 500; }
+  .kw-schritte { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px; }
+  .kw-schritte .btn[hidden] { display: none; }
+  .kw-text { min-height: 3.2em; margin: 0 0 10px; font-family: 'IBM Plex Sans', sans-serif; color: #F2C46B; line-height: 1.6; max-width: 58ch; }
+  #tsvg[data-step] #pump, #tsvg[data-step] #synth, #tsvg[data-step] #zUp, #tsvg[data-step] #zLow { opacity: 0.22; transition: opacity 0.3s; }
+  #tsvg[data-step="1"] #zUp, #tsvg[data-step="1"] #zLow, #tsvg[data-step="2"] #pump, #tsvg[data-step="3"] #zUp, #tsvg[data-step="4"] #synth { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { #tsvg[data-step] #pump, #tsvg[data-step] #synth, #tsvg[data-step] #zUp, #tsvg[data-step] #zLow { transition: none; } }
+  @media (max-width: 560px) { .kw-schritte .btn { min-height: 44px; } }
+  @media (pointer: coarse) { .kw-schritte .btn { min-height: 44px; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1449,6 +1457,12 @@
 <section class="sec reveal" id="kraftwerk">
   <h2>Das Kraftwerk: Wasserkraft im Miniaturformat.</h2>
   <p class="lead">Wasser wird in einen Stausee gepumpt, fließt durch eine Turbine zurück und liefert Strom. Die Zelle macht dasselbe mit winzigen Teilchen und stellt dabei ATP her, ihren Treibstoff. Schiebe den Regler und sieh, was passiert.</p>
+  <div class="kw-schritte" id="kwSchritte" role="group" aria-label="Erklärung in vier Schritten">
+    <button type="button" class="btn" id="kwZur" disabled>Zurück</button>
+    <button type="button" class="btn primary" id="kwWeit">Erklär es mir in vier Schritten</button>
+    <button type="button" class="btn" id="kwFrei" hidden>Alles zeigen</button>
+  </div>
+  <p class="kw-text" id="tstep" aria-live="polite"></p>
   <div class="panel" id="turbinePanel">
     <svg id="tsvg" viewBox="0 0 800 470" role="img" aria-label="Animation: Eine Pumpe schiebt Teilchen nach oben in den Stausee. Sie strömen durch eine Turbine zurück und stellen dabei ATP her. Fachlich: Protonenpumpe und ATP-Synthase in der Mitochondrienmembran.">
       <defs>
@@ -6022,6 +6036,32 @@
     $('wegStatus').textContent = (dSchnell ? 'Auf dieser Strecke ist das Umherstoßen schneller. Ein Motor lohnt sich noch nicht.' : 'Auf dieser Strecke ist der Motor schneller. Von allein dauert der Weg ' + zeit(td).replace('.', ',') + '.') + ' (Größenordnung, Beispielwerte)';
   }
   $('wegS').addEventListener('input', render);
+  render();
+})();
+
+// --- Kraftwerk: Erklärung in vier Schritten ---
+(function () {
+  'use strict';
+  var svg = document.getElementById('tsvg'), txt = document.getElementById('tstep');
+  var zur = document.getElementById('kwZur'), weit = document.getElementById('kwWeit'), frei = document.getElementById('kwFrei');
+  if (!svg || !txt || !zur || !weit || !frei) return;
+  var TEXTE = [
+    'Die Zelle hat zwei Räume, getrennt durch eine Wand: oben der Stausee, unten der Keller.',
+    'Die Pumpe schiebt Teilchen aus dem Keller nach oben. Dafür braucht sie Nahrung und Sauerstoff.',
+    'Oben staut sich das Gedränge. Der Pegel steigt, das ist gespeicherte Energie.',
+    'Die Teilchen strömen durch die Turbine zurück. Sie dreht sich und stellt dabei ATP her.'
+  ];
+  var schritt = 0;
+  function render() {
+    if (schritt === 0) { svg.removeAttribute('data-step'); txt.textContent = ''; frei.hidden = true; zur.disabled = true; weit.textContent = 'Erklär es mir in vier Schritten'; return; }
+    svg.setAttribute('data-step', String(schritt));
+    txt.textContent = 'Schritt ' + schritt + ' von 4: ' + TEXTE[schritt - 1];
+    frei.hidden = false; zur.disabled = false;
+    weit.textContent = schritt < 4 ? 'Weiter' : 'Noch einmal von vorn';
+  }
+  weit.addEventListener('click', function () { schritt = schritt < 4 ? schritt + 1 : 1; render(); });
+  zur.addEventListener('click', function () { if (schritt > 1) schritt--; else schritt = 0; render(); });
+  frei.addEventListener('click', function () { schritt = 0; render(); weit.focus(); });
   render();
 })();
 
