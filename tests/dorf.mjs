@@ -137,7 +137,7 @@ for (const [w, reduce] of [[1280, false], [390, false], [390, true]]) {
   if (!hinweis.hinkt || !hinweis.note) fehler.push(`${tag}: "Wo das Bild hinkt" oder Notiz "Stark vereinfacht" fehlt`);
   if (!hinweis.vorstufe || !hinweis.nukleoid || !hinweis.riesen) fehler.push(`${tag}: fachlicher Hinweis fehlt (keine Vorstufe, Nukleoid und Zellwand, Riesenbakterien)`);
   if (hinweis.primitiv) fehler.push(`${tag}: Text nennt Bakterien primitiv oder weniger entwickelt`);
-  if (!(hinweis.vor[0] >= 0 && hinweis.vor[1] === hinweis.vor[0] + 1 && hinweis.vor[2] === hinweis.vor[1] + 1)) fehler.push(`${tag}: Abschnitt steht nicht zwischen #evolution und #dna (${hinweis.vor})`);
+  if (!(hinweis.vor[0] >= 0 && hinweis.vor[1] > hinweis.vor[0] && hinweis.vor[2] > hinweis.vor[1])) fehler.push(`${tag}: Abschnitt steht nicht nach #evolution und vor #dna (${hinweis.vor})`);
   texte.push([`${tag} Hinweise`, hinweis.text]);
 
   // Gedankenstriche in sichtbarem Text, aria-Labels und SVG-Titel

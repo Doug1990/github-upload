@@ -1,0 +1,48 @@
+// Startet alle Prüfskripte nacheinander (nie parallel, damit der Rechner nicht überlastet wird) und fasst das Ergebnis zusammen.
+// Aufruf: node tests/alle.mjs [--schnell] [--wiederholen] [--nur=check,gene] [--ohne=fokus] [--chrome=<pfad>]
+// --wiederholen: ein fehlgeschlagenes Skript läuft einmal erneut, besteht es dann, wird es als flackernd vermerkt (touch.mjs tut das gelegentlich).
+// --schnell lässt die langen Läufe aus (fokus, fehlertoleranz, kontrast, tastatur, touch), sie laufen in der Vollprüfung.
+// Exit-Code 1, wenn ein Skript Fehler meldet oder länger als zehn Minuten braucht. Je Skript steht Dauer und letzte Zeile der Ausgabe da.
+import { spawn } from 'node:child_process';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const HIER = path.dirname(fileURLToPath(import.meta.url));
+const arg = (n) => (process.argv.find((a) => a.startsWith('--' + n + '=')) || '').split('=').slice(1).join('=');
+const flag = (n) => process.argv.includes('--' + n);
+const LANG = ['fokus', 'fehlertoleranz', 'kontrast', 'tastatur', 'touch'];
+const KEINE_PRUEFUNG = ['chrome', 'alle'];
+let namen = fs.readdirSync(HIER).filter((f) => f.endsWith('.mjs')).map((f) => f.replace(/\.mjs$/, '')).filter((n) => !KEINE_PRUEFUNG.includes(n)).sort();
+// check zuerst, dann die schnellen, dann die langen
+namen.sort((a, b) => (a === 'check' ? -1 : b === 'check' ? 1 : LANG.includes(a) - LANG.includes(b) || a.localeCompare(b)));
+if (flag('schnell')) namen = namen.filter((n) => !LANG.includes(n));
+if (arg('nur')) namen = arg('nur').split(',');
+if (arg('ohne')) namen = namen.filter((n) => !arg('ohne').split(',').includes(n));
+const chrome = arg('chrome') ? ['--chrome=' + arg('chrome')] : [];
+
+const lauf = (name) => new Promise((resolve) => {
+  const t0 = Date.now(); let aus = '';
+  const extra = name === 'check' ? ['--ohne-extern'] : [];
+  const p = spawn(process.execPath, [path.join(HIER, name + '.mjs'), ...chrome, ...extra], { stdio: ['ignore', 'pipe', 'pipe'] });
+  const timer = setTimeout(() => { p.kill(); }, 10 * 60 * 1000);
+  p.stdout.on('data', (d) => { aus += d; }); p.stderr.on('data', (d) => { aus += d; });
+  p.on('close', (code, sig) => { clearTimeout(timer); resolve({ name, code: sig ? 124 : code, sek: Math.round((Date.now() - t0) / 1000), aus }); });
+});
+
+const t0 = Date.now(); const ergebnisse = [];
+for (const n of namen) {
+  if (!fs.existsSync(path.join(HIER, n + '.mjs'))) { console.log(`? ${n}: Skript fehlt`); ergebnisse.push({ name: n, code: 2, sek: 0, aus: '' }); continue; }
+  process.stdout.write(`... ${n}`);
+  let r = await lauf(n);
+  // Ein Fehlschlag wird einmal wiederholt. Besteht der zweite Lauf, gilt das Skript als flackernd (Eingabe-Emulation, Zeitabhängigkeit) und wird so vermerkt.
+  if (r.code !== 0 && flag('wiederholen')) { const r2 = await lauf(n); if (r2.code === 0) { r2.aus = r2.aus.trim() + ' (erst im 2. Lauf, flackert)'; r2.sek += r.sek; } r = r2; }
+  ergebnisse.push(r);
+  const zeilen = r.aus.trim().split('\n').filter(Boolean);
+  const letzte = (zeilen[zeilen.length - 1] || '').slice(0, 100);
+  process.stdout.write(`\r${r.code === 0 ? 'OK ' : 'X  '} ${n.padEnd(15)} ${String(r.sek).padStart(4)} s  ${letzte}\n`);
+}
+const schlecht = ergebnisse.filter((r) => r.code !== 0);
+console.log(`\n${ergebnisse.length} Skripte in ${Math.round((Date.now() - t0) / 1000)} s, ${schlecht.length} mit Fehlern.`);
+for (const r of schlecht) { console.log(`\n--- ${r.name} (Exit ${r.code}) ---`); console.log(r.aus.trim().split('\n').slice(-12).join('\n')); }
+process.exit(schlecht.length ? 1 : 0);
