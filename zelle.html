@@ -553,6 +553,16 @@
   @media (max-width: 560px) { .kre-row { grid-template-columns: 1fr 48px; } .kre-row .kre-bar { grid-column: 1 / -1; order: 3; } #kreEng { min-height: 44px; } }
   @media (pointer: coarse) { #kreEng { min-height: 44px; } }
   @media (prefers-reduced-motion: reduce) { .kre-bar i { transition: none; } }
+  .mel-row { display: grid; grid-template-columns: 200px 1fr 92px; gap: 10px; align-items: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; margin-bottom: 10px; }
+  .mel-bar { height: 12px; border-radius: 6px; background: #25332C; overflow: hidden; }
+  .mel-bar i { display: block; height: 100%; width: 0; background: var(--gold); transition: width 0.3s; }
+  .mel-bar i.n { background: var(--accent); } .mel-bar i.f { background: #B39DDB; }
+  .mel-row output { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); white-space: nowrap; }
+  .mel-row.fehlt span, .mel-row.fehlt output { color: var(--muted); }
+  #melSeg .btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: rgba(var(--accent-rgb),0.12); }
+  @media (max-width: 560px) { .mel-row { grid-template-columns: 1fr auto; } .mel-row .mel-bar { grid-column: 1 / -1; order: 3; } #melSeg .btn { min-height: 44px; } }
+  @media (pointer: coarse) { #melSeg .btn { min-height: 44px; } }
+  @media (prefers-reduced-motion: reduce) { .mel-bar i { transition: none; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1153,7 +1163,7 @@
     #graph { width: 100% !important; min-width: 0 !important; }
   }
   /* Zeilenlänge: Fließtext höchstens etwa 70 Zeichen je Zeile */
-  p.note, p.aha, p.alt-txt, p.quorum-txt, p.dorf-calc, p.panel-text, p.now-people, p.now-note, .dorf-ort p, .bau-ort p, .frage-body p, .hinkt-body p, dd, main > p { max-width: 58ch; }
+  p.note, p.aha, #melStatus, p.alt-txt, p.quorum-txt, p.dorf-calc, p.panel-text, p.now-people, p.now-note, .dorf-ort p, .bau-ort p, .frage-body p, .hinkt-body p, dd, main > p { max-width: 58ch; }
   p.lead, p.cg-hint, p.inst-lead, p.inst-link, p.dna-sum, p.pfad-zeile, p.hero-thesis, main > p.note { max-width: 54ch; margin-left: auto; margin-right: auto; }
   @media (max-width: 560px) {
     body p, body li, body dd { font-size: 16px !important; }
@@ -1181,6 +1191,7 @@
     #evolution
     #dorf
     #weg
+    #meldung
     #skelett
     #dna
     #gen
@@ -1880,6 +1891,23 @@
     </div>
   </div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Weg</span></summary><div class="hinkt-body"><p>Eine Bahn fährt gleichmäßig auf einer Strecke. Ein Motorprotein schreitet in kleinen Stufen, hat zufällige Pausen und lässt auch einmal los. Diffusion hängt stark vom Stoff und vom Gedränge im Zellinneren ab, und viele Stoffe sind in Wirklichkeit deutlich langsamer.</p><p>Die Werte sind Größenordnungen mit frei gewählten Beispielzahlen (Diffusion 100 µm² je Sekunde, Motorprotein 1 µm je Sekunde). Die Maßstäbe von Zelle und Stadt sind nicht vergleichbar.</p><p class="hinkt-frage">Warum haben große Zellen wie Nervenzellen ein Transportsystem?</p></div></details>
+</section>
+
+<section class="sec reveal" id="meldung">
+  <h2>Eine Meldung, drei Geschwindigkeiten.</h2>
+  <p class="lead">Dieselbe Nachricht kann auf drei Wegen reisen: langsam und an viele, schnell und gezielt oder ohne Leitung per Funk. Wähle eine Strecke und sieh, wie lange jeder Weg braucht.</p>
+  <div class="panel mel">
+    <div class="reg-seg" role="group" aria-label="Strecke wählen" id="melSeg"></div>
+    <div class="mel-row" id="melR0"><span></span><div class="mel-bar"><i></i></div><output></output></div>
+    <div class="mel-row" id="melR1"><span></span><div class="mel-bar"><i class="n"></i></div><output></output></div>
+    <div class="mel-row" id="melR2"><span></span><div class="mel-bar"><i class="f"></i></div><output></output></div>
+    <p class="status" id="melStatus" aria-live="polite"></p>
+    <div class="aus-cols">
+      <div class="col"><b>In der Zelle und im Körper</b><span>Botenstoffe wandern durch Flüssigkeit oder das Blut. Nervenzellen leiten elektrische Impulse. Funk nutzt der Körper für Meldungen nicht.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Die Post bringt Briefe an viele, ein Kabel leitet Signale schnell von A nach B, Funk braucht keine Leitung und ist am schnellsten.</span></div>
+    </div>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Meldung</span></summary><div class="hinkt-body"><p>Die Zeiten sind Größenordnungen mit frei gewählten Beispielwerten und im Bild gestaucht, weil sie über viele Zehnerpotenzen reichen. Nervenzellen leiten nicht wie ein Kabel Strom, sondern über Ionen, die durch Kanäle in der Zellhülle strömen. Das ist deutlich langsamer als in einem Kabel.</p><p>Hormone und Nerven wirken auch zusammen, und die Vergleiche mit Post, Kabel und Funk sind ein Bild. Die Strecken von 10 Kilometern gibt es im Körper nicht, dort steht die Stadt für sich.</p><p class="hinkt-frage">Warum nutzt der Körper keinen Funk?</p></div></details>
 </section>
 
 <section class="sec reveal" id="skelett">
@@ -5821,6 +5849,54 @@
   restart();
   wake();
 })();
+// --- Eine Meldung, drei Geschwindigkeiten ---
+(function () {
+  'use strict';
+  // Größenordnungen in Sekunden, frei gewählte Beispielwerte. null: Den Weg gibt es dort nicht.
+  var STRECKEN = [
+    { n: 'Nachbarzelle (10 µm)', t: [0.5, 0.001, null] },
+    { n: 'Quer durch den Körper (1 m)', t: [60, 0.02, null] },
+    { n: 'Quer durch die Stadt (10 km)', t: [86400, 0.00005, 0.000033] }
+  ];
+  var NAMEN = ['Langsam und breit: Hormon, Post', 'Schnell und gezielt: Nerv, Kabel', 'Ohne Leitung: Funk'];
+  var cur = 0, btns = [];
+  var $ = function (id) { return document.getElementById(id); };
+  function zeit(s) {
+    var z;
+    if (s < 0.001) z = Math.round(s * 1e6) + ' µs';
+    else if (s < 1) z = (Math.round(s * 1000 * 10) / 10).toString().replace('.', ',') + ' ms';
+    else if (s < 60) z = (Math.round(s * 10) / 10).toString().replace('.', ',') + ' s';
+    else if (s < 3600) z = Math.round(s / 60) + ' min';
+    else if (s < 86400) z = Math.round(s / 3600) + ' h';
+    else z = Math.round(s / 86400) + ' Tag';
+    return z;
+  }
+  function breite(s) { return Math.max(2, Math.min(100, (Math.log10(s) + 5) / 10.2 * 100)); }
+  STRECKEN.forEach(function (st, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = st.n;
+    b.addEventListener('click', function () { cur = i; render(); }); $('melSeg').appendChild(b); btns.push(b);
+  });
+  function render() {
+    var st = STRECKEN[cur];
+    btns.forEach(function (b, i) { b.setAttribute('aria-pressed', String(i === cur)); });
+    var zeiten = [];
+    st.t.forEach(function (t, i) {
+      var row = $('melR' + i);
+      row.querySelector('span').textContent = NAMEN[i];
+      row.classList.toggle('fehlt', t === null);
+      row.querySelector('i').style.width = t === null ? '0%' : breite(t) + '%';
+      row.querySelector('output').textContent = t === null ? 'gibt es nicht' : zeit(t);
+      if (t !== null) zeiten.push(t);
+    });
+    var langsam = st.t[0], schnell = Math.min.apply(null, zeiten);
+    var faktor = langsam / schnell;
+    var tx = 'Auf dieser Strecke braucht der langsamste Weg ' + (faktor >= 10 ? 'in der Größenordnung von ' + Math.pow(10, Math.round(Math.log10(faktor))).toLocaleString('de-DE') + ' mal' : 'ähnlich') + ' so lange wie der schnellste.';
+    if (st.t[2] === null) tx += ' Funk gibt es für Meldungen im Körper nicht.';
+    $('melStatus').textContent = tx + ' (Größenordnung, Beispielwerte)';
+  }
+  render();
+})();
+
 // --- Wie lange dauert der Weg? ---
 (function () {
   'use strict';
