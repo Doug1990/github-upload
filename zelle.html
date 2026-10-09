@@ -542,6 +542,17 @@
   @media (max-width: 560px) { #korSeg .btn { min-height: 44px; } }
   @media (pointer: coarse) { #korSeg .btn { min-height: 44px; } }
   @media (prefers-reduced-motion: reduce) { .kor-netz { transition: none; } }
+  .kre-row { display: grid; grid-template-columns: 110px 1fr 48px; gap: 10px; align-items: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; margin-bottom: 10px; }
+  .kre-bar { position: relative; height: 12px; border-radius: 6px; background: #25332C; overflow: hidden; }
+  .kre-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.3s; }
+  .kre-bar i.knapp { background: #FF8A65; }
+  .kre-bar b { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--gold); }
+  .kre-row output { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); }
+  #kreEng[aria-pressed="true"] { border-color: #FF8A65; color: #FF8A65; background: rgba(255,138,101,0.12); }
+  .kre input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
+  @media (max-width: 560px) { .kre-row { grid-template-columns: 1fr 48px; } .kre-row .kre-bar { grid-column: 1 / -1; order: 3; } #kreEng { min-height: 44px; } }
+  @media (pointer: coarse) { #kreEng { min-height: 44px; } }
+  @media (prefers-reduced-motion: reduce) { .kre-bar i { transition: none; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1181,6 +1192,7 @@
     #immun
     #verbund
     #koerper
+    #kreislauf
     #fragen
     #rueckblick
   Skriptblöcke, in Reihenfolge:
@@ -2236,6 +2248,26 @@
     <p class="status" id="korStatus" aria-live="polite"></p>
   </div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Körper</span></summary><div class="hinkt-body"><p>Eine Stadt wird geplant, der Körper nicht. Seine Netze sind über lange Zeit gewachsen, sie sind miteinander verzahnt und bei jedem Menschen etwas verschieden. Blut transportiert auch Hormone, Nerven steuern die Verdauung mit. Die Zuordnung zu Rohren, Kabeln und Bahn ist nur ein Bild.</p><p>Die Skizze zeigt nur drei von vielen Netzen und ist stark vereinfacht. Sie ist keine Anatomie und kein Hinweis zu Gesundheit.</p><p class="hinkt-frage">Welche Netze des Körpers fehlen in der Skizze?</p></div></details>
+</section>
+
+<section class="sec reveal" id="kreislauf">
+  <h2>Das Herz liefert, die Gefäße verteilen.</h2>
+  <p class="lead">Der Blutkreislauf bringt Sauerstoff und Nährstoffe zu den Organen. Stelle ein, wie sehr sich der Körper anstrengt, und sieh, wohin mehr Blut fließt. Danach verenge ein Gefäß vor den Muskeln und sieh, was dort ankommt.</p>
+  <div class="panel kre">
+    <div class="stats" aria-live="off">
+      <div class="stat"><small>Herzschläge je Minute</small><span id="kreHz">60</span></div>
+      <div class="stat"><small>Fluss insgesamt</small><span id="kreF">1,0 fach</span></div>
+    </div>
+    <div id="kreRows"></div>
+    <label class="sig-slider" for="kreE"><span class="row"><span>Anstrengung</span><output id="kreEO" for="kreE">Ruhe</output></span><input type="range" id="kreE" min="0" max="100" step="10" value="0"></label>
+    <div class="evo-btns"><button type="button" class="btn" id="kreEng" aria-pressed="false">Gefäß vor den Muskeln verengt</button></div>
+    <p class="status" id="kreStatus" aria-live="polite"></p>
+    <div class="aus-cols">
+      <div class="col"><b>Im Körper</b><span>Das Herz pumpt, die Gefäße verteilen. Bei Anstrengung schlägt das Herz schneller, und die Gefäße zu den Muskeln weiten sich, die zum Darm verengen sich.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Ein Lieferdienst, der mehr Fahrzeuge schickt, wo Bestellungen anfallen. Ist eine Straße gesperrt, kommt dahinter nur noch ein Teil an.</span></div>
+    </div>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kreislauf</span></summary><div class="hinkt-body"><p>Ein Lieferdienst folgt einem Plan. Das Herz regelt nicht nach Fahrplan, die Gefäße verengen und weiten sich selbst, je nach Signalen und örtlichem Bedarf. Der Kreislauf ist auch kein einfacher Ring, sondern viele Wege, die sich teilen und wieder treffen.</p><p>Die Zahlen sind frei gewählte Beispielwerte. Sie sind keine Hinweise für Gesundheit oder Training und sagen nichts über den eigenen Körper. Bei Beschwerden hilft eine Arztpraxis, nicht diese Seite.</p><p class="hinkt-frage">Warum gehen Muskeln bei Anstrengung vor?</p></div></details>
 </section>
 
 <section class="sec reveal" id="fragen">
@@ -5971,6 +6003,52 @@
     }
     $('eiwStatus').textContent = t + ' (Beispielwerte)';
   }
+  render();
+})();
+
+// --- Der Kreislauf als Lieferdienst ---
+(function () {
+  'use strict';
+  // Beispielwerte: Verteilung in Ruhe (Prozent) und bei voller Anstrengung für die Muskeln 60 Prozent, der Rest wird anteilig kleiner.
+  var ORGANE = [
+    { n: 'Gehirn', b: 20 }, { n: 'Muskeln', b: 20, m: true }, { n: 'Darm', b: 25 }, { n: 'Nieren', b: 20 }, { n: 'Haut', b: 15 }
+  ];
+  var $ = function (id) { return document.getElementById(id); };
+  var eng = false, rows = [];
+  ORGANE.forEach(function (o) {
+    var d = document.createElement('div'); d.className = 'kre-row';
+    d.innerHTML = '<span>' + o.n + '</span><div class="kre-bar"><i></i><b hidden></b></div><output></output>';
+    $('kreRows').appendChild(d); rows.push({ i: d.querySelector('i'), b: d.querySelector('b'), o: d.querySelector('output') });
+  });
+  function werte(e) {
+    var F = 1 + 2 * e, M = 20 + 40 * e, rest = (100 - M) / 80;
+    return ORGANE.map(function (o) {
+      var anteil = o.m ? M : o.b * rest, soll = F * anteil, ist = o.m && eng ? soll * 0.4 : soll;
+      return { soll: soll, ist: ist };
+    });
+  }
+  function render() {
+    var e = parseInt($('kreE').value, 10) / 100, F = 1 + 2 * e, w = werte(e), max = 180;
+    $('kreEO').textContent = e === 0 ? 'Ruhe' : Math.round(e * 100) + ' %';
+    $('kreHz').textContent = Math.round(60 + 120 * e);
+    $('kreF').textContent = (Math.round(F * 10) / 10).toString().replace('.', ',') + ' fach';
+    $('kreEng').setAttribute('aria-pressed', String(eng));
+    w.forEach(function (x, i) {
+      var knapp = x.ist < x.soll - 0.5;
+      rows[i].i.style.width = Math.min(100, x.ist / max * 100) + '%';
+      rows[i].i.className = knapp ? 'knapp' : '';
+      rows[i].b.hidden = !ORGANE[i].m; rows[i].b.style.left = Math.min(100, x.soll / max * 100) + '%';
+      rows[i].o.textContent = Math.round(x.ist);
+    });
+    var mu = w[1], tx;
+    if (eng && e > 0) tx = 'Die Muskeln bekommen ' + Math.round(mu.ist) + ' statt ' + Math.round(mu.soll) + '. Das Herz schlägt schneller, aber hinter der Engstelle kommt nur ein Teil an.';
+    else if (eng) tx = 'In Ruhe bekommen die Muskeln ' + Math.round(mu.ist) + ' statt ' + Math.round(mu.soll) + '. Die Lücke ist klein, weil sie wenig brauchen. Steigere die Anstrengung, dann wächst sie.';
+    else if (e === 0) tx = 'In Ruhe geht der Fluss gleichmäßig an alle Organe.';
+    else tx = 'Bei Anstrengung schlägt das Herz schneller, und der größere Teil des Blutes geht an die Muskeln.';
+    $('kreStatus').textContent = tx + ' (Beispielwerte)';
+  }
+  $('kreE').addEventListener('input', render);
+  $('kreEng').addEventListener('click', function () { eng = !eng; render(); });
   render();
 })();
 
