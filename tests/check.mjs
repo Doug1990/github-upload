@@ -129,6 +129,27 @@ for (const page of pages) {
   for (const z of strich.slice(0, 3)) warn(page, '-', 'Gedankenstrich im sichtbaren Text: "' + z.trim() + '"');
 }
 
+// Druckansicht: hell, ohne Bedienknöpfe, nichts unsichtbar (Einblendungen), Text bleibt in der Seitenbreite.
+await send('Emulation.setEmulatedMedia', { media: 'print' });
+await send('Emulation.setDeviceMetricsOverride', { width: 794, height: 1123, deviceScaleFactor: 1, mobile: false });
+for (const page of pages) {
+  await send('Page.navigate', { url: `${BASE}/${page}` }); await sleep(1200);
+  const r = await ev(`(() => {
+    const rgb = (c) => (c.match(/[0-9.]+/g) || [0, 0, 0]).slice(0, 3).map(Number);
+    const hell = (c) => { const [r, g, b] = rgb(c); return (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255; };
+    const bg = getComputedStyle(document.body).backgroundColor, fg = getComputedStyle(document.body).color;
+    const knoepfe = [...document.querySelectorAll('button, input, select')].filter((e) => !e.closest('svg') && getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().height > 0).length;
+    const unsichtbar = [...document.querySelectorAll('.reveal')].filter((e) => parseFloat(getComputedStyle(e).opacity) < 0.9).length;
+    return { bg: hell(bg), fg: hell(fg), knoepfe, unsichtbar, sw: document.documentElement.scrollWidth };
+  })()`);
+  if (r.bg < 0.9) err(page, 'Druck', 'Hintergrund nicht hell');
+  if (r.fg > 0.3) err(page, 'Druck', 'Textfarbe nicht dunkel');
+  if (r.knoepfe) err(page, 'Druck', `${r.knoepfe} Bedienelemente bleiben sichtbar`);
+  if (r.unsichtbar) err(page, 'Druck', `${r.unsichtbar} Abschnitte unsichtbar`);
+  if (r.sw > 800) err(page, 'Druck', `Seite breiter als das Blatt (${r.sw} px)`);
+}
+await send('Emulation.setEmulatedMedia', { media: '' });
+
 // Ohne JavaScript: Text bleibt lesbar (nichts steckt hinter einer per Skript gesetzten Einblendung), Hinweis ist da.
 await send('Emulation.setScriptExecutionDisabled', { value: true });
 for (const page of pages) {
