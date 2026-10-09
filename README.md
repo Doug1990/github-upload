@@ -40,6 +40,7 @@ Die Skripte brauchen nur Node 22 und ein lokales Chrome (Pfad bei Bedarf mit `--
 | `node tests/mikrotext.mjs` | Wirksame Schriftgröße von SVG-Beschriftungen bei schmaler Breite |
 | `node tests/fehlertoleranz.mjs --seite=<datei>` | Seite läuft weiter, wenn localStorage, AudioContext, ResizeObserver oder Canvas fehlen (alle Knöpfe gedrückt, keine Ausnahmen, Text bleibt) |
 | `node tests/gewicht.mjs [--budget=<KB>]` | Gewicht je Seite (roh und gzip, Schriften getrennt, Anfragen), Fehler über 150 KB gzip, Warnung ab 85 Prozent |
+| `node tests/schemata.mjs` | Screenreader: Jedes SVG hat einen Namen oder ist versteckt, jede Statuszeile liegt in einer Live-Region |
 | `node tests/stoerung.mjs` | Startseite, "Wenn es hakt": Ausbreitung nach dem Abschalten, Leitungen, Reset, Tastatur |
 | `node tests/instand.mjs` | Startseite, "Wer hält es instand": Strategien über die Jahre, Zeitraffer, Regler |
 | `node tests/dorf.mjs` | Zell-Seite, "Dorf oder Stadt": Größenregler, Kennzahlen, Hinweise (`--gegenprobe` baut absichtlich Fehler ein) |
