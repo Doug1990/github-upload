@@ -49,6 +49,15 @@
   .abs-band { flex: none; width: 22px; height: 12px; border-radius: 2px; border: 1px solid rgba(242,196,107,0.75); background: repeating-linear-gradient(135deg, #F2C46B 0 4px, #1A1A14 4px 8px); }
   .abs-hinkt p { margin: 0 0 12px; max-width: 58ch; }
   main { max-width: 700px; }
+  .bk { margin: 0 0 24px; }
+  .bk-liste { display: grid; gap: 8px; margin: 0 0 8px; }
+  .bk-zeile { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: center; padding: 8px 12px; border-radius: 12px; background: rgba(255,255,255,0.04); }
+  .bk-zeile .rt-b[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+  .bk-zeile.laeuft { border-left: 3px solid #7FD9A8; }
+  .bk-zeile.fehlt { border-left: 3px solid #FF8A65; }
+  .bk-zeile .bk-s { margin: 0; color: #C7CAD6; font-size: 14px; }
+  .bk-stand { margin: 8px 0; color: #F2C46B; max-width: 58ch; }
+  @media (max-width: 560px) { .bk-zeile { grid-template-columns: 1fr; } }
 </style>
 <style>
   /* Lesbarkeit auf dem Handy: Fließtext mindestens 16 px, Listenpunkte mit Zeilenabstand 1,55 */
@@ -84,7 +93,7 @@
 <a class="skip-link" href="#main">Zum Inhalt springen</a>
 <main id="main" tabindex="-1">
   <nav aria-label="Zurück"><a class="back" href="abschluss.html">&larr; Zurück</a></nav>
-  <h1>Wer bin ich?</h1>
+  <h1>Wer bin ich? Und baue deine Stadt</h1>
   <p>Fünf Rätsel, jedes mit drei Hinweisen. Gesucht ist ein Teil, das es in der Stadt und in der Zelle gibt. Tippe oder wähle mit der Tastatur. Nichts wird gespeichert oder gezählt.</p>
 
   <section class="rt" data-i="0" data-loesung="Kraftwerk">
@@ -127,11 +136,60 @@
     <p class="rt-fb" aria-live="polite"></p>
     <details class="rt-loesung"><summary>Lösung</summary><p>Gesucht: Stadtwache in der Stadt, Immunsystem in der Zelle.</p></details>
   </section>
+  <section class="bk" id="baukasten">
+    <h2>Baue deine Stadt</h2>
+    <p>Sechs Bausteine, die voneinander abhängen. Schalte sie ein und aus. Ein Baustein läuft nur, wenn alles läuft, was er braucht.</p>
+    <div class="bk-liste" id="bkListe"></div>
+    <p class="bk-stand" id="bkStand" aria-live="polite"></p>
+    <div class="rt-ctl"><button type="button" class="rt-b" id="bkAlle">Alles bauen</button><button type="button" class="rt-b" id="bkLeer">Alles abreißen</button></div>
+    <noscript><p>Ohne JavaScript steht hier die Abhängigkeitsliste: Straße braucht nichts. Kraftwerk braucht Straße. Wasserwerk braucht Kraftwerk. Müllabfuhr braucht Straße und Kraftwerk. Wohnviertel braucht Wasserwerk, Kraftwerk, Straße und Müllabfuhr. Krankenhaus braucht Wasserwerk, Kraftwerk und Straße.</p></noscript>
+    <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Wo das Bild hinkt</summary><p>Eine echte Stadt hat unzählige Abhängigkeiten und mehrere Wege, einen Bedarf zu decken. Hier sind es sechs Bausteine mit festen Abhängigkeiten. Ein Kraftwerk braucht in Wirklichkeit auch Kühlwasser und Fachkräfte, und ein Wohnviertel kann mit Notstrom eine Weile laufen.</p></details>
+  </section>
+
   <p class="rt-stand" id="rtStand" aria-live="polite"></p>
   <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Wo das Bild hinkt</summary><p>Die Rätsel vereinfachen stark. Eine Zelle hat viele Kraftwerke, ein Archiv ohne Archivar und eine Wache ohne Leitstelle. Die Bilder aus der Stadt helfen beim Merken und sagen nicht, wie es in der Zelle genau abläuft.</p></details>
 
   <p>Mehr dazu: <a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a>, <a href="glossar.html">Glossar</a>.</p>
 </main>
+<script>
+// --- Baukasten: Baue deine Stadt ---
+(function () {
+  'use strict';
+  var TEILE = [
+    { id: 'strasse', n: 'Straße', braucht: [] },
+    { id: 'kraft', n: 'Kraftwerk', braucht: ['strasse'] },
+    { id: 'wasser', n: 'Wasserwerk', braucht: ['kraft'] },
+    { id: 'muell', n: 'Müllabfuhr', braucht: ['strasse', 'kraft'] },
+    { id: 'wohnen', n: 'Wohnviertel', braucht: ['wasser', 'kraft', 'strasse', 'muell'] },
+    { id: 'klinik', n: 'Krankenhaus', braucht: ['wasser', 'kraft', 'strasse'] }
+  ];
+  var ID = {}; TEILE.forEach(function (t) { ID[t.id] = t; });
+  var gebaut = {}, liste = document.getElementById('bkListe'), zeilen = {};
+  if (!liste) return;
+  TEILE.forEach(function (t) {
+    var z = document.createElement('div'); z.className = 'bk-zeile';
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'rt-b'; b.textContent = t.n; b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () { gebaut[t.id] = !gebaut[t.id]; render(); });
+    var p = document.createElement('p'); p.className = 'bk-s';
+    z.appendChild(b); z.appendChild(p); liste.appendChild(z); zeilen[t.id] = { z: z, b: b, p: p };
+  });
+  function laeuft(id, tief) { if (!gebaut[id] || tief > 8) return false; return ID[id].braucht.every(function (x) { return laeuft(x, tief + 1); }); }
+  function render() {
+    var an = 0, steht = 0;
+    TEILE.forEach(function (t) {
+      var r = zeilen[t.id], l = laeuft(t.id, 0), fehlt = t.braucht.filter(function (x) { return !laeuft(x, 0); }).map(function (x) { return ID[x].n; });
+      r.b.setAttribute('aria-pressed', String(!!gebaut[t.id]));
+      r.z.className = 'bk-zeile' + (gebaut[t.id] ? (l ? ' laeuft' : ' fehlt') : '');
+      r.p.textContent = !gebaut[t.id] ? 'Nicht gebaut.' + (t.braucht.length ? ' Braucht: ' + t.braucht.map(function (x) { return ID[x].n; }).join(', ') + '.' : ' Braucht nichts.') : l ? 'Läuft.' : 'Steht still. Es fehlt: ' + fehlt.join(', ') + '.';
+      if (l) an++; if (gebaut[t.id]) steht++;
+    });
+    document.getElementById('bkStand').textContent = an === TEILE.length ? 'Die ganze Stadt läuft.' : steht === 0 ? 'Noch ist nichts gebaut. Fange mit dem an, was nichts braucht.' : an + ' von ' + TEILE.length + (an === 1 ? ' Baustein läuft' : ' Bausteine laufen') + (steht > an ? ', ' + (steht - an) + (steht - an === 1 ? ' steht' : ' stehen') + ' still, weil etwas fehlt.' : '.');
+  }
+  document.getElementById('bkAlle').addEventListener('click', function () { TEILE.forEach(function (t) { gebaut[t.id] = true; }); render(); });
+  document.getElementById('bkLeer').addEventListener('click', function () { gebaut = {}; render(); });
+  render();
+})();
+</script>
 <script>
 // --- Rätsel: Wer bin ich? ---
 (function () {

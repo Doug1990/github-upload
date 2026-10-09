@@ -15,7 +15,7 @@ Live: https://doug1990.github.io/github-upload/ (GitHub Pages, Repo `doug1990/gi
 | `glossar.html` | Glossar: Begriffe aus Zelle und Stadt mit Bild und kurzer Erklärung (Schreibweisen in `BEGRIFFE.md`, geprüft von `tests/begriffe.mjs`) |
 | `abschluss.html` | Abschlussseite "Eine Stadt, ein Körper, ein Netz": fünf Fragen, vier Antworten (Düsseldorf, Zelle, Körper, Internet), je Spalte ein Feld "Wo das Bild hinkt" |
 | `tagesverlauf.html` | Ein Tag im Netz: Beispielkurven für Strom, Wasser und Verkehr mit Uhrzeit-Schieber (alle Werte frei gewählt, in Prozent der Tagesspitze) |
-| `raetsel.html` | Mitmach-Format "Wer bin ich?": fünf Rätsel mit drei Hinweisen, Antwort per Tippen oder Tastatur, ohne Skript sind Hinweise und Lösungen sichtbar |
+| `raetsel.html` | Mitmach-Format: "Wer bin ich?" mit fünf Rätseln und Baukasten "Baue deine Stadt". Rätsel: mit drei Hinweisen, Antwort per Tippen oder Tastatur, ohne Skript sind Hinweise und Lösungen sichtbar |
 
 Alles läuft ohne Build und ohne fremde Server: eine HTML-Datei je Seite mit eigenem CSS und Skript, Schriften liegen in `fonts/`, Vorschaubilder in `og/`. Eingaben bleiben im Browser.
 
@@ -50,6 +50,7 @@ Die Skripte brauchen nur Node 22 und ein lokales Chrome (Pfad bei Bedarf mit `--
 | `node tests/abschluss.mjs` | Abschlussseite: fünf Fragen, vier Antworten, vier Felder "Wo das Bild hinkt", Links |
 | `node tests/tagesverlauf.mjs` | Tagesverlauf-Seite: drei Netze, Kurven, Werte, Füllstand, Auslastung, Tippflächen |
 | `node tests/raetsel.mjs` | Rätselseite: fünf Rätsel, Hinweise nacheinander, richtige und falsche Antwort, ohne Skript, Tippflächen |
+| `node tests/baukasten.mjs` | Baukasten "Baue deine Stadt" auf der Rätselseite: sechs Bausteine mit Abhängigkeiten, Ketten, alles bauen und abreißen |
 | `node tests/visuell.mjs [--update]` | Visuelle Regression: oberer Seitenbereich jeder Seite bei 1280 und 390 px gegen Referenzbilder in `tests/visuell/` (Toleranz 0,05 Prozent der Pixel). Nach gewollten Änderungen `--update`, Differenzbilder landen in `tests/visuell/diff/` |
 | `node tests/skalen.mjs` | Schieber "Skala" auf der Abschlussseite: drei Stufen, Feld "Anders", ohne Skript beides sichtbar |
 | `node tests/normen.mjs` | Abschnitt "Alles hängt an Standards" auf der Abschlussseite: drei Paare, Variante wechseln, Norm einführen, Tippflächen |
