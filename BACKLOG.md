@@ -150,6 +150,7 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 
 ## Erledigt
 
+- Plan 90, Schritt B: Kraftwerk verständlicher (Alltagsnamen in der Grafik, Beschriftungen auf dunklen Schildern statt im Teilchengewirr, Zahlen je Satz erklärt, zwei Einstiegssätze, Fachwörter erst unter der Grafik, Legende "Teilchen (Proton, H⁺)")
 - Plan 90, Schritt A: Glossar als reine Wiederholungssammlung ("Alles Wichtige steht schon im Text …"), je Begriff ein Link "Wo es erklärt wird" auf den Abschnitt der Zell-Seite, der Satz in "Die Zelle ist eine Stadt in klein" sagt jetzt "Neue Wörter werden direkt erklärt. Das Glossar sammelt sie zum Wiederholen."
 - Verständlichkeit, Fußnoten: Acht der Fußnoten "Stark vereinfacht" auf der Zell-Seite gekürzt und in Alltagssprache gefasst (Zoll, Evolution, Dorf oder Stadt, Gene, Genregulation, Zellteilung, Signale, Immunsystem)
 - Verständlichkeit, Satzlänge: `tests/saetze.mjs` prüft, dass kein Satz länger als 28 Wörter ist, vier lange Sätze der Zell-Seite aufgeteilt (Endosymbiose, Entsorgung, Immunsystem, Kurz erklärt)
@@ -227,3 +228,10 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 - Datenschutz-Fix, Eingaben bleiben im Browser (#25)
 - Bauamt mit Kontrollpunkten (#23)
 - Barrierefreiheit (#21): Kontraste, Skip-Link, Tastatur, Tippflächen, Reduced Motion, Fallbacks, Skripte `tests/kontrast.mjs` und `tests/tastatur.mjs`
+
+## Nachtbericht 9. auf 10. Oktober
+
+Jede Zeile ein Schritt, neueste unten. Stand der Zell-Seite: Gewicht 133,9 KB gzip von 150 KB.
+
+- Glossar als Wiederholungssammlung (PR 101).
+- Kraftwerk Schritt B (Alltagsnamen, Schilder, Zahlenerklärung): grün, gemergt.
