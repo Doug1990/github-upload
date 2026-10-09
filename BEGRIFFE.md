@@ -13,5 +13,8 @@ Leitbegriffe, die auf mehreren Seiten vorkommen, und die festgelegte Schreibweis
 | Immunsystem | Stadtwache | Stadtwache, Wache; Streife und Wachmann als Einzelbild | Stadtwacht, Abwehrsystem |
 | Lysosom | Müllabfuhr, Recycling | Müllabfuhr und Recycling (Bild), Lysosom (Fachwort) | Müllverbrennung für Zellen |
 | Protein | Eiweiß | Eiweiß, Eiweiße | Protein, Proteine (Ausnahme: Fachwörter wie Proteasom) |
+| Motorprotein | Lieferwagen | Motorprotein | Motor-Protein, Motoreiweiß |
+| Zellskelett | Gerüst und Straßen | Zellskelett | Zell-Skelett, Zytoskelett |
+| Quorum Sensing | Abstimmung nach Zählung | Quorum Sensing | Quorum-Sensing |
 
-Weitere Begriffe kommen dazu, wenn sie auf zwei Seiten vorkommen. Abweichungen werden angeglichen oder hier begründet.
+Das Glossar (`glossar.html`) erklärt die Begriffe in einfachen Worten. Weitere Begriffe kommen dazu, wenn sie auf zwei Seiten vorkommen. Abweichungen werden angeglichen oder hier begründet.

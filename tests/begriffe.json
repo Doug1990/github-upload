@@ -13,5 +13,10 @@
   "Planungsamt": "Bauamt",
   "Stadtwacht": "Stadtwache",
   "Abwehrsystem": "Immunsystem",
-  "\\bProteine?n?\\b": "Eiweiß"
+  "\\bProteine?n?\\b": "Eiweiß",
+  "Quorum-Sensing": "Quorum Sensing",
+  "Motoreiweiß": "Motorprotein",
+  "Zell-Skelett": "Zellskelett",
+  "Zytoskelett": "Zellskelett",
+  "Motor-Protein": "Motorprotein"
 }

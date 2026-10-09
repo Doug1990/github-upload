@@ -12,6 +12,7 @@ Live: https://doug1990.github.io/github-upload/ (GitHub Pages, Repo `doug1990/gi
 | `zelle.html` | Die Zelle als Stadt: Kraftwerk, Zoll, Ausfall, Evolution, Gene, Teilung, Signale, Immunsystem, "Dorf oder Stadt" und mehr |
 | `karte-skizze.html` | Karte von Düsseldorf (isometrisch, schematisch): tippe an, was du heute gemacht hast, und die beteiligten Orte leuchten, mit Nummern, Ebenen-Filter und Infokarte. Elf Tätigkeiten, kombinierbar. |
 | `impressum.html`, `datenschutz.html` | Rechtliches |
+| `glossar.html` | Glossar: Begriffe aus Zelle und Stadt mit Bild und kurzer Erklärung (Schreibweisen in `BEGRIFFE.md`, geprüft von `tests/begriffe.mjs`) |
 
 Alles läuft ohne Build und ohne fremde Server: eine HTML-Datei je Seite mit eigenem CSS und Skript, Schriften liegen in `fonts/`, Vorschaubilder in `og/`. Eingaben bleiben im Browser.
 
