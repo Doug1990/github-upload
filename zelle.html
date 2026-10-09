@@ -563,6 +563,8 @@
   @media (max-width: 560px) { .mel-row { grid-template-columns: 1fr auto; } .mel-row .mel-bar { grid-column: 1 / -1; order: 3; } #melSeg .btn { min-height: 44px; } }
   @media (pointer: coarse) { #melSeg .btn { min-height: 44px; } }
   @media (prefers-reduced-motion: reduce) { .mel-bar i { transition: none; } }
+  .stat-erkl, .fachwort-zeile { font-family: 'IBM Plex Sans', sans-serif; color: #A9AFC0; line-height: 1.6; margin: 10px 0 0; max-width: 58ch; }
+  .stat-erkl b, .fachwort-zeile b { color: #E8E6E0; font-weight: 500; }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1393,23 +1395,27 @@
 <!-- 2. Kraftwerk -->
 <section class="sec reveal" id="kraftwerk">
   <h2>Das Kraftwerk: Wasserkraft im Miniaturformat.</h2>
-  <p class="lead">Die Energiewährung der Zelle heißt ATP. Ein Körper setzt davon pro Tag grob sein eigenes Gewicht um, aber jede Zelle hat nur wenig auf Vorrat. Also muss ständig nachgeliefert werden. Das Prinzip kennst du aus dem Stausee: Erst wird Wasser hochgepumpt, dann treibt der Rückfluss eine Turbine an.</p>
+  <p class="lead">Wasser wird in einen Stausee gepumpt, fließt durch eine Turbine zurück und liefert Strom. Die Zelle macht dasselbe mit winzigen Teilchen und stellt dabei ATP her, ihren Treibstoff. Schiebe den Regler und sieh, was passiert.</p>
   <div class="panel" id="turbinePanel">
-    <svg id="tsvg" viewBox="0 0 800 470" role="img" aria-label="Animation: Protonenpumpe und ATP-Synthase in der Mitochondrienmembran">
+    <svg id="tsvg" viewBox="0 0 800 470" role="img" aria-label="Animation: Eine Pumpe schiebt Teilchen nach oben in den Stausee. Sie strömen durch eine Turbine zurück und stellen dabei ATP her. Fachlich: Protonenpumpe und ATP-Synthase in der Mitochondrienmembran.">
       <defs>
         <clipPath id="ringclip"><rect x="537" y="220" width="46" height="32" rx="8"/></clipPath>
       </defs>
       <rect id="zUp" x="12" y="30" width="776" height="188" rx="10" fill="#4FC3D9" opacity="0.1"/>
       <rect id="zLow" x="12" y="254" width="776" height="188" rx="10" fill="#4FC3D9" opacity="0.1"/>
-      <text x="24" y="58" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Stausee: viel H⁺ (Raum zwischen den Membranen)</text>
-      <text x="24" y="432" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Unten: wenig H⁺ (Matrix)</text>
+      <rect x="16" y="32" width="340" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
+      <text x="28" y="62" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Stausee: viel Gedränge</text>
+      <rect x="16" y="404" width="340" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
+      <text x="28" y="434" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Keller: wenig Gedränge</text>
       <g id="membrane"></g>
 
       <!-- Pumpe -->
       <g id="pump">
         <rect x="170" y="208" width="60" height="52" rx="12" fill="#6B3F2A" stroke="#F2C46B" stroke-width="3"/>
         <path class="pumparrow" d="M200,252 V218 M188,230 L200,217 L212,230" fill="none" stroke="#F2C46B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="140" y="166" width="120" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
         <text x="200" y="196" text-anchor="middle" font-size="28" fill="#F2C46B" font-family="IBM Plex Sans, sans-serif">Pumpe</text>
+        <rect x="96" y="276" width="208" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
         <text x="200" y="304" text-anchor="middle" font-size="28" fill="#C9A878" font-family="IBM Plex Sans, sans-serif">Nahrung + O₂</text>
         <path d="M200,284 V264" stroke="#C9A878" stroke-width="2" stroke-dasharray="3 4" fill="none"/>
       </g>
@@ -1428,7 +1434,9 @@
           <circle id="lobe2" cx="0" cy="14" r="19" fill="#F2C46B" opacity="0"/>
           <line id="rotbar" x1="-26" y1="0" x2="26" y2="0" stroke="#E8E6E0" stroke-width="5" stroke-linecap="round"/>
         </g>
-        <text x="560" y="372" text-anchor="middle" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">ATP-Synthase</text>
+        <rect x="480" y="344" width="160" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
+        <text x="560" y="372" text-anchor="middle" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">ATP-Fabrik</text>
+        <rect x="500" y="166" width="120" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
         <text x="560" y="196" text-anchor="middle" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Turbine</text>
       </g>
       <g id="floaters"></g>
@@ -1440,12 +1448,14 @@
     <div class="stat"><small>ATP pro Sekunde</small><span id="sRate">0</span></div>
     <div class="stat"><small>ATP gesamt</small><span id="sTotal">0</span></div>
   </div>
+  <p class="stat-erkl"><b>Pegel:</b> wie voll der Stausee ist. 0 Prozent heißt kein Gefälle, 100 Prozent heißt oben ist alles voll. <b>ATP pro Sekunde:</b> was die Turbine gerade herstellt. <b>ATP gesamt:</b> alles seit dem Start. Echte Zellen schaffen Millionen pro Sekunde.</p>
   <div class="controls">
     <label>Nahrung &amp; O₂ <input type="range" id="power" min="0" max="100" value="55" aria-label="Pumpleistung"></label>
     <button type="button" class="btn" id="o2btn">Sauerstoff abdrehen</button>
   </div>
   <p class="status" id="tstatus" aria-live="polite"></p>
-  <div class="legend"><span><i style="background:#FF8A65"></i>Proton (H⁺)</span><span><i style="background:#F2C46B"></i>ATP (fertige Energiewährung)</span><span><i style="background:#4FC3D9"></i>Turbine dreht sich mit dem Rückfluss</span></div>
+  <div class="legend"><span><i style="background:#FF8A65"></i>Teilchen (Proton, H⁺)</span><span><i style="background:#F2C46B"></i>ATP (fertige Energiewährung)</span><span><i style="background:#4FC3D9"></i>Turbine dreht sich mit dem Rückfluss</span></div>
+  <p class="fachwort-zeile"><b>Fachwörter:</b> Der Stausee ist der Raum zwischen den Membranen, der Keller heißt Matrix. Turbine und ATP-Fabrik sind zusammen die ATP-Synthase. Ein Körper setzt pro Tag grob sein eigenes Gewicht an ATP um, aber jede Zelle hat nur wenig auf Vorrat. Also muss ständig nachgeliefert werden.</p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kraftwerk</span></summary><div class="hinkt-body"><p>Ein Stausee füllt sich und speichert Energie für Tage. Von ATP hat eine Zelle nur wenig auf Vorrat, es wird laufend neu gemacht.</p><p>Auch die Turbine sieht anders aus: In der Zelle ist sie ein winziges Eiweiß in einer Membran, das von Protonen angetrieben wird.</p><p class="hinkt-frage">Was passiert in einer Zelle, wenn das Nachliefern nur kurz stockt?</p></div></details>
   <p class="note">Vereinfacht: In der Simulation braucht ein ATP vier Protonen. Der echte Wert liegt grob bei drei bis vier und hängt von der Zellart ab. Alles hier ist eine Skizze des Prinzips, kein exaktes Modell.</p>
 </section>
