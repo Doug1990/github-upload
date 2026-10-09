@@ -560,5 +560,13 @@
   stage.scrollLeft = (stage.scrollWidth - stage.clientWidth) / 2;
 })();
 </script>
+<script>
+// --- Druck: Hinweisfelder vor dem Drucken aufklappen ---
+(function () {
+  'use strict';
+  window.addEventListener('beforeprint', function () { Array.prototype.forEach.call(document.querySelectorAll('details:not([open])'), function (d) { d.setAttribute('data-druck', '1'); d.open = true; }); });
+  window.addEventListener('afterprint', function () { Array.prototype.forEach.call(document.querySelectorAll('details[data-druck]'), function (d) { d.open = false; d.removeAttribute('data-druck'); }); });
+})();
+</script>
 </body>
 </html>

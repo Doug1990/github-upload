@@ -181,8 +181,8 @@
       <label class="sk-regler" for="skS"><span class="sk-row"><span>Skala</span><output id="skO" for="skS">Beides</output></span><input type="range" id="skS" min="0" max="2" step="1" value="1" aria-valuetext="Beides"></label>
       <div class="sk-zeile"><h3>Kraftwerk</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Das Kraftwerk Lausward verbrennt Brennstoff und liefert Strom und Fernwärme.</p></div><div class="sk-b"><b>Zelle</b><p>Mitochondrien bauen aus Nährstoffen und Sauerstoff den Energieträger ATP.</p></div></div><p class="sk-anders"><b>Anders:</b> In der Zelle läuft die Energiegewinnung in vielen kleinen Schritten ohne Flamme, und eine Zelle hat oft hunderte solcher Kraftwerke.</p></div>
       <div class="sk-zeile"><h3>Archiv</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Das Stadtarchiv bewahrt Akten auf, die man nachschlagen kann.</p></div><div class="sk-b"><b>Zelle</b><p>Die DNA speichert Anleitungen, die bei Bedarf abgeschrieben werden.</p></div></div><p class="sk-anders"><b>Anders:</b> Aus der DNA entsteht eine Abschrift, das Original bleibt im Zellkern.</p></div>
-      <div class="sk-zeile"><h3>Zoll</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Der Zoll prüft Waren an der Grenze und lässt sie durch oder hält sie an.</p></div><div class="sk-b"><b>Zelle</b><p>Kernporen und Membran lassen bestimmte Stoffe durch, je nach Erkennungszeichen.</p></div></div><p class="sk-anders"><b>Anders:</b> Es gibt keine Zöllner. Eiweiße in der Hülle erkennen Stoffe an ihrer Form.</p></div>
-      <div class="sk-zeile"><h3>Müllabfuhr</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Die Abfuhr holt Abfall ein und bringt ihn zum Recyclinghof.</p></div><div class="sk-b"><b>Zelle</b><p>Lysosomen und Proteasomen zerlegen Abfall und beschädigte Eiweiße.</p></div></div><p class="sk-anders"><b>Anders:</b> Die Entsorgung ist verteilt, und die Zelle steuert sie je nach Bedarf ohne zentralen Fahrplan.</p></div>
+      <div class="sk-zeile"><h3>Zoll</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Der Zoll prüft Waren an der Grenze und lässt sie durch oder hält sie an.</p></div><div class="sk-b"><b>Zelle</b><p>Kernporen (Öffnungen in der Kernhülle) und die Zellmembran (die Zellhülle) lassen bestimmte Stoffe durch, je nach Erkennungszeichen.</p></div></div><p class="sk-anders"><b>Anders:</b> Es gibt keine Zöllner. Eiweiße in der Hülle erkennen Stoffe an ihrer Form.</p></div>
+      <div class="sk-zeile"><h3>Müllabfuhr</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Die Abfuhr holt Abfall ein und bringt ihn zum Recyclinghof.</p></div><div class="sk-b"><b>Zelle</b><p>Lysosomen und Proteasomen, kleine Entsorgungsanlagen der Zelle, zerlegen Abfall und beschädigte Eiweiße.</p></div></div><p class="sk-anders"><b>Anders:</b> Die Entsorgung ist verteilt, und die Zelle steuert sie je nach Bedarf ohne zentralen Fahrplan.</p></div>
       <div class="sk-zeile"><h3>Bauamt</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Das Bauamt prüft Pläne und genehmigt Bauten.</p></div><div class="sk-b"><b>Zelle</b><p>Kontrollpunkte und Reparatureiweiße prüfen die DNA und beheben Schäden.</p></div></div><p class="sk-anders"><b>Anders:</b> Die Prüfung läuft laufend und vor Ort, ohne Antrag und ohne Beamte.</p></div>
       <div class="sk-zeile"><h3>Stadtwache</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Polizei und Feuerwehr greifen bei Gefahr ein.</p></div><div class="sk-b"><b>Zelle</b><p>Immunzellen erkennen Fremdes und beseitigen es.</p></div></div><p class="sk-anders"><b>Anders:</b> Immunzellen entscheiden einzeln und lernen aus Erfahrung, ohne Leitstelle.</p></div>
     </div>
@@ -241,6 +241,14 @@
   function render() { var v = parseInt(s.value, 10); box.setAttribute('data-skala', String(v)); o.textContent = NAMEN[v]; s.setAttribute('aria-valuetext', NAMEN[v]); }
   s.addEventListener('input', render);
   render();
+})();
+</script>
+<script>
+// --- Druck: Hinweisfelder vor dem Drucken aufklappen ---
+(function () {
+  'use strict';
+  window.addEventListener('beforeprint', function () { Array.prototype.forEach.call(document.querySelectorAll('details:not([open])'), function (d) { d.setAttribute('data-druck', '1'); d.open = true; }); });
+  window.addEventListener('afterprint', function () { Array.prototype.forEach.call(document.querySelectorAll('details[data-druck]'), function (d) { d.open = false; d.removeAttribute('data-druck'); }); });
 })();
 </script>
 </body>

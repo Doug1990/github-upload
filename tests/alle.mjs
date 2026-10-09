@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 const HIER = path.dirname(fileURLToPath(import.meta.url));
 const arg = (n) => (process.argv.find((a) => a.startsWith('--' + n + '=')) || '').split('=').slice(1).join('=');
 const flag = (n) => process.argv.includes('--' + n);
-const LANG = ['fokus', 'fehlertoleranz', 'kontrast', 'tastatur', 'touch'];
+const LANG = ['fokus', 'fehlertoleranz', 'kontrast', 'tastatur', 'touch', 'leerlauf'];
 const KEINE_PRUEFUNG = ['chrome', 'alle'];
 let namen = fs.readdirSync(HIER).filter((f) => f.endsWith('.mjs')).map((f) => f.replace(/\.mjs$/, '')).filter((n) => !KEINE_PRUEFUNG.includes(n)).sort();
 // check zuerst, dann die schnellen, dann die langen
