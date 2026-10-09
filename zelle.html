@@ -505,6 +505,16 @@
   #eiwSeg .btn[aria-pressed="true"] { border-color: #FF8A65; color: #FF8A65; background: rgba(255,138,101,0.12); }
   @media (max-width: 560px) { .eiw-stat { grid-template-columns: 1fr 1fr; } #eiwSeg .btn { min-height: 44px; } }
   @media (pointer: coarse) { #eiwSeg .btn { min-height: 44px; } }
+  .weg-row { display: grid; grid-template-columns: 170px 1fr 92px; gap: 10px; align-items: center; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; margin-bottom: 10px; }
+  .weg-bar { height: 12px; border-radius: 6px; background: #25332C; overflow: hidden; }
+  .weg-bar i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.3s; }
+  .weg-bar i.m { background: var(--gold); }
+  .weg-row output, .weg .row output { white-space: nowrap; }
+  .weg-row output { text-align: right; font-variant-numeric: tabular-nums; color: var(--ink); }
+  .weg-row.schnell span { color: var(--accent); font-weight: 500; }
+  .weg input[type=range] { width: 100%; accent-color: var(--accent); min-height: 32px; }
+  @media (max-width: 560px) { .weg-row { grid-template-columns: 1fr auto; } .weg-row .weg-bar { grid-column: 1 / -1; order: 3; } }
+  @media (prefers-reduced-motion: reduce) { .weg-bar i { transition: none; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1119,6 +1129,7 @@
     #muell
     #evolution
     #dorf
+    #weg
     #skelett
     #dna
     #gen
@@ -1800,6 +1811,22 @@
 </section>
 
 <!-- 4. Information -->
+<section class="sec reveal" id="weg">
+  <h2>Kurze Wege treibt die Natur, lange der Motor.</h2>
+  <p class="lead">Stoffe können in der Zelle von allein wandern, indem sie zufällig umherstoßen. Das geht schnell über kleine Strecken und dauert über große sehr lange. Ein Motorprotein ist gleichmäßig langsam. Stelle die Strecke ein und sieh, wann sich der Motor lohnt.</p>
+  <div class="panel weg">
+    <div class="weg-row"><span>Von allein (Diffusion)</span><div class="weg-bar"><i id="wegD"></i></div><output id="wegDO"></output></div>
+    <div class="weg-row"><span>Mit Motorprotein</span><div class="weg-bar"><i id="wegM" class="m"></i></div><output id="wegMO"></output></div>
+    <label class="sig-slider" for="wegS"><span class="row"><span id="wegSL">Strecke</span><output id="wegSO" for="wegS"></output></span><input type="range" id="wegS" min="0" max="5" step="1" value="2" aria-valuetext=""></label>
+    <p class="status" id="wegStatus" aria-live="polite"></p>
+    <div class="aus-cols">
+      <div class="col"><b>In der Zelle</b><span>Zufälliges Umherstoßen kommt bei der doppelten Strecke erst nach der vierfachen Zeit an. Ein Motorprotein braucht bei der doppelten Strecke genau die doppelte Zeit.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Um die Ecke geht man zu Fuß. Für den Weg quer durch die Stadt nimmt man die Bahn, auch wenn man auf sie warten muss.</span></div>
+    </div>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Weg</span></summary><div class="hinkt-body"><p>Eine Bahn fährt gleichmäßig auf einer Strecke. Ein Motorprotein schreitet in kleinen Stufen, hat zufällige Pausen und lässt auch einmal los. Diffusion hängt stark vom Stoff und vom Gedränge im Zellinneren ab, und viele Stoffe sind in Wirklichkeit deutlich langsamer.</p><p>Die Werte sind Größenordnungen mit frei gewählten Beispielzahlen (Diffusion 100 µm² je Sekunde, Motorprotein 1 µm je Sekunde). Die Maßstäbe von Zelle und Stadt sind nicht vergleichbar.</p><p class="hinkt-frage">Warum haben große Zellen wie Nervenzellen ein Transportsystem?</p></div></details>
+</section>
+
 <section class="sec reveal" id="skelett">
   <h2>Das Gerüst ist auch die Straße.</h2>
   <p class="lead">In der Zelle gibt es Fäden, die ihr Form geben und zugleich Wege bilden. Kleine Motorproteine tragen Fracht an ihnen entlang, von der Mitte nach außen. Schicke Fracht los und baue danach Teile des Gerüsts ab. Dort, wo ein Stück fehlt, bleibt die Fracht stehen.</p>
@@ -5677,6 +5704,45 @@
   restart();
   wake();
 })();
+// --- Wie lange dauert der Weg? ---
+(function () {
+  'use strict';
+  // Beispielwerte: Diffusion 100 µm² je Sekunde (t = d² / 2D), Motorprotein 1 µm je Sekunde (t = d / v).
+  var D = 100, V = 1;
+  var STR = [
+    { um: 1, t: '1 µm', n: 'Zwischen zwei Bauteilen' },
+    { um: 10, t: '10 µm', n: 'Quer durch eine kleine Zelle' },
+    { um: 100, t: '100 µm', n: 'Quer durch eine sehr große Zelle' },
+    { um: 1000, t: '1 mm', n: 'Entlang eines langen Zellfortsatzes' },
+    { um: 10000, t: '1 cm', n: 'Entlang eines Nervenfortsatzes' },
+    { um: 1000000, t: '1 m', n: 'Nervenfortsatz vom Rücken zum Fuß' }
+  ];
+  var $ = function (id) { return document.getElementById(id); };
+  function zeit(s) {
+    if (s < 0.1) return (Math.round(s * 1000) / 1000).toString().replace('.', ',') + ' s';
+    if (s < 60) return (Math.round(s * 10) / 10).toString().replace('.', ',') + ' s';
+    if (s < 3600) return Math.round(s / 60) + ' min';
+    if (s < 86400) return Math.round(s / 3600) + ' h';
+    if (s < 86400 * 365) return Math.round(s / 86400) + ' Tage';
+    return Math.round(s / 86400 / 365) + ' Jahre';
+  }
+  function breite(s) { return Math.max(2, Math.min(100, (Math.log10(s) + 3) / 13 * 100)); }
+  function render() {
+    var st = STR[parseInt($('wegS').value, 10)];
+    var td = st.um * st.um / (2 * D), tm = st.um / V;
+    $('wegSO').textContent = st.t; $('wegS').setAttribute('aria-valuetext', st.t + ', ' + st.n);
+    $('wegSL').textContent = 'Strecke: ' + st.n;
+    $('wegD').style.width = breite(td) + '%'; $('wegM').style.width = breite(tm) + '%';
+    $('wegDO').textContent = zeit(td).replace('.', ','); $('wegMO').textContent = zeit(tm).replace('.', ',');
+    var dSchnell = td < tm;
+    $('wegD').closest('.weg-row').classList.toggle('schnell', dSchnell);
+    $('wegM').closest('.weg-row').classList.toggle('schnell', !dSchnell);
+    $('wegStatus').textContent = (dSchnell ? 'Auf dieser Strecke ist das Umherstoßen schneller. Ein Motor lohnt sich noch nicht.' : 'Auf dieser Strecke ist der Motor schneller. Von allein dauert der Weg ' + zeit(td).replace('.', ',') + '.') + ' (Größenordnung, Beispielwerte)';
+  }
+  $('wegS').addEventListener('input', render);
+  render();
+})();
+
 // --- Zellskelett: Wege und Fracht ---
 (function () {
   'use strict';
