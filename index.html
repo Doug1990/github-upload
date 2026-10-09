@@ -907,7 +907,7 @@
 
 <main id="main" tabindex="-1">
 <section class="hero" id="hero">
-  <svg class="hero-roots" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid slice" id="heroRootsSvg"></svg>
+  <svg class="hero-roots" viewBox="0 0 900 700" preserveAspectRatio="xMidYMid slice" id="heroRootsSvg" aria-hidden="true" focusable="false"></svg>
   <p class="sound-hint sans">♪ Am besten mit Ton, idealerweise mit Kopfhörern.</p>
   <p class="hero-eyebrow">Düsseldorf · in Arbeit</p>
   <h1 class="hero-title">Hinter fast allem, was du machst, steckt Infrastruktur.</h1>
@@ -953,7 +953,7 @@
     <input type="text" id="activityInput" class="activity-input" placeholder="z.B. Kaffee kochen" maxlength="40" />
     <button id="submitBtn" class="submit-btn">Einordnen</button>
   </div>
-  <p class="input-status sans" id="inputStatus"></p>
+  <p class="input-status sans" id="inputStatus" aria-live="polite"></p>
 
   <div class="control-row">
     <button id="groundwaterToggle" class="toggle-btn" title="Zeigt eine stille Ebene: was tief unter allem mitläuft, ohne je genannt zu werden.">Grundwasser</button>
@@ -966,7 +966,7 @@
 
   <p class="hint sans" style="margin: 14px 0 -4px;">Je weiter unten, desto grundlegender. Jede Ebene trägt die, die darüber liegt.</p>
   <p class="hint sans graph-hint">Seitlich wischen, um alle Tätigkeiten zu sehen.</p>
-  <div class="graph-scroll" id="graphScroll"><svg id="graph"></svg></div>
+  <div class="graph-scroll" id="graphScroll"><svg id="graph" role="group" aria-label="Schema: oben deine Tätigkeiten, darunter vier Ebenen, die sie tragen. Jede Tätigkeit und jede Ebene lässt sich antippen."></svg></div>
 
   <div class="panel-wrap" id="panelWrap"></div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was hast du heute gemacht</span></summary><div class="hinkt-body"><p>Vier Ebenen wirken wie Stockwerke, die sich sauber trennen lassen. In Wirklichkeit greifen sie ineinander: Ein Wasserwerk ist Technik, Menschen, Regeln und Vertrauen zugleich.</p><p>Die Einordnung hier ist ein Vorschlag. Bei einer eigenen Eingabe sortiert die Seite nach Stichworten und versteht nicht, was du meinst.</p><p class="hinkt-frage">Zu welcher Ebene gehört eine Leitstelle, und was spricht für eine zweite?</p></div></details>
@@ -996,7 +996,7 @@
     <button id="packApply" class="reveal-btn">Ebene einhängen</button>
     <button id="packClose" class="back-link">Schließen</button>
   </div>
-  <p class="pack-status sans" id="packStatus"></p>
+  <p class="pack-status sans" id="packStatus" aria-live="polite"></p>
 </div>
 
 <section class="journey" id="journey">
