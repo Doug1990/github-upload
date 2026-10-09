@@ -57,6 +57,7 @@ Die Skripte brauchen nur Node 22 und ein lokales Chrome (Pfad bei Bedarf mit `--
 | `node tests/normen.mjs` | Abschnitt "Alles hängt an Standards" auf der Abschlussseite: drei Paare, Variante wechseln, Norm einführen, Tippflächen |
 | `node tests/schemata.mjs` | Screenreader: Jedes SVG hat einen Namen oder ist versteckt, jede Statuszeile liegt in einer Live-Region |
 | `node tests/saetze.mjs [--grenze=28]` | Satzlänge: kein Satz im Text (auch zugeklappt) länger als 28 Wörter, damit die Texte auch ohne Fachwissen gut lesbar bleiben |
+| `node tests/ordnung.mjs` | Ordnungsregeln: jede Schlussfrage hat Kennzeichnung und Antwort, jeder Abschnitt der Zell-Seite steht im Verzeichnis, fünf Teilköpfe in Reihenfolge, keine Gedankenstriche und kein "nicht, sondern" im Text. Bericht zu Fachwörtern ohne Erklärung bei der ersten Nennung |
 | `node tests/stoerung.mjs` | Startseite, "Wenn es hakt": Ausbreitung nach dem Abschalten, Leitungen, Reset, Tastatur |
 | `node tests/instand.mjs` | Startseite, "Wer hält es instand": Strategien über die Jahre, Zeitraffer, Regler |
 | `node tests/dorf.mjs` | Zell-Seite, "Dorf oder Stadt": Größenregler, Kennzahlen, Hinweise (`--gegenprobe` baut absichtlich Fehler ein) |
