@@ -498,6 +498,13 @@
   @media (max-width: 560px) { #verbSeg .btn { min-height: 44px; } }
   @media (pointer: coarse) { #verbSeg .btn { min-height: 44px; } }
   @media (prefers-reduced-motion: reduce) { .verb-grid div { transition: none; } }
+  .eiw-stat { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; font-family: 'IBM Plex Sans', sans-serif; }
+  .eiw-stat div { border: 1px solid var(--line); border-radius: 10px; padding: 10px 6px; text-align: center; background: rgba(255,255,255,0.03); font-size: 13px; }
+  .eiw-stat div.stoer { border-color: #FF8A65; background: rgba(255,138,101,0.12); }
+  .eiw-stat b { display: block; font-family: 'Fraunces', serif; font-weight: 500; font-size: 20px; color: var(--ink); }
+  #eiwSeg .btn[aria-pressed="true"] { border-color: #FF8A65; color: #FF8A65; background: rgba(255,138,101,0.12); }
+  @media (max-width: 560px) { .eiw-stat { grid-template-columns: 1fr 1fr; } #eiwSeg .btn { min-height: 44px; } }
+  @media (pointer: coarse) { #eiwSeg .btn { min-height: 44px; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1116,6 +1123,7 @@
     #dna
     #gen
     #regulation
+    #eiweiss
     #teilung
     #bauamt
     #signale
@@ -1880,6 +1888,27 @@
 </section>
 
 <!-- 5. Zellteilung als Stadtgründung -->
+<section class="sec reveal" id="eiweiss">
+  <h2>Gebaut ist noch nicht geliefert.</h2>
+  <p class="lead">Ein frisch gebautes Eiweiß ist nur eine lange Kette. Erst die richtige Faltung macht es brauchbar, dann wird es geprüft und an seinen Einsatzort gebracht. Störe eine Station und sieh, was bei 20 Eiweißen am Ende ankommt.</p>
+  <div class="panel eiw">
+    <div class="eiw-stat" id="eiwStat" role="group" aria-label="Stationen"></div>
+    <div class="reg-seg" role="group" aria-label="Station stören" id="eiwSeg"></div>
+    <div class="stats" aria-live="off">
+      <div class="stat"><small>Brauchbar angekommen</small><span id="eiwGut">20 von 20</span></div>
+      <div class="stat"><small>Defekt angekommen</small><span id="eiwDef">0</span></div>
+      <div class="stat"><small>Zum Abbau</small><span id="eiwAbb">0</span></div>
+      <div class="stat"><small>Im Stau</small><span id="eiwStau">0</span></div>
+    </div>
+    <p class="status" id="eiwStatus" aria-live="polite"></p>
+    <div class="aus-cols">
+      <div class="col"><b>In der Zelle</b><span>Eiweiße falten sich oft von allein oder mit Helfern. Eine Kontrolle erkennt Fehlfaltungen und schickt sie in den Abbau. Der Rest wird zum Einsatzort verpackt und verschickt.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Fertigung, Qualitätsprüfung, Versand. Fällt die Prüfung aus, kommt Ausschuss beim Kunden an, fällt der Versand aus, staut sich die fertige Ware.</span></div>
+    </div>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Eiweiß</span></summary><div class="hinkt-body"><p>Ein Fließband hat feste Stationen in fester Reihenfolge. Faltung ist anders: Viele Eiweiße falten sich von allein, manche mit Helfereiweißen, und beim Bau beginnt die Faltung schon. Auch die Qualitätskontrolle ist nicht eine Stelle, sondern an vielen Orten der Zelle verteilt.</p><p>Die Quoten (2 von 20 falsch gefaltet im Normalfall, 8 bei gestörter Faltung) sind frei gewählte Beispielwerte. Fehlgefaltete Eiweiße im Abbau führen zum Abschnitt über die Müllabfuhr.</p><p class="hinkt-frage">Was passiert mit einem Eiweiß, das niemand prüft?</p></div></details>
+</section>
+
 <section class="sec reveal" id="teilung">
   <h2>Eine Stadt gründet eine zweite.</h2>
   <p class="lead">Eine Zelle teilt sich nicht einfach in der Mitte durch. Erst wird der Bauplan kopiert, dann die Infrastruktur verdoppelt, dann wird sortiert und zuletzt eine Grenze gezogen. Gehe die fünf Schritte durch, per Schieberegler oder mit den Tasten. Der Schalter wechselt wieder zwischen Biologie und Stadtplanung.</p>
@@ -5704,6 +5733,54 @@
   $('skelEnde').addEventListener('click', function () { var n = 0; while (schritt() && n++ < 20); render(); });
   $('skelReset').addEventListener('click', function () { for (var i = 0; i < T; i++) pos[i] = 0; schritte = 0; $('skelAb').value = 0; render(); });
   $('skelAb').addEventListener('input', render);
+  render();
+})();
+
+// --- Vom Eiweiß zum fertigen Teil ---
+(function () {
+  'use strict';
+  var N = 20, FALSCH_NORMAL = 2, FALSCH_GESTOERT = 8;
+  var NAMEN = ['Falten', 'Prüfen', 'Versenden'];
+  var stoer = [false, false, false];
+  var $ = function (id) { return document.getElementById(id); };
+  var btns = [], boxes = [];
+  NAMEN.forEach(function (n, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = n + ' stören';
+    b.addEventListener('click', function () { stoer[i] = !stoer[i]; render(); }); $('eiwSeg').appendChild(b); btns.push(b);
+  });
+  ['Gebaut', 'Gefaltet', 'Geprüft', 'Versendet'].forEach(function () { var d = document.createElement('div'); $('eiwStat').appendChild(d); boxes.push(d); });
+  function rechne() {
+    var falsch = stoer[0] ? FALSCH_GESTOERT : FALSCH_NORMAL, gut = N - falsch;
+    var abbau = stoer[1] ? 0 : falsch;
+    var durchGut = gut, durchFalsch = stoer[1] ? falsch : 0;
+    var stau = 0, angGut = durchGut, angDef = durchFalsch;
+    if (stoer[2]) { stau = durchGut + durchFalsch; angGut = 0; angDef = 0; }
+    return { falsch: falsch, gut: gut, abbau: abbau, durchGut: durchGut, durchFalsch: durchFalsch, stau: stau, angGut: angGut, angDef: angDef };
+  }
+  function render() {
+    var r = rechne();
+    btns.forEach(function (b, i) { b.setAttribute('aria-pressed', String(stoer[i])); });
+    var inh = [
+      ['Gebaut', N, false],
+      ['Gefaltet', r.gut + ' gut, ' + r.falsch + ' falsch', stoer[0]],
+      ['Geprüft', (r.durchGut + r.durchFalsch) + ' weiter', stoer[1]],
+      ['Versendet', stoer[2] ? '0 raus' : (r.angGut + r.angDef) + ' raus', stoer[2]]
+    ];
+    boxes.forEach(function (d, i) { d.className = inh[i][2] ? 'stoer' : ''; d.innerHTML = inh[i][0] + '<b>' + inh[i][1] + '</b>'; });
+    $('eiwGut').textContent = r.angGut + ' von ' + N; $('eiwDef').textContent = r.angDef;
+    $('eiwAbb').textContent = r.abbau; $('eiwStau').textContent = r.stau;
+    var t;
+    if (!stoer[0] && !stoer[1] && !stoer[2]) t = 'Alles läuft. ' + r.falsch + ' von ' + N + ' sind falsch gefaltet, die Kontrolle fängt sie ab, ' + r.angGut + ' kommen brauchbar an.';
+    else {
+      var teile = [];
+      if (stoer[0]) teile.push('Die Faltung macht mehr Fehler (' + r.falsch + ' statt ' + FALSCH_NORMAL + ')');
+      if (stoer[1]) teile.push('die Kontrolle fällt aus, ' + r.durchFalsch + ' falsche Eiweiße rutschen durch');
+      if (stoer[2]) teile.push('der Versand steht, ' + r.stau + ' Eiweiße stauen sich');
+      t = teile.join(', ').replace(/^./, function (c) { return c.toUpperCase(); }) + '.';
+      if (stoer[0] && !stoer[1]) t += ' Der Abbau muss ' + r.abbau + ' wegschaffen.';
+    }
+    $('eiwStatus').textContent = t + ' (Beispielwerte)';
+  }
   render();
 })();
 
