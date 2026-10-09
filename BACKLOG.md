@@ -30,7 +30,7 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 ## Offen, Priorität niedrig
 
 21. **Lesemodus (Hell-Schalter).** Die Druckansicht steht (`@media print`). Offen: ein Hell-Schalter für den Bildschirm, erst nach den gemeinsamen Bausteinen (Punkt 5). Aufwand S bis M.
-22. **Mitmach-Format.** Rätsel "Wer bin ich, in Stadt und Zelle?" und Baukasten "Baue deine Stadt", alles ohne Maus lösbar. Erst nach Fließband, Zellskelett und Zoll. Aufwand M.
+22. **Mitmach-Format, Rest: Baukasten "Baue deine Stadt".** Das Rätsel "Wer bin ich?" steht (`raetsel.html`). Offen: der Baukasten, alles ohne Maus lösbar. Aufwand M.
 
 ## Entscheidungen für Björn (gesammelt)
 
@@ -139,9 +139,11 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 81. **Prüfskripte: Paralleler Lauf nicht empfohlen.** Mit `--parallel=3` im geteilten Chrome dauerte der Schnelllauf 14,6 Minuten statt der 13 sequenziell, zwei Skripte hingen. Deshalb bleibt die Vorgabe bei 1. Das Ziel "unter 3 Minuten" ist damit nicht erreicht und bräuchte kürzere feste Wartezeiten in `chrome.mjs` (Punkt 53). Annahme: so lassen.
 82. **"Ein Tag im Netz" (tagesverlauf.html): Kurven, Annahmen, Fachcheck.** Alle Kurven sind frei gewählte Beispiele in Prozent der Tagesspitze und als solche gekennzeichnet (Text und Feld "Wo das Bild hinkt"), keine Quellenangaben, weil keine echten Zahlen verwendet werden. Strom: Last mit Spitze am frühen Abend, Sonne deckt höchstens 90 Prozent der Spitze, Lücke oder Überschuss wird gerechnet. Wasser: Pumpen fördern gleichmäßig, ein Hochbehälter gleicht aus (Füllstand 10 bis 90 Prozent). Verkehr: Fahrgäste und Fahrzeuge mit Spitzen morgens und nachmittags. Fachcheck: Form typischer Werktagskurven, "Sonne mittags, Spitze abends". Die Seite hat kein Nav und steht nur in der Abschlussseite und der Sitemap, nicht im Seitenfuß. Annahme: bleibt.
 83. **"Alles hängt an Standards" (auf der Abschlussseite): Beispiele und Fachcheck.** Drei Paare mit je drei echten Varianten: Steckerform (Typ F, G, B), Spurweite (1435, 1000 und 1520 mm) und abstrakte Formen für Botenstoff und Rezeptor. Der Abschnitt steht auf der Abschlussseite und nicht auf einer eigenen Seite. Das Feld "Wo das Bild hinkt" sagt, dass Normen vereinbart werden und ein Rezeptor durch Evolution entsteht und zu mehreren ähnlichen Stoffen passen kann. Bitte die Stecker- und Spurweitenangaben gegenlesen. Annahme: bleibt.
+84. **"Wer bin ich?" (raetsel.html): Auswahl und Fachcheck.** Fünf Rätsel mit je drei Hinweisen (Stadt, dann Zelle), vier Antworten aus den fünf Bildern Kraftwerk, Archiv, Zoll, Müllabfuhr, Stadtwache. Die Hinweise zur Zelle sind kurz und vereinfacht (Fachcheck: Mitochondrium, DNA im Zellkern, Kernpore und Membran, Lysosom, Immunsystem). Die Seite steht auf der Abschlussseite und in der Sitemap, nicht im Seitenfuß. Annahme: bleibt.
 
 ## Erledigt
 
+- Mitmach-Format, Teil Rätsel: `raetsel.html` "Wer bin ich?" (fünf Rätsel zu Kraftwerk, Archiv, Zoll, Müllabfuhr und Stadtwache, drei Hinweise, vier Antworten, ohne Skript alles sichtbar), Link von der Abschlussseite, Skript `tests/raetsel.mjs`
 - Alles hängt an Standards: Abschnitt `#normen` auf `abschluss.html` (Stecker und Steckdose, Zug und Gleis, Botenstoff und Rezeptor, Varianten wechseln, Norm einführen), Skript `tests/normen.mjs`
 - Eigene Seite zu Strom, Wasser und Verkehr: `tagesverlauf.html` "Ein Tag im Netz" (drei Netze, je zwei Beispielkurven, Uhrzeit-Schieber, Werte und Text zur Stunde), Sitemap, Link von der Abschlussseite, Skript `tests/tagesverlauf.mjs`, Referenzbilder für die visuelle Regression
 - Gemeinsamer Browser für die Prüfskripte: `alle.mjs` startet einen Chrome, jedes Skript nutzt einen eigenen Tab (`CHROME_PORT`), `--eigene` schaltet das ab, `--parallel=N` ist möglich aber nicht empfohlen

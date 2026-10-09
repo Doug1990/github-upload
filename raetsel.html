@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wer bin ich? Was trägt deinen Tag?</title>
+  <meta name="description" content="Fünf Rätsel: Was bin ich, in der Stadt und in der Zelle? Mit Tastatur und ohne Maus lösbar.">
+  <link rel="canonical" href="https://doug1990.github.io/github-upload/raetsel.html">
+<link rel="preload" href="fonts/fraunces-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root { --accent: #4FC3D9; --accent-rgb: 79,195,217; --bg1: #1B2740; --bg2: #131c2e; --bg3: #0B1220; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 24%, var(--bg3) 100%);
+    color: #E8E6E0;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    display: flex; justify-content: center; padding: 0;
+  }
+  main { max-width: 620px; width: 100%; padding: 70px 24px 90px; }
+  h1 { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(24px, 4vw, 32px); margin: 0 0 36px; }
+  h2 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 17px; margin: 32px 0 10px; color: #E8E6E0; }
+  p { font-size: 14px; line-height: 1.7; color: #C7CAD6; margin: 0 0 10px; }
+  a { color: var(--accent); }
+  .skip-link { position: fixed; left: 12px; top: -80px; z-index: 10000; padding: 13px 18px; border-radius: 8px; background: #E8E6E0; color: #0B1220; font: 500 14px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-decoration: none; }
+  .skip-link:focus { top: 12px; outline: 3px solid #F2C46B; outline-offset: 2px; }
+  main:focus { outline: none; }
+  .back { display: inline-block; padding: 15px 12px; margin: -15px 0 25px -12px; font-size: 12px; color: #8892A6; text-decoration: underline; text-underline-offset: 2px; }
+  .back:hover { color: var(--accent); }
+  .rt { margin: 0 0 22px; padding: 12px 14px; border-radius: 12px; background: rgba(255,255,255,0.04); }
+  .rt h2 { margin: 0 0 8px; }
+  .rt-hinweise { margin: 0 0 8px; padding-left: 22px; color: #C7CAD6; }
+  .rt-hinweise li { margin: 0 0 4px; }
+  .rt-ctl, .rt-opt { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 8px; }
+  .rt-b { font: 500 14px 'IBM Plex Sans', sans-serif; min-height: 44px; padding: 8px 16px; border-radius: 12px; border: 1px solid #4A4F5E; color: #E8E6E0; background: rgba(255,255,255,0.04); cursor: pointer; }
+  .rt-b:hover { background: rgba(255,255,255,0.08); }
+  .rt-b[hidden] { display: none; }
+  .rt-a.richtig { border-color: #7FD9A8; color: #7FD9A8; }
+  .rt-a.falsch { border-color: #FF8A65; color: #FF8A65; }
+  .rt-fb { margin: 6px 0 0; color: #F2C46B; max-width: 58ch; }
+  .rt-loesung summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; color: #A9AFC0; }
+  .rt.js .rt-loesung { display: none; }
+  .rt.js .rt-h:not(.zeige) { display: none; }
+  .rt-stand { margin: 0 0 16px; color: #F2C46B; max-width: 58ch; }
+  .abs-hinkt { margin: 0 0 10px; border: 1px dashed rgba(242,196,107,0.6); border-radius: 10px; padding: 0 14px; }
+  .abs-hinkt summary { display: flex; align-items: center; gap: 10px; min-height: 48px; cursor: pointer; color: #F2C46B; font-size: 14px; }
+  .abs-band { flex: none; width: 22px; height: 12px; border-radius: 2px; border: 1px solid rgba(242,196,107,0.75); background: repeating-linear-gradient(135deg, #F2C46B 0 4px, #1A1A14 4px 8px); }
+  .abs-hinkt p { margin: 0 0 12px; max-width: 58ch; }
+  main { max-width: 700px; }
+</style>
+<style>
+  /* Lesbarkeit auf dem Handy: Fließtext mindestens 16 px, Listenpunkte mit Zeilenabstand 1,55 */
+  :where(p, li, dd) { line-height: 1.5; }
+  /* Druckansicht: hell, ohne Bedienelemente, alle Abschnitte sichtbar */
+  @media print {
+    html, body { background: #fff !important; color: #111 !important; }
+    body * { color: #111 !important; background: transparent !important; box-shadow: none !important; text-shadow: none !important; animation: none !important; transition: none !important; }
+    .reveal, .reveal.in { opacity: 1 !important; transform: none !important; }
+    button, input, select, textarea, canvas, .side-hud, .descent-figure, .skip-link, .linkbtn, .hero-roots, .landing-roots, nav.pfad-weg, nav.pfad-weiter, .nojs-note, [role=tablist], .toggle-btn { display: none !important; }
+    a { text-decoration: underline; }
+    section { break-inside: avoid-page; page-break-inside: avoid; }
+    h1, h2, h3 { break-after: avoid; }
+    svg { max-width: 100% !important; height: auto; }
+    .graph-scroll { overflow: visible !important; width: auto !important; margin: 0 !important; }
+    #graph { width: 100% !important; min-width: 0 !important; }
+  }
+  /* Zeilenlänge: Fließtext höchstens etwa 70 Zeichen je Zeile */
+  p.note, p.aha, #melStatus, p.alt-txt, p.quorum-txt, p.dorf-calc, p.panel-text, p.now-people, p.now-note, .dorf-ort p, .bau-ort p, .frage-body p, .hinkt-body p, dd, main > p { max-width: 58ch; }
+  p.lead, p.cg-hint, p.inst-lead, p.inst-link, p.dna-sum, p.pfad-zeile, p.hero-thesis, main > p.note { max-width: 54ch; margin-left: auto; margin-right: auto; }
+  @media (max-width: 560px) {
+    body p, body li, body dd { font-size: 16px !important; }
+    body li { line-height: 1.55; }
+    p.hint, p.cg-hint, p.now-share, p.zoll-live, p.dna-sum { line-height: 1.5 !important; }
+  }
+</style>
+</head>
+<body>
+<noscript>
+<style>.reveal { opacity: 1 !important; transform: none !important; } .nojs-note { margin: 0; padding: 14px 18px; background: #2A2A1E; color: #F2E3B3; font: 15px/1.5 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-align: center; border-bottom: 1px solid #F2C46B; }</style>
+<p class="nojs-note" role="note">Ohne JavaScript bleiben die Texte lesbar. Die interaktiven Teile (Regler, Schalter, Karte, Ton) brauchen JavaScript.</p>
+</noscript>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<main id="main" tabindex="-1">
+  <nav aria-label="Zurück"><a class="back" href="abschluss.html">&larr; Zurück</a></nav>
+  <h1>Wer bin ich?</h1>
+  <p>Fünf Rätsel, jedes mit drei Hinweisen. Gesucht ist ein Teil, das es in der Stadt und in der Zelle gibt. Tippe oder wähle mit der Tastatur. Nichts wird gespeichert oder gezählt.</p>
+
+  <section class="rt" data-i="0" data-loesung="Kraftwerk">
+    <h2>Rätsel 1</h2>
+    <ol class="rt-hinweise"><li class="rt-h">Ich arbeite rund um die Uhr und mache aus Rohstoffen Energie.</li><li class="rt-h">In der Stadt stehe ich am Rhein. In der Zelle gibt es mich oft hundertfach.</li><li class="rt-h">Ohne mich stehen viele Dinge still.</li></ol>
+    <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
+    <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Zoll</button><button type="button" class="rt-b rt-a">Müllabfuhr</button></div>
+    <p class="rt-fb" aria-live="polite"></p>
+    <details class="rt-loesung"><summary>Lösung</summary><p>Gesucht: Kraftwerk in der Stadt, Mitochondrium in der Zelle.</p></details>
+  </section>
+  <section class="rt" data-i="1" data-loesung="Archiv">
+    <h2>Rätsel 2</h2>
+    <ol class="rt-hinweise"><li class="rt-h">Ich bewahre Pläne und Akten auf.</li><li class="rt-h">Man schlägt mich nach, und ich bleibe an meinem Platz.</li><li class="rt-h">In der Zelle schreibt man mich ab, das Original bleibt im Kern.</li></ol>
+    <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
+    <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Stadtwache</button><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Zoll</button></div>
+    <p class="rt-fb" aria-live="polite"></p>
+    <details class="rt-loesung"><summary>Lösung</summary><p>Gesucht: Archiv in der Stadt, DNA im Zellkern in der Zelle.</p></details>
+  </section>
+  <section class="rt" data-i="2" data-loesung="Zoll">
+    <h2>Rätsel 3</h2>
+    <ol class="rt-hinweise"><li class="rt-h">Ich entscheide, was hinein darf.</li><li class="rt-h">An meiner Grenze wird geprüft und durchgelassen.</li><li class="rt-h">In der Zelle erkenne ich Stoffe an ihrer Form.</li></ol>
+    <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
+    <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Zoll</button><button type="button" class="rt-b rt-a">Müllabfuhr</button><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Stadtwache</button></div>
+    <p class="rt-fb" aria-live="polite"></p>
+    <details class="rt-loesung"><summary>Lösung</summary><p>Gesucht: Zoll in der Stadt, Kernpore und Membran in der Zelle.</p></details>
+  </section>
+  <section class="rt" data-i="3" data-loesung="Müllabfuhr">
+    <h2>Rätsel 4</h2>
+    <ol class="rt-hinweise"><li class="rt-h">Ich hole Abfall ab.</li><li class="rt-h">Was bei mir ankommt, wird zerlegt und wiederverwertet.</li><li class="rt-h">In der Zelle bin ich ein Bläschen mit Enzymen.</li></ol>
+    <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
+    <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Müllabfuhr</button><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Zoll</button><button type="button" class="rt-b rt-a">Archiv</button></div>
+    <p class="rt-fb" aria-live="polite"></p>
+    <details class="rt-loesung"><summary>Lösung</summary><p>Gesucht: Müllabfuhr in der Stadt, Lysosom in der Zelle.</p></details>
+  </section>
+  <section class="rt" data-i="4" data-loesung="Stadtwache">
+    <h2>Rätsel 5</h2>
+    <ol class="rt-hinweise"><li class="rt-h">Ich schütze vor Gefahr.</li><li class="rt-h">Ich greife ein, wenn etwas Fremdes auftaucht.</li><li class="rt-h">In der Zelle bin ich eine Abwehrzelle.</li></ol>
+    <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
+    <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Stadtwache</button><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Müllabfuhr</button></div>
+    <p class="rt-fb" aria-live="polite"></p>
+    <details class="rt-loesung"><summary>Lösung</summary><p>Gesucht: Stadtwache in der Stadt, Immunsystem in der Zelle.</p></details>
+  </section>
+  <p class="rt-stand" id="rtStand" aria-live="polite"></p>
+  <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Wo das Bild hinkt</summary><p>Die Rätsel vereinfachen stark. Eine Zelle hat viele Kraftwerke, ein Archiv ohne Archivar und eine Wache ohne Leitstelle. Die Bilder aus der Stadt helfen beim Merken und sagen nicht, wie es in der Zelle genau abläuft.</p></details>
+
+  <p>Mehr dazu: <a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a>, <a href="glossar.html">Glossar</a>.</p>
+</main>
+<script>
+// --- Rätsel: Wer bin ich? ---
+(function () {
+  'use strict';
+  var karten = document.querySelectorAll('.rt');
+  if (!karten.length) return;
+  var gewaehlt = {};
+  Array.prototype.forEach.call(karten, function (k, i) {
+    k.classList.add('js');
+    var hs = k.querySelectorAll('.rt-h'), n = 1, mehr = k.querySelector('.rt-mehr');
+    hs[0].classList.add('zeige');
+    mehr.addEventListener('click', function () { if (n < hs.length) { hs[n].classList.add('zeige'); n++; } if (n >= hs.length) mehr.hidden = true; });
+    Array.prototype.forEach.call(k.querySelectorAll('.rt-a'), function (b) {
+      b.addEventListener('click', function () {
+        var ok = b.textContent === k.getAttribute('data-loesung');
+        Array.prototype.forEach.call(k.querySelectorAll('.rt-a'), function (x) { x.classList.remove('richtig', 'falsch'); });
+        b.classList.add(ok ? 'richtig' : 'falsch');
+        gewaehlt[i] = ok;
+        k.querySelector('.rt-fb').textContent = ok ? 'Richtig. ' + k.querySelector('.rt-loesung p').textContent : 'Das war es nicht. Probiere eine andere Antwort oder lies den nächsten Hinweis.';
+        var richtig = Object.keys(gewaehlt).filter(function (j) { return gewaehlt[j]; }).length;
+        document.getElementById('rtStand').textContent = richtig === karten.length ? 'Alle fünf gelöst. Das war ein Anstoß, kein Test.' : richtig + ' von ' + karten.length + ' gelöst.';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
