@@ -837,6 +837,10 @@
   .hinkt-body { padding: 12px 14px 4px; font-size: 13px; line-height: 1.65; color: #C7CAD6; overflow-wrap: break-word; }
   .hinkt-body p { margin: 0 0 10px; }
   .hinkt-body .hinkt-frage { margin-top: 12px; padding-left: 10px; border-left: 2px solid rgba(242,196,107,0.6); color: #F2C46B; font-weight: 500; }
+  .weiter-eb { display: block; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.85; margin-bottom: 2px; }
+  .hinkt-body .weiter-antwort { margin: 6px 0 0; padding-left: 12px; color: #C7CAD6; }
+  .weiter-antwort b { font-weight: 500; color: #E8E6E0; }
+  .weiter-antwort a { white-space: nowrap; }
   @media (prefers-reduced-motion: no-preference) { .hinkt[open] > .hinkt-body { animation: hinkt-ein 0.25s ease-out; } }
   @keyframes hinkt-ein { from { opacity: 0; } to { opacity: 1; } }
 </style>
@@ -984,7 +988,7 @@
   <div class="graph-scroll" id="graphScroll"><svg id="graph" role="group" aria-label="Schema: oben deine Tätigkeiten, darunter vier Ebenen, die sie tragen. Jede Tätigkeit und jede Ebene lässt sich antippen."></svg></div>
 
   <div class="panel-wrap" id="panelWrap"></div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was hast du heute gemacht</span></summary><div class="hinkt-body"><p>Vier Ebenen wirken wie Stockwerke, die sich sauber trennen lassen. In Wirklichkeit greifen sie ineinander: Ein Wasserwerk ist Technik, Menschen, Regeln und Vertrauen zugleich.</p><p>Die Einordnung hier ist ein Vorschlag. Bei einer eigenen Eingabe sortiert die Seite nach Stichworten und versteht nicht, was du meinst.</p><p class="hinkt-frage">Zu welcher Ebene gehört eine Leitstelle, und was spricht für eine zweite?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was hast du heute gemacht</span></summary><div class="hinkt-body"><p>Vier Ebenen wirken wie Stockwerke, die sich sauber trennen lassen. In Wirklichkeit greifen sie ineinander: Ein Wasserwerk ist Technik, Menschen, Regeln und Vertrauen zugleich.</p><p>Die Einordnung hier ist ein Vorschlag. Bei einer eigenen Eingabe sortiert die Seite nach Stichworten und versteht nicht, was du meinst.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Zu welcher Ebene gehört eine Leitstelle, und was spricht für eine zweite?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Meist zur digitalen Ebene, denn sie sieht das Netz über Daten und greift ein. Für die kulturelle Ebene spricht, dass dort Menschen entscheiden.</p></div></details>
 </div>
 
 <div class="pack-box" id="packBox" style="display:none;">
@@ -1028,7 +1032,7 @@
   <p class="journey-chain sans" id="journeyChain"></p>
 
   <button class="journey-btn" id="journeyBtn">▸ Start</button>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Deine Reise</span></summary><div class="hinkt-body"><p>Eine Reise legt eine einzelne Linie nahe, vom Rhein bis zum Hahn. Wirklich ist es ein Netz mit Zweigen und Rückläufen, und an vielen Stationen hängt noch mehr dran.</p><p>Die Stationen sind eine Auswahl, und ihre Zuordnung zu den Ebenen ist eine Deutung.</p><p class="hinkt-frage">Welche Station fehlt auf dem Weg zu deinem Hahn?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Deine Reise</span></summary><div class="hinkt-body"><p>Eine Reise legt eine einzelne Linie nahe, vom Rhein bis zum Hahn. Wirklich ist es ein Netz mit Zweigen und Rückläufen, und an vielen Stationen hängt noch mehr dran.</p><p>Die Stationen sind eine Auswahl, und ihre Zuordnung zu den Ebenen ist eine Deutung.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Station fehlt auf dem Weg zu deinem Hahn?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel der Hochbehälter, der den Druck hält, oder die Leute, die Rohre prüfen und reparieren.</p></div></details>
 </section>
 
 <section class="shelf" id="shelfScene">
@@ -1044,7 +1048,7 @@
   <p class="shelf-receipt sans" id="shelfReceipt"></p>
 
   <div class="shelf-whispers" id="shelfWhispers" aria-hidden="true"></div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehst einkaufen</span></summary><div class="hinkt-body"><p>Der Kassenzettel nennt Kühlkette, Lieferung und Kassensystem. Das sind Beispiele und keine Rechnung dessen, was bei deinem Einkauf wirklich beteiligt war.</p><p>Die leisen Zeilen im Regal, etwa die Uhrzeit des Lastwagens, sind ausgedacht. Hinter jedem Produkt steht ein ganzes Netz von Betrieben und nicht nur ein Weg.</p><p class="hinkt-frage">Was steht hinter dem Produkt, das du zuletzt gekauft hast, und fehlt hier?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehst einkaufen</span></summary><div class="hinkt-body"><p>Der Kassenzettel nennt Kühlkette, Lieferung und Kassensystem. Das sind Beispiele und keine Rechnung dessen, was bei deinem Einkauf wirklich beteiligt war.</p><p>Die leisen Zeilen im Regal, etwa die Uhrzeit des Lastwagens, sind ausgedacht. Hinter jedem Produkt steht ein ganzes Netz von Betrieben und nicht nur ein Weg.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was steht hinter dem Produkt, das du zuletzt gekauft hast, und fehlt hier?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Anbau oder Herstellung, Lager, Kühlung und Lieferfahrzeuge. Je nach Produkt auch Verpackung und Zahlungstechnik.</p></div></details>
 </section>
 
 <section class="chaingame" id="chainGame">
@@ -1064,7 +1068,7 @@
   </div>
   <p class="cg-progress sans" id="cgProgress"></p>
   <div class="cg-badge" id="cgBadge" hidden></div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was kommt vor was</span></summary><div class="hinkt-body"><p>Das Spiel hat für jede Kette eine richtige Lösung. In der Wirklichkeit gibt es oft mehrere Wege und Querverbindungen, und manches läuft zurück, etwa wenn gereinigtes Abwasser in den Rhein fließt.</p><p>Dass weiter unten grundlegender heißt, ist eine Vereinfachung für das Spiel.</p><p class="hinkt-frage">Wo in deiner Kette läuft etwas zurück?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was kommt vor was</span></summary><div class="hinkt-body"><p>Das Spiel hat für jede Kette eine richtige Lösung. In der Wirklichkeit gibt es oft mehrere Wege und Querverbindungen, und manches läuft zurück, etwa wenn gereinigtes Abwasser in den Rhein fließt.</p><p>Dass weiter unten grundlegender heißt, ist eine Vereinfachung für das Spiel.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wo in deiner Kette läuft etwas zurück?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel beim Wasser, das als Abwasser zurückkommt, oder bei Strom, der aus einem Speicher zurückfließt. Auch Rückmeldungen zählen.</p></div></details>
 </section>
 
 <section class="belonging" id="belonging">
@@ -1094,7 +1098,7 @@
   <p class="belong-note sans">
     Nicht jede Leitung ist für jeden gleich wichtig. Getragen zu werden und selbst zu tragen gehört beides dazu.
   </p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehörst dazu</span></summary><div class="hinkt-body"><p>Zwei Spalten mit je fünf Leitungen sehen nach einer Bilanz aus. Es ist keine. Die Auswahl ist klein, und die Seiten lassen sich nicht gegeneinander aufrechnen.</p><p>In der Mitte steht auch nur eine Person. In Wirklichkeit hängen viele Menschen an denselben Leitungen.</p><p class="hinkt-frage">Welche Leitung würdest du bei dir ergänzen?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehörst dazu</span></summary><div class="hinkt-body"><p>Zwei Spalten mit je fünf Leitungen sehen nach einer Bilanz aus. Es ist keine. Die Auswahl ist klein, und die Seiten lassen sich nicht gegeneinander aufrechnen.</p><p>In der Mitte steht auch nur eine Person. In Wirklichkeit hängen viele Menschen an denselben Leitungen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Leitung würdest du bei dir ergänzen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Das ist offen. Denk an das, was dir fehlen würde, wenn es ausfiele: Internet, Heizung, Post, Nachbarn.</p></div></details>
 </section>
 
 <section class="stoer" id="stoerung">
@@ -1109,7 +1113,7 @@
   <div class="stoer-grid" id="stoerGrid"></div>
   <p class="stoer-status" id="stoerStatus" aria-live="polite"></p>
   <p class="stoer-link sans">Dasselbe Muster gibt es in der Zelle, nur ohne Leitstelle: <a href="zelle.html#ausfall">Fällt eine Stelle aus, merkt es der Rest</a>.</p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wenn es hakt</span></summary><div class="hinkt-body"><p>Echte Netze sind vielfach abgesichert, getrennt und werden von Menschen gesteuert, die umschalten und priorisieren. Der Dominoeffekt ist hier bewusst zugespitzt. Krankenhäuser zum Beispiel sind besonders gut abgesichert.</p><p>Die Abhängigkeiten sind Beispiele, keine Betriebsdaten aus Düsseldorf. Wie lange ein Ersatz trägt, hängt von Vorrat, Wetter und Einsatz ab, und "nach Tagen" ist ein Bild für "irgendwann reicht der Ersatz nicht mehr".</p><p class="hinkt-frage">Wer entscheidet im Ernstfall, welche Stelle zuerst wieder Strom bekommt?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wenn es hakt</span></summary><div class="hinkt-body"><p>Echte Netze sind vielfach abgesichert, getrennt und werden von Menschen gesteuert, die umschalten und priorisieren. Der Dominoeffekt ist hier bewusst zugespitzt. Krankenhäuser zum Beispiel sind besonders gut abgesichert.</p><p>Die Abhängigkeiten sind Beispiele, keine Betriebsdaten aus Düsseldorf. Wie lange ein Ersatz trägt, hängt von Vorrat, Wetter und Einsatz ab, und "nach Tagen" ist ein Bild für "irgendwann reicht der Ersatz nicht mehr".</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet im Ernstfall, welche Stelle zuerst wieder Strom bekommt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Das regeln Notfallpläne der Netzbetreiber und der Stadt. Krankenhäuser und Pumpwerke stehen meist vorn.</p></div></details>
   <p class="belong-note sans">Zugespitzt dargestellt: Die Karten zeigen Abhängigkeiten als Beispiele, nicht den Zustand echter Anlagen.</p>
 </section>
 
@@ -1134,7 +1138,7 @@
   <div class="inst-legend"><span><i style="background:#8FD9A8"></i>in Ordnung</span><span><i style="background:#F2C46B"></i>fast am Ende</span><span><i style="background:repeating-linear-gradient(135deg,#FF8A65 0 3px,#2A1814 3px 6px)"></i>überfällig, ausgefallen</span></div>
   <p class="inst-status" id="instStatus" aria-live="polite"></p>
   <p class="inst-link sans">Eine Zelle macht das ohne Plan: Ihre Teile werden ständig abgebaut und neu gebaut. Wie das aufgeräumt wird, steht bei <a href="zelle.html#muell">Was liegen bleibt, stört</a>.</p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer. In Zellen läuft der Umbau ständig, ohne Plan und ohne Kasse: Eiweiße werden nach Minuten bis Monaten abgebaut und neu gebaut.</p><p>Echte Netze bestehen aus Millionen Teilen und werden nach Zustand und Risiko erneuert, nicht strikt nach Alter. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt, es sind keine Angaben zu Düsseldorfer Netzen.</p><p class="hinkt-frage">Wer entscheidet, welches Rohr zuerst dran ist?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer. In Zellen läuft der Umbau ständig, ohne Plan und ohne Kasse: Eiweiße werden nach Minuten bis Monaten abgebaut und neu gebaut.</p><p>Echte Netze bestehen aus Millionen Teilen und werden nach Zustand und Risiko erneuert, nicht strikt nach Alter. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt, es sind keine Angaben zu Düsseldorfer Netzen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet, welches Rohr zuerst dran ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Betreiber, nach Alter, Zustand und Schäden. Dazu kommen Geld und Pläne der Stadt.</p></div></details>
   <p class="belong-note sans">Zugespitzt dargestellt: Zwanzig Abschnitte je Netz, feste Lebensdauer, erneuert wird immer das älteste Stück.</p>
 </section>
 
@@ -1152,7 +1156,7 @@
     </div>
   </div>
   <p class="inst-status" id="kostStatus" aria-live="polite"></p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kosten</span></summary><div class="hinkt-body"><p>Echte Kosten hängen an Gelände, Alter, Bauweise und Politik, und niemand rechnet mit einer einzigen Jahressumme. Die Beträge hier sind frei gewählte Beispielwerte und keine Aussage zu Gebühren, Steuern oder Preisen in Düsseldorf.</p><p>Auch die drei Zahlungswege sind vereinfacht. In der Praxis mischen sie sich: Eine Straßenbahn wird durch Fahrkarten und Zuschüsse aus Steuern bezahlt.</p><p class="hinkt-frage">Wer zahlt, wenn kaum jemand etwas nutzt, das alle brauchen?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kosten</span></summary><div class="hinkt-body"><p>Echte Kosten hängen an Gelände, Alter, Bauweise und Politik, und niemand rechnet mit einer einzigen Jahressumme. Die Beträge hier sind frei gewählte Beispielwerte und keine Aussage zu Gebühren, Steuern oder Preisen in Düsseldorf.</p><p>Auch die drei Zahlungswege sind vereinfacht. In der Praxis mischen sie sich: Eine Straßenbahn wird durch Fahrkarten und Zuschüsse aus Steuern bezahlt.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer zahlt, wenn kaum jemand etwas nutzt, das alle brauchen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Meist alle gemeinsam über Steuern, wenn der Nutzen für die Stadt groß ist. Ein Beispiel ist die Feuerwehr.</p></div></details>
   <p class="belong-note sans">Beispielrechnung mit 620.000 Einwohnern und frei gewählten Jahreskosten.</p>
 </section>
 
@@ -1172,7 +1176,7 @@
   <p class="bruecke sans">Eine Frage aus Düsseldorf, auf die Zelle gewendet: Wer prüft die Rohre? Wer prüft die DNA? Die Zelle hat dafür eine eigene Reparatur, die mit dem Alter nachlässt. Das steht bei <a href="zelle.html#alt">Alterung und Reparatur</a>.</p>
   <p class="bruecke sans">Alles nebeneinander: <a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a>.</p>
   <p class="now-note sans">Die Zahlen sind aus Tagesdurchschnitten hochgerechnet und keine Live-Daten. Die Größenordnung stimmt, die genaue Sekunde nicht.</p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig wie eine Uhr. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, und die echte Nutzung schwankt über den Tag.</p><p>Aus den Zählern für Wasser und Fahrgäste lässt sich deshalb keine Zahl für genau diesen Moment ablesen und auch keine für dich.</p><p class="hinkt-frage">Zu welcher Uhrzeit würde jeder dieser Zähler schneller oder langsamer laufen?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig wie eine Uhr. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, und die echte Nutzung schwankt über den Tag.</p><p>Aus den Zählern für Wasser und Fahrgäste lässt sich deshalb keine Zahl für genau diesen Moment ablesen und auch keine für dich.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Zu welcher Uhrzeit würde jeder dieser Zähler schneller oder langsamer laufen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Strom und Wasser ziehen morgens und abends an, die Bahnen sind in den Stoßzeiten voll. In der Nacht laufen viele Zähler langsamer.</p></div></details>
 </section>
 
 <section class="cube-section" id="cubeSection">
@@ -1181,7 +1185,7 @@
   <div class="cube-scene-wrap">
     <svg class="cube-scene" id="cubeScene" viewBox="0 0 400 1350" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Ein Turm, durch den die Figur geht. An fünf Stationen kommt Energie auf unterschiedliche Weise dazu"></svg>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wie Energie unterwegs entsteht</span></summary><div class="hinkt-body"><p>Ein Turm mit fünf Stationen legt ein Nacheinander nahe. In Wirklichkeit kommt Energie aus mehreren Quellen zugleich und wird laufend ausbalanciert.</p><p>Die Stationen sind eine Auswahl und kein Bild dessen, woher Düsseldorfs Strom tatsächlich kommt.</p><p class="hinkt-frage">Was passiert im Turm bei Windstille?</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wie Energie unterwegs entsteht</span></summary><div class="hinkt-body"><p>Ein Turm mit fünf Stationen legt ein Nacheinander nahe. In Wirklichkeit kommt Energie aus mehreren Quellen zugleich und wird laufend ausbalanciert.</p><p>Die Stationen sind eine Auswahl und kein Bild dessen, woher Düsseldorfs Strom tatsächlich kommt.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert im Turm bei Windstille?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Station Wind liefert dann nichts. Die anderen Quellen und der Speicher füllen die Lücke, solange sie reichen.</p></div></details>
 </section>
 
 <section class="landing" id="landing">
