@@ -32,15 +32,23 @@ const server = http.createServer((req, res) => {
 await new Promise((r) => server.listen(0, '127.0.0.1', r));
 const BASE = 'http://127.0.0.1:' + server.address().port;
 
-const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'check-'));
-const chrome = spawn(CHROME, ['--headless=new', '--disable-gpu', '--mute-audio', ...(process.env.CI ? ['--no-sandbox'] : []), '--remote-debugging-port=0', '--user-data-dir=' + profile, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
-const wsUrl = await new Promise((resolve, reject) => {
-  let buf = '';
-  chrome.stderr.on('data', (d) => { buf += d; const m = buf.match(/DevTools listening on (ws:\/\/\S+)/); if (m) resolve(m[1]); });
-  setTimeout(() => reject(new Error('Chrome startet nicht')), 15000);
-});
-const port = new URL(wsUrl).port;
-const target = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find((t) => t.type === 'page');
+// Geteilter Browser: Setzt alle.mjs CHROME_PORT, öffnet check.mjs nur einen eigenen Tab im bereits laufenden Chrome.
+const geteilt = process.env.CHROME_PORT;
+let profile = null, chrome = null, port, target;
+if (geteilt) {
+  port = geteilt;
+  target = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' })).json();
+} else {
+  profile = fs.mkdtempSync(path.join(os.tmpdir(), 'check-'));
+  chrome = spawn(CHROME, ['--headless=new', '--disable-gpu', '--mute-audio', ...(process.env.CI ? ['--no-sandbox'] : []), '--remote-debugging-port=0', '--user-data-dir=' + profile, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
+  const wsUrl = await new Promise((resolve, reject) => {
+    let buf = '';
+    chrome.stderr.on('data', (d) => { buf += d; const m = buf.match(/DevTools listening on (ws:\/\/\S+)/); if (m) resolve(m[1]); });
+    setTimeout(() => reject(new Error('Chrome startet nicht')), 15000);
+  });
+  port = new URL(wsUrl).port;
+  target = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find((t) => t.type === 'page');
+}
 const ws = new WebSocket(target.webSocketDebuggerUrl);
 await new Promise((r) => (ws.onopen = r));
 
@@ -221,8 +229,8 @@ for (const page of pages) {
   if (toc) for (const [, id] of src.matchAll(/<section[^>]*\bid="([^"]+)"/g)) if (!toc.includes('#' + id)) warnings.push(`${page}: Section #${id} fehlt im Inhaltsverzeichnis`);
 }
 
-ws.close(); chrome.kill(); server.close();
-try { fs.rmSync(profile, { recursive: true, force: true }); } catch {}
+ws.close(); server.close();
+if (geteilt) { await fetch(`http://127.0.0.1:${port}/json/close/${target.id}`).catch(() => {}); } else { chrome.kill(); try { fs.rmSync(profile, { recursive: true, force: true }); } catch {} }
 const uniq = (a) => [...new Set(a)];
 console.log(`${pages.length} Seiten bei ${WIDTHS.join(', ')} px geprüft.`);
 if (warnings.length) { console.log(`\nWarnungen (${uniq(warnings).length}):`); uniq(warnings).forEach((w) => console.log('  ! ' + w)); }
