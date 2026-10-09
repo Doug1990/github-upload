@@ -33,7 +33,7 @@ Die Skripte brauchen nur Node 22 und ein lokales Chrome (Pfad bei Bedarf mit `--
 
 | Befehl | Prüft |
 | --- | --- |
-| `node tests/alle.mjs [--schnell] [--wiederholen]` | Alle Prüfskripte nacheinander mit Dauer und Ergebnis, `--schnell` lässt die langen aus, `--wiederholen` wiederholt Fehlschläge einmal (Schnelllauf rund 13 Minuten) |
+| `node tests/alle.mjs [--schnell] [--wiederholen] [--eigene] [--parallel=N]` | Alle Prüfskripte nacheinander in einem gemeinsamen Chrome (jedes Skript öffnet nur einen Tab), mit Dauer und Ergebnis. `--schnell` lässt die langen aus, `--wiederholen` wiederholt Fehlschläge einmal, `--eigene` startet je Skript einen eigenen Chrome, `--parallel=N` ist ausprobiert und wird nicht empfohlen (Schnelllauf rund 13 Minuten) |
 | `node tests/check.mjs` | Alle Seiten bei 1280, 768, 390 und 360 px: Konsolenfehler, horizontaler Überlauf, tote Links und Anker, title, Beschreibung, canonical, og:image, JSON-LD, sitemap.xml. Mit `--screens=<ordner>` entstehen Screenshots. Externe Links per HEAD (Warnung, `--ohne-extern` überspringt). `--langsam` misst die Ladezeit bei 3G. |
 | `node tests/kontrast.mjs` | Textkontrast mindestens 4,5 zu 1, auch nach Klicks |
 | `node tests/tastatur.mjs` | Tabreihenfolge, Fokus-Stil, Erreichbarkeit, auch nach Klicks |

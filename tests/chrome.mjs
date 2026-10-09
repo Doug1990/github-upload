@@ -26,15 +26,23 @@ export async function start() {
   });
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   const BASE = 'http://127.0.0.1:' + server.address().port;
-  const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'a11y-'));
-  const chrome = spawn(chromePath, ['--headless=new', '--disable-gpu', '--mute-audio', ...(process.env.CI ? ['--no-sandbox'] : []), '--remote-debugging-port=0', '--user-data-dir=' + profile, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
-  const wsUrl = await new Promise((resolve, reject) => {
-    let buf = '';
-    chrome.stderr.on('data', (d) => { buf += d; const m = buf.match(/DevTools listening on (ws:\/\/\S+)/); if (m) resolve(m[1]); });
-    setTimeout(() => reject(new Error('Chrome startet nicht')), 15000);
-  });
-  const port = new URL(wsUrl).port;
-  const target = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find((t) => t.type === 'page');
+  // Geteilter Browser: Setzt alle.mjs CHROME_PORT, öffnet jedes Skript nur einen eigenen Tab im bereits laufenden Chrome.
+  const geteilt = process.env.CHROME_PORT;
+  let chrome = null, profile = null, port, target;
+  if (geteilt) {
+    port = geteilt;
+    target = await (await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' })).json();
+  } else {
+    profile = fs.mkdtempSync(path.join(os.tmpdir(), 'a11y-'));
+    chrome = spawn(chromePath, ['--headless=new', '--disable-gpu', '--mute-audio', ...(process.env.CI ? ['--no-sandbox'] : []), '--remote-debugging-port=0', '--user-data-dir=' + profile, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
+    const wsUrl = await new Promise((resolve, reject) => {
+      let buf = '';
+      chrome.stderr.on('data', (d) => { buf += d; const m = buf.match(/DevTools listening on (ws:\/\/\S+)/); if (m) resolve(m[1]); });
+      setTimeout(() => reject(new Error('Chrome startet nicht')), 15000);
+    });
+    port = new URL(wsUrl).port;
+    target = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find((t) => t.type === 'page');
+  }
   const ws = new WebSocket(target.webSocketDebuggerUrl);
   await new Promise((r) => (ws.onopen = r));
   let id = 0; const pend = {}; const b = { events: [] };
@@ -53,7 +61,7 @@ export async function start() {
     await b.ev(`(async()=>{const h=document.documentElement.scrollHeight;for(let y=0;y<h;y+=700){scrollTo(0,y);await new Promise(r=>setTimeout(r,120));}scrollTo(0,0);})()`);
     await sleep(500);
   };
-  b.close = () => { ws.close(); chrome.kill(); server.close(); try { fs.rmSync(profile, { recursive: true, force: true }); } catch {} };
+  b.close = () => { ws.close(); if (geteilt) fetch(`http://127.0.0.1:${port}/json/close/${target.id}`).catch(() => {}); else { chrome.kill(); try { fs.rmSync(profile, { recursive: true, force: true }); } catch {} } server.close(); };
   return b;
 }
 
