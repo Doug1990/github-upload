@@ -122,7 +122,7 @@
   </section>
   <section class="rt" data-i="3" data-loesung="Müllabfuhr">
     <h2>Rätsel 4</h2>
-    <ol class="rt-hinweise"><li class="rt-h">Ich hole Abfall ab.</li><li class="rt-h">Was bei mir ankommt, wird zerlegt und wiederverwertet.</li><li class="rt-h">In der Zelle bin ich ein Bläschen mit Enzymen.</li></ol>
+    <ol class="rt-hinweise"><li class="rt-h">Ich hole Abfall ab.</li><li class="rt-h">Was bei mir ankommt, wird zerlegt und wiederverwertet.</li><li class="rt-h">In der Zelle bin ich ein Bläschen mit Verdauungsstoffen.</li></ol>
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Müllabfuhr</button><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Zoll</button><button type="button" class="rt-b rt-a">Archiv</button></div>
     <p class="rt-fb" aria-live="polite"></p>
@@ -214,6 +214,14 @@
       });
     });
   });
+})();
+</script>
+<script>
+// --- Druck: Hinweisfelder vor dem Drucken aufklappen ---
+(function () {
+  'use strict';
+  window.addEventListener('beforeprint', function () { Array.prototype.forEach.call(document.querySelectorAll('details:not([open])'), function (d) { d.setAttribute('data-druck', '1'); d.open = true; }); });
+  window.addEventListener('afterprint', function () { Array.prototype.forEach.call(document.querySelectorAll('details[data-druck]'), function (d) { d.open = false; d.removeAttribute('data-druck'); }); });
 })();
 </script>
 </body>
