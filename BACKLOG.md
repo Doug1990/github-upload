@@ -147,6 +147,7 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 
 ## Erledigt
 
+- Verständlichkeit, Fußnoten: Acht der Fußnoten "Stark vereinfacht" auf der Zell-Seite gekürzt und in Alltagssprache gefasst (Zoll, Evolution, Dorf oder Stadt, Gene, Genregulation, Zellteilung, Signale, Immunsystem)
 - Verständlichkeit, Satzlänge: `tests/saetze.mjs` prüft, dass kein Satz länger als 28 Wörter ist, vier lange Sätze der Zell-Seite aufgeteilt (Endosymbiose, Entsorgung, Immunsystem, Kurz erklärt)
 - Verständlichkeit, Durchgang 2: Rätsel und Abschlussseite (Lysosom, Kernpore, Membran in Alltagsworten erklärt), Hinweisfelder "Wo das Bild hinkt" klappen vor dem Drucken von selbst auf (alle Seiten mit Feldern), `leerlauf.mjs` läuft nicht mehr im Schnelllauf von `alle.mjs`
 - Verständlichkeit, Durchgang 1 (`zelle.html`, `glossar.html`): Fachwörter beim ersten Auftreten erklärt (ATP, Protonen, Enzym, Gefälle, Faltung, Fitness, Mutation, Motorprotein, Lysosom, Aminosäure, Axon, Antikörper, Kontrollpunkte G1 und G2, Bit und Byte), Rechnung bei Dorf oder Stadt in Alltagssprache, vier "Nicht X, sondern Y"-Sätze umformuliert, elf neue Begriffe im Glossar (jetzt 33)
