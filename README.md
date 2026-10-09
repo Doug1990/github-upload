@@ -13,6 +13,7 @@ Live: https://doug1990.github.io/github-upload/ (GitHub Pages, Repo `doug1990/gi
 | `karte-skizze.html` | Karte von Düsseldorf (isometrisch, schematisch): tippe an, was du heute gemacht hast, und die beteiligten Orte leuchten, mit Nummern, Ebenen-Filter und Infokarte. Elf Tätigkeiten, kombinierbar. |
 | `impressum.html`, `datenschutz.html` | Rechtliches |
 | `glossar.html` | Glossar: Begriffe aus Zelle und Stadt mit Bild und kurzer Erklärung (Schreibweisen in `BEGRIFFE.md`, geprüft von `tests/begriffe.mjs`) |
+| `abschluss.html` | Abschlussseite "Eine Stadt, ein Körper, ein Netz": fünf Fragen, vier Antworten (Düsseldorf, Zelle, Körper, Internet), je Spalte ein Feld "Wo das Bild hinkt" |
 
 Alles läuft ohne Build und ohne fremde Server: eine HTML-Datei je Seite mit eigenem CSS und Skript, Schriften liegen in `fonts/`, Vorschaubilder in `og/`. Eingaben bleiben im Browser.
 
@@ -44,6 +45,7 @@ Die Skripte brauchen nur Node 22 und ein lokales Chrome (Pfad bei Bedarf mit `--
 | `node tests/gewicht.mjs [--budget=<KB>]` | Gewicht je Seite (roh und gzip, Schriften getrennt, Anfragen), Fehler über 150 KB gzip, Warnung ab 85 Prozent |
 | `node tests/zoom.mjs [--faktor=1.5]` | 320 px Breite und Schrift auf 150 Prozent (mit `--faktor=3` strenger): kein Überlauf, kein abgeschnittener Text, nichts außerhalb des Fensters |
 | `node tests/fokus.mjs [--seite=<datei>]` | Fokus nach Enter auf Knöpfen und Tab danach nie auf body (Zell-Seite dauert einige Minuten) |
+| `node tests/abschluss.mjs` | Abschlussseite: fünf Fragen, vier Antworten, vier Felder "Wo das Bild hinkt", Links |
 | `node tests/schemata.mjs` | Screenreader: Jedes SVG hat einen Namen oder ist versteckt, jede Statuszeile liegt in einer Live-Region |
 | `node tests/stoerung.mjs` | Startseite, "Wenn es hakt": Ausbreitung nach dem Abschalten, Leitungen, Reset, Tastatur |
 | `node tests/instand.mjs` | Startseite, "Wer hält es instand": Strategien über die Jahre, Zeitraffer, Regler |
