@@ -793,6 +793,8 @@
   .kost-bar { height: 12px; border-radius: 6px; background: #25332C; overflow: hidden; }
   .kost-bar i { display: block; height: 100%; width: 0; background: #F2C46B; transition: width 0.3s; }
   @media (prefers-reduced-motion: reduce) { .kost-bar i { transition: none; } }
+  .bruecke { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: #A9AFC0; margin: 14px auto 0; max-width: 520px; line-height: 1.7; text-align: center; }
+  .bruecke a { color: #8FC9D4; }
   .instand { max-width: min(94vw, 900px); width: 100%; margin: 0 auto; padding: 18px 24px 20px; text-align: center; position: relative; }
   .inst-eyebrow { font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #C9B88A; margin: 0 0 8px; }
   .inst-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 25px; color: #F3EFE6; margin: 0 0 10px; }
@@ -843,7 +845,7 @@
   :where(p, li, dd) { line-height: 1.5; }
   /* Zeilenlänge: Fließtext höchstens etwa 70 Zeichen je Zeile */
   p.note, p.aha, p.alt-txt, p.quorum-txt, p.dorf-calc, p.panel-text, p.now-people, p.now-note, .dorf-ort p, .bau-ort p, .frage-body p, .hinkt-body p, dd, main > p { max-width: 58ch; }
-  p.lead, p.cg-hint, p.inst-lead, p.inst-link, p.dna-sum, p.pfad-zeile, p.hero-thesis, main > p.note { max-width: 54ch; margin-left: auto; margin-right: auto; }
+  p.lead, p.cg-hint, p.inst-lead, p.inst-link, p.bruecke, p.dna-sum, p.pfad-zeile, p.hero-thesis, main > p.note { max-width: 54ch; margin-left: auto; margin-right: auto; }
   @media (max-width: 560px) {
     body p, body li, body dd { font-size: 16px !important; }
     body li { line-height: 1.55; }
@@ -1116,7 +1118,7 @@
   </div>
   <div class="inst-legend"><span><i style="background:#8FD9A8"></i>in Ordnung</span><span><i style="background:#F2C46B"></i>fast am Ende</span><span><i style="background:repeating-linear-gradient(135deg,#FF8A65 0 3px,#2A1814 3px 6px)"></i>überfällig, ausgefallen</span></div>
   <p class="inst-status" id="instStatus" aria-live="polite"></p>
-  <p class="inst-link sans">Eine Zelle macht das ohne Plan: Ihre Teile werden ständig abgebaut und neu gebaut. Wie das aufgeräumt wird, steht bei <a href="zelle.html#ausfall">Fällt eine Stelle aus, merkt es der Rest</a>.</p>
+  <p class="inst-link sans">Eine Zelle macht das ohne Plan: Ihre Teile werden ständig abgebaut und neu gebaut. Wie das aufgeräumt wird, steht bei <a href="zelle.html#muell">Was liegen bleibt, stört</a>.</p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer. In Zellen läuft der Umbau ständig, ohne Plan und ohne Kasse: Eiweiße werden nach Minuten bis Monaten abgebaut und neu gebaut.</p><p>Echte Netze bestehen aus Millionen Teilen und werden nach Zustand und Risiko erneuert, nicht strikt nach Alter. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt, es sind keine Angaben zu Düsseldorfer Netzen.</p><p class="hinkt-frage">Wer entscheidet, welches Rohr zuerst dran ist?</p></div></details>
   <p class="belong-note sans">Zugespitzt dargestellt: Zwanzig Abschnitte je Netz, feste Lebensdauer, erneuert wird immer das älteste Stück.</p>
 </section>
@@ -1152,6 +1154,7 @@
   </div>
 
   <p class="now-people sans" id="nowPeople"></p>
+  <p class="bruecke sans">Eine Frage aus Düsseldorf, auf die Zelle gewendet: Wer prüft die Rohre? Wer prüft die DNA? Die Zelle hat dafür eine eigene Reparatur, die mit dem Alter nachlässt. Das steht bei <a href="zelle.html#alt">Alterung und Reparatur</a>.</p>
   <p class="now-note sans">Die Zahlen sind aus Tagesdurchschnitten hochgerechnet und keine Live-Daten. Die Größenordnung stimmt, die genaue Sekunde nicht.</p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig wie eine Uhr. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, und die echte Nutzung schwankt über den Tag.</p><p>Aus den Zählern für Wasser und Fahrgäste lässt sich deshalb keine Zahl für genau diesen Moment ablesen und auch keine für dich.</p><p class="hinkt-frage">Zu welcher Uhrzeit würde jeder dieser Zähler schneller oder langsamer laufen?</p></div></details>
 </section>
