@@ -46,6 +46,7 @@ Die Skripte brauchen nur Node 22 und ein lokales Chrome (Pfad bei Bedarf mit `--
 | `node tests/zoom.mjs [--faktor=1.5]` | 320 px Breite und Schrift auf 150 Prozent (mit `--faktor=3` strenger): kein Überlauf, kein abgeschnittener Text, nichts außerhalb des Fensters |
 | `node tests/fokus.mjs [--seite=<datei>]` | Fokus nach Enter auf Knöpfen und Tab danach nie auf body (Zell-Seite dauert einige Minuten) |
 | `node tests/abschluss.mjs` | Abschlussseite: fünf Fragen, vier Antworten, vier Felder "Wo das Bild hinkt", Links |
+| `node tests/skalen.mjs` | Schieber "Skala" auf der Abschlussseite: drei Stufen, Feld "Anders", ohne Skript beides sichtbar |
 | `node tests/schemata.mjs` | Screenreader: Jedes SVG hat einen Namen oder ist versteckt, jede Statuszeile liegt in einer Live-Region |
 | `node tests/stoerung.mjs` | Startseite, "Wenn es hakt": Ausbreitung nach dem Abschalten, Leitungen, Reset, Tastatur |
 | `node tests/instand.mjs` | Startseite, "Wer hält es instand": Strategien über die Jahre, Zeitraffer, Regler |

@@ -44,6 +44,21 @@
   .abs-hinkt p { margin: 0 0 12px; }
   main { max-width: 860px; }
   @media (max-width: 560px) { .abs-grid { grid-template-columns: 1fr; } }
+  .sk-regler { display: block; margin: 0 0 16px; }
+  .sk-row { display: flex; justify-content: space-between; margin-bottom: 4px; color: #E8E6E0; }
+  .sk-regler input { width: 100%; accent-color: var(--accent); min-height: 44px; }
+  .sk-zeile { margin: 0 0 16px; }
+  .sk-zeile h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 17px; margin: 0 0 6px; color: #E8E6E0; }
+  .sk-paar { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .sk-a, .sk-b { padding: 10px 13px; border-left: 3px solid var(--accent); border-radius: 10px; background: rgba(255,255,255,0.04); }
+  .sk-b { border-left-color: #7FD9A8; }
+  .sk-a b, .sk-b b { font-family: 'Fraunces', serif; font-weight: 500; font-size: 15px; color: #E8E6E0; display: block; margin-bottom: 2px; }
+  .sk-a p, .sk-b p { margin: 0; }
+  .sk-anders { margin: 8px 0 0; padding: 8px 13px; border-radius: 10px; border: 1px dashed rgba(242,196,107,0.6); }
+  .sk-anders b { color: #F2C46B; font-weight: 500; }
+  .sk[data-skala="0"] .sk-b, .sk[data-skala="2"] .sk-a { display: none; }
+  .sk[data-skala="0"] .sk-paar, .sk[data-skala="2"] .sk-paar { grid-template-columns: 1fr; }
+  @media (max-width: 560px) { .sk-paar { grid-template-columns: 1fr; } }
 </style>
 <style>
   /* Lesbarkeit auf dem Handy: Fließtext mindestens 16 px, Listenpunkte mit Zeilenabstand 1,55 */
@@ -128,6 +143,20 @@
     </div>
   </section>
 
+  <section class="abs-frage" id="skalen">
+    <h2>Gleicher Name, anderer Mechanismus</h2>
+    <p>Sechs Wörter kommen in der Stadt und in der Zelle vor. Stelle den Schieber ein: nur Düsseldorf, beides oder nur die Zelle.</p>
+    <div class="sk" id="sk">
+      <label class="sk-regler" for="skS"><span class="sk-row"><span>Skala</span><output id="skO" for="skS">Beides</output></span><input type="range" id="skS" min="0" max="2" step="1" value="1" aria-valuetext="Beides"></label>
+      <div class="sk-zeile"><h3>Kraftwerk</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Das Kraftwerk Lausward verbrennt Brennstoff und liefert Strom und Fernwärme.</p></div><div class="sk-b"><b>Zelle</b><p>Mitochondrien bauen aus Nährstoffen und Sauerstoff den Energieträger ATP.</p></div></div><p class="sk-anders"><b>Anders:</b> In der Zelle läuft die Energiegewinnung in vielen kleinen Schritten ohne Flamme, und eine Zelle hat oft hunderte solcher Kraftwerke.</p></div>
+      <div class="sk-zeile"><h3>Archiv</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Das Stadtarchiv bewahrt Akten auf, die man nachschlagen kann.</p></div><div class="sk-b"><b>Zelle</b><p>Die DNA speichert Anleitungen, die bei Bedarf abgeschrieben werden.</p></div></div><p class="sk-anders"><b>Anders:</b> Aus der DNA entsteht eine Abschrift, das Original bleibt im Zellkern.</p></div>
+      <div class="sk-zeile"><h3>Zoll</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Der Zoll prüft Waren an der Grenze und lässt sie durch oder hält sie an.</p></div><div class="sk-b"><b>Zelle</b><p>Kernporen und Membran lassen bestimmte Stoffe durch, je nach Erkennungszeichen.</p></div></div><p class="sk-anders"><b>Anders:</b> Es gibt keine Zöllner. Eiweiße in der Hülle erkennen Stoffe an ihrer Form.</p></div>
+      <div class="sk-zeile"><h3>Müllabfuhr</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Die Abfuhr holt Abfall ein und bringt ihn zum Recyclinghof.</p></div><div class="sk-b"><b>Zelle</b><p>Lysosomen und Proteasomen zerlegen Abfall und beschädigte Eiweiße.</p></div></div><p class="sk-anders"><b>Anders:</b> Die Entsorgung ist verteilt, und die Zelle steuert sie je nach Bedarf ohne zentralen Fahrplan.</p></div>
+      <div class="sk-zeile"><h3>Bauamt</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Das Bauamt prüft Pläne und genehmigt Bauten.</p></div><div class="sk-b"><b>Zelle</b><p>Kontrollpunkte und Reparatureiweiße prüfen die DNA und beheben Schäden.</p></div></div><p class="sk-anders"><b>Anders:</b> Die Prüfung läuft laufend und vor Ort, ohne Antrag und ohne Beamte.</p></div>
+      <div class="sk-zeile"><h3>Stadtwache</h3><div class="sk-paar"><div class="sk-a"><b>Düsseldorf</b><p>Polizei und Feuerwehr greifen bei Gefahr ein.</p></div><div class="sk-b"><b>Zelle</b><p>Immunzellen erkennen Fremdes und beseitigen es.</p></div></div><p class="sk-anders"><b>Anders:</b> Immunzellen entscheiden einzeln und lernen aus Erfahrung, ohne Leitstelle.</p></div>
+    </div>
+  </section>
+
   <section class="abs-frage">
     <h2>Wo die Bilder hinken</h2>
     <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Wo das Bild hinkt: Düsseldorf</summary><p>Eine Stadt wird von Menschen mit Zielen geführt, und die Zahlen hier sind Beispiele.</p></details>
@@ -138,5 +167,17 @@
 
   <p>Mehr dazu auf den Seiten <a href="index.html">Was trägt deinen Tag?</a>, <a href="zelle.html">Die Zelle</a> und <a href="karte-skizze.html">Karte</a>. Begriffe stehen im <a href="glossar.html">Glossar</a>.</p>
 </main>
+<script>
+// --- Skalen: Düsseldorf, beides oder Zelle ---
+(function () {
+  'use strict';
+  var s = document.getElementById('skS'), o = document.getElementById('skO'), box = document.getElementById('sk');
+  if (!s || !o || !box) return;
+  var NAMEN = ['Nur Düsseldorf', 'Beides', 'Nur die Zelle'];
+  function render() { var v = parseInt(s.value, 10); box.setAttribute('data-skala', String(v)); o.textContent = NAMEN[v]; s.setAttribute('aria-valuetext', NAMEN[v]); }
+  s.addEventListener('input', render);
+  render();
+})();
+</script>
 </body>
 </html>
