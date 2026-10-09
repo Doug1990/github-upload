@@ -17,7 +17,6 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 
 2. **CI-Workflow.** Vorlage liegt fertig in `tests/ci/pruefen.yml` (läuft bei Pull Request und Push auf main: `check.mjs`, `kontrast.mjs`, `tastatur.mjs`, Screenshots als Artefakt bei Fehler). Fehlt nur noch die Freigabe, siehe Entscheidung 14. Danach Datei nach `.github/workflows/` verschieben. Aufwand S.
 44. **Der Körper als Netz aus Netzen.** Neuer Abschnitt zwischen Zelle und Stadt: Ein Klick auf Blutkreislauf, Nerven oder Verdauung blendet das jeweilige Netz über eine Körperskizze, darunter steht, welchem Düsseldorfer Netz es ähnelt (Rohre, Kabel, Straßenbahn). Hinweis: Der Körper wurde nicht geplant, Netze sind verzahnt und bei jedem Menschen etwas verschieden, die Entsprechung ist nur ein Bild. Aufwand L. Die Ebene Körper kommt bisher nur als Schalterbeschriftung vor, Punkt 11 braucht sie.
-50. **Fokus-Management in den interaktiven Abschnitten.** Nach Schritt-, Schalter- und Zurücksetzen-Knöpfen bleibt der Fokus auf dem Knopf oder geht an eine benannte Stelle, nie auf `body`. Akzeptanz: `tastatur.mjs` prüft nach jedem Klick in jedem Abschnitt, dass `document.activeElement` nicht `body` ist und Tab von dort im Abschnitt weitergeht. Aufwand M.
 53. **Prüfskripte schneller und ruhiger machen.** `tests/alle.mjs` startet einen gemeinsamen Browser für alle Skripte, kennt `--schnell` für die Kurzprüfung und friert zeitabhängige Texte (Uhrzeit, Zähler, Animationen) mit festem Takt ein, damit Läufe nicht flackern. Akzeptanz: Gesamtlauf unter 3 Minuten, zehn Läufe nacheinander ergeben dasselbe Ergebnis. Aufwand M. Mehr als 17 Skripte mit je eigenem Chrome belasten den Rechner (Last über 20 bei parallelen Sessions, ein Lauf hing 23 Minuten) und die Mikrotext-Basis braucht Spielraum.
 
 ## Offen, Priorität mittel
@@ -140,6 +139,7 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 
 ## Erledigt
 
+- Fokus-Management: `tests/fokus.mjs` drückt Enter auf jedem Knopf und jedem Element mit Rolle Knopf und prüft, dass Fokus und Tab danach nie auf body liegen. Behoben: Das Kopfschema der Startseite baute sich beim Antippen neu und verlor den Fokus, jetzt wird er zurückgesetzt. Alle Seiten bestehen
 - Screenreader-Durchlauf der Schemata: `tests/schemata.mjs` prüft SVG-Namen und Live-Regionen. Behoben: Wurzeln im Kopfbereich versteckt, Kopfschema als Gruppe mit Namen, zwei Statuszeilen mit `aria-live`. Alle Seiten bestehen
 - Seitengewicht: `tests/gewicht.mjs` meldet Bytes roh und gzip je Seite, Schriften getrennt und Zahl der Anfragen, bricht über 150 KB gzip ab (Zell-Seite 128 KB, Startseite 77 KB)
 - Brücke: Zwei Seiten, ein Gedanke: Karte am Ende von "Es läuft weiter" (Startseite, Frage Rohre und DNA, Link zu `zelle.html#alt`) und Gegenstück im Müllabfuhr-Abschnitt der Zell-Seite (Link zu `index.html#instand`). Der Link im Abschnitt "Wer hält es instand" zeigt jetzt auf `#muell` statt `#ausfall`
