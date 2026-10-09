@@ -50,6 +50,7 @@ Die Skripte brauchen nur Node 22 und ein lokales Chrome (Pfad bei Bedarf mit `--
 | `node tests/tagesverlauf.mjs` | Tagesverlauf-Seite: drei Netze, Kurven, Werte, Füllstand, Auslastung, Tippflächen |
 | `node tests/visuell.mjs [--update]` | Visuelle Regression: oberer Seitenbereich jeder Seite bei 1280 und 390 px gegen Referenzbilder in `tests/visuell/` (Toleranz 0,05 Prozent der Pixel). Nach gewollten Änderungen `--update`, Differenzbilder landen in `tests/visuell/diff/` |
 | `node tests/skalen.mjs` | Schieber "Skala" auf der Abschlussseite: drei Stufen, Feld "Anders", ohne Skript beides sichtbar |
+| `node tests/normen.mjs` | Abschnitt "Alles hängt an Standards" auf der Abschlussseite: drei Paare, Variante wechseln, Norm einführen, Tippflächen |
 | `node tests/schemata.mjs` | Screenreader: Jedes SVG hat einen Namen oder ist versteckt, jede Statuszeile liegt in einer Live-Region |
 | `node tests/stoerung.mjs` | Startseite, "Wenn es hakt": Ausbreitung nach dem Abschalten, Leitungen, Reset, Tastatur |
 | `node tests/instand.mjs` | Startseite, "Wer hält es instand": Strategien über die Jahre, Zeitraffer, Regler |
