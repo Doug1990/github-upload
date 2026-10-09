@@ -526,6 +526,22 @@
   .rb-ans.anders { border-left-color: var(--gold); }
   .bruecke { font-family: 'IBM Plex Sans', sans-serif; color: #A9AFC0; margin: 14px auto 0; max-width: 54ch; line-height: 1.7; text-align: center; }
   .bruecke a { color: #8FC9D4; }
+  .kor-svg { display: block; width: 100%; max-width: 300px; margin: 0 auto 12px; }
+  .kor-umriss { fill: none; stroke: #8892A6; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; opacity: 0.7; }
+  .kor-netz { opacity: 0; transition: opacity 0.4s; pointer-events: none; fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+  .kor-netz.an { opacity: 1; }
+  .kor-blut { stroke: #FF8A65; } .kor-blut .herz { fill: #FF8A65; }
+  .kor-nerv { stroke: #F2C46B; } .kor-nerv circle { fill: #F2C46B; }
+  .kor-verd { stroke: #7FD9A8; stroke-width: 6; }
+  .kor-netz text { fill: #E8E6E0; stroke: none; font-size: 16px; font-family: 'IBM Plex Sans', sans-serif; }
+  #korSeg .btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: rgba(var(--accent-rgb),0.12); }
+  .kor-karten { display: grid; gap: 10px; margin-top: 4px; }
+  .kor-karte { padding: 10px 13px; border-left: 3px solid var(--accent); border-radius: 10px; background: rgba(255,255,255,0.03); font-family: 'IBM Plex Sans', sans-serif; line-height: 1.6; color: #C7CAD6; }
+  .kor-karte b { font-family: 'Fraunces', serif; font-weight: 500; font-size: 16px; color: var(--ink); display: block; }
+  .kor-karte.k-blut { border-left-color: #FF8A65; } .kor-karte.k-nerv { border-left-color: #F2C46B; } .kor-karte.k-verd { border-left-color: #7FD9A8; }
+  @media (max-width: 560px) { #korSeg .btn { min-height: 44px; } }
+  @media (pointer: coarse) { #korSeg .btn { min-height: 44px; } }
+  @media (prefers-reduced-motion: reduce) { .kor-netz { transition: none; } }
   .sig-slider { flex: 1; min-width: 220px; display: block; }
   .sig-slider[hidden] { display: none; }
   .sig-slider .row { display: flex; justify-content: space-between; margin-bottom: 4px; }
@@ -1164,6 +1180,7 @@
     #signale
     #immun
     #verbund
+    #koerper
     #fragen
     #rueckblick
   Skriptblöcke, in Reihenfolge:
@@ -2185,6 +2202,40 @@
     </div>
   </div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zellen im Verbund</span></summary><div class="hinkt-body"><p>Ein Stadtviertel hat feste Grenzen und eine Verwaltung. Im Gewebe gibt es viele Zelltypen mit verteilten Aufgaben, und die Grenzen sind fließend. Die meisten Zellen werden über feine Blutgefäße versorgt, nicht nur über Nachbarn, und Kontaktstellen gibt es nicht zwischen allen Zellen.</p><p>Hier ist die Versorgung ein einfaches Abstandsmodell mit zwei Anschlüssen. Die Zahlen sind ein Beispiel und beschreiben kein bestimmtes Gewebe.</p><p class="hinkt-frage">Was passiert mit einer Zelle, die von ihren Nachbarn getrennt wird?</p></div></details>
+</section>
+
+<section class="sec reveal" id="koerper">
+  <h2>Der Körper ist ein Netz aus Netzen.</h2>
+  <p class="lead">Viele Zellen zusammen brauchen Leitungen, die sie verbinden. Der Körper hat mehrere davon, die sich durchdringen. Schalte ein Netz über die Skizze und lies, welchem Netz in Düsseldorf es ähnelt.</p>
+  <div class="panel kor">
+    <svg id="korSvg" class="kor-svg" viewBox="0 0 300 440" role="img" aria-labelledby="korSvgT">
+      <title id="korSvgT">Skizze eines Körpers. Je nach Auswahl sind drei Netze eingezeichnet: der Blutkreislauf mit Herz und Gefäßen, die Nerven mit Gehirn und Rückenmark, die Verdauung als Schlauch durch den Rumpf.</title>
+      <g class="kor-umriss">
+        <circle cx="150" cy="48" r="30"/>
+        <path d="M150 78 V90 M105 100 Q150 86 195 100 L205 230 Q150 246 95 230 Z"/>
+        <path d="M105 104 L70 190 L58 250 M195 104 L230 190 L242 250"/>
+        <path d="M118 236 L108 340 L104 420 M182 236 L192 340 L196 420"/>
+      </g>
+      <g class="kor-netz kor-blut" data-netz="blut">
+        <path d="M150 128 V190 M150 150 Q110 130 85 160 L66 232 M150 150 Q190 130 215 160 L234 232 M138 190 L116 300 L108 410 M162 190 L184 300 L192 410 M150 100 V78"/>
+        <path class="herz" d="M150 126 C132 108 112 124 130 146 L150 168 L170 146 C188 124 168 108 150 126 Z"/>
+        <text x="34" y="150" text-anchor="middle">Herz</text>
+      </g>
+      <g class="kor-netz kor-nerv" data-netz="nerv">
+        <path d="M150 28 V210 M150 70 Q110 90 90 140 L68 220 M150 70 Q190 90 210 140 L232 220 M150 210 L124 320 L110 412 M150 210 L176 320 L190 412"/>
+        <circle cx="150" cy="40" r="14"/>
+        <text x="262" y="150" text-anchor="middle">Nerven</text>
+      </g>
+      <g class="kor-netz kor-verd" data-netz="verd">
+        <path d="M150 80 V108 M150 108 Q170 120 160 140 Q130 150 150 170 Q190 160 185 190 Q120 190 125 214 Q175 222 160 232 L150 240"/>
+        <text x="248" y="300" text-anchor="middle">Verdauung</text>
+      </g>
+    </svg>
+    <div class="reg-seg" role="group" aria-label="Netze einblenden" id="korSeg"></div>
+    <div class="kor-karten" id="korKarten" aria-live="polite"></div>
+    <p class="status" id="korStatus" aria-live="polite"></p>
+  </div>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Körper</span></summary><div class="hinkt-body"><p>Eine Stadt wird geplant, der Körper nicht. Seine Netze sind über lange Zeit gewachsen, sie sind miteinander verzahnt und bei jedem Menschen etwas verschieden. Blut transportiert auch Hormone, Nerven steuern die Verdauung mit. Die Zuordnung zu Rohren, Kabeln und Bahn ist nur ein Bild.</p><p>Die Skizze zeigt nur drei von vielen Netzen und ist stark vereinfacht. Sie ist keine Anatomie und kein Hinweis zu Gesundheit.</p><p class="hinkt-frage">Welche Netze des Körpers fehlen in der Skizze?</p></div></details>
 </section>
 
 <section class="sec reveal" id="fragen">
@@ -5919,6 +5970,39 @@
       if (stoer[0] && !stoer[1]) t += ' Der Abbau muss ' + r.abbau + ' wegschaffen.';
     }
     $('eiwStatus').textContent = t + ' (Beispielwerte)';
+  }
+  render();
+})();
+
+// --- Der Körper als Netz aus Netzen ---
+(function () {
+  'use strict';
+  var NETZE = [
+    { id: 'blut', n: 'Blutkreislauf', k: 'k-blut', stadt: 'Wasserleitung und Heizung: Ein Pumpwerk schickt Flüssigkeit durch Rohre bis in jede Wohnung und holt sie zurück.', glei: 'Rohre mit einer Pumpe in der Mitte. Das Herz schlägt rund um die Uhr.' },
+    { id: 'nerv', n: 'Nerven', k: 'k-nerv', stadt: 'Kabel und Glasfaser: Signale laufen schnell und gezielt von einer Zentrale zu den Stellen, die etwas tun sollen.', glei: 'Leitungen für Signale mit einer Zentrale im Kopf und einem Hauptkabel im Rücken.' },
+    { id: 'verd', n: 'Verdauung', k: 'k-verd', stadt: 'Eine Straßenbahnlinie: Ein langer Weg mit Haltestellen, an denen etwas aufgenommen oder abgegeben wird.', glei: 'Ein Schlauch von Mund bis Ausgang mit Stationen, an denen Nährstoffe aufgenommen werden.' }
+  ];
+  var an = {}, btns = {};
+  var $ = function (id) { return document.getElementById(id); };
+  NETZE.forEach(function (n) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'btn'; b.textContent = n.n; b.setAttribute('aria-pressed', 'false');
+    b.addEventListener('click', function () { an[n.id] = !an[n.id]; render(); }); $('korSeg').appendChild(b); btns[n.id] = b;
+  });
+  function render() {
+    var aktiv = 0;
+    NETZE.forEach(function (n) {
+      btns[n.id].setAttribute('aria-pressed', String(!!an[n.id]));
+      document.querySelector('.kor-netz[data-netz="' + n.id + '"]').classList.toggle('an', !!an[n.id]);
+      if (an[n.id]) aktiv++;
+    });
+    var k = $('korKarten'); k.innerHTML = '';
+    NETZE.forEach(function (n) {
+      if (!an[n.id]) return;
+      var d = document.createElement('div'); d.className = 'kor-karte ' + n.k;
+      d.innerHTML = '<b>' + n.n + '</b>' + n.glei + ' In Düsseldorf: ' + n.stadt;
+      k.appendChild(d);
+    });
+    $('korStatus').textContent = aktiv === 0 ? 'Noch ist nur der Umriss zu sehen. Schalte ein Netz ein.' : aktiv === 1 ? 'Ein Netz ist eingeblendet. Schalte ein zweites dazu und sieh, wie sie sich durchdringen.' : aktiv + ' Netze liegen übereinander. Im Körper laufen sie gleichzeitig und beeinflussen sich.';
   }
   render();
 })();
