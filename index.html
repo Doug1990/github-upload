@@ -786,6 +786,13 @@
   @media (prefers-reduced-motion: reduce) { .st-card, .stoer-btn { transition: none; } }
 
   /* --- Wer hält es instand: Alterung und Erneuerung ----------------------- */
+  .kost-row { margin: 0 0 14px; }
+  .kost-row h3 { margin: 0; font-family: 'Fraunces', serif; font-weight: 500; font-size: 16px; color: #F0ECE8; display: flex; justify-content: space-between; gap: 10px; }
+  .kost-row h3 output { font-variant-numeric: tabular-nums; color: #F2C46B; }
+  .kost-row .kost-eg { margin: 1px 0 6px; font-size: 11.5px; color: #8E98AC; }
+  .kost-bar { height: 12px; border-radius: 6px; background: #25332C; overflow: hidden; }
+  .kost-bar i { display: block; height: 100%; width: 0; background: #F2C46B; transition: width 0.3s; }
+  @media (prefers-reduced-motion: reduce) { .kost-bar i { transition: none; } }
   .instand { max-width: min(94vw, 900px); width: 100%; margin: 0 auto; padding: 18px 24px 20px; text-align: center; position: relative; }
   .inst-eyebrow { font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #C9B88A; margin: 0 0 8px; }
   .inst-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 25px; color: #F3EFE6; margin: 0 0 10px; }
@@ -858,6 +865,7 @@
     #belonging
     #stoerung
     #instand
+    #kosten
     #now
     #cubeSection
     #landing
@@ -866,7 +874,7 @@
     // --- Hauptskript: Werkzeug, Graph, Szenen, Ton (Startseite) ---
     // --- Wenn es hakt: Ausfall in der Stadt ---
     // --- Wer hält es instand: Alterung und Erneuerung ---
-    // --- Abschnittslinks: Knopf je Überschrift, kopiert die Adresse ---
+    // --- Kosten: Wer bezahlt die Infrastruktur? (und Abschnittslinks: Knopf je Überschrift, kopiert die Adresse) ---
 -->
 <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
@@ -1111,6 +1119,24 @@
   <p class="inst-link sans">Eine Zelle macht das ohne Plan: Ihre Teile werden ständig abgebaut und neu gebaut. Wie das aufgeräumt wird, steht bei <a href="zelle.html#ausfall">Fällt eine Stelle aus, merkt es der Rest</a>.</p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer. In Zellen läuft der Umbau ständig, ohne Plan und ohne Kasse: Eiweiße werden nach Minuten bis Monaten abgebaut und neu gebaut.</p><p>Echte Netze bestehen aus Millionen Teilen und werden nach Zustand und Risiko erneuert, nicht strikt nach Alter. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt, es sind keine Angaben zu Düsseldorfer Netzen.</p><p class="hinkt-frage">Wer entscheidet, welches Rohr zuerst dran ist?</p></div></details>
   <p class="belong-note sans">Zugespitzt dargestellt: Zwanzig Abschnitte je Netz, feste Lebensdauer, erneuert wird immer das älteste Stück.</p>
+</section>
+
+<section class="instand kosten" id="kosten">
+  <p class="inst-eyebrow sans">Kosten</p>
+  <h2 class="inst-title">Jemand muss es bezahlen.</h2>
+  <p class="inst-lead sans">Wasserleitung, Straßenbahn und Glasfaser kosten im Jahr feste Summen, egal wie viele sie nutzen. Schiebe die Zahl der Nutzenden und wähle, wie bezahlt wird. Sieh, was jede und jeder im Jahr trägt.</p>
+  <div class="inst-seg" id="kostSeg" role="group" aria-label="Wie wird bezahlt?"></div>
+  <p class="inst-desc" id="kostDesc"></p>
+  <div class="inst-panel" id="kostPanel">
+    <div id="kostRows"></div>
+    <div class="inst-time">
+      <label>Nutzende <input type="range" id="kostN" min="10" max="100" step="10" value="60" aria-describedby="kostNO"></label>
+      <span class="inst-year" id="kostNO">60 %</span>
+    </div>
+  </div>
+  <p class="inst-status" id="kostStatus" aria-live="polite"></p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kosten</span></summary><div class="hinkt-body"><p>Echte Kosten hängen an Gelände, Alter, Bauweise und Politik, und niemand rechnet mit einer einzigen Jahressumme. Die Beträge hier sind frei gewählte Beispielwerte und keine Aussage zu Gebühren, Steuern oder Preisen in Düsseldorf.</p><p>Auch die drei Zahlungswege sind vereinfacht. In der Praxis mischen sie sich: Eine Straßenbahn wird durch Fahrkarten und Zuschüsse aus Steuern bezahlt.</p><p class="hinkt-frage">Wer zahlt, wenn kaum jemand etwas nutzt, das alle brauchen?</p></div></details>
+  <p class="belong-note sans">Beispielrechnung mit 620.000 Einwohnern und frei gewählten Jahreskosten.</p>
 </section>
 
 <section class="now" id="now">
@@ -4805,6 +4831,55 @@ setTimeout(() => {
 </style>
 <div class="linkmsg" id="linkMsg" role="status" aria-live="polite"></div>
 <script>
+// --- Kosten: Wer bezahlt die Infrastruktur? ---
+(function () {
+  'use strict';
+  var EW = 620000;
+  var NETZE = [
+    { n: 'Wasserleitung', eg: 'Rohre, Pumpen, Wasserwerke', mio: 120 },
+    { n: 'Straßenbahn', eg: 'Gleise, Wagen, Betrieb', mio: 300 },
+    { n: 'Glasfaser', eg: 'Kabel, Verteiler, Technik', mio: 60 }
+  ];
+  var MODI = [
+    { id: 'gebuehr', n: 'Gebühr', d: 'Nur wer es nutzt, zahlt, und alle Nutzenden teilen sich die Kosten. Wenige Nutzende, hoher Betrag je Kopf.' },
+    { id: 'steuer', n: 'Steuer', d: 'Alle Einwohner zahlen den gleichen Anteil, ob sie es nutzen oder nicht. Die Zahl der Nutzenden ändert nichts am Betrag.' },
+    { id: 'preis', n: 'Preis', d: 'Nutzende zahlen die Kosten plus einen Aufschlag von 15 Prozent. Der Betreiber kalkuliert mit Gewinn.' }
+  ];
+  var cur = 0, btns = [], rows = [];
+  var $ = function (id) { return document.getElementById(id); };
+  MODI.forEach(function (m, i) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'inst-btn'; b.textContent = m.n;
+    b.addEventListener('click', function () { cur = i; render(); }); $('kostSeg').appendChild(b); btns.push(b);
+  });
+  NETZE.forEach(function (n) {
+    var d = document.createElement('div'); d.className = 'kost-row';
+    d.innerHTML = '<h3><span>' + n.n + '</span><output></output></h3><p class="kost-eg">' + n.eg + ', ' + n.mio + ' Mio. € im Jahr</p><div class="kost-bar"><i></i></div>';
+    $('kostRows').appendChild(d); rows.push({ o: d.querySelector('output'), i: d.querySelector('i') });
+  });
+  function betrag(n, pct) {
+    var users = EW * pct / 100, m = MODI[cur].id;
+    if (m === 'steuer') return n.mio * 1e6 / EW;
+    if (m === 'preis') return n.mio * 1e6 * 1.15 / users;
+    return n.mio * 1e6 / users;
+  }
+  function render() {
+    var pct = parseInt($('kostN').value, 10);
+    btns.forEach(function (b, i) { b.setAttribute('aria-pressed', String(i === cur)); });
+    $('kostDesc').textContent = MODI[cur].d;
+    $('kostNO').textContent = pct + ' %';
+    var w = NETZE.map(function (n) { return betrag(n, pct); });
+    var max = Math.max.apply(null, NETZE.map(function (n) { return n.mio * 1e6 * 1.15 / (EW * 0.1); }));
+    rows.forEach(function (r, i) { r.o.textContent = Math.round(w[i]).toLocaleString('de-DE') + ' € im Jahr'; r.i.style.width = Math.min(100, w[i] / max * 100) + '%'; });
+    var sum = w.reduce(function (a, b) { return a + b; }, 0);
+    var tx = 'Alle drei zusammen: ' + Math.round(sum).toLocaleString('de-DE') + ' € im Jahr je Kopf.';
+    if (MODI[cur].id === 'steuer') tx += ' Der Betrag ist für alle gleich, auch für Menschen, die nichts davon nutzen.';
+    else if (pct <= 30) tx += ' Wenn nur wenige nutzen, trägt jede und jeder viel.';
+    $('kostStatus').textContent = tx + ' (Beispielwerte)';
+  }
+  $('kostN').addEventListener('input', render);
+  render();
+})();
+
 // --- Abschnittslinks: Knopf je Überschrift, kopiert die Adresse ---
 (function () {
   var skip = { hero: 1, landing: 1 };
