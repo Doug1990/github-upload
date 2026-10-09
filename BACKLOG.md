@@ -38,7 +38,6 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 
 21. **Lesemodus (Hell-Schalter).** Die Druckansicht steht (`@media print`). Offen: ein Hell-Schalter für den Bildschirm, erst nach den gemeinsamen Bausteinen (Punkt 5). Aufwand S bis M.
 22. **Mitmach-Format.** Rätsel "Wer bin ich, in Stadt und Zelle?" und Baukasten "Baue deine Stadt", alles ohne Maus lösbar. Erst nach Fließband, Zellskelett und Zoll. Aufwand M.
-24. **Glossar.** `glossar.html` und `tests/begriffe.json` mit bevorzugter Schreibweise, vom Prüfskript gelesen. Nach README und Sitemap. Aufwand M.
 39. **Alles hängt an Standards.** Stecker, Steckdose, Gleis oder Schlüssel-Schloss-Paar werden per Klick getauscht, sichtbar wird, was gleiche Normen ermöglichen. Brücke: Ein Eiweiß passt nur zu seinem Partner. Hinweis: Normen sind vereinbart, das Schlüssel-Schloss-Prinzip in Zellen entstand ohne Absprache und passt oft nur ungefähr. Aufwand S bis M.
 
 ## Entscheidungen für Björn (gesammelt)
@@ -138,9 +137,11 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 71. **Große Schrift: Messung mit simulierter Vergrößerung.** `tests/zoom.mjs` vergrößert alle Schriften im Seitentext um den Faktor (Standard 1,5) per Stil, weil sich die Systemschriftgröße im Headless-Chrome nicht setzen lässt. Das ist eine Näherung. Eine echte Probe mit Browser-Schrift "sehr groß" und Seitenzoom auf 200 Prozent steht noch in der Geräte-Prüfliste (Punkt 16 der Liste). Annahme: reicht als Dauerprüfung.
 72. **Prüfskripte: Runner und Flackern.** `node tests/alle.mjs --schnell --wiederholen` ist der Weg für einen Gesamtlauf. Dabei fiel auf: `dorf.mjs` verlangte, dass der Dorf-Abschnitt direkt zwischen Evolution und DNA steht, das stimmte nach den neuen Abschnitten nicht mehr und ist auf Reihenfolge statt Nachbarschaft umgestellt. `touch.mjs` ist flackernd (ein Fehlschlag auf Schieber und Wischen, im Wiederholungslauf bestanden). Annahme: so lassen, bis der gemeinsame Browser steht (Punkt 53).
 73. **Druckansicht.** Hell, ohne Knöpfe, Regler, Töne und Kopfnavigation, die Wurzeln im Kopfbereich fehlen. Aufklappbare Felder "Wo das Bild hinkt" bleiben im Druck zugeklappt, weil der Browser Details nicht von selbst öffnet. Soll das Feld im Druck offen sein, bräuchte es ein Skript beim Druckereignis. Die Farben der Schemata bleiben (der Browser druckt Hintergründe je nach Einstellung). Ein Probedruck als PDF aus Chrome sah gut aus, auf Papier nicht getestet. Annahme: bleibt.
+74. **Glossar: Auswahl und Erklärungen.** `glossar.html` erklärt 22 Begriffe in einfachen Worten mit dem Bild aus der Stadt. Die Erklärungen sind mein Vorschlag und zum Gegenlesen (Fachcheck): zum Beispiel ATP als "Strom", Hormon als "Brief durch die Post", Epigenetik als "Lesezeichen im Archiv". Das Glossar ist alphabetisch nicht sortiert, sondern nach Zusammenhang (Kraftwerk, Archiv, Entsorgung, Signale). Annahme: bleibt, Sortierung bei Bedarf umstellen.
 
 ## Erledigt
 
+- Glossar: `glossar.html` mit 22 Begriffen (Fachwort, Bild, Erklärung), in der Sitemap und in den Seitenfüßen, `tests/begriffe.json` um drei Schreibweisen erweitert, `BEGRIFFE.md` ergänzt
 - Druckansicht: `@media print` auf allen Seiten (hell, ohne Bedienelemente, Einblendungen sichtbar, SVGs in Seitenbreite), `check.mjs` prüft sie bei 794 px Breite mit Druckmedium (Gegenprobe gemacht)
 - Große Systemschrift und Zoom: `tests/zoom.mjs` prüft alle Seiten bei 320 px Breite mit Schrift auf 150 Prozent (auch 200 und 300 Prozent bestanden nach einer Korrektur an langen Knöpfen der Zell-Seite): kein Überlauf, kein abgeschnittener Text, nichts außerhalb des Fensters
 - Fokus-Management: `tests/fokus.mjs` drückt Enter auf jedem Knopf und jedem Element mit Rolle Knopf und prüft, dass Fokus und Tab danach nie auf body liegen. Behoben: Das Kopfschema der Startseite baute sich beim Antippen neu und verlor den Fokus, jetzt wird er zurückgesetzt. Alle Seiten bestehen

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossar: Was trägt deinen Tag?</title>
+  <meta name="description" content="Begriffe aus Zelle und Stadt in einfachen Worten: Fachwort, Bild und kurze Erklärung.">
+  <link rel="canonical" href="https://doug1990.github.io/github-upload/glossar.html">
+<link rel="preload" href="fonts/fraunces-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/ibm-plex-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root { --accent: #4FC3D9; --accent-rgb: 79,195,217; --bg1: #1B2740; --bg2: #131c2e; --bg3: #0B1220; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 24%, var(--bg3) 100%);
+    color: #E8E6E0;
+    font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+    display: flex; justify-content: center; padding: 0;
+  }
+  main { max-width: 620px; width: 100%; padding: 70px 24px 90px; }
+  h1 { font-family: 'Fraunces', serif; font-weight: 500; font-size: clamp(24px, 4vw, 32px); margin: 0 0 36px; }
+  h2 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 17px; margin: 32px 0 10px; color: #E8E6E0; }
+  p { font-size: 14px; line-height: 1.7; color: #C7CAD6; margin: 0 0 10px; }
+  a { color: var(--accent); }
+  .skip-link { position: fixed; left: 12px; top: -80px; z-index: 10000; padding: 13px 18px; border-radius: 8px; background: #E8E6E0; color: #0B1220; font: 500 14px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-decoration: none; }
+  .skip-link:focus { top: 12px; outline: 3px solid #F2C46B; outline-offset: 2px; }
+  main:focus { outline: none; }
+  .back { display: inline-block; padding: 15px 12px; margin: -15px 0 25px -12px; font-size: 12px; color: #8892A6; text-decoration: underline; text-underline-offset: 2px; }
+  .back:hover { color: var(--accent); }
+  .gloss dt { font-family: 'Fraunces', serif; font-weight: 500; font-size: 17px; margin: 22px 0 4px; color: #E8E6E0; }
+  .gloss dd { margin: 0 0 4px; font-size: 14px; line-height: 1.7; color: #C7CAD6; }
+  .gloss dd b { color: #F2C46B; font-weight: 500; }
+</style>
+<style>
+  /* Lesbarkeit auf dem Handy: Fließtext mindestens 16 px, Listenpunkte mit Zeilenabstand 1,55 */
+  :where(p, li, dd) { line-height: 1.5; }
+  /* Druckansicht: hell, ohne Bedienelemente, alle Abschnitte sichtbar */
+  @media print {
+    html, body { background: #fff !important; color: #111 !important; }
+    body * { color: #111 !important; background: transparent !important; box-shadow: none !important; text-shadow: none !important; animation: none !important; transition: none !important; }
+    .reveal, .reveal.in { opacity: 1 !important; transform: none !important; }
+    button, input, select, textarea, canvas, .side-hud, .descent-figure, .skip-link, .linkbtn, .hero-roots, .landing-roots, nav.pfad-weg, nav.pfad-weiter, .nojs-note, [role=tablist], .toggle-btn { display: none !important; }
+    a { text-decoration: underline; }
+    section { break-inside: avoid-page; page-break-inside: avoid; }
+    h1, h2, h3 { break-after: avoid; }
+    svg { max-width: 100% !important; height: auto; }
+    .graph-scroll { overflow: visible !important; width: auto !important; margin: 0 !important; }
+    #graph { width: 100% !important; min-width: 0 !important; }
+  }
+  /* Zeilenlänge: Fließtext höchstens etwa 70 Zeichen je Zeile */
+  p.note, p.aha, p.alt-txt, p.quorum-txt, p.dorf-calc, p.panel-text, p.now-people, p.now-note, .dorf-ort p, .bau-ort p, .frage-body p, .hinkt-body p, dd, main > p { max-width: 58ch; }
+  p.lead, p.cg-hint, p.inst-lead, p.inst-link, p.dna-sum, p.pfad-zeile, p.hero-thesis, main > p.note { max-width: 54ch; margin-left: auto; margin-right: auto; }
+  @media (max-width: 560px) {
+    body p, body li, body dd { font-size: 16px !important; }
+    body li { line-height: 1.55; }
+    p.hint, p.cg-hint, p.now-share, p.zoll-live, p.dna-sum { line-height: 1.5 !important; }
+  }
+</style>
+</head>
+<body>
+<noscript>
+<style>.reveal { opacity: 1 !important; transform: none !important; } .nojs-note { margin: 0; padding: 14px 18px; background: #2A2A1E; color: #F2E3B3; font: 15px/1.5 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-align: center; border-bottom: 1px solid #F2C46B; }</style>
+<p class="nojs-note" role="note">Ohne JavaScript bleiben die Texte lesbar. Die interaktiven Teile (Regler, Schalter, Karte, Ton) brauchen JavaScript.</p>
+</noscript>
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<main id="main" tabindex="-1">
+  <nav aria-label="Zurück"><a class="back" href="index.html">&larr; Zurück</a></nav>
+  <h1>Glossar</h1>
+  <p>Die Seiten dieser Reihe vergleichen Stadt und Zelle. Hier stehen die Begriffe, die auf mehreren Seiten vorkommen: das Fachwort, das Bild aus der Stadt und eine kurze Erklärung. Jedes Bild hat Grenzen. Wo sie liegen, steht jeweils im Feld „Wo das Bild hinkt“ bei den Abschnitten.</p>
+
+  <dl class="gloss">
+  <dt>Mitochondrium</dt>
+  <dd><b>Bild: Kraftwerk.</b> Ein Zellbauteil, das aus Nährstoffen Energie in Form von ATP herstellt. Mehrere heißen Mitochondrien.</dd>
+  <dt>ATP</dt>
+  <dd><b>Bild: Strom.</b> Der Energieträger der Zelle. Viele Vorgänge in der Zelle brauchen ihn, ähnlich wie Geräte Strom brauchen.</dd>
+  <dt>ATP-Synthase</dt>
+  <dd><b>Bild: Turbine.</b> Ein Eiweiß im Kraftwerk, das ATP baut, indem es von einem Strom durchlaufen wird.</dd>
+  <dt>Ribosom</dt>
+  <dd><b>Bild: Fabrik.</b> Ein Bauteil, das nach einer Abschrift aus der DNA Eiweiße zusammensetzt. Mehrere heißen Ribosomen.</dd>
+  <dt>Zellkern</dt>
+  <dd><b>Bild: Archiv und Rathaus.</b> Hier liegt die DNA. Er enthält den Bauplan und steuert, welche Teile davon abgelesen werden.</dd>
+  <dt>DNA</dt>
+  <dd><b>Bild: Bauplan im Archiv.</b> Ein langes Molekül, das Anleitungen für Eiweiße speichert. Es schreibt mit vier Buchstaben: A, C, G und T.</dd>
+  <dt>Gen</dt>
+  <dd><b>Bild: Eine Akte im Archiv.</b> Ein Abschnitt der DNA mit der Anleitung für ein bestimmtes Eiweiß oder eine bestimmte Aufgabe.</dd>
+  <dt>Eiweiß</dt>
+  <dd><b>Bild: Bauteil und Werkzeug.</b> Ein Molekül aus aneinandergereihten Bausteinen (Aminosäuren). Eiweiße bauen, transportieren und steuern fast alles in der Zelle.</dd>
+  <dt>Kernpore</dt>
+  <dd><b>Bild: Zoll und Schleuse.</b> Eine Öffnung in der Hülle des Zellkerns. Sie lässt bestimmte Stoffe durch und hält andere zurück.</dd>
+  <dt>Membran</dt>
+  <dd><b>Bild: Stadtgrenze.</b> Die dünne Hülle um die Zelle und um viele Bauteile. Sie entscheidet, was hinein und hinaus darf.</dd>
+  <dt>Lysosom</dt>
+  <dd><b>Bild: Müllabfuhr und Recycling.</b> Ein Bläschen mit Enzymen, das Abfall und alte Teile in Bausteine zerlegt, die wieder gebraucht werden.</dd>
+  <dt>Proteasom</dt>
+  <dd><b>Bild: Einzelentsorgung.</b> Ein Eiweißkomplex, der beschädigte Eiweiße Stück für Stück abbaut. Er arbeitet an vielen Orten der Zelle.</dd>
+  <dt>Autophagie</dt>
+  <dd><b>Bild: Selbstverdauung.</b> Die Zelle baut eigene Teile ab und nutzt die Bausteine neu.</dd>
+  <dt>Immunsystem</dt>
+  <dd><b>Bild: Stadtwache.</b> Zellen und Eiweiße, die Eindringlinge und Fremdes erkennen und bekämpfen. Es unterscheidet Eigenes von Fremdem.</dd>
+  <dt>Motorprotein</dt>
+  <dd><b>Bild: Lieferwagen.</b> Ein Eiweiß, das in kleinen Schritten an einem Faden des Zellskeletts entlangläuft und Fracht trägt.</dd>
+  <dt>Zellskelett</dt>
+  <dd><b>Bild: Gerüst und Straßen.</b> Ein Netz aus Fäden, das der Zelle Form gibt und Wege für Transporte bildet.</dd>
+  <dt>Diffusion</dt>
+  <dd><b>Bild: Zufälliges Umherstoßen.</b> Stoffe verteilen sich von allein, weil Teilchen sich ungerichtet bewegen. Auf kurzen Strecken ist das schnell, auf langen sehr langsam.</dd>
+  <dt>Rezeptor</dt>
+  <dd><b>Bild: Briefkasten mit Schloss.</b> Ein Eiweiß, an das ein Botenstoff passt. Nur Zellen mit dem passenden Rezeptor reagieren auf ein Signal.</dd>
+  <dt>Hormon</dt>
+  <dd><b>Bild: Brief durch die Post.</b> Ein Botenstoff, der durch das Blut wandert und an Zellen mit passendem Rezeptor wirkt. Das geht langsam und erreicht viele.</dd>
+  <dt>Quorum Sensing</dt>
+  <dd><b>Bild: Abstimmung nach Zählung.</b> Bakterien geben einen Botenstoff ab und schalten gemeinsam um, wenn genug davon da sind, also genug Bakterien.</dd>
+  <dt>Glykogen</dt>
+  <dd><b>Bild: Vorratsraum für Zucker.</b> Ein schnelles Zuckerlager in der Zelle, das bei Bedarf rasch Energie liefert.</dd>
+  <dt>Epigenetik</dt>
+  <dd><b>Bild: Lesezeichen im Archiv.</b> Chemische Markierungen an der DNA und ihrer Verpackung. Sie bestimmen, wie leicht ein Gen abgelesen wird, ohne die Buchstaben zu ändern.</dd>
+  </dl>
+</main>
+</body>
+</html>
