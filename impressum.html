@@ -33,6 +33,19 @@
 <style>
   /* Lesbarkeit auf dem Handy: Fließtext mindestens 16 px, Listenpunkte mit Zeilenabstand 1,55 */
   :where(p, li, dd) { line-height: 1.5; }
+  /* Druckansicht: hell, ohne Bedienelemente, alle Abschnitte sichtbar */
+  @media print {
+    html, body { background: #fff !important; color: #111 !important; }
+    body * { color: #111 !important; background: transparent !important; box-shadow: none !important; text-shadow: none !important; animation: none !important; transition: none !important; }
+    .reveal, .reveal.in { opacity: 1 !important; transform: none !important; }
+    button, input, select, textarea, canvas, .side-hud, .descent-figure, .skip-link, .linkbtn, .hero-roots, .landing-roots, nav.pfad-weg, nav.pfad-weiter, .nojs-note, [role=tablist], .toggle-btn { display: none !important; }
+    a { text-decoration: underline; }
+    section { break-inside: avoid-page; page-break-inside: avoid; }
+    h1, h2, h3 { break-after: avoid; }
+    svg { max-width: 100% !important; height: auto; }
+    .graph-scroll { overflow: visible !important; width: auto !important; margin: 0 !important; }
+    #graph { width: 100% !important; min-width: 0 !important; }
+  }
   /* Zeilenlänge: Fließtext höchstens etwa 70 Zeichen je Zeile */
   p.note, p.aha, p.alt-txt, p.quorum-txt, p.dorf-calc, p.panel-text, p.now-people, p.now-note, .dorf-ort p, .bau-ort p, .frage-body p, .hinkt-body p, dd, main > p { max-width: 58ch; }
   p.lead, p.cg-hint, p.inst-lead, p.inst-link, p.dna-sum, p.pfad-zeile, p.hero-thesis, main > p.note { max-width: 54ch; margin-left: auto; margin-right: auto; }
