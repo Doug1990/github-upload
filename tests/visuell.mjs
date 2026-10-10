@@ -18,6 +18,8 @@ fs.mkdirSync(HIER, { recursive: true });
 const b = await start();
 const nur = arg('seite');
 const fehler = [];
+// Feste Uhrzeit (2 Uhr nachts, passend zu den Referenzbildern), weil Seiten Tag- und Nachtsymbole nach der Uhrzeit wählen. Sonst hängt das Bild von der Tageszeit des Laufs ab.
+await b.send('Page.addScriptToEvaluateOnNewDocument', { source: "(function(){var D=Date,f=new D(2026,9,10,2,0,0).getTime();function F(){var a=arguments;return a.length?new (Function.prototype.bind.apply(D,[null].concat([].slice.call(a))))():new D(f);}F.prototype=D.prototype;F.now=function(){return f;};F.parse=D.parse;F.UTC=D.UTC;window.Date=F;})();" });
 const FREEZE = 'html, html * { animation-duration: 0.001s !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: 0.001s !important; transition-delay: 0s !important; caret-color: transparent !important; scroll-behavior: auto !important; } .reveal { opacity: 1 !important; transform: none !important; } #sunSvg { visibility: hidden !important; }';
 for (const seite of (nur ? [nur] : b.pages)) {
   for (const w of BREITEN) {
