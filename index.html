@@ -322,6 +322,7 @@
     0%, 100% { opacity: 0.06; transform: translateY(0); }
     50% { opacity: 0.4; transform: translateY(-10px); }
   }
+  .cube-pause .cube-mote, .cube-pause .cube-flow { animation-play-state: paused; }
   .cube-flow { fill: none; stroke: var(--accent); stroke-linecap: round; animation: cubeFlowDown linear infinite; }
   @keyframes cubeFlowDown { to { stroke-dashoffset: -600; } }
 
@@ -1258,6 +1259,22 @@ function accentColor() {
   return `rgb(${c[0]},${c[1]},${c[2]})`;
 }
 const svg = document.getElementById('graph');
+// Bildschritt nur, solange das Element sichtbar ist; sonst wenige Schritte pro Sekunde.
+function frameFuer(el) {
+  const st = { v: true };
+  if (el && 'IntersectionObserver' in window) {
+    new IntersectionObserver((es) => { es.forEach(e => { st.v = e.isIntersecting; }); }).observe(el);
+  }
+  return function (fn) { if (st.v && !document.hidden) requestAnimationFrame(fn); else setTimeout(() => fn(performance.now()), 300); };
+}
+// Läuft das Netz außerhalb des Bildschirms, drosselt die Punktbewegung auf wenige Schritte pro Sekunde.
+const graphSicht = { v: true };
+function graphFrame(fn) {
+  if (graphSicht.v && !document.hidden) requestAnimationFrame(fn); else setTimeout(fn, 300);
+}
+if (svg && 'IntersectionObserver' in window) {
+  new IntersectionObserver((es) => { es.forEach(e => { graphSicht.v = e.isIntersecting; }); }).observe(svg);
+}
 
 const WIDTH = 900;
 const HORIZON = 170;
@@ -3204,7 +3221,7 @@ function playDayChord(counts) {
         (function move() {
           if (state.down) {
             dot.setAttribute('opacity', 0);
-            requestAnimationFrame(move);
+            graphFrame(move);
             return;
           }
           dot.setAttribute('opacity', 0.9);
@@ -3217,7 +3234,7 @@ function playDayChord(counts) {
             dot.setAttribute('cx', p.x);
             dot.setAttribute('cy', p.y);
           } catch (e) {}
-          requestAnimationFrame(move);
+          graphFrame(move);
         })();
 
         const label = el('text', { class: 'k-label', x, y, fill: col, 'text-anchor': dir < 0 ? 'start' : 'end' });
@@ -3368,6 +3385,7 @@ function playDayChord(counts) {
       const speed = 0.00022 + i * 0.00007;
       const phase = i * 1.3;
       const yBase = 24 + i * 22;
+      const frameA = frameFuer(p.ownerSVGElement);
       (function animate(t) {
         let d = `M 0 ${yBase}`;
         for (let x = 0; x <= 600; x += 20) {
@@ -3375,7 +3393,7 @@ function playDayChord(counts) {
           d += ` L ${x} ${y.toFixed(1)}`;
         }
         p.setAttribute('d', d);
-        requestAnimationFrame(animate);
+        frameA(animate);
       })(0);
     });
 
@@ -4000,10 +4018,11 @@ document.getElementById('packApply').addEventListener('click', () => {
   svg.appendChild(sceneG);
 
   if (!reduce) {
+    const frameS = frameFuer(svg);
     (function stroll(t) {
       const x = Math.sin(t * 0.00034) * 120;
       sceneG.setAttribute('transform', `translate(${320 + x} 244)`);
-      requestAnimationFrame(stroll);
+      frameS(stroll);
     })(0);
   }
 
@@ -4178,6 +4197,13 @@ function personalStrand(label) {
       f.style.animationDuration = (5.5 + i * 1.4).toFixed(1) + 's';
       svg.insertBefore(f, svg.firstChild);
     });
+    // Außerhalb des Bildschirms stehen die Hintergrundbewegungen still (spart Rechenzeit).
+    if ('IntersectionObserver' in window) {
+      svg.classList.add('cube-pause');
+      new IntersectionObserver((es) => {
+        es.forEach(e => svg.classList.toggle('cube-pause', !e.isIntersecting));
+      }).observe(svg);
+    }
   })();
 
   function platform(x, y, col) {
@@ -4390,13 +4416,14 @@ function personalStrand(label) {
   }
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
+  const frameB = frameFuer(rays[0] && rays[0].ray.ownerSVGElement);
   (function breathe(t) {
     const s = 1 + Math.sin(t * 0.0011) * 0.12;
     rays.forEach(({ ray, a }) => {
       ray.setAttribute('x2', cx + Math.cos(a) * r2 * s);
       ray.setAttribute('y2', cy + Math.sin(a) * r2 * s);
     });
-    requestAnimationFrame(breathe);
+    frameB(breathe);
   })(0);
 })();
 
@@ -4413,6 +4440,7 @@ function personalStrand(label) {
   if (reduce) { figHolder.setAttribute('transform', 'translate(45 12)'); return; }
   const L = pathEl.getTotalLength();
   let t = 0;
+  const frameW = frameFuer(pathEl.ownerSVGElement);
   (function walk() {
     t += 0.0028;
     if (t > 1) t = 0;
@@ -4420,7 +4448,7 @@ function personalStrand(label) {
     let p;
     try { p = pathEl.getPointAtLength(t * L); } catch (e) { return; }
     figHolder.setAttribute('transform', `translate(${p.x} ${p.y - 8})`);
-    requestAnimationFrame(walk);
+    frameW(walk);
   })();
 })();
 
@@ -4463,10 +4491,11 @@ function personalStrand(label) {
       }
       iconSvg.appendChild(raysG);
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const frameC = frameFuer(raysG.ownerSVGElement);
         (function breathe(t) {
           const s = 1 + Math.sin(t * 0.0013) * 0.1;
           raysG.setAttribute('transform', `translate(${cx} ${cy}) scale(${s}) translate(${-cx} ${-cy})`);
-          requestAnimationFrame(breathe);
+          frameC(breathe);
         })(0);
       }
     }
