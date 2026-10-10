@@ -1,0 +1,20 @@
+name: Prüfen
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Chrome prüfen
+        run: google-chrome --version
+      - name: Alle schnellen Prüfskripte (ohne Bildvergleich, die Referenzbilder stammen vom Mac)
+        run: node tests/alle.mjs --schnell --wiederholen --ohne=visuell
