@@ -256,3 +256,4 @@ Jede Zeile ein Schritt, neueste unten. Stand der Zell-Seite: Gewicht 133,9 KB gz
 - Kraftwerk Schritt E: Erklärung in vier Schritten, gemergt (PR 105).
 - Zell-Ansicht Schritt F: Ort und Zähler, gemergt (PR 106).
 - Ordnungsprüfung Schritt G: `ordnung.mjs` mit Regeln 1 bis 3 hart und Fachwortbericht. Plan 90 ist damit umgesetzt.
+- Laien-Test Runde 1, PR 109 und 110: Membran, Eiweiß, ATP vorab erklärt; Zoll, Kraftwerk-Fachwörter, Evolution, Robust, Diffusion, DNA/Gen, Kontrollpunkte, Gewebe, Rezeptor, Meldewege klarer. Offen: Funde für index, abschluss, raetsel, tagesverlauf und Glossar-Lücken (Gewebe, Nerv, Lymphe, Biofilm, Merkmal).
