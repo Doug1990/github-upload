@@ -907,9 +907,9 @@
   <div class="tone-hint sans" id="toneHint" aria-hidden="true">🔈 Klicken für Ton</div>
   <button type="button" class="hud-btn sans active-tone" id="hudMuteBtn" title="Ton stumm schalten / anschalten">♪ Ton an</button>
   <div class="theme-switch" id="themeSwitch" role="group" aria-label="Farbschema wählen">
-    <button type="button" class="theme-dot active" data-theme="blue" aria-label="Blau"></button>
-    <button type="button" class="theme-dot" data-theme="green" aria-label="Grün"></button>
-    <button type="button" class="theme-dot" data-theme="yellow" aria-label="Gelb"></button>
+    <button type="button" class="theme-dot active" aria-pressed="true" data-theme="blue" aria-label="Blau"></button>
+    <button type="button" class="theme-dot" aria-pressed="false" data-theme="green" aria-label="Grün"></button>
+    <button type="button" class="theme-dot" aria-pressed="false" data-theme="yellow" aria-label="Gelb"></button>
   </div>
 </div>
 
@@ -969,7 +969,7 @@
   </header>
 
   <div class="input-row">
-    <input type="text" id="activityInput" class="activity-input" placeholder="z.B. Kaffee kochen" maxlength="40" />
+    <input type="text" id="activityInput" aria-label="Was hast du heute gemacht?" class="activity-input" placeholder="z.B. Kaffee kochen" maxlength="40" />
     <button id="submitBtn" class="submit-btn">Einordnen</button>
   </div>
   <p class="input-status sans" id="inputStatus" aria-live="polite"></p>
@@ -1010,7 +1010,7 @@
   ]
 }</pre>
   <p class="pack-intro sans">Gültige Werte für <code>ebene</code>: bio, phys, digi, kult.</p>
-  <textarea id="packInput" class="pack-input" placeholder="JSON hier einfügen …"></textarea>
+  <textarea id="packInput" aria-label="Eigene Ebene als JSON einfügen" class="pack-input" placeholder="JSON hier einfügen …"></textarea>
   <div class="pack-actions">
     <button id="packApply" class="reveal-btn">Ebene einhängen</button>
     <button id="packClose" class="back-link">Schließen</button>
@@ -4066,8 +4066,9 @@ document.getElementById('packApply').addEventListener('click', () => {
   wrap.querySelectorAll('.theme-dot').forEach(btn => {
     btn.addEventListener('click', () => {
       const name = btn.dataset.theme;
-      wrap.querySelectorAll('.theme-dot').forEach(b => b.classList.remove('active'));
+      wrap.querySelectorAll('.theme-dot').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       document.documentElement.dataset.theme = name;
       window.__pathLinkCool = THEMES[name];
       if (typeof window.__retintKnoten === 'function') window.__retintKnoten();
