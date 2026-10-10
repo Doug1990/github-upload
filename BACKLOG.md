@@ -258,3 +258,4 @@ Jede Zeile ein Schritt, neueste unten. Stand der Zell-Seite: Gewicht 133,9 KB gz
 - Ordnungsprüfung Schritt G: `ordnung.mjs` mit Regeln 1 bis 3 hart und Fachwortbericht. Plan 90 ist damit umgesetzt.
 - Laien-Test Runde 1, PR 109 und 110: Membran, Eiweiß, ATP vorab erklärt; Zoll, Kraftwerk-Fachwörter, Evolution, Robust, Diffusion, DNA/Gen, Kontrollpunkte, Gewebe, Rezeptor, Meldewege klarer. Offen: Funde für index, abschluss, raetsel, tagesverlauf und Glossar-Lücken (Gewebe, Nerv, Lymphe, Biofilm, Merkmal).
 - Laien-Test Runde 1, PR 111 und 112: Ebenen der Startseite erklärt, Abschluss-Regler heißt Schieber, Glossar um gewebe, Nerv, Lymphe, Biofilm, Merkmal, Rückkopplung ergänzt, Abwehr-Einstieg und Tagesverlauf (Last, Hochbehälter) erklärt. Offen: Rätsel-Bausteine, Seitenverweise.
+- Gesamtlauf nach PR 112: 38 von 39 Skripten grün. Fund: Link "Mehr dazu" in den Antworten zum Weiterdenken war mobil nur 20 px hoch (dorf.mjs). Behoben in PR 113 (Tippfläche 44 px).
