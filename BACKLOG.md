@@ -42,7 +42,7 @@ Nur diese Punkte kann nur Björn klären. Die Nummern verweisen auf die Details 
 | Dringlichkeit | Frage | Details |
 | --- | --- | --- |
 | hoch | CI freigeben: im Terminal `! gh auth refresh -h github.com -s workflow`, danach "Require status checks" für main setzen. Ohne das laufen die Prüfskripte nur lokal. | 20, 14 |
-| hoch | Datenschutztexte rechtlich gegenlesen (Schriften, Eingaben bleiben im Browser). | 1, 13 |
+| vor Veröffentlichung | Datenschutztexte rechtlich gegenlesen (Schriften, Eingaben bleiben im Browser). Von Björn zurückgestellt, bis die Seite öffentlich geht. | 1, 13 |
 | mittel | Fachtexte gegenlesen: Krankheitsbeispiele im Ausfall-Abschnitt, Zoll, Gene, Immunsystem, Fließband, Dein Tag, "Wo das Bild hinkt". | 17, 22, 24, 28, 31, 33, 37 |
 | mittel | Fachcheck "Dorf oder Stadt": Größenbeispiele, Rechnung, Endosymbiose, Riesenbakterien und kleine Zellen mit Kern. | 46 |
 | mittel | Klänge anhören (Lautstärke und Klangfarbe). | 3 |
@@ -275,3 +275,5 @@ Jede Zeile ein Schritt, neueste unten. Stand der Zell-Seite: Gewicht 133,9 KB gz
 - PR 127: Laien-Runde 3 (Startseite, Karte, Abschluss, Rätsel): Die Startseite kündigt den Blick in die Zelle früh an ("funktioniert wie eine kleine Stadt, nur ohne Rathaus"). Rätsel: Auswahl der Antworten erklärt, Baukasten-Regeln als Beispiele gekennzeichnet. Referenzbilder Rätsel erneuert und angesehen. Nicht umgesetzt: Hinweis auf fehlende Links (der Agent sah nur Text), Kettenspiel-Beispiel.
 - PR 128: Referenzbilder der Startseite erneuert (PR 127 hatte sie nicht mitgenommen, ich hatte nur die letzten Zeilen der Ausgabe gelesen). Bild angesehen, der neue Absatz im Kopfbereich erklärt die Abweichung. Lehre: Vor dem Merge immer die ganze visuell-Ausgabe auf Fehlerzeilen prüfen.
 - Gesamtlauf nach PR 128: alle 39 Skripte grün, 0 Fehler (1240 s). Stand main: PR 109 bis 128.
+- PR 130: CI-Workflow aktiv (.github/workflows/pruefen.yml), läuft bei jedem PR und Push auf main: tests/alle.mjs --schnell ohne Bildvergleich (Referenzbilder stammen vom Mac). Erster Lauf grün in 19 Minuten. Offen für Björn: "Require status checks" für main in den GitHub-Einstellungen setzen (optional).
+- PR 131: Zelle-Abschnitt "Auch eine Zelle hat einen Tag": Der Regler liegt jetzt unsichtbar über dem Farbbalken, man zieht direkt dort. Der zweite Balken darunter entfällt (Rückmeldung von Björn). Tastatur und Screenreader bleiben (Beschriftung Uhrzeit, Fokusrahmen um den Balken). Touch, Tastatur, Kontrast, Tag-Test grün. Mausklick konnte ich im Werkzeug nicht simulieren, Trefferprüfung per elementFromPoint ergab den Regler.
