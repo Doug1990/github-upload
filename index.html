@@ -827,6 +827,29 @@
   @media (max-width: 560px) { .instand { padding: 34px 16px 30px; border-radius: 18px; } .inst-title { font-size: 20px; } }
   @media (prefers-reduced-motion: reduce) { .inst-cell, .inst-btn { transition: none; } }
 
+  /* Zeichnungen statt Absätze: Leitung, Fluss, Lücke, Umweg (Bildsprache der Entwürfe) */
+  .bild { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto 16px; overflow: visible; }
+  .bild text { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; font-size: 12px; fill: #C7CAD6; }
+  .bild .b-line { fill: none; stroke: #8E98AC; stroke-width: 2.4; stroke-linecap: round; }
+  .bild .b-alt { fill: none; stroke: #4FA9B1; stroke-width: 2; stroke-dasharray: 5 5; stroke-linecap: round; }
+  .bild .b-fail { fill: none; stroke: #FF8A65; stroke-width: 2.4; stroke-linecap: round; }
+  .bild .b-node { fill: #1B2740; stroke: #8E98AC; stroke-width: 2; }
+  .bild .b-kult { --c: #D9A64A; } .bild .b-digi { --c: #8590E6; } .bild .b-phys { --c: #4FA9B1; } .bild .b-bio { --c: #7DBB63; }
+  .bild .b-dot { fill: var(--c, #F2C46B); }
+  .bild .b-ebene { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-linecap: round; opacity: 0.85; }
+  .bild .b-lbl-fail { fill: #FF8A65; }
+  .bild .b-lbl-alt { fill: #4FA9B1; }
+  .bild .b-fluss { animation: b-fluss 4.2s linear infinite; }
+  .bild .b-fluss.l2 { animation-duration: 5.6s; animation-delay: -1.4s; }
+  .bild .b-fluss.l3 { animation-duration: 3.4s; animation-delay: -2.2s; }
+  .bild .b-fluss.l4 { animation-duration: 6.4s; animation-delay: -3s; }
+  .bild .b-umweg { animation: b-umweg 4.2s linear infinite; offset-rotate: 0deg; }
+  .bild .b-zeit { animation: b-zeit 8s ease-in-out infinite; }
+  @keyframes b-fluss { 0% { transform: translateX(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateX(var(--w, 200px)); opacity: 0; } }
+  @keyframes b-umweg { 0% { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+  @keyframes b-zeit { 0%, 20% { fill: #8FD9A8; } 50% { fill: #F2C46B; } 80%, 100% { fill: #FF8A65; } }
+  @media (prefers-reduced-motion: reduce) { .bild .b-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
+
   /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
   .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
   .hinkt summary { list-style: none; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 14px; cursor: pointer; border: 1px dashed rgba(242,196,107,0.5); border-radius: 10px; background: rgba(242,196,107,0.06); color: #F2C46B; font-size: 13px; line-height: 1.4; }
@@ -932,7 +955,13 @@
   <p class="sound-hint sans">♪ Am besten mit Ton, idealerweise mit Kopfhörern.</p>
   <p class="hero-eyebrow">Düsseldorf · in Arbeit</p>
   <h1 class="hero-title">Hinter fast allem, was du machst, steckt Infrastruktur.</h1>
-  <p class="hero-thesis">Am Beispiel Düsseldorf zeigt diese Seite, woran ein normaler Tag hängt: an Wasser, Strom, Bahnen, Netzen und vielen Leuten, die dafür arbeiten. Zu vielem gibt es einen kurzen Blick in die Zelle, denn sie funktioniert wie eine kleine Stadt, nur ohne Rathaus. Du hängst mit drin und trägst selbst etwas bei. Eine Bilanz oder einen Fußabdruck rechnet dir die Seite nicht aus.</p>
+  <p class="hero-thesis">Am Beispiel Düsseldorf: woran ein normaler Tag hängt. Die Zelle funktioniert wie eine kleine Stadt, nur ohne Rathaus.</p>
+  <svg class="bild" viewBox="0 0 320 112" role="img" aria-label="Vier Leitungen übereinander, auf jeder laufen Punkte: kulturell (Regeln), digital (Daten), physisch (Rohre), biologisch (Zellen). Zusammen tragen sie einen Tag.">
+    <g class="b-kult"><text x="0" y="18">Kulturell · Regeln</text><path class="b-ebene" d="M135 14H316"/><circle class="b-dot b-fluss" style="--w:150px" cx="135" cy="14" r="4"/><circle class="b-dot" cx="250" cy="14" r="4"/></g>
+    <g class="b-digi"><text x="0" y="46">Digital · Daten</text><path class="b-ebene" d="M135 42H316"/><circle class="b-dot b-fluss l2" style="--w:160px" cx="135" cy="42" r="4"/><circle class="b-dot" cx="210" cy="42" r="4"/></g>
+    <g class="b-phys"><text x="0" y="74">Physisch · Rohre</text><path class="b-ebene" d="M135 70H316"/><circle class="b-dot b-fluss l3" style="--w:170px" cx="135" cy="70" r="4"/><circle class="b-dot" cx="180" cy="70" r="4"/></g>
+    <g class="b-bio"><text x="0" y="102">Biologisch · Zellen</text><path class="b-ebene" d="M135 98H316"/><circle class="b-dot b-fluss l4" style="--w:140px" cx="135" cy="98" r="4"/><circle class="b-dot" cx="290" cy="98" r="4"/></g>
+  </svg>
   <div class="hero-journey-badge" id="heroJourneyBadge">
     <svg viewBox="0 0 90 26" aria-hidden="true">
       <path class="hjb-path" d="M4 20 Q 45 4 86 20" />
@@ -950,16 +979,16 @@
 </section>
 
 <aside class="pfad-kurz" id="kurz" aria-labelledby="kurzT">
-  <h2 id="kurzT">Das Wichtigste in einem Satz pro Abschnitt</h2>
-  <p class="pfad-vor">Wer wenig Zeit hat, liest hier den Kern. Jeder Satz führt zum Abschnitt, in dem mehr dazu steht.</p>
+  <h2 id="kurzT">Das Wichtigste, ein Satz pro Abschnitt</h2>
+  <p class="pfad-vor">Der Kern, mit Link zum Abschnitt.</p>
   <ol>
-    <li><a href="#tool"><b>Was hast du heute gemacht?</b>Du wählst eine Tätigkeit und siehst, welche Ebenen dabei beteiligt waren und welche nicht.</a></li>
-    <li><a href="#journey"><b>Deine Reise</b>Eine Reise zeigt in Stationen, was alles unterwegs sein muss, bis etwas bei dir ankommt.</a></li>
-    <li><a href="#shelfScene"><b>Du gehst einkaufen</b>Beim Einkauf siehst du, was alles laufen muss, damit die Sachen im Regal liegen.</a></li>
-    <li><a href="#chainGame"><b>Was kommt vor was?</b>Im Spiel ordnest du Ketten von oben nach unten, also immer tiefer.</a></li>
-    <li><a href="#belonging"><b>Du gehörst dazu</b>Du wirst getragen und trägst selbst mit, ohne dass die Rechnung aufgehen muss.</a></li>
-    <li><a href="#now"><b>Es läuft weiter</b>Während du liest, läuft vieles weiter. Die Zahlen sind hochgerechnete Tagesdurchschnitte und keine Live-Daten.</a></li>
-    <li><a href="#cubeSection"><b>Wie Energie unterwegs entsteht</b>Ein Turm zeigt an fünf Stationen, wie Energie auf unterschiedliche Weise dazukommt.</a></li>
+    <li><a href="#tool"><b>Was hast du heute gemacht?</b>Welche Ebenen eine Tätigkeit trägt.</a></li>
+    <li><a href="#journey"><b>Deine Reise</b>Was unterwegs sein muss, bis etwas bei dir ankommt.</a></li>
+    <li><a href="#shelfScene"><b>Du gehst einkaufen</b>Was laufen muss, damit die Ware im Regal liegt.</a></li>
+    <li><a href="#chainGame"><b>Was kommt vor was?</b>Ketten ordnen, immer tiefer.</a></li>
+    <li><a href="#belonging"><b>Du gehörst dazu</b>Du wirst getragen und trägst mit. Die Rechnung muss nicht aufgehen.</a></li>
+    <li><a href="#now"><b>Es läuft weiter</b>Hochgerechnete Tagesdurchschnitte, keine Live-Daten.</a></li>
+    <li><a href="#cubeSection"><b>Wie Energie unterwegs entsteht</b>Fünf Stationen, an denen Energie dazukommt.</a></li>
   </ol>
 </aside>
 
@@ -967,7 +996,7 @@
   <header>
     <p class="eyebrow sans">Düsseldorf · Querschnitt</p>
     <h2>Was hast du heute gemacht?</h2>
-    <p class="intro sans">Klick an, was du heute gemacht hast. Du siehst dann, welche der vier Ebenen mitlaufen: Kulturell (Regeln, Gewohnheiten), Digital (Daten, Netze), Physisch (Rohre, Kabel, Gleise), Biologisch (Körper, Zellen).</p>
+    <p class="intro sans">Klick an, was du heute gemacht hast. Du siehst, welche der vier Ebenen mitlaufen.</p>
   </header>
 
   <div class="input-row">
@@ -985,17 +1014,17 @@
     <button id="packBtn" class="toggle-btn" title="Eigene Infrastruktur als Ebene einhängen.">Ebene beitragen</button>
   </div>
 
-  <p class="hint sans" style="margin: 14px 0 -4px;">Je weiter unten, desto grundlegender. Jede Ebene trägt die, die darüber liegt.</p>
-  <p class="hint sans graph-hint">Seitlich wischen, um alle Tätigkeiten zu sehen.</p>
+  <p class="hint sans" style="margin: 14px 0 -4px;">Unten ist grundlegender. Jede Ebene trägt die darüber.</p>
+  <p class="hint sans graph-hint">Seitlich wischen für mehr.</p>
   <div class="graph-scroll" id="graphScroll"><svg id="graph" role="group" aria-label="Schema: oben deine Tätigkeiten, darunter vier Ebenen, die sie tragen. Jede Tätigkeit und jede Ebene lässt sich antippen."></svg></div>
 
   <div class="panel-wrap" id="panelWrap"></div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was hast du heute gemacht</span></summary><div class="hinkt-body"><p>Vier Ebenen wirken wie Stockwerke, die sich sauber trennen lassen. In Wirklichkeit greifen sie ineinander: Ein Wasserwerk ist Technik, Menschen, Regeln und Vertrauen zugleich.</p><p>Die Einordnung hier ist ein Vorschlag. Bei einer eigenen Eingabe sortiert die Seite nach Stichworten und versteht nicht, was du meinst.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Zu welcher Ebene gehört eine Leitstelle, und was spricht für eine zweite?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Meist zur digitalen Ebene, denn sie sieht das Netz über Daten und greift ein. Für die kulturelle Ebene spricht, dass dort Menschen entscheiden.</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was hast du heute gemacht</span></summary><div class="hinkt-body"><p>Vier Ebenen wirken wie Stockwerke. In Wirklichkeit greifen sie ineinander: Ein Wasserwerk ist Technik, Menschen, Regeln und Vertrauen zugleich.</p><p>Die Einordnung ist ein Vorschlag, eigene Eingaben sortiert die Seite nur nach Stichworten. Kulturell meint Regeln und Gewohnheiten, digital Daten und Netze, physisch Rohre, Kabel und Gleise, biologisch Körper und Zellen. Eine Bilanz oder einen Fußabdruck rechnet die Seite nicht aus.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Zu welcher Ebene gehört eine Leitstelle, und was spricht für eine zweite?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Meist digital, denn sie sieht das Netz über Daten und greift ein. Für kulturell spricht, dass dort Menschen entscheiden.</p></div></details>
 </div>
 
 <div class="pack-box" id="packBox" style="display:none;">
   <h3>Eigene Ebene beitragen</h3>
-  <p class="pack-intro sans">Du kennst eine Infrastruktur, die hier fehlt, zum Beispiel einen Ortsverband, einen Betrieb oder eine Initiative? Dann kannst du sie als Paket beitragen. So sieht das aus:</p>
+  <p class="pack-intro sans">Fehlt hier eine Infrastruktur, etwa ein Ortsverband oder ein Betrieb? So trägst du sie bei:</p>
   <pre class="pack-schema">{
   "name": "THW Ortsverband Düsseldorf",
   "autor": "Wer das beigetragen hat",
@@ -1022,7 +1051,7 @@
 
 <section class="journey" id="journey">
   <h2 class="journey-title">Deine Reise: unterwegs zu dir.</h2>
-  <p class="journey-lead sans">Such dir eine Kategorie aus, tipp auf „Start" und lehn dich zurück.</p>
+  <p class="journey-lead sans">Wähle eine Kategorie und tipp auf „Start".</p>
 
   <div class="journey-tabs" id="journeyTabs"></div>
 
@@ -1034,13 +1063,13 @@
   <p class="journey-chain sans" id="journeyChain"></p>
 
   <button class="journey-btn" id="journeyBtn">▸ Start</button>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Deine Reise</span></summary><div class="hinkt-body"><p>Eine Reise legt eine einzelne Linie nahe, vom Rhein bis zum Hahn. Wirklich ist es ein Netz mit Zweigen und Rückläufen, und an vielen Stationen hängt noch mehr dran.</p><p>Die Stationen sind eine Auswahl, und ihre Zuordnung zu den Ebenen ist eine Deutung.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Station fehlt auf dem Weg zu deinem Hahn?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel der Hochbehälter, der den Druck hält, oder die Leute, die Rohre prüfen und reparieren.</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Deine Reise</span></summary><div class="hinkt-body"><p>Eine Reise legt eine Linie nahe, vom Rhein bis zum Hahn. Wirklich ist es ein Netz mit Zweigen und Rückläufen, und an vielen Stationen hängt noch mehr dran.</p><p>Die Stationen sind eine Auswahl, ihre Zuordnung zu den Ebenen ist eine Deutung.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Station fehlt auf dem Weg zu deinem Hahn?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel der Hochbehälter, der den Druck hält, oder die Leute, die Rohre prüfen.</p></div></details>
 </section>
 
 <section class="shelf" id="shelfScene">
   <p class="shelf-eyebrow sans">Supermarkt · Gang 7</p>
   <h2 class="shelf-title">Du gehst einkaufen.</h2>
-  <p class="shelf-lead sans">Tipp Produkte im Regal an und geh dann zur Kasse. Danach siehst du, was alles laufen muss, damit die Sachen im Regal liegen.</p>
+  <p class="shelf-lead sans">Tipp Produkte an und geh zur Kasse. Dann siehst du, was dahinter läuft.</p>
   <svg class="shelf-svg" id="shelfSvg" viewBox="0 -110 640 370" role="img" aria-label="Ein Supermarktregal, aus dem du Produkte in den Wagen tippen kannst"></svg>
 
   <div class="shelf-cart-bar">
@@ -1050,27 +1079,27 @@
   <p class="shelf-receipt sans" id="shelfReceipt"></p>
 
   <div class="shelf-whispers" id="shelfWhispers" aria-hidden="true"></div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehst einkaufen</span></summary><div class="hinkt-body"><p>Der Kassenzettel nennt Kühlkette, Lieferung und Kassensystem. Das sind Beispiele und keine Rechnung dessen, was bei deinem Einkauf wirklich beteiligt war.</p><p>Die leisen Zeilen im Regal, etwa die Uhrzeit des Lastwagens, sind ausgedacht. Hinter jedem Produkt steht ein ganzes Netz von Betrieben und nicht nur ein Weg.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was steht hinter dem Produkt, das du zuletzt gekauft hast, und fehlt hier?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Anbau oder Herstellung, Lager, Kühlung und Lieferfahrzeuge. Je nach Produkt auch Verpackung und Zahlungstechnik.</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehst einkaufen</span></summary><div class="hinkt-body"><p>Kühlkette, Lieferung und Kassensystem auf dem Zettel sind Beispiele und keine Rechnung deines Einkaufs. Die leisen Zeilen im Regal, etwa die Uhrzeit des Lastwagens, sind ausgedacht.</p><p>Hinter jedem Produkt steht ein Netz von Betrieben und nicht nur ein Weg.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was steht hinter dem Produkt, das du zuletzt gekauft hast, und fehlt hier?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Anbau oder Herstellung, Lager, Kühlung, Lieferfahrzeuge, Verpackung, Zahlungstechnik.</p></div></details>
 </section>
 
 <section class="chaingame" id="chainGame">
   <p class="cg-eyebrow sans">Baue die Kette</p>
   <h2 class="cg-title" id="cgTitle">Was kommt vor was?</h2>
-  <p class="cg-lead sans">Tipp die Glieder in der richtigen Reihenfolge an, von oben nach unten, also immer tiefer.</p>
+  <p class="cg-lead sans">Tipp die Glieder an, von oben nach unten, immer tiefer.</p>
 
   <div class="cg-slots" id="cgSlots"></div>
-  <p class="cg-hint sans">Gleiches Symbol (● ■ ▲ ◆) vor zwei Gliedern: Diese beiden passieren gleichzeitig, ihre Reihenfolge zueinander ist egal.</p>
+  <p class="cg-hint sans">Gleiches Symbol (● ■ ▲ ◆): gleichzeitig, Reihenfolge egal.</p>
   <div class="cg-pool" id="cgPool"></div>
 
   <p class="cg-feedback sans" id="cgFeedback"></p>
-  <p class="cg-hint sans">Tipp einen befüllten Platz erneut an, um ihn zurückzunehmen.</p>
+  <p class="cg-hint sans">Platz erneut antippen: zurücknehmen.</p>
   <div class="cg-actions">
     <button class="cg-btn" id="cgRetry">↺ Nochmal versuchen</button>
     <button class="cg-btn" id="cgNext">↺ Andere Kette</button>
   </div>
   <p class="cg-progress sans" id="cgProgress"></p>
   <div class="cg-badge" id="cgBadge" hidden></div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was kommt vor was</span></summary><div class="hinkt-body"><p>Das Spiel hat für jede Kette eine richtige Lösung. In der Wirklichkeit gibt es oft mehrere Wege und Querverbindungen, und manches läuft zurück, etwa wenn gereinigtes Abwasser in den Rhein fließt.</p><p>Dass weiter unten grundlegender heißt, ist eine Vereinfachung für das Spiel.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wo in deiner Kette läuft etwas zurück?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel beim Wasser, das als Abwasser zurückkommt, oder bei Strom, der aus einem Speicher zurückfließt. Auch Rückmeldungen zählen.</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Was kommt vor was</span></summary><div class="hinkt-body"><p>Das Spiel hat für jede Kette eine Lösung. In Wirklichkeit gibt es mehrere Wege und Querverbindungen, und manches läuft zurück, etwa gereinigtes Abwasser in den Rhein.</p><p>Dass weiter unten grundlegender heißt, ist eine Vereinfachung für das Spiel.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wo in deiner Kette läuft etwas zurück?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel Abwasser, das zurückkommt, oder Strom aus einem Speicher. Auch Rückmeldungen zählen.</p></div></details>
 </section>
 
 <section class="belonging" id="belonging">
@@ -1088,25 +1117,32 @@
   <p class="belong-eyebrow sans">Du gehörst dazu</p>
   <h2 class="belong-title">Du wirst getragen und trägst selbst mit.</h2>
   <p class="belong-lead sans">
-    Links siehst du, was zu dir hinläuft: Wasser, Wärme, Wege und Fürsorge. Rechts siehst du, was von dir weggeht.
-    Eine Rechnung muss dabei nicht aufgehen, und wie viel auf welcher Seite steht, ist bei jedem anders.
-    Tipp eine Leitung an, um mehr zu erfahren.
+    Links läuft zu dir hin, rechts geht von dir weg. Tipp eine Leitung an.
   </p>
 
   <svg class="knoten" id="knoten" viewBox="0 0 440 470" role="img" aria-label="Du als Knoten: was dich trägt und was du trägst"></svg>
   <p class="knoten-detail sans" id="knotenDetail"></p>
   <div class="knoten-actions" id="knotenActions"></div>
 
-  <p class="belong-note sans">
-    Nicht jede Leitung ist für jeden gleich wichtig. Getragen zu werden und selbst zu tragen gehört beides dazu.
-  </p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehörst dazu</span></summary><div class="hinkt-body"><p>Zwei Spalten mit je fünf Leitungen sehen nach einer Bilanz aus. Es ist keine. Die Auswahl ist klein, und die Seiten lassen sich nicht gegeneinander aufrechnen.</p><p>In der Mitte steht auch nur eine Person. In Wirklichkeit hängen viele Menschen an denselben Leitungen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Leitung würdest du bei dir ergänzen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Das ist offen. Denk an das, was dir fehlen würde, wenn es ausfiele: Internet, Heizung, Post, Nachbarn.</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehörst dazu</span></summary><div class="hinkt-body"><p>Zwei Spalten mit je fünf Leitungen sehen nach einer Bilanz aus. Es ist keine. Die Auswahl ist klein, die Seiten lassen sich nicht aufrechnen, und wie viel auf welcher Seite steht, ist bei jedem anders.</p><p>Nicht jede Leitung ist für jeden gleich wichtig. Getragen zu werden und selbst zu tragen gehört beides dazu. In Wirklichkeit hängen viele Menschen an denselben Leitungen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Leitung würdest du bei dir ergänzen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Das ist offen. Denk an das, was dir fehlen würde: Internet, Heizung, Post, Nachbarn.</p></div></details>
 </section>
 
 <section class="stoer" id="stoerung">
   <p class="stoer-eyebrow sans">Wenn es hakt</p>
   <h2 class="stoer-title">Fällt eine Leitung aus, merkt es die nächste.</h2>
-  <p class="stoer-lead sans">Strom, Wasser, Datennetz und Verkehr hängen aneinander. Schalte eine Leitung ab und sieh, was als Nächstes wackelt. Manche Stellen haben Ersatz, der trägt aber nur eine Weile. Mit dem Schalter wechselst du zwischen den ersten Stunden und dem Zustand nach Tagen.</p>
+  <p class="stoer-lead sans">Schalte eine Leitung ab und sieh, was als Nächstes wackelt. Ersatz trägt nur eine Weile.</p>
+  <svg class="bild" viewBox="0 0 320 96" role="img" aria-label="Eine Leitung mit einer Lücke. Davor laufen Punkte und stauen sich an der Lücke. Ein gestrichelter Umweg führt um die Lücke herum.">
+    <path class="b-line" d="M40 58H128"/><path class="b-line" d="M192 58H280"/>
+    <path class="b-fail" d="M128 48V68M192 48V68"/>
+    <path class="b-alt" d="M128 58C138 12 182 12 192 58"/>
+    <circle class="b-node" cx="30" cy="58" r="9"/><circle class="b-node" cx="290" cy="58" r="9"/>
+    <circle class="b-dot b-fluss" style="--w:80px;--c:#F2C46B" cx="42" cy="58" r="4"/>
+    <circle class="b-dot b-fluss l2" style="--w:80px;--c:#F2C46B" cx="42" cy="58" r="4"/>
+    <circle class="b-dot b-fluss l3" style="--w:80px;--c:#F2C46B" cx="194" cy="58" r="4"/>
+    <circle class="b-dot b-umweg" style="--c:#4FA9B1;offset-path:path('M128 58C138 12 182 12 192 58')" cx="0" cy="0" r="4"/>
+    <text class="b-lbl-fail" x="160" y="86" text-anchor="middle">Ausfall</text>
+    <text class="b-lbl-alt" x="160" y="14" text-anchor="middle">Umweg</text>
+  </svg>
   <div class="stoer-seg" role="group" aria-label="Zeitpunkt">
     <button type="button" id="stoerH" aria-pressed="true">Erste Stunden</button>
     <button type="button" id="stoerD" aria-pressed="false">Nach Tagen</button>
@@ -1114,15 +1150,25 @@
   <div class="stoer-bar" id="stoerBar" role="group" aria-label="Leitung abschalten"></div>
   <div class="stoer-grid" id="stoerGrid"></div>
   <p class="stoer-status" id="stoerStatus" aria-live="polite"></p>
-  <p class="stoer-link sans">Dasselbe Muster gibt es in der Zelle, nur ohne Leitstelle: <a href="zelle.html#ausfall">Fällt eine Stelle aus, merkt es der Rest</a>.</p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wenn es hakt</span></summary><div class="hinkt-body"><p>Echte Netze sind vielfach abgesichert, getrennt und werden von Menschen gesteuert, die umschalten und priorisieren. Der Dominoeffekt ist hier bewusst zugespitzt. Krankenhäuser zum Beispiel sind besonders gut abgesichert.</p><p>Die Abhängigkeiten sind Beispiele, keine Betriebsdaten aus Düsseldorf. Wie lange ein Ersatz trägt, hängt von Vorrat, Wetter und Einsatz ab, und "nach Tagen" ist ein Bild für "irgendwann reicht der Ersatz nicht mehr".</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet im Ernstfall, welche Stelle zuerst wieder Strom bekommt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Das regeln Notfallpläne der Netzbetreiber und der Stadt. Krankenhäuser und Pumpwerke stehen meist vorn.</p></div></details>
-  <p class="belong-note sans">Zugespitzt dargestellt: Die Karten zeigen Abhängigkeiten als Beispiele, nicht den Zustand echter Anlagen.</p>
+  <p class="stoer-link sans">Auch in der Zelle, ohne Leitstelle: <a href="zelle.html#ausfall">Fällt eine Stelle aus, merkt es der Rest</a>.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wenn es hakt</span></summary><div class="hinkt-body"><p>Echte Netze sind vielfach abgesichert und getrennt und werden von Menschen gesteuert, die umschalten und priorisieren. Der Dominoeffekt ist bewusst zugespitzt, die Karten zeigen keinen Zustand echter Anlagen. Krankenhäuser sind besonders gut abgesichert.</p><p>Die Abhängigkeiten sind Beispiele, keine Betriebsdaten aus Düsseldorf. Wie lange ein Ersatz trägt, hängt von Vorrat, Wetter und Einsatz ab. "Nach Tagen" heißt: irgendwann reicht der Ersatz nicht mehr.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet im Ernstfall, welche Stelle zuerst wieder Strom bekommt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Notfallpläne der Netzbetreiber und der Stadt. Krankenhäuser und Pumpwerke stehen meist vorn.</p></div></details>
 </section>
 
 <section class="instand" id="instand">
   <p class="inst-eyebrow sans">Instandhaltung</p>
   <h2 class="inst-title">Was alt wird, muss erneuert werden.</h2>
-  <p class="inst-lead sans">Rohre, Gleise und Kabel altern. Wähle, wie erneuert wird, und schieb die Zeit vor. Jedes Kästchen ist ein Abschnitt. Sieh, was sich staut und wo etwas ausfällt.</p>
+  <p class="inst-lead sans">Rohre, Gleise und Kabel altern. Wähle, wie erneuert wird, und schieb die Zeit vor.</p>
+  <svg class="bild" viewBox="0 0 320 76" role="img" aria-label="Eine Leitung aus acht Abschnitten. Links sind sie neu und grün, in der Mitte alt und gelb, ein Abschnitt altert im Zeitraffer bis zum Ausfall.">
+    <g stroke="none">
+      <rect x="10" y="22" width="32" height="20" rx="3" fill="#8FD9A8"/><rect x="48" y="22" width="32" height="20" rx="3" fill="#8FD9A8"/><rect x="86" y="22" width="32" height="20" rx="3" fill="#8FD9A8"/>
+      <rect x="124" y="22" width="32" height="20" rx="3" fill="#F2C46B"/><rect x="162" y="22" width="32" height="20" rx="3" fill="#F2C46B"/>
+      <rect class="b-zeit" x="200" y="22" width="32" height="20" rx="3" fill="#8FD9A8"/>
+      <rect x="238" y="22" width="32" height="20" rx="3" fill="none" stroke="#FF8A65" stroke-width="2" stroke-dasharray="4 4"/>
+      <rect x="276" y="22" width="32" height="20" rx="3" fill="#8FD9A8"/>
+    </g>
+    <path class="b-line" d="M10 52H308" opacity="0.5"/>
+    <text x="10" y="70">neu</text><text x="124" y="70">alt</text><text x="238" y="70" class="b-lbl-fail">Lücke</text>
+  </svg>
   <div class="inst-seg" id="instSeg" role="group" aria-label="Wie wird erneuert?">
     <button type="button" class="inst-btn" id="instA" data-m="a" aria-pressed="true">Laufend erneuern</button>
     <button type="button" class="inst-btn" id="instB" data-m="b" aria-pressed="false">Erst aufschieben</button>
@@ -1139,15 +1185,19 @@
   </div>
   <div class="inst-legend"><span><i style="background:#8FD9A8"></i>in Ordnung</span><span><i style="background:#F2C46B"></i>fast am Ende</span><span><i style="background:repeating-linear-gradient(135deg,#FF8A65 0 3px,#2A1814 3px 6px)"></i>überfällig, ausgefallen</span></div>
   <p class="inst-status" id="instStatus" aria-live="polite"></p>
-  <p class="inst-link sans">Eine Zelle macht das ohne Plan: Ihre Teile werden ständig abgebaut und neu gebaut. Wie das aufgeräumt wird, steht bei <a href="zelle.html#muell">Was liegen bleibt, stört</a>.</p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer. In Zellen läuft der Umbau ständig, ohne Plan und ohne Kasse: Eiweiße werden nach Minuten bis Monaten abgebaut und neu gebaut.</p><p>Echte Netze bestehen aus Millionen Teilen und werden nach Zustand und Risiko erneuert, nicht strikt nach Alter. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt, es sind keine Angaben zu Düsseldorfer Netzen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet, welches Rohr zuerst dran ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Betreiber, nach Alter, Zustand und Schäden. Dazu kommen Geld und Pläne der Stadt.</p></div></details>
-  <p class="belong-note sans">Zugespitzt dargestellt: Zwanzig Abschnitte je Netz, feste Lebensdauer, erneuert wird immer das älteste Stück.</p>
+  <p class="inst-link sans">Die Zelle baut ständig um, ohne Plan: <a href="zelle.html#muell">Was liegen bleibt, stört</a>.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer. In Zellen läuft der Umbau ständig, ohne Plan und ohne Kasse: Eiweiße werden nach Minuten bis Monaten abgebaut und neu gebaut.</p><p>Echte Netze werden nach Zustand und Risiko erneuert, nicht strikt nach Alter. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt und keine Angaben zu Düsseldorfer Netzen. Es gibt zwanzig Abschnitte je Netz, und das älteste Stück kommt zuerst dran.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet, welches Rohr zuerst dran ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Betreiber, nach Alter, Zustand und Schäden, dazu Geld und Pläne der Stadt.</p></div></details>
 </section>
 
 <section class="instand kosten" id="kosten">
   <p class="inst-eyebrow sans">Kosten</p>
   <h2 class="inst-title">Jemand muss es bezahlen.</h2>
-  <p class="inst-lead sans">Wasserleitung, Straßenbahn und Glasfaser kosten im Jahr feste Summen, egal wie viele sie nutzen. Schiebe die Zahl der Nutzenden und wähle, wie bezahlt wird. Sieh, was jede und jeder im Jahr trägt.</p>
+  <p class="inst-lead sans">Die Kosten sind fest, egal wie viele nutzen. Schieb die Zahl der Nutzenden und wähle, wer zahlt.</p>
+  <svg class="bild" viewBox="0 0 320 88" role="img" aria-label="Eine feste Summe pro Jahr fließt in fünf Leitungen zu den Nutzenden und teilt sich auf.">
+    <rect class="b-node" x="8" y="26" width="96" height="36" rx="8"/><text x="56" y="48" text-anchor="middle">Jahreskosten</text>
+    <path class="b-line" opacity="0.55" d="M104 44C170 44 170 12 238 12"/><path class="b-line" opacity="0.55" d="M104 44C170 44 170 28 238 28"/><path class="b-line" opacity="0.55" d="M104 44C170 44 170 44 238 44"/><path class="b-line" opacity="0.55" d="M104 44C170 44 170 60 238 60"/><path class="b-line" opacity="0.55" d="M104 44C170 44 170 76 238 76"/><circle class="b-node" cx="248" cy="12" r="6"/><circle class="b-node" cx="248" cy="28" r="6"/><circle class="b-node" cx="248" cy="44" r="6"/><circle class="b-node" cx="248" cy="60" r="6"/><circle class="b-node" cx="248" cy="76" r="6"/><circle class="b-dot b-umweg" style="--c:#F2C46B;animation-duration:3.6s;animation-delay:-0s;offset-path:path('M104 44C170 44 170 12 238 12')" cx="0" cy="0" r="3.5"/><circle class="b-dot b-umweg" style="--c:#F2C46B;animation-duration:4s;animation-delay:-0.7s;offset-path:path('M104 44C170 44 170 28 238 28')" cx="0" cy="0" r="3.5"/><circle class="b-dot b-umweg" style="--c:#F2C46B;animation-duration:4.4s;animation-delay:-1.4s;offset-path:path('M104 44C170 44 170 44 238 44')" cx="0" cy="0" r="3.5"/><circle class="b-dot b-umweg" style="--c:#F2C46B;animation-duration:4.800000000000001s;animation-delay:-2.0999999999999996s;offset-path:path('M104 44C170 44 170 60 238 60')" cx="0" cy="0" r="3.5"/><circle class="b-dot b-umweg" style="--c:#F2C46B;animation-duration:5.2s;animation-delay:-2.8s;offset-path:path('M104 44C170 44 170 76 238 76')" cx="0" cy="0" r="3.5"/>
+    <text x="262" y="48">Nutzende</text>
+  </svg>
   <div class="inst-seg" id="kostSeg" role="group" aria-label="Wie wird bezahlt?"></div>
   <p class="inst-desc" id="kostDesc"></p>
   <div class="inst-panel" id="kostPanel">
@@ -1158,8 +1208,7 @@
     </div>
   </div>
   <p class="inst-status" id="kostStatus" aria-live="polite"></p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kosten</span></summary><div class="hinkt-body"><p>Echte Kosten hängen an Gelände, Alter, Bauweise und Politik, und niemand rechnet mit einer einzigen Jahressumme. Die Beträge hier sind frei gewählte Beispielwerte und keine Aussage zu Gebühren, Steuern oder Preisen in Düsseldorf.</p><p>Auch die drei Zahlungswege sind vereinfacht. In der Praxis mischen sie sich: Eine Straßenbahn wird durch Fahrkarten und Zuschüsse aus Steuern bezahlt.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer zahlt, wenn kaum jemand etwas nutzt, das alle brauchen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Meist alle gemeinsam über Steuern, wenn der Nutzen für die Stadt groß ist. Ein Beispiel ist die Feuerwehr.</p></div></details>
-  <p class="belong-note sans">Beispielrechnung mit 620.000 Einwohnern und frei gewählten Jahreskosten.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kosten</span></summary><div class="hinkt-body"><p>Echte Kosten hängen an Gelände, Alter, Bauweise und Politik. Die Beträge hier sind frei gewählte Beispielwerte für 620.000 Einwohner und keine Aussage zu Gebühren, Steuern oder Preisen in Düsseldorf.</p><p>Auch die drei Zahlungswege sind vereinfacht. In der Praxis mischen sie sich: Eine Straßenbahn zahlen Fahrkarten und Zuschüsse aus Steuern.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer zahlt, wenn kaum jemand etwas nutzt, das alle brauchen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Meist alle über Steuern, wenn der Nutzen groß ist, etwa bei der Feuerwehr.</p></div></details>
 </section>
 
 <section class="now" id="now">
@@ -1175,10 +1224,10 @@
   </div>
 
   <p class="now-people sans" id="nowPeople"></p>
-  <p class="bruecke sans">Eine Frage aus Düsseldorf, auf die Zelle gewendet: Wer prüft die Rohre? Wer prüft die DNA? Die Zelle hat dafür eine eigene Reparatur, die mit dem Alter nachlässt. Das steht bei <a href="zelle.html#alt">Alterung und Reparatur</a>.</p>
-  <p class="bruecke sans">Alles nebeneinander: <a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a>.</p>
-  <p class="now-note sans">Die Zahlen sind aus Tagesdurchschnitten hochgerechnet und keine Live-Daten. Die Größenordnung stimmt, die genaue Sekunde nicht.</p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig wie eine Uhr. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, und die echte Nutzung schwankt über den Tag.</p><p>Aus den Zählern für Wasser und Fahrgäste lässt sich deshalb keine Zahl für genau diesen Moment ablesen und auch keine für dich.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Zu welcher Uhrzeit würde jeder dieser Zähler schneller oder langsamer laufen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Strom und Wasser ziehen morgens und abends an, die Bahnen sind in den Stoßzeiten voll. In der Nacht laufen viele Zähler langsamer.</p></div></details>
+  <p class="bruecke sans">Wer prüft die Rohre, wer die DNA? <a href="zelle.html#alt">Alterung und Reparatur</a></p>
+  <p class="bruecke sans"><a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a></p>
+  <p class="now-note sans">Hochgerechnet aus Tagesdurchschnitten, keine Live-Daten.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, die echte Nutzung schwankt über den Tag.</p><p>Aus den Zählern lässt sich keine Zahl für genau diesen Moment ablesen und keine für dich.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Zu welcher Uhrzeit würde jeder dieser Zähler schneller oder langsamer laufen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Strom und Wasser ziehen morgens und abends an, Bahnen sind in Stoßzeiten voll. Nachts laufen viele Zähler langsamer.</p></div></details>
 </section>
 
 <section class="cube-section" id="cubeSection">
@@ -1187,7 +1236,7 @@
   <div class="cube-scene-wrap">
     <svg class="cube-scene" id="cubeScene" viewBox="0 0 400 1350" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Ein Turm, durch den die Figur geht. An fünf Stationen kommt Energie auf unterschiedliche Weise dazu"></svg>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wie Energie unterwegs entsteht</span></summary><div class="hinkt-body"><p>Ein Turm mit fünf Stationen legt ein Nacheinander nahe. In Wirklichkeit kommt Energie aus mehreren Quellen zugleich und wird laufend ausbalanciert.</p><p>Die Stationen sind eine Auswahl und kein Bild dessen, woher Düsseldorfs Strom tatsächlich kommt.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert im Turm bei Windstille?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Station Wind liefert dann nichts. Die anderen Quellen und der Speicher füllen die Lücke, solange sie reichen.</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wie Energie unterwegs entsteht</span></summary><div class="hinkt-body"><p>Ein Turm mit fünf Stationen legt ein Nacheinander nahe. In Wirklichkeit kommt Energie aus mehreren Quellen zugleich und wird laufend ausbalanciert.</p><p>Die Stationen sind eine Auswahl und kein Bild dessen, woher Düsseldorfs Strom kommt.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert im Turm bei Windstille?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Wind liefert dann nichts. Andere Quellen und der Speicher füllen die Lücke, solange sie reichen.</p></div></details>
 </section>
 
 <section class="landing" id="landing">
