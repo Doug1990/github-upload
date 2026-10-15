@@ -2,7 +2,7 @@
 
 Ziel der Überarbeitung: Die Seite soll zeigen, wie Infrastruktur funktioniert, in der Stadt (Menschen, Leitungen, Orte) und im Körper (Zelle, Stoffwechsel, Signale). Das passiert über Bewegung und Zeichnung, nicht über Absätze. Text ist Beschriftung, nicht Erklärung.
 
-Vorbild für die Bildsprache sind die drei Prototypen `reise-prototyp.html`, `ausfall-prototyp.html` und `ausfall-grafik.html`.
+Vorbild für die Bildsprache sind die drei Prototypen `entwurf/reise-prototyp.html`, `entwurf/ausfall-prototyp.html` und `entwurf/ausfall-grafik.html`.
 
 ## Regeln
 
