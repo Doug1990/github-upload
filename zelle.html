@@ -1672,9 +1672,60 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Reserven</span></summary><div class="hinkt-body"><p>Zellen steuern ihre Speicher laufend über Hormone und Signale. Nervenzellen speichern kaum etwas, Fettzellen sind fast nur Lager. Der Körper hat zusätzlich zentrale Reserven, etwa in der Leber.</p><p>Die Stunden sind frei gewählte Beispielwerte. Das Bild sagt nichts darüber, wie lange ein Mensch ohne Nahrung auskommt, und ist keine Empfehlung zum Essen oder Fasten.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Warum speichern Nervenzellen kaum etwas?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Sie arbeiten ständig und haben kaum Platz für Vorräte. Darum hängen sie stark an der laufenden Lieferung über das Blut.</p></div></details>
 </section>
 
+<style id="entschlackt">
+  /* Ergänzung "weniger Text, mehr Bild" für Zoll, Ausfall und Dorf */
+  details.wort-vorab.mehr { max-width: none; margin: 8px 0 0; }
+  .zoll-wb { min-height: 96px; }
+  .zoll-wb .wic { display: block; width: 100%; max-width: 96px; height: auto; margin: 0 0 5px; }
+  .zoll-wb .wic .m { fill: #24503C; stroke: #3C9E78; stroke-width: 1.6; }
+  .zoll-wb .wic .p { fill: #4FC3D9; }
+  .zoll-det .aha { margin: 4px 0 0; color: var(--gold); font-size: 13.5px; line-height: 1.6; }
+  .zoll-det .hd h3 { margin: 0 0 4px; }
+  .zoll-det .zoll-cols { margin-top: 0; }
+  .zoll-det .zoll-cols .aha { display: none; }
+  .aus-leit { margin: 0 0 12px; }
+  .aus-leit svg { display: block; width: 100%; height: auto; }
+  .aus-leit text { font-family: 'IBM Plex Sans', sans-serif; font-size: 22px; fill: #E4ECE6; }
+  .aus-leit .al-ok { fill: #7FD9A8; }
+  .aus-leit .al-bad { fill: #FF8A65; }
+  .aus-leit .al-mut { fill: #A9AFC0; }
+  .aus-leit .al-base { fill: none; stroke: #3C9E78; stroke-width: 3; }
+  .aus-leit .al-flow { fill: none; stroke: #7FD9A8; stroke-width: 7; stroke-linecap: round; stroke-dasharray: 0 14; animation: alFlow 0.9s linear infinite; }
+  .aus-leit .al-tick { stroke: #FF8A65; stroke-width: 4; stroke-linecap: round; }
+  .aus-leit .al-stau { fill: #FF8A65; stroke: #0A1310; stroke-width: 1.5; }
+  .aus-leit .al-dead { fill: none; stroke: #6E7689; stroke-width: 3; stroke-dasharray: 6 8; }
+  @keyframes alFlow { to { stroke-dashoffset: -14; } }
+  .aus-swb { min-height: 88px; }
+  .aus-swb .aus-ic { display: block; width: 46px; height: 31px; margin: 0 0 4px; }
+  .aus-status, .zoll-live { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; min-height: 0; }
+  .aus-aha { margin: 10px 0 0; color: var(--gold); font-size: 13.5px; line-height: 1.6; }
+  .aus-detail .aus-ex { margin-top: 0; border: 0; padding: 12px 4px 4px; }
+  .aus-detail .aus-cols { margin-top: 0; padding-top: 10px; }
+  .dorf-vgl { display: grid; gap: 6px; margin-top: 12px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); }
+  .dorf-vgl-l { margin: 12px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; color: var(--muted); }
+  .dorf-vgl .dv { display: grid; grid-template-columns: 64px 1fr 74px; gap: 10px; align-items: center; }
+  .dorf-vgl .bar { margin-top: 0; height: 10px; }
+  .dorf-vgl .bar i { background: var(--blue); transition: width 0.3s ease; }
+  .dorf-vgl .bar i.in { background: var(--gold); }
+  .dorf-vgl output { text-align: right; color: var(--ink); font-variant-numeric: tabular-nums; }
+  #dorfPanel .stat .bar { margin-top: 5px; height: 5px; }
+  #dorfPanel .stat .bar i { transition: width 0.3s ease; }
+  #dorfPanel .dorf-calc { margin-top: 8px; }
+  #dorfPanel #dorfStatus { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .dorf-aha { margin: 0 0 4px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13.5px; line-height: 1.6; color: var(--gold); }
+  @media (max-width: 560px) {
+    #dorfPanel .stat { flex-wrap: wrap; }
+    #dorfPanel .stat .bar { flex: 1 0 100%; }
+    .dorf-vgl .dv { grid-template-columns: 56px 1fr 66px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .aus-leit .al-flow { animation: none; }
+    .dorf-vgl .bar i, #dorfPanel .stat .bar i { transition: none; }
+  }
+</style>
 <section class="sec reveal" id="zoll">
   <h2>Der Zoll: Drei Wege über die Grenze.</h2>
-  <p class="lead">Durch die Membran, die dünne Haut der Zelle, führen drei Wege. Nur einer kostet Energie. Ändere das Gefälle (wie viel mehr Teilchen auf einer Seite sind) und schalte ATP ab.</p>
+  <p class="lead">Durch die Membran, die dünne Haut der Zelle, führen drei Wege. Nur einer kostet Energie.</p>
   <div class="zoll-seg" role="group" aria-label="Ansicht des Zolls">
     <button type="button" id="zollViewBio" aria-pressed="true">Zelle</button>
     <button type="button" id="zollViewCity" aria-pressed="false">Stadt</button>
@@ -1779,9 +1830,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   </div>
   <p class="zoll-ways-l" id="zollWaysL">Welchen Weg nimmt die Grenze?</p>
   <div class="zoll-ways" id="zollWays" role="group" aria-labelledby="zollWaysL">
-    <button type="button" class="zoll-wb" data-way="pore" aria-pressed="true"><b>Pore</b><small>folgt dem Gefälle</small><i>kostet nichts</i></button>
-    <button type="button" class="zoll-wb" data-way="pump" aria-pressed="false"><b>Pumpe</b><small>gegen das Gefälle</small><i>kostet ATP</i></button>
-    <button type="button" class="zoll-wb" data-way="gate" aria-pressed="false"><b>Tor</b><small>öffnet auf Signal</small><i>braucht Signal</i></button>
+    <button type="button" class="zoll-wb" data-way="pore" aria-pressed="true"><svg class="wic" viewBox="0 0 96 44" aria-hidden="true" focusable="false"><rect class="m" x="0" y="17" width="36" height="9"/><rect class="m" x="60" y="17" width="36" height="9"/><circle class="p" cx="48" cy="3" r="3.2" opacity="0.3"/><circle class="p" cx="48" cy="11" r="3.6" opacity="0.55"/><circle class="p" cx="48" cy="22" r="4" /><circle class="p" cx="48" cy="34" r="4.2"/><circle class="p" cx="48" cy="42" r="3.2" opacity="0.8"/></svg><b>Pore</b><i>kostet nichts</i></button>
+    <button type="button" class="zoll-wb" data-way="pump" aria-pressed="false"><svg class="wic" viewBox="0 0 96 44" aria-hidden="true" focusable="false"><rect class="m" x="0" y="17" width="36" height="9"/><rect class="m" x="60" y="17" width="36" height="9"/><rect x="34" y="11" width="28" height="22" rx="7" fill="#6B3F2A" stroke="#F2C46B" stroke-width="2"/><path d="M48 28 V16 M42 21 L48 15 L54 21" fill="none" stroke="#F2C46B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle class="p" cx="14" cy="6" r="3.4"/><circle class="p" cx="26" cy="9" r="3.4"/><circle class="p" cx="72" cy="5" r="3.4"/><circle class="p" cx="84" cy="9" r="3.4"/><circle class="p" cx="20" cy="38" r="3.4" opacity="0.6"/><circle class="p" cx="78" cy="38" r="3.4" opacity="0.6"/></svg><b>Pumpe</b><i>kostet ATP</i></button>
+    <button type="button" class="zoll-wb" data-way="gate" aria-pressed="false"><svg class="wic" viewBox="0 0 96 44" aria-hidden="true" focusable="false"><rect class="m" x="0" y="17" width="36" height="9"/><rect class="m" x="60" y="17" width="36" height="9"/><rect x="36" y="18" width="12" height="8" rx="2" fill="#F2C46B"/><rect x="48" y="18" width="12" height="8" rx="2" fill="#F2C46B"/><circle cx="48" cy="5" r="4" fill="#FF8A65"/><path d="M48 10 V15" stroke="#FF8A65" stroke-width="2" stroke-linecap="round"/><circle class="p" cx="22" cy="6" r="3.2" opacity="0.5"/><circle class="p" cx="74" cy="6" r="3.2" opacity="0.5"/></svg><b>Tor</b><i>braucht Signal</i></button>
   </div>
   <div class="zoll-ctl">
     <div class="zoll-slider">
@@ -1794,41 +1845,53 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       <button type="button" class="btn" id="zollReset">Neu starten</button>
     </div>
   </div>
-  <p class="zoll-hint" id="zollAtpH">Der ATP-Schalter wirkt nur bei der Pumpe.</p>
-  <p class="zoll-say" id="zollSay">Die Pore ist offen. Teilchen wandern von der vollen auf die leere Seite, das Gefälle sinkt.<span class="n">Außen 54, innen 18, Gefälle 50 Prozent, ATP gesamt 0.</span></p>
+  <p class="zoll-hint" id="zollAtpH">Gefälle heißt: Auf einer Seite sind mehr Teilchen. Der ATP-Schalter wirkt nur bei der Pumpe.</p>
+  <p class="zoll-say" id="zollSay">Teilchen wandern von voll nach leer, das Gefälle sinkt.</p>
   <p class="zoll-live" id="zollLive" aria-live="polite" aria-atomic="true"></p>
-  <div class="zoll-det" id="zollDet-pore">
-    <div class="hd"><small>Weg 1, kostet nichts</small><h3>Pore: offen, aber ohne Antrieb</h3></div>
+  <div class="zoll-det" id="zollDet">
+    <div class="hd"><h3 id="zollDetH"></h3></div>
+    <p class="aha" id="zollDetA"></p>
+    <details class="wort-vorab mehr"><summary>In Zelle und Stadt</summary>
     <div class="zoll-cols">
-      <div class="col"><b>In der Zelle</b>Ein offener Kanal durch die Membran. Teilchen wandern von der vollen auf die leere Seite, weil sie sich zufällig bewegen. Das kostet nichts und endet, wenn beide Seiten gleich voll sind.</div>
-      <div class="col city"><b>In der Stadt</b>Eine offene Straße über die Grenze. Wo viele Wagen drängen, fahren mehr hinüber als zurück, bis auf beiden Seiten gleich viel los ist.</div>
-      <p class="aha">Eine Pore baut kein Gefälle auf, sie verbraucht es nur. Ohne etwas, das nachlädt, wäre es bald weg.</p>
-    </div>
-  </div>
-  <div class="zoll-det" id="zollDet-pump" hidden>
-    <div class="hd"><small>Weg 2, kostet ATP</small><h3>Pumpe: der Weg gegen das Gefälle</h3></div>
-    <div class="zoll-cols">
-      <div class="col"><b>In der Zelle</b>Eine Pumpe schiebt Teilchen dorthin, wo schon viele sind, und spaltet dafür ATP. Die Membran ist nie ganz dicht, darum muss sie laufend nachschieben.</div>
-      <div class="col city"><b>In der Stadt</b>Eine Schleuse mit Motor. Sie bringt Wagen dorthin, wo schon Stau ist, und braucht Strom. Jeder Zaun hat Lücken, es kommt immer etwas zurück.</div>
-      <p class="aha">Hier hängt alles am ATP. Ohne ATP gleicht sich das Gefälle aus. Das passiert, wenn das Kraftwerk ausfällt.</p>
-    </div>
-  </div>
-  <div class="zoll-det" id="zollDet-gate" hidden>
-    <div class="hd"><small>Weg 3, braucht ein Signal</small><h3>Tor: erst Signal, dann durch</h3></div>
-    <div class="zoll-cols">
-      <div class="col"><b>In der Zelle</b>Ein Tor ist meist zu. Ein Signal, etwa ein Botenstoff oder eine Spannung, öffnet es kurz. Das Gefälle bestimmt die Richtung.</div>
-      <div class="col city"><b>In der Stadt</b>Eine Schranke mit Zollhäuschen. Mit Genehmigung geht sie hoch.</div>
-      <p class="aha">Ein Tor braucht kein ATP, nur ein Signal. Ohne Gefälle bringt ein offenes Tor nichts, das Gefälle bauen die Pumpen.</p>
-    </div>
+      <div class="col"><b>In der Zelle</b><span id="zollDetZ"></span></div>
+      <div class="col city"><b>In der Stadt</b><span id="zollDetS"></span></div>
+    </div></details>
   </div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zoll</span></summary><div class="hinkt-body"><p>Ein Zoll hat Beamte, die entscheiden. An der Membran entscheidet niemand: Pore, Pumpe und Tor wirken durch Form und Chemie, was durchkommt, hängt vom Gefälle ab. Die Wagen in der Stadtansicht haben ein Ziel, die Teilchen nicht.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer legt in der Zelle fest, welche Teilchen als passend gelten?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand. Form und Ladung der Teilchen passen zu Poren, Pumpen und Toren oder eben nicht. Das entscheidet die Chemie.</p></div></details>
-  <p class="note">Stark vereinfacht: Das Gefälle ist Statistik, darum schwanken die Zahlen. Wasser folgt gelösten Teilchen (Osmose). Viele Transporte sind gekoppelt, echte Pumpen brauchen nicht ein ATP je Teilchen.</p>
+  <p class="note">Stark vereinfacht: Das Gefälle ist Statistik, darum schwanken die Zahlen. Wasser folgt gelösten Teilchen (Osmose). Echte Pumpen brauchen nicht ein ATP je Teilchen.</p>
 </section>
 
 <!-- 3a. Ausfall in der Zell-Stadt -->
 <section class="sec reveal" id="ausfall">
   <h2>Fällt eine Stelle aus, merkt es der Rest.</h2>
-  <p class="lead">Redundanz fängt vieles ab, aber an vier Stellen hängt viel an einem Teil. Lege eines lahm, auch mehrere zusammen. <a href="#zoll">Der Zoll steht davor.</a></p>
+  <p class="lead">An vier Stellen hängt viel an einem Teil. Lege eines lahm, auch mehrere zusammen. <a href="#zoll">Der Zoll steht davor.</a></p>
+  <figure class="aus-leit">
+    <svg viewBox="0 0 640 262" role="img" aria-labelledby="ausLeitT">
+      <title id="ausLeitT">Zwei Leitungen mit einer Lücke. Oben fließt es über einen Umweg weiter. Unten gibt es keinen Umweg: Davor staut es sich, dahinter bleibt es leer.</title>
+      <text x="8" y="26" class="al-ok">Mit Umweg</text>
+      <text x="320" y="26" text-anchor="middle" class="al-ok">Umweg</text>
+      <ellipse cx="50" cy="78" rx="34" ry="20" fill="#4A3A14" stroke="#F2C46B" stroke-width="3"/>
+      <path d="M32 70 V84 M44 86 V72 M56 70 V84 M68 86 V72" stroke="#F2C46B" stroke-width="2.4" stroke-linecap="round" opacity="0.7"/>
+      <path class="al-base" d="M86 78 H250 M390 78 H556"/>
+      <path class="al-flow" d="M86 78 H250"/>
+      <path class="al-flow" d="M390 78 H556"/>
+      <path class="al-base" stroke-dasharray="3 7" d="M250 78 C270 34 370 34 390 78"/>
+      <path class="al-flow" d="M250 78 C270 34 370 34 390 78"/>
+      <path class="al-tick" d="M250 66 V90 M390 66 V90"/>
+      <g fill="#9EDDBB" stroke="#0A1310" stroke-width="1.5"><circle cx="576" cy="68" r="8"/><circle cx="596" cy="68" r="8"/><circle cx="586" cy="88" r="8"/><circle cx="606" cy="88" r="8"/></g>
+      <text x="8" y="146" class="al-bad">Ohne Umweg</text>
+      <ellipse cx="50" cy="198" rx="34" ry="20" fill="#4A3A14" stroke="#F2C46B" stroke-width="3"/>
+      <path d="M32 190 V204 M44 206 V192 M56 190 V204 M68 206 V192" stroke="#F2C46B" stroke-width="2.4" stroke-linecap="round" opacity="0.7"/>
+      <path class="al-base" d="M86 198 H250"/>
+      <path class="al-dead" d="M390 198 H556"/>
+      <path class="al-tick" d="M250 186 V210 M390 186 V210"/>
+      <g class="al-stau"><circle cx="236" cy="198" r="9"/><circle cx="217" cy="198" r="9"/><circle cx="198" cy="198" r="9"/><circle cx="227" cy="179" r="9"/><circle cx="208" cy="179" r="9"/></g>
+      <g fill="none" stroke="#6E7689" stroke-width="3"><circle cx="576" cy="188" r="8"/><circle cx="596" cy="188" r="8"/><circle cx="586" cy="208" r="8"/><circle cx="606" cy="208" r="8"/></g>
+      <text x="215" y="250" text-anchor="middle" class="al-bad">Stau</text>
+      <text x="320" y="250" text-anchor="middle" class="al-bad">Lücke</text>
+      <text x="480" y="250" text-anchor="middle" class="al-mut">leer</text>
+    </svg>
+  </figure>
   <details class="wort-vorab"><summary>Die Bauteile kurz</summary><p>Der Zellkern bewahrt den Bauplan. Ribosomen bauen Eiweiße. Das Mitochondrium liefert Energie. Der Golgi-Apparat verpackt und verschickt. Das Lysosom ist ein Bläschen, das entsorgt. Das Membrantor kontrolliert den Zugang.</p></details>
   <div class="aus-seg" role="group" aria-label="Ansicht des Ausfalls">
     <button type="button" id="ausViewBio" aria-pressed="true">Zelle</button>
@@ -1854,7 +1917,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   <p class="aus-status" id="ausStatus" aria-live="polite"></p>
   <div class="panel alt" id="alt">
     <h3>Zusatzfall: Alterung und Reparatur</h3>
-    <p class="alt-txt">Schäden an Eiweißen, Kraftwerken und DNA summieren sich, soweit Reparatur und Müllabfuhr sie nicht wegräumen. Stelle das Alter ein.</p>
+    <p class="alt-txt">Schäden summieren sich, soweit Reparatur und Müllabfuhr sie nicht wegräumen. Stelle das Alter ein.</p>
     <div class="alt-row"><span>Ohne Reparatur</span><div class="alt-bar"><i id="altOhne"></i></div><output id="altOhneO">0</output></div>
     <div class="alt-row"><span>Mit Reparatur</span><div class="alt-bar"><i id="altMit" class="mit"></i></div><output id="altMitO">0</output></div>
     <label class="sig-slider" for="altAge"><span class="row"><span>Alter der Zelle</span><output id="altAgeO" for="altAge">0 Jahre</output></span><input type="range" id="altAge" min="0" max="80" step="1" value="10"></label>
@@ -1862,16 +1925,20 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   </div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Ausfall</span></summary><div class="hinkt-body"><p>Die Stufen wirken wie ein Fahrplan, sind aber ein Bild für Abhängigkeiten. Wie schnell etwas in einer echten Zelle folgt, hängt vom Fall ab. Sieben Bauteile sind eine kleine Auswahl, in echt hängt mehr in mehr Richtungen zusammen.</p><p>Beim Zusatzfall sind die Werte erfundene Beispielzahlen. Zellen altern je nach Typ sehr verschieden: Manche werden nach Tagen ersetzt, viele Nervenzellen halten ein Leben lang. Das sagt nichts über einen einzelnen Menschen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Abhängigkeit fehlt in dieser Skizze?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel das Zellskelett: Fällt es aus, kommt keine Fracht mehr an. Auch die Signale von außen fehlen in der Skizze. <a href="#skelett">Mehr dazu</a></p></div></details>
   <p class="note">Stark vereinfacht: Echte Krankheiten sind selten ein einzelner Ausfall, meist stecken genetische und mehrstufige Ursachen dahinter. Die Beispiele sind keine Diagnose und keine Heilversprechen. Kein Beispiel hier ersetzt ärztlichen Rat.</p>
-  <p class="aus-hint" id="ausHint">Noch läuft alles. Schalte oben eine Stelle aus, dann steht hier Stufe für Stufe, was daran hängt.</p>
+  <p class="aus-hint" id="ausHint">Noch läuft alles. Schalte eine Stelle aus.</p>
   <div class="aus-detail" id="ausDetail" hidden>
     <div class="aus-head"><small id="ausEyebrow"></small><h3 id="ausTitle"></h3></div>
     <ol class="aus-steps" id="ausSteps"></ol>
-    <div class="aus-cols">
-      <div class="col"><b>In der Zelle</b><span id="ausCell"></span></div>
-      <div class="col city"><b>In der Stadt</b><span id="ausTown"></span></div>
-      <p class="aha" id="ausAha"></p>
-    </div>
-    <div class="aus-ex"><b>Ein Beispiel aus der Medizin</b><strong id="ausExName"></strong><p id="ausExText"></p></div>
+    <p class="aus-aha" id="ausAha"></p>
+    <details class="wort-vorab mehr"><summary>In Zelle und Stadt</summary>
+      <div class="aus-cols">
+        <div class="col"><b>In der Zelle</b><span id="ausCell"></span></div>
+        <div class="col city"><b>In der Stadt</b><span id="ausTown"></span></div>
+      </div>
+    </details>
+    <details class="wort-vorab mehr"><summary>Ein Beispiel aus der Medizin</summary>
+      <div class="aus-ex"><strong id="ausExName"></strong><p id="ausExText"></p></div>
+    </details>
   </div>
 </section>
 
@@ -1955,7 +2022,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 3c. Dorf oder Stadt: Bakterium und Zelle mit Kern, Größenregler -->
 <section class="sec reveal" id="dorf">
   <h2>Dorf oder Stadt: Je größer die Zelle, desto mehr Stadtteile.</h2>
-  <p class="lead">Ein Bakterium ist ein Dorf um einen Marktplatz. Eine Zelle mit Kern, wie deine, ist eine Stadt mit Stadtteilen. Der Regler macht beide größer, der Schalter wählt, welche der Text erklärt.</p>
+  <p class="lead">Ein Bakterium ist ein Dorf um einen Marktplatz. Eine Zelle mit Kern, wie deine, ist eine Stadt mit Stadtteilen. Der Regler macht beide größer.</p>
   <div class="dorf-seg" role="group" aria-label="Welche Zelle erklärt der Text?">
     <button type="button" id="dorfPickBak" aria-pressed="true">Bakterium</button>
     <button type="button" id="dorfPickEuk" aria-pressed="false">Zelle mit Kern</button>
@@ -1966,9 +2033,14 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     </svg>
     <div class="dorf-legend" id="dorfLegend"></div>
     <div class="stats" aria-live="off">
-      <div class="stat"><small>Durchmesser</small><span id="dorfD">&nbsp;</span></div>
-      <div class="stat"><small>Oberfläche je Volumen</small><span id="dorfOV">&nbsp;</span></div>
-      <div class="stat"><small>Weg zur Mitte</small><span id="dorfWeg">&nbsp;</span></div>
+      <div class="stat"><small>Durchmesser</small><span id="dorfD">&nbsp;</span><div class="bar" aria-hidden="true"><i id="dorfDB"></i></div></div>
+      <div class="stat"><small>Oberfläche je Volumen</small><span id="dorfOV">&nbsp;</span><div class="bar" aria-hidden="true"><i id="dorfOB"></i></div></div>
+      <div class="stat"><small>Weg zur Mitte</small><span id="dorfWeg">&nbsp;</span><div class="bar" aria-hidden="true"><i id="dorfWB"></i></div></div>
+    </div>
+    <p class="dorf-vgl-l">Je kleiner die Zelle, desto mehr Hülle je Inhalt.</p>
+    <div class="dorf-vgl" role="group" aria-label="Hülle und Inhalt im Vergleich zu 1 µm, Maßstab gestaucht">
+      <div class="dv"><span>Hülle</span><div class="bar" aria-hidden="true"><i id="dorfHB"></i></div><output id="dorfHO">&times;1</output></div>
+      <div class="dv"><span>Inhalt</span><div class="bar" aria-hidden="true"><i class="in" id="dorfIB"></i></div><output id="dorfIO">&times;1</output></div>
     </div>
     <p class="dorf-calc" id="dorfCalc"></p>
     <div class="dorf-lage">
@@ -1987,11 +2059,13 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     <p class="status" id="dorfStatus" aria-live="polite"></p>
   </div>
   <div class="dorf-head"><small id="dorfEyebrow"></small><h3 id="dorfTitle"></h3></div>
-  <div class="dorf-cols">
-    <div class="col"><b>In der Zelle</b><span id="dorfCell"></span></div>
-    <div class="col city"><b id="dorfTownL">Im Dorf</b><span id="dorfTown"></span></div>
-    <p class="aha" id="dorfAha"></p>
-  </div>
+  <p class="dorf-aha" id="dorfAha"></p>
+  <details class="wort-vorab mehr"><summary>Mehr zu dieser Größe</summary>
+    <div class="dorf-cols">
+      <div class="col"><b>In der Zelle</b><span id="dorfCell"></span></div>
+      <div class="col city"><b id="dorfTownL">Im Dorf</b><span id="dorfTown"></span></div>
+    </div>
+  </details>
   <div class="dorf-ort">
     <h3>Woher kommen die Kraftwerke?</h3>
     <svg class="card-ic endo-ic" viewBox="0 0 320 70" aria-hidden="true" focusable="false"><ellipse class="ic-bak" cx="40" cy="35" rx="22" ry="12"/><path class="ic-alt" d="M70 35 H128"/><ellipse class="ic-zelle" cx="215" cy="35" rx="80" ry="30"/><circle class="ic-kern" cx="188" cy="32" r="14"/><ellipse class="ic-bak ic-in" cx="244" cy="40" rx="16" ry="8"/><ellipse class="ic-bak ic-in" cx="232" cy="22" rx="12" ry="6"/></svg>
@@ -5165,6 +5239,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   var WEG = ['0,5', '1', '2,5', '5', '10', '25', '50'];
   var HUELLE = ['1', '4', '25', '100', '400', '2.500', '10.000'];
   var INHALT = ['1', '8', '125', '1.000', '8.000', '125.000', '1.000.000'];
+  var HN = [1, 4, 25, 100, 400, 2500, 10000], IN = [1, 8, 125, 1000, 8000, 125000, 1000000];
+  var OVN = [6, 3, 1.2, 0.6, 0.3, 0.12, 0.06], WEGN = [0.5, 1, 2.5, 5, 10, 25, 50];
+  function pct(v) { return Math.max(3, Math.min(100, v)).toFixed(1) + '%'; }
   var TEIL = ['', 'die Hälfte', 'ein Fünftel', 'ein Zehntel', 'ein Zwanzigstel', 'ein Fünfzigstel', 'ein Hundertstel'];
   var EX = [
     'So klein sind viele Bakterien und auch einige Algen mit Kern.',
@@ -5183,31 +5260,31 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   // ---- Texte je Lage ----
   var BAK = [
     { word: 'Läuft', status: 'das Bakterium läuft gut', title: 'Das Dorf: Alles liegt nah am Marktplatz',
-      cell: 'Im Bakterium liegt alles nah beieinander. Das Erbgut liegt als Ring frei im Zellinneren, in einem Bereich ohne Hülle (Nukleoid). Die Ribosomen lesen die Abschriften oft schon ab, während sie noch entstehen. Was über die Membran hereinkommt, ist in Bruchteilen einer Sekunde überall, und seine Energie macht ein Bakterium direkt an seiner Außenhaut.',
-      town: 'Wie in einem Dorf passiert alles rund um den Marktplatz, und jeder Weg ist kurz. Was am Ortsrand angeliefert wird, ist gleich überall, ein eigenes Rathaus oder Gewerbegebiet braucht es dafür nicht.',
-      aha: 'Im Bild: Das Erbgut (Schleife) liegt frei im Plasma, und die Pfeile von den Toren in der Membran reichen fast bis in die Mitte.' },
+      cell: 'Alles liegt nah beieinander. Das Erbgut liegt als Ring frei im Zellinneren, in einem Bereich ohne Hülle (Nukleoid). Die Ribosomen lesen Abschriften oft schon beim Entstehen ab. Was über die Membran kommt, ist schnell überall, und die Energie entsteht direkt an der Außenhaut.',
+      town: 'Wie in einem Dorf läuft alles rund um den Marktplatz, und jeder Weg ist kurz. Ein eigenes Rathaus oder Gewerbegebiet braucht es nicht.',
+      aha: 'Im Bild: Das Erbgut (Schleife) liegt frei im Plasma, die Pfeile von den Toren reichen fast bis in die Mitte.' },
     { word: 'Wird eng', status: 'beim Bakterium wird es eng', title: 'Das Dorf wächst, die Zufahrten nicht',
-      cell: 'Jetzt wird es eng, weil der Inhalt schneller wächst als die Außenhaut. Auf jede Portion Inhalt kommt weniger Membran, und an der Membran hängen beim Bakterium Zoll und Kraftwerk zugleich. Die Wege zur Mitte werden länger, und bloßes Treibenlassen braucht für den doppelten Weg etwa viermal so lange.',
-      town: 'Das Dorf wird größer, aber die Zufahrten am Ortsrand wachsen kaum mit. Vor den Toren bildet sich eine Schlange, und bis eine Lieferung den Marktplatz erreicht, dauert es.',
-      aha: 'Im Bild: Vor den Toren warten Teilchen (Ringe außen), und die Mitte (schraffiert) liegt schon weit weg vom Rand.' },
+      cell: 'Der Inhalt wächst schneller als die Außenhaut. Auf jede Portion Inhalt kommt weniger Membran, und an der Membran hängen beim Bakterium Zoll und Kraftwerk zugleich. Der doppelte Weg zur Mitte dauert beim Treibenlassen etwa viermal so lange.',
+      town: 'Das Dorf wird größer, die Zufahrten am Ortsrand kaum. Vor den Toren bildet sich eine Schlange.',
+      aha: 'Im Bild: Vor den Toren warten Teilchen (Ringe außen), die Mitte (schraffiert) liegt weit vom Rand.' },
     { word: 'Engpass', status: 'das Bakterium steckt im Engpass', title: 'Ein Dorf so groß wie eine Stadt',
-      cell: 'In dieser Größe kommt ein gewöhnliches Bakterium kaum noch zurecht. Die Membran reicht nicht, um so viel Inhalt zu versorgen, und die Mitte liegt weit weg vom Rand. Es gibt trotzdem Riesenbakterien, die sich mit Tricks behelfen (z.B. mit einer großen Blase im Inneren, sodass das Leben vor allem in einer dünnen Schicht am Rand stattfindet).',
-      town: 'Das Dorf ist so groß wie eine Stadt, hat aber weiter nur seinen einen Marktplatz. Die Tore am Rand sind überlastet, und in der Mitte kommt kaum noch etwas an.',
-      aha: 'Im Bild: Die schraffierte Mitte ist groß, die Ribosomen dort sind nur noch Ringe (sie warten auf Nachschub), und vor jedem Tor staut es sich.' }
+      cell: 'So groß kommt ein gewöhnliches Bakterium kaum zurecht. Die Membran reicht nicht für so viel Inhalt, und die Mitte liegt weit vom Rand. Es gibt trotzdem Riesenbakterien, die sich mit Tricks behelfen, zum Beispiel mit einer großen Blase innen. Das Leben findet dann in einer dünnen Schicht am Rand statt.',
+      town: 'Das Dorf ist so groß wie eine Stadt, hat aber nur einen Marktplatz. Die Tore sind überlastet, in der Mitte kommt kaum etwas an.',
+      aha: 'Im Bild: Die schraffierte Mitte ist groß, die Ribosomen dort warten als Ringe, vor jedem Tor staut es sich.' }
   ];
   var EUK = [
     { word: 'Klein, geht', status: 'die Zelle mit Kern geht, hat aber kaum Platz für Stadtteile', title: 'Eine Stadt im Kleinformat',
-      cell: 'Auch eine Zelle mit Kern kann so klein sein, einige Algen kommen auf etwa 1 µm. Dann ist für Stadtteile allerdings wenig Platz, und Kern und ein, zwei Kraftwerke füllen schon einen großen Teil der Zelle.',
-      town: 'Eine Stadt im Kleinformat hat ihr Archiv und ein Kraftwerk schon, viel mehr passt aber nicht hinein.',
-      aha: 'Im Bild: Der Kern mit seiner Hülle und ein, zwei Kraftwerke füllen die kleine Zelle fast aus.' },
+      cell: 'Auch eine Zelle mit Kern kann so klein sein, einige Algen kommen auf etwa 1 µm. Für Stadtteile ist dann wenig Platz.',
+      town: 'Eine Stadt im Kleinformat hat ihr Archiv und ein Kraftwerk, mehr passt nicht hinein.',
+      aha: 'Im Bild: Kern und ein, zwei Kraftwerke füllen die kleine Zelle fast aus.' },
     { word: 'Läuft', status: 'die Zelle mit Kern läuft mit Stadtteilen', title: 'Die Stadt teilt ihre Arbeit auf',
-      cell: 'Die Zelle mit Kern teilt ihre Arbeit auf. Das Erbgut liegt im Kern hinter einer Hülle mit Poren, die Kraftwerke (Mitochondrien) machen Energie an ihren eigenen, stark gefalteten Membranen, und die Fabrik (das Endoplasmatische Retikulum) bringt viel innere Fläche mit. So wächst die Arbeitsfläche mit der Zahl der Stadtteile, auch wenn die Außenhaut im Verhältnis kleiner wird. Lange Wege überbrückt die Zelle mit einem Netz aus Schienen (dem Zellskelett), auf dem Fracht gezielt transportiert wird.',
-      town: 'Wie in einer Stadt steht das Archiv im Zentrum, die Kraftwerke sind über die Viertel verteilt, und im Gewerbegebiet wird gebaut. Die Stadtgrenze muss nicht mehr alles allein leisten, weil die Arbeit in den Vierteln passiert und Straßen die Viertel verbinden.',
-      aha: 'Im Bild: Der Kern hat eine Hülle mit Poren (Lücken im Rand), die Kraftwerke haben eine gefaltete Innenhaut, die Fabrik liegt in Bändern um den Kern, und gestrichelte Schienen führen zum Rand.' },
+      cell: 'Die Arbeit ist aufgeteilt. Das Erbgut liegt im Kern hinter einer Hülle mit Poren. Die Kraftwerke (Mitochondrien) machen Energie an eigenen, stark gefalteten Membranen. Die Fabrik (Endoplasmatisches Retikulum) bringt viel innere Fläche mit. So wächst die Arbeitsfläche mit den Stadtteilen, auch wenn die Außenhaut im Verhältnis kleiner wird. Lange Wege überbrückt das Zellskelett als Netz aus Schienen.',
+      town: 'Das Archiv steht im Zentrum, die Kraftwerke liegen in den Vierteln, im Gewerbegebiet wird gebaut. Straßen verbinden die Viertel, die Stadtgrenze muss nicht alles allein leisten.',
+      aha: 'Im Bild: Kern mit Poren, Kraftwerke mit gefalteter Innenhaut, Fabrik in Bändern um den Kern, gestrichelte Schienen zum Rand.' },
     { word: 'Läuft, lange Wege', status: 'die Zelle mit Kern läuft, braucht aber lange Schienen', title: 'Die große Stadt lebt von ihren Straßen',
-      cell: 'Selbst bei etwa 100 µm geht das noch, eine menschliche Eizelle ist ungefähr so groß. Je größer die Zelle, desto wichtiger werden die Schienen im Inneren, und ganz ohne Grenzen geht es auch hier nicht. Sehr große Zellen haben deshalb oft besondere Formen oder mehrere Kerne (z.B. Muskelfasern).',
-      town: 'In einer großen Stadt hängt alles an den Straßen. Ohne gute Verbindungen zwischen den Vierteln käme in den Außenbezirken wenig an.',
-      aha: 'Im Bild: Viele Kraftwerke verteilen sich über die Zelle, und die gestrichelten Schienen reichen vom Kern bis an den Rand.' }
+      cell: 'Selbst bei etwa 100 µm geht das noch, eine menschliche Eizelle ist ungefähr so groß. Je größer die Zelle, desto wichtiger werden die Schienen, und ganz ohne Grenzen geht es auch hier nicht. Sehr große Zellen haben deshalb oft besondere Formen oder mehrere Kerne (z.B. Muskelfasern).',
+      town: 'In einer großen Stadt hängt alles an den Straßen. Ohne gute Verbindungen kommt in den Außenbezirken wenig an.',
+      aha: 'Im Bild: Viele Kraftwerke, gestrichelte Schienen vom Kern bis an den Rand.' }
   ];
 
   // ---- Zustand ----
@@ -5391,9 +5468,16 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     $('dorfSizeO').textContent = dTxt;
     range.value = String(i);
     range.setAttribute('aria-valuetext', dTxt + ' Durchmesser');
-    var calc = 'Je kleiner die Zelle, desto mehr Hülle hat sie im Verhältnis zum Inhalt. Rechnung für eine Kugel (Beispiel): <b>Oberfläche ÷ Volumen = 6 ÷ d = 6 ÷ ' + d + ' µm = ' + OV[i] + ' pro µm</b>. ';
-    calc += i === 0 ? 'Diese Stufe ist der Ausgangspunkt für den Vergleich in den anderen Stufen. ' : 'Gegenüber 1 µm ist die Zelle ' + d + '-mal so breit, hat ' + HUELLE[i] + '-mal so viel Hülle und ' + INHALT[i] + '-mal so viel Inhalt, also je Portion Inhalt nur ' + TEIL[i] + ' der Hülle. ';
+    var calc = 'Kugel, Beispiel: <b>Oberfläche ÷ Volumen = 6 ÷ d = 6 ÷ ' + d + ' µm = ' + OV[i] + ' pro µm</b>. ';
+    calc += i === 0 ? 'Ausgangspunkt für den Vergleich. ' : 'Gegenüber 1 µm ' + d + '-mal so breit. ';
     $('dorfCalc').innerHTML = calc + EX[i];
+    $('dorfDB').style.width = pct(15 + Math.log10(d) / 2 * 85);
+    $('dorfOB').style.width = pct(OVN[i] / 6 * 100);
+    $('dorfWB').style.width = pct(WEGN[i] / 50 * 100);
+    $('dorfHB').style.width = pct(Math.log10(HN[i]) / 6 * 100);
+    $('dorfIB').style.width = pct(Math.log10(IN[i]) / 6 * 100);
+    $('dorfHO').textContent = '\u00d7' + HUELLE[i];
+    $('dorfIO').textContent = '\u00d7' + INHALT[i];
     var lgB = $('dorfLgBak'), lgE = $('dorfLgEuk');
     lgB.querySelector('b').textContent = BAK[lb].word; lgB.querySelector('.dorf-ic').innerHTML = [ICON_LAGE.ok, ICON_LAGE.eng, ICON_LAGE.stop][lb];
     lgE.querySelector('b').textContent = EUK[le].word; lgE.querySelector('.dorf-ic').innerHTML = ICON_LAGE.ok;
@@ -5660,9 +5744,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 
   var TXT = {
     ways: {
-      pore: { b: ['Pore', 'Offene Straße'], s: ['folgt dem Gefälle', 'ohne Kontrolle'], i: ['kostet nichts', 'kostet nichts'], mech: ['Pore (Kanal)', 'Offene Straße'] },
-      pump: { b: ['Pumpe', 'Schleuse'], s: ['gegen das Gefälle', 'mit Motor'], i: ['kostet ATP', 'kostet Strom'], mech: ['Pumpe', 'Schleuse mit Motor'] },
-      gate: { b: ['Tor', 'Schranke'], s: ['öffnet auf Signal', 'mit Genehmigung'], i: ['braucht Signal', 'braucht Erlaubnis'], mech: ['Tor', 'Schranke'] }
+      pore: { b: ['Pore', 'Offene Straße'], i: ['kostet nichts', 'kostet nichts'], mech: ['Pore (Kanal)', 'Offene Straße'] },
+      pump: { b: ['Pumpe', 'Schleuse'], i: ['kostet ATP', 'kostet Strom'], mech: ['Pumpe', 'Schleuse mit Motor'] },
+      gate: { b: ['Tor', 'Schranke'], i: ['braucht Signal', 'braucht Erlaubnis'], mech: ['Tor', 'Schranke'] }
     },
     zo: ['außen', 'Ausland'], zi: ['innen', 'In der Stadt'], leak: ['Leck', 'Lücke'],
     tO: ['Außen', 'Ausland'], tI: ['Innen', 'In der Stadt'], tA: ['ATP-Verbrauch', 'Strom (ATP)'],
@@ -5672,6 +5756,17 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
             'Schema eines Grenzübergangs. Oben das Ausland, unten die Stadt, in der Mitte der Übergang. Wagen fahren zufällig hin und her, und je nach Weg gleicht sich der Stau aus oder wird mit Motor gegen den Strom gehalten.']
   };
 
+  var DET = {
+    pore: ['Pore: offen, ohne Antrieb', 'Eine Pore baut kein Gefälle auf, sie verbraucht es nur. Ohne Nachladen wäre es bald weg.',
+      'Teilchen bewegen sich zufällig, darum wandern mehr von voll nach leer. Am Ende sind beide Seiten gleich voll, das kostet nichts.',
+      'Mehr Wagen fahren hinüber als zurück, bis auf beiden Seiten gleich viel los ist.'],
+    pump: ['Pumpe: gegen das Gefälle', 'Hier hängt alles am ATP. Ohne ATP gleicht sich das Gefälle aus, etwa wenn das Kraftwerk ausfällt.',
+      'Die Pumpe schiebt Teilchen dorthin, wo schon viele sind, und spaltet dafür ATP. Die Membran ist nie ganz dicht, sie schiebt laufend nach.',
+      'Eine Schleuse mit Motor bringt Wagen dorthin, wo schon Stau ist, und braucht Strom. Jeder Zaun hat Lücken.'],
+    gate: ['Tor: erst Signal, dann durch', 'Ein Tor braucht kein ATP, nur ein Signal. Ohne Gefälle bringt ein offenes Tor nichts, das Gefälle bauen die Pumpen.',
+      'Ein Signal, etwa ein Botenstoff oder eine Spannung, öffnet das Tor kurz. Das Gefälle bestimmt die Richtung.',
+      'Eine Schranke mit Zollhäuschen. Mit Genehmigung geht sie hoch.']
+  };
   var way = 'pore', city = false, atp = true, gradIn = 50, gate = 'closed', gateUntil = 0;
   var parts = [], decoys = [], pumpLog = [], atpTotal = 0, pumpAcc = 0, sigT = 0;
   var cnt = { out: 0, inn: 0 }, eq = false, pumping = false, building = false, lastKey = '', lastRef = 0, last = 0, raf = 0, vis = true, evN = 0, sayT = null, lastPass = 0;
@@ -5881,26 +5976,26 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   function statement() {
     var c = ci();
     if (way === 'pore') return eq
-      ? ['Ausgeglichen. Es wandern weiter Teilchen hin und her, im Mittel aber gleich viele in beide Richtungen.', 'Ausgeglichen. Es fahren weiter Wagen hin und her, im Mittel aber gleich viele in beide Richtungen.'][c]
-      : ['Die Pore ist offen. Teilchen wandern von der vollen auf die leere Seite, das Gefälle sinkt.', 'Die Straße ist offen. Mehr Wagen fahren von der vollen auf die leere Seite als zurück, das Gefälle sinkt.'][c];
+      ? ['Ausgeglichen. Hin und her wandern gleich viele Teilchen.', 'Ausgeglichen. Hin und her fahren gleich viele Wagen.'][c]
+      : ['Teilchen wandern von voll nach leer, das Gefälle sinkt.', 'Wagen fahren von voll nach leer, das Gefälle sinkt.'][c];
     if (way === 'pump') {
       if (atp) {
-        if (gradIn < 5) return ['Kein Gefälle eingestellt, die Pumpe hat nichts zu tun.', 'Kein Gefälle eingestellt, die Schleuse hat nichts zu tun.'][c];
+        if (gradIn < 5) return ['Kein Gefälle, die Pumpe hat nichts zu tun.', 'Kein Gefälle, die Schleuse hat nichts zu tun.'][c];
         return building
           ? ['Die Pumpe arbeitet gegen das Gefälle und verbraucht ATP.', 'Die Schleuse hebt Wagen gegen das Gefälle und verbraucht Strom (ATP).'][c]
-          : ['Die Pumpe hält das Gefälle. Sie läuft nur so viel, wie durch kleine Lecks zurückfließt.', 'Die Schleuse hält das Gefälle. Sie läuft nur so viel, wie durch Lücken im Zaun zurückkommt.'][c];
+          : ['Die Pumpe hält das Gefälle und gleicht nur Lecks aus.', 'Die Schleuse hält das Gefälle und gleicht nur Lücken aus.'][c];
       }
       return eq
-        ? ['Das Gefälle ist weg. Ohne ATP konnte niemand es halten.', 'Das Gefälle ist weg. Ohne Strom konnte niemand es halten.'][c]
-        : ['Ohne ATP steht die Pumpe. Durch kleine Lecks gleicht sich das Gefälle aus.', 'Ohne Strom steht die Schleuse. Durch Lücken im Zaun gleicht sich das Gefälle aus.'][c];
+        ? ['Das Gefälle ist weg. Ohne ATP hielt es niemand.', 'Das Gefälle ist weg. Ohne Strom hielt es niemand.'][c]
+        : ['Ohne ATP steht die Pumpe, durch Lecks gleicht sich das Gefälle aus.', 'Ohne Strom steht die Schleuse, durch Lücken gleicht sich das Gefälle aus.'][c];
     }
     if (gate === 'sending') return ['Das Signal ist unterwegs.', 'Die Genehmigung ist unterwegs.'][c];
     if (gate === 'open') return eq
-      ? ['Das Tor ist offen, aber es gibt kaum noch Gefälle. Es wandert nur noch hin und her.', 'Die Schranke ist oben, aber es gibt kaum noch Gefälle. Es fährt nur noch hin und her.'][c]
+      ? ['Tor offen, aber kaum Gefälle. Es wandert nur hin und her.', 'Schranke oben, aber kaum Gefälle. Es fährt nur hin und her.'][c]
       : ['Das Tor ist offen. Was passt, wandert mit dem Gefälle.', 'Die Schranke ist oben. Wer Papiere hat, fährt mit dem Gefälle durch.'][c];
     return eq
-      ? ['Das Tor ist zu, und es gibt kaum Gefälle. Auch ein offenes Tor würde nichts bewegen.', 'Die Schranke ist unten, und es gibt kaum Gefälle. Auch eine offene Schranke würde nichts bewegen.'][c]
-      : ['Das Tor ist zu. Es wandert nichts durch, das Gefälle bleibt, bis ein Signal kommt.', 'Die Schranke ist unten. Ohne Genehmigung fährt nichts durch, das Gefälle bleibt.'][c];
+      ? ['Tor zu, kaum Gefälle. Auch ein offenes Tor bewegte nichts.', 'Schranke unten, kaum Gefälle. Auch eine offene Schranke bewegte nichts.'][c]
+      : ['Das Tor ist zu, das Gefälle bleibt bis zum Signal.', 'Die Schranke ist unten, das Gefälle bleibt ohne Genehmigung.'][c];
   }
   function numbers() {
     var c = ci();
@@ -5919,9 +6014,6 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       shownSay = t;
       el.textContent = '';
       el.appendChild(document.createTextNode(t));
-      var n = document.createElement('span');
-      n.className = 'n';
-      el.appendChild(n);
     }
     showNums();
     if (announce !== false) zq('zollLive').textContent = t + ' ' + numbers();
@@ -5953,7 +6045,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     var c = ci();
     ['pore', 'pump', 'gate'].forEach(function (w) {
       var b = document.querySelector('.zoll-wb[data-way="' + w + '"]'), t = TXT.ways[w];
-      b.querySelector('b').textContent = t.b[c]; b.querySelector('small').textContent = t.s[c]; b.querySelector('i').textContent = t.i[c];
+      b.querySelector('b').textContent = t.b[c]; b.querySelector('i').textContent = t.i[c];
     });
     zq('zollBandL').textContent = TXT.ways[way].mech[c];
     zq('zollZoL').textContent = TXT.zo[c]; zq('zollZiL').textContent = TXT.zi[c]; zq('zollLeakL').textContent = TXT.leak[c];
@@ -5961,9 +6053,11 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     zq('zollLgPt').textContent = TXT.lgP[c]; zq('zollLgFt').textContent = TXT.lgF[c];
     zq('zollWaysL').textContent = TXT.lbl[c];
     zq('zollSvgT').textContent = TXT.title[c];
+    var dt = DET[way];
+    zq('zollDetH').textContent = dt[0]; zq('zollDetA').textContent = dt[1]; zq('zollDetZ').textContent = dt[2]; zq('zollDetS').textContent = dt[3];
     zq('zollSigBtn').textContent = c ? 'Genehmigung erteilen' : 'Signal senden';
     zq('zollAtp').textContent = c ? 'Strom abschalten' : 'ATP abschalten';
-    zq('zollAtpH').textContent = c ? 'Der Strom-Schalter wirkt nur bei der Schleuse.' : 'Der ATP-Schalter wirkt nur bei der Pumpe.';
+    zq('zollAtpH').textContent = c ? 'Gefälle heißt: Auf einer Seite sind mehr Wagen. Der Strom-Schalter wirkt nur bei der Schleuse.' : 'Gefälle heißt: Auf einer Seite sind mehr Teilchen. Der ATP-Schalter wirkt nur bei der Pumpe.';
     zq('zollViewBio').setAttribute('aria-pressed', String(!city));
     zq('zollViewCity').setAttribute('aria-pressed', String(city));
     zq('zollGradL').textContent = way === 'pump' ? (c ? 'Gefälle, das die Schleuse halten soll' : 'Gefälle, das die Pumpe halten soll') : 'Gefälle zu Beginn';
@@ -5972,7 +6066,6 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   function setWay(w, silent) {
     way = w;
     document.querySelectorAll('.zoll-wb').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-way') === w)); });
-    ['pore', 'pump', 'gate'].forEach(function (k) { zq('zollDet-' + k).hidden = k !== w; });
     zq('zollSigBtn').hidden = w !== 'gate';
     gate = 'closed'; sig.setAttribute('display', 'none'); atpTotal = 0;
     svg.classList.remove('run');
@@ -6548,32 +6641,32 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 
   // ---- Ausfälle: Startpunkt, Stufen (Pfeile von, nach), Texte [Zelle, Stadt] ----
   var SW = ['kraft', 'abfuhr', 'zoll', 'archiv'];
-  var LINK = ' Dieselbe Logik für Düsseldorf: <a href="index.html#belonging">Du gehörst dazu</a>, wo eine Leitung die nächsten mitreißt.';
+  var LINK = ' Düsseldorf: <a href="index.html#belonging">Du gehörst dazu</a>.';
   var DEF = {
     kraft: {
       src: 'mito',
-      lbl: ['Mitochondrien aus', 'Stromausfall'], sub: ['Das Kraftwerk der Zelle', 'Das Kraftwerk steht still'],
+      lbl: ['Mitochondrien aus', 'Stromausfall'],
       title: ['Die Mitochondrien fallen aus', 'Stromausfall im Kraftwerk'],
       st: [
-        { e: [], t: ['Die Mitochondrien liefern kein ATP mehr, die Energiewährung der Zelle.', 'Das Kraftwerk liefert keinen Strom mehr.'] },
-        { e: [['mito', 'zoll'], ['mito', 'ribo']], t: ['Zoll und Ribosomen verlieren Energie. Die Pumpen an der Membran und der Eiweißbau brauchen ATP.', 'Zoll und Werkstätten verlieren Strom. Die Tore und die Maschinen stehen.'] },
-        { e: [['ribo', 'golgi']], t: ['Die Produktion stockt. Der Golgi-Apparat bekommt keine neuen Eiweiße zum Verpacken.', 'Die Produktion stockt. Das Paketzentrum bekommt keine Ware mehr.'] },
-        { e: [['golgi', 'lyso'], ['golgi', 'muell']], t: ['Der Müll staut sich. Auch das Lysosom braucht Energie, und Abfälle werden nicht mehr abgeführt.', 'Der Müll staut sich. Auch der Recyclinghof fährt ohne Strom nicht mehr.'] }
+        { e: [], t: ['Kein ATP mehr, die Energiewährung der Zelle.', 'Kein Strom mehr aus dem Kraftwerk.'] },
+        { e: [['mito', 'zoll'], ['mito', 'ribo']], t: ['Zoll und Ribosomen verlieren Energie.', 'Zoll und Werkstätten verlieren Strom.'] },
+        { e: [['ribo', 'golgi']], t: ['Die Produktion stockt, dem Golgi-Apparat fehlen Eiweiße.', 'Die Produktion stockt, dem Paketzentrum fehlt Ware.'] },
+        { e: [['golgi', 'lyso'], ['golgi', 'muell']], t: ['Der Müll staut sich, auch das Lysosom braucht Energie.', 'Der Müll staut sich, der Recyclinghof fährt ohne Strom nicht.'] }
       ],
-      cell: 'Mitochondrien machen den größten Teil des ATP. Fehlt es, bleiben Pumpen, Eiweißbau und Reparaturen ohne Antrieb.',
-      town: 'Das Kraftwerk liefert den Strom für die ganze Stadt. Steht es still, laufen Pumpen und Maschinen nicht mehr, auch wenn sonst alles heil ist.',
+      cell: 'Mitochondrien machen den größten Teil des ATP. Fehlt es, bleiben Pumpen an der Membran, Eiweißbau und Reparaturen ohne Antrieb.',
+      town: 'Das Kraftwerk liefert den Strom für die ganze Stadt. Steht es still, laufen Tore und Maschinen nicht mehr, auch wenn sonst alles heil ist.',
       aha: 'Wer ganz unten in der Kette liegt, reißt am meisten mit.',
       ex: ['Mitochondriopathien', 'Eine Gruppe seltener, meist genetisch bedingter Erkrankungen, bei denen die Energiegewinnung in den Mitochondrien gestört ist. Betroffen sind oft Organe mit hohem Energiebedarf, etwa Muskeln, Nerven, Herz und Gehirn. Verlauf und Schwere sind sehr verschieden.']
     },
     abfuhr: {
       src: 'lyso',
-      lbl: ['Lysosom aus', 'Müllstreik'], sub: ['Der Recyclinghof der Zelle', 'Die Müllabfuhr bleibt stehen'],
+      lbl: ['Lysosom aus', 'Müllstreik'],
       title: ['Das Lysosom fällt aus', 'Müllstreik'],
       st: [
-        { e: [], t: ['Das Lysosom zerlegt nichts mehr. Altes und Defektes bleibt liegen.', 'Die Müllabfuhr kommt nicht mehr, der Recyclinghof bleibt zu.'] },
-        { e: [['lyso', 'muell'], ['lyso', 'ribo']], t: ['Der Zellmüll bleibt liegen. Zugleich kommen keine Bausteine zurück, die Ribosomen haben weniger Material.', 'Der Müll bleibt liegen. Die Werkstätten bekommen kein Recycling-Material mehr.'] },
-        { e: [['ribo', 'mito']], t: ['Alte Mitochondrien werden nicht mehr aussortiert. Das Kraftwerk arbeitet schlechter.', 'Alte Kraftwerksblöcke werden nicht abgebaut. Das Kraftwerk leistet weniger.'] },
-        { e: [['mito', 'zoll'], ['mito', 'golgi']], t: ['Mit weniger Energie arbeiten auch Zoll und Golgi-Apparat langsamer. Die Zelle wird träge.', 'Mit weniger Strom arbeiten auch Zoll und Paketzentrum langsamer. Die Stadt wird träge.'] }
+        { e: [], t: ['Das Lysosom zerlegt nichts mehr, Altes bleibt liegen.', 'Die Müllabfuhr kommt nicht, der Recyclinghof bleibt zu.'] },
+        { e: [['lyso', 'muell'], ['lyso', 'ribo']], t: ['Müll bleibt liegen, den Ribosomen fehlen Bausteine.', 'Müll bleibt liegen, den Werkstätten fehlt Recycling-Material.'] },
+        { e: [['ribo', 'mito']], t: ['Alte Mitochondrien bleiben, das Kraftwerk arbeitet schlechter.', 'Alte Kraftwerksblöcke bleiben, das Kraftwerk leistet weniger.'] },
+        { e: [['mito', 'zoll'], ['mito', 'golgi']], t: ['Zoll und Golgi-Apparat werden langsamer, die Zelle träge.', 'Zoll und Paketzentrum werden langsamer, die Stadt träge.'] }
       ],
       cell: 'Im Lysosom werden Altes und Defektes in Bausteine zerlegt. Fällt es aus, bleibt der Abfall liegen, und die Bausteine kommen nicht zurück.',
       town: 'Die Müllabfuhr holt ab, was die Stadt nicht mehr braucht, und der Recyclinghof macht daraus wieder Rohstoff. Beim Streik bleibt beides liegen.',
@@ -6582,30 +6675,30 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     },
     zoll: {
       src: 'zoll',
-      lbl: ['Membrantransport aus', 'Zoll geschlossen'], sub: ['Das Tor in der Zellmembran', 'Das Stadttor bleibt zu'],
+      lbl: ['Membrantransport aus', 'Zoll geschlossen'],
       title: ['Der Membrantransport fällt aus', 'Der Zoll ist geschlossen'],
       st: [
-        { e: [], t: ['Die Tore in der Membran lassen nichts mehr durch. Es kommt nichts herein und nichts hinaus.', 'Das Stadttor bleibt zu. Es kommt nichts herein und nichts hinaus.'] },
-        { e: [['zoll', 'mito'], ['zoll', 'golgi']], t: ['Nachschub kommt nicht an, der Versand ist blockiert. Mitochondrien und Golgi-Apparat spüren es zuerst.', 'Keine Lieferung kommt an, keine fährt hinaus. Kraftwerk und Paketzentrum spüren es zuerst.'] },
-        { e: [['golgi', 'ribo'], ['golgi', 'muell']], t: ['Den Ribosomen fehlt Rohstoff, und Abfälle kommen nicht hinaus. Der Müll beginnt sich zu stauen.', 'Den Werkstätten fehlt Material, und der Abfall kommt nicht aus der Stadt. Der Müll beginnt sich zu stauen.'] },
-        { e: [['zoll', 'kern']], t: ['Signale von außen erreichen den Kern nicht mehr. Er bekommt keine Aufträge.', 'Aufträge von außen erreichen das Archiv nicht mehr. Es weiß nicht, was gebraucht wird.'] }
+        { e: [], t: ['Die Tore der Membran lassen nichts mehr durch.', 'Das Stadttor bleibt zu.'] },
+        { e: [['zoll', 'mito'], ['zoll', 'golgi']], t: ['Nachschub und Versand sind blockiert, Mitochondrien und Golgi-Apparat spüren es zuerst.', 'Lieferungen stehen, Kraftwerk und Paketzentrum spüren es zuerst.'] },
+        { e: [['golgi', 'ribo'], ['golgi', 'muell']], t: ['Den Ribosomen fehlt Rohstoff, Abfall kommt nicht hinaus, der Müll staut sich.', 'Den Werkstätten fehlt Material, Abfall kommt nicht hinaus, der Müll staut sich.'] },
+        { e: [['zoll', 'kern']], t: ['Signale von außen erreichen den Kern nicht mehr.', 'Aufträge von außen erreichen das Archiv nicht mehr.'] }
       ],
-      cell: 'Kanäle und Pumpen in der Membran lassen gezielt Stoffe herein und heraus. Fällt ein Transporter aus, stimmt die Bilanz zwischen innen und außen nicht mehr.',
+      cell: 'Kanäle und Pumpen in der Membran lassen gezielt Stoffe herein und heraus. Fällt ein Transporter aus, stimmt die Bilanz zwischen innen und außen nicht mehr. Es kommt nichts herein und nichts hinaus.',
       town: 'Der Zoll entscheidet, was in die Stadt darf und was sie verlässt. Bleibt das Tor zu, kommt nichts an und nichts hinaus.',
       aha: 'Innen ist nichts kaputt, und trotzdem läuft alles ins Leere. Eine Kette ist nur so stark wie ihr Tor.',
       ex: ['Mukoviszidose', 'Eine erbliche Erkrankung, bei der ein Kanal für Chlorid in der Zellmembran nicht richtig arbeitet. Salz- und Wassertransport sind gestört, der Schleim wird zäh, vor allem in Lunge und Verdauung. Hier fällt nur ein einzelnes Tor aus, der übrige Zoll arbeitet weiter.']
     },
     archiv: {
       src: 'kern',
-      lbl: ['Zellkern gestört', 'Archiv unlesbar'], sub: ['Der Bauplan ist nicht lesbar', 'Die Pläne sind unleserlich'],
+      lbl: ['Zellkern gestört', 'Archiv unlesbar'],
       title: ['Der Zellkern ist gestört', 'Das Archiv ist unlesbar'],
       st: [
-        { e: [], t: ['Der Bauplan im Kern lässt sich nicht mehr richtig lesen oder ist beschädigt.', 'Die Pläne im Archiv sind nicht mehr lesbar.'] },
-        { e: [['kern', 'ribo']], t: ['Die Ribosomen bekommen keine neuen Abschriften. Sie arbeiten mit dem Vorrat weiter.', 'Die Werkstätten bekommen keine neuen Baupläne. Sie arbeiten mit dem Vorrat weiter.'] },
-        { e: [['kern', 'zoll'], ['kern', 'lyso'], ['kern', 'golgi']], t: ['Ersatz fehlt: neue Kanäle für den Zoll, neue Enzyme fürs Lysosom, neue Teile für den Golgi-Apparat.', 'Ersatz fehlt: neue Tore für den Zoll, neue Geräte für den Recyclinghof, neue Teile fürs Paketzentrum.'] },
-        { e: [['ribo', 'mito'], ['golgi', 'muell']], t: ['Auch das Kraftwerk altert, denn viele seiner Bauteile stammen aus dem Plan im Kern. Der Müll wächst.', 'Auch das Kraftwerk verschleißt ohne Ersatzteile. Der Müll wächst.'] }
+        { e: [], t: ['Der Bauplan im Kern ist nicht lesbar oder beschädigt.', 'Die Pläne im Archiv sind nicht lesbar.'] },
+        { e: [['kern', 'ribo']], t: ['Keine neuen Abschriften, die Ribosomen leben vom Vorrat.', 'Keine neuen Baupläne, die Werkstätten leben vom Vorrat.'] },
+        { e: [['kern', 'zoll'], ['kern', 'lyso'], ['kern', 'golgi']], t: ['Ersatz fehlt: Kanäle, Enzyme und Golgi-Teile.', 'Ersatz fehlt: Tore, Geräte und Teile fürs Paketzentrum.'] },
+        { e: [['ribo', 'mito'], ['golgi', 'muell']], t: ['Das Kraftwerk altert, der Müll wächst.', 'Das Kraftwerk verschleißt, der Müll wächst.'] }
       ],
-      cell: 'Im Kern liegt der Bauplan. Ist er nicht lesbar oder beschädigt, entstehen keine richtigen Abschriften, und Ersatzteile lassen sich nicht nachbauen.',
+      cell: 'Im Kern liegt der Bauplan. Ist er nicht lesbar oder beschädigt, entstehen keine richtigen Abschriften, und Ersatzteile lassen sich nicht nachbauen. Auch viele Bauteile des Kraftwerks stammen aus diesem Plan.',
       town: 'Das Archiv hält die Pläne für alles, was die Stadt baut. Sind sie unleserlich, kann niemand mehr nachbauen oder reparieren.',
       aha: 'Dieser Ausfall fällt zuletzt auf. Die Stadt lebt erst vom Vorrat und merkt es, wenn Ersatz nötig wird.',
       ex: ['Defekte der DNA-Reparatur und der Kernhülle', 'Zwei verschiedene Gruppen seltener Erkrankungen. Bei Xeroderma pigmentosum werden UV-Schäden an der DNA schlecht repariert, bei Laminopathien ist die Kernhülle gestört. Die Ursachen sind genetisch, und die Krankheitsbilder unterscheiden sich stark.']
@@ -6702,10 +6795,16 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 
   // ---- Schalter und Zustandsleiste ----
   var swEl = q('ausSw'), chipsEl = q('ausChips'), swBtns = {}, chipEls = {}, swTag = {};
+  var SWIC = {
+    kraft: '<svg class="aus-ic" viewBox="-30 -22 60 44" aria-hidden="true" focusable="false"><ellipse rx="25" ry="14" fill="#4A3A14" stroke="#F2C46B" stroke-width="2.5"/><path d="M-15 -8 V3 M-5 9 V-3 M5 -9 V3 M15 8 V-3" fill="none" stroke="#F2C46B" stroke-width="2.2" stroke-linecap="round" opacity="0.8"/></svg>',
+    abfuhr: '<svg class="aus-ic" viewBox="-30 -22 60 44" aria-hidden="true" focusable="false"><circle r="17" fill="#4A2A20" stroke="#FF8A65" stroke-width="2.5"/><circle cx="-6" cy="-5" r="3.4" fill="#FF8A65" opacity="0.8"/><circle cx="6" cy="-6" r="3.4" fill="#FF8A65" opacity="0.8"/><circle cx="4" cy="6" r="3.4" fill="#FF8A65" opacity="0.8"/><circle cx="-6" cy="7" r="3.4" fill="#FF8A65" opacity="0.8"/></svg>',
+    zoll: '<svg class="aus-ic" viewBox="-30 -22 60 44" aria-hidden="true" focusable="false"><rect x="-7" y="-21" width="14" height="17" rx="4" fill="#2F6F55" stroke="#7FD9A8" stroke-width="2.2"/><rect x="-7" y="4" width="14" height="17" rx="4" fill="#2F6F55" stroke="#7FD9A8" stroke-width="2.2"/><path d="M-24 0 H24" stroke="#7FD9A8" stroke-width="2" stroke-dasharray="4 4" opacity="0.6"/></svg>',
+    archiv: '<svg class="aus-ic" viewBox="-30 -22 60 44" aria-hidden="true" focusable="false"><circle r="18" fill="#2D2750" stroke="#B39DDB" stroke-width="2.5"/><circle cx="-5" cy="-3" r="7" fill="#B39DDB" opacity="0.55"/><circle cx="8" cy="6" r="2.6" fill="#B39DDB" opacity="0.8"/></svg>'
+  };
   SW.forEach(function (k) {
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'aus-swb'; b.setAttribute('aria-pressed', 'false');
-    b.innerHTML = '<b></b><small></small><i></i>';
+    b.innerHTML = SWIC[k] + '<b></b><i></i>';
     swEl.appendChild(b); swBtns[k] = b;
     b.addEventListener('click', function () { toggle(k); });
   });
@@ -6756,7 +6855,6 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       var b = swBtns[k], d = DEF[k];
       b.setAttribute('aria-pressed', String(on[k]));
       b.querySelector('b').textContent = d.lbl[c];
-      b.querySelector('small').textContent = d.sub[c];
       b.querySelector('i').textContent = on[k] ? (c ? 'steht still' : 'ausgefallen') : 'läuft';
     });
     var f = order.length ? order[order.length - 1] : null;
@@ -6806,7 +6904,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     var c = ci();
     if (!on[k]) {
       on[k] = true; prog[k] = 0; order.push(k);
-      say(DEF[k].title[c] + ': ' + DEF[k].st[0].t[c] + (reduce ? ' Mit „Nächste Stufe“ siehst du die Folgen.' : ' Die Folgen kommen Stufe für Stufe.'));
+      say(DEF[k].title[c] + ': ' + DEF[k].st[0].t[c] + (reduce ? ' Weiter mit „Nächste Stufe“.' : ' Die Folgen kommen in Stufen.'));
       emit('on', SW.indexOf(k));
     } else {
       on[k] = false; prog[k] = 0; order = order.filter(function (x) { return x !== k; });
