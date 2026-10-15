@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wenn etwas ausfällt · Prototyp</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+:root{
+  --bg:#E9EEEA; --ink:#1D2B2F; --muted:#5C6B6E; --line:#A7B3B1; --ghost:#C9D2CF;
+  --kult:#B9832A; --digi:#5563BF; --phys:#2C7A82; --bio:#56903F; --fail:#A8432E;
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans:'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#141C1F; --ink:#E3EBE9; --muted:#93A3A3; --line:#4D5D5F; --ghost:#2B383B;
+    --kult:#D9A64A; --digi:#8590E6; --phys:#4FA9B1; --bio:#7DBB63; --fail:#E0735A; }
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:var(--sans);font-size:17px;line-height:1.5;
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--digi);outline-offset:3px;border-radius:4px}
+
+.wrap{display:grid;grid-template-columns:150px minmax(0,600px);gap:48px;
+  justify-content:center;padding:48px 24px 80px}
+.back{font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{text-decoration:underline}
+
+.rail{position:sticky;top:48px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.band{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);
+  padding:10px 0 10px 12px;border-left:4px solid var(--ghost);transition:color .3s,border-color .3s}
+.band.on{color:var(--ink);border-left-color:var(--fail)}
+
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);
+  line-height:1.1;margin:18px 0 22px;letter-spacing:-.01em}
+
+.stage{margin-top:8px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+
+.result{font-family:var(--serif);font-size:20px;line-height:1.35;margin:10px 0 0;min-height:1.35em}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{font:inherit;font-size:14px;cursor:pointer;color:var(--muted);background:none;
+  border:1.5px dashed var(--line);border-radius:999px;padding:5px 13px}
+.btn[aria-pressed=true]{border-style:solid;border-color:var(--phys);color:var(--ink)}
+.btn[hidden]{display:none}
+.note{font-size:15px;color:var(--muted);margin:10px 0 0;max-width:46ch}
+.note[hidden]{display:none}
+
+/* SVG */
+.bandbg{opacity:.07;pointer-events:none}
+.bandlbl,.edge{pointer-events:none}
+.bandlbl{font-family:var(--sans);font-size:12px;fill:var(--muted);letter-spacing:.04em}
+.edge{fill:none;stroke:var(--line);stroke-width:1.2;opacity:.55;transition:stroke .3s,opacity .3s,stroke-width .3s}
+.edge.hot{stroke:var(--fail);opacity:1;stroke-width:2}
+.edge.cov{stroke:var(--phys);opacity:.9;stroke-dasharray:4 4}
+.node{cursor:pointer}
+.node .c{fill:var(--c);stroke:var(--bg);stroke-width:3;transition:fill .3s}
+.node text{font-family:var(--sans);font-size:16px;fill:var(--ink);text-anchor:middle;transition:fill .3s;
+  paint-order:stroke;stroke:var(--bg);stroke-width:5px;stroke-linejoin:round}
+.node:focus{outline:none}
+.node:focus-visible .c{stroke:var(--ink)}
+.node .res{fill:none;stroke:var(--phys);stroke-width:2;stroke-dasharray:3 3;opacity:0;transition:opacity .3s}
+.reserves .node.hasres .res{opacity:.8}
+.node.down .c{fill:var(--fail)}
+.node.down text{fill:var(--muted)}
+.node.origin .c{fill:var(--fail)}
+.node.origin text{fill:var(--fail);font-weight:600}
+.node.held .res{opacity:1;stroke-dasharray:none}
+.ripple{fill:none;stroke:var(--fail);stroke-width:2;opacity:0}
+.node.down .ripple{animation:rip .7s ease-out}
+@keyframes rip{from{opacity:.9;r:9}to{opacity:0;r:28}}
+.hint .node .c{animation:breathe 2.4s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.55}}
+
+@media (max-width:760px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:0;padding:24px 16px 64px}
+  .rail{position:sticky;top:0;z-index:2;flex-direction:row;gap:4px;background:var(--bg);padding:10px 0 8px}
+  .band{flex:1;border-left:0;border-top:4px solid var(--ghost);padding:6px 0 0;font-size:12px;justify-content:center}
+  .band.on{border-top-color:var(--fail)}
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="rail" aria-label="Betroffene Ebenen, von oben nach unten">
+    <div class="band" data-e="kult">Kulturell</div>
+    <div class="band" data-e="digi">Digital</div>
+    <div class="band" data-e="phys">Physisch</div>
+    <div class="band" data-e="bio">Biologisch</div>
+  </nav>
+
+  <main>
+    <a class="back" href="../index.html">Zur Startseite</a>
+    <h1>Was fällt mit aus?</h1>
+
+    <div class="stage">
+      <svg id="svg" class="hint" role="group" aria-label="Netz der Abhängigkeiten. Tippe auf etwas, um es ausfallen zu lassen."></svg>
+      <p class="result" id="result" aria-live="polite">Tippe auf einen Punkt.</p>
+      <div class="controls">
+        <button class="btn" id="res" aria-pressed="false">Zeig mir die Reserven</button>
+        <button class="btn" id="reset" hidden>Alles wieder an</button>
+      </div>
+      <p class="note" id="note" hidden>Notstrom, Akkus und Vorräte halten vieles am Laufen, aber meist nur Stunden bis wenige Tage. Danach hängt es wieder an derselben Kette.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+// Ebenen von oben nach unten, wie auf der Seite
+const BANDS = [
+  {e:'kult', y:60,  l:'KULTURELL'},
+  {e:'digi', y:170, l:'DIGITAL'},
+  {e:'phys', y:280, l:'PHYSISCH'},
+  {e:'bio',  y:390, l:'BIOLOGISCH'}
+];
+// needs = was dieser Punkt braucht; res = Abhängigkeiten, die eine Reserve überbrückt
+const NODES = [
+  {id:'arbeit',    l:'Arbeit',        e:'kult', x:150,  needs:['internet','verkehr','schule','gesund'], res:['schule']},
+  {id:'schule',    l:'Schule',        e:'kult', x:390, needs:['heizung','wasser','verkehr']},
+  {id:'einkauf',   l:'Einkaufen',     e:'kult', x:270, needs:['zahlung','verkehr','nahrung','arbeit']},
+  {id:'notruf',    l:'Notruf',        e:'kult', x:500, needs:['mobil']},
+  {id:'internet',  l:'Internet',      e:'digi', x:170,  needs:['strom']},
+  {id:'zahlung',   l:'Kartenzahlung', e:'digi', x:290, needs:['internet']},
+  {id:'mobil',     l:'Mobilfunk',     e:'digi', x:470, needs:['strom'], res:['strom']},
+  {id:'ampeln',    l:'Ampeln',        e:'digi', x:60, needs:['strom']},
+  {id:'verkehr',   l:'Verkehr',       e:'phys', x:60,  needs:['ampeln']},
+  {id:'heizung',   l:'Heizung',       e:'phys', x:170, needs:['strom']},
+  {id:'strom',     l:'Strom',         e:'phys', x:280, needs:[]},
+  {id:'wasser',    l:'Wasserwerk',    e:'phys', x:375, needs:['strom','rhein'], res:['strom']},
+  {id:'klinik',    l:'Krankenhaus',   e:'phys', x:500, needs:['strom','wasser','arbeit'], res:['strom','wasser']},
+  {id:'nahrung',   l:'Nahrung',       e:'bio',  x:120, needs:['verkehr','strom','einkauf'], res:['strom']},
+  {id:'gesund',    l:'Gesundheit',    e:'bio',  x:330, needs:['wasser','klinik','nahrung','notruf']},
+  {id:'rhein',     l:'Rhein',         e:'bio',  x:480, needs:[]}
+];
+
+const NS = 'http://www.w3.org/2000/svg';
+const $ = id => document.getElementById(id);
+const svg = $('svg'), result = $('result'), resBtn = $('res'), resetBtn = $('reset'), note = $('note');
+const rail = [...document.querySelectorAll('.band')];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const byId = Object.fromEntries(NODES.map(n => [n.id, n]));
+const yOf = n => BANDS.find(b => b.e === n.e).y;
+let origin = null, runId = 0, reserves = false;
+
+function el(tag, attrs, parent){
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+
+function build(){
+  svg.setAttribute('viewBox', '0 0 560 450');
+  BANDS.forEach(b => {
+    el('rect', {class:'bandbg', x:0, y:b.y - 52, width:560, height:104, rx:10, fill:`var(--${b.e})`}, svg);
+    const t = el('text', {class:'bandlbl', x:6, y:b.y - 38}, svg); t.textContent = b.l;
+  });
+  // Kanten: von dem, was gebraucht wird, zu dem, was es braucht
+  NODES.forEach(n => n.needs.forEach(d => {
+    const a = byId[d], ax = a.x, ay = yOf(a), bx = n.x, by = yOf(n);
+    const mx = (ax + bx) / 2 + (ay === by ? 0 : (bx - ax) * 0.15), my = (ay + by) / 2 + (ay === by ? -Math.abs(bx - ax) * 0.25 : 0);
+    el('path', {class:'edge', id:`e-${d}-${n.id}`, d:`M${ax},${ay} Q${mx},${my} ${bx},${by}`}, svg);
+  }));
+  NODES.forEach(n => {
+    const y = yOf(n);
+    const g = el('g', {class:'node' + (n.res ? ' hasres' : ''), id:`n-${n.id}`, tabindex:0, role:'button',
+      'aria-label':`${n.l} ausfallen lassen`}, svg);
+    g.style.setProperty('--c', `var(--${n.e})`);
+    el('rect', {x:n.x - 48, y:y - 22, width:96, height:64, fill:'transparent'}, g);
+    el('circle', {class:'res', cx:n.x, cy:y, r:16}, g);
+    el('circle', {class:'ripple', cx:n.x, cy:y, r:9}, g);
+    el('circle', {class:'c', cx:n.x, cy:y, r:10}, g);
+    const t = el('text', {x:n.x, y:y + 32}, g); t.textContent = n.l;
+    const go = () => fail(n.id);
+    g.addEventListener('click', go);
+    g.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); go(); }});
+  });
+}
+
+// Welle für Welle: wer etwas braucht, das ausgefallen ist, fällt mit aus
+function cascade(start){
+  const down = new Set([start]), held = new Set(), waves = [[start]], hot = [], cov = [];
+  let wave = [start];
+  while (wave.length){
+    const next = [];
+    NODES.forEach(n => {
+      if (down.has(n.id)) return;
+      n.needs.forEach(d => {
+        if (!wave.includes(d)) return;
+        if (reserves && n.res && n.res.includes(d)){ held.add(n.id); cov.push(`e-${d}-${n.id}`); return; }
+        hot.push({edge:`e-${d}-${n.id}`, w:waves.length});
+        if (!next.includes(n.id)) next.push(n.id);
+      });
+    });
+    next.forEach(id => { down.add(id); held.delete(id); });
+    if (next.length) waves.push(next);
+    wave = next;
+  }
+  return {down, held, waves, hot, cov};
+}
+
+function clear(){
+  svg.querySelectorAll('.node').forEach(g => g.classList.remove('down', 'origin', 'held'));
+  svg.querySelectorAll('.edge').forEach(p => p.classList.remove('hot', 'cov'));
+  rail.forEach(b => b.classList.remove('on'));
+}
+
+async function fail(id){
+  const my = ++runId;
+  origin = id;
+  svg.classList.remove('hint');
+  clear();
+  const r = cascade(id);
+  const step = reduce ? 0 : 380;
+  for (let w = 0; w < r.waves.length; w++){
+    if (my !== runId) return;
+    r.waves[w].forEach(nid => {
+      const g = $(`n-${nid}`);
+      g.classList.add('down');
+      if (w === 0) g.classList.add('origin');
+      rail.find(b => b.dataset.e === byId[nid].e).classList.add('on');
+    });
+    r.hot.filter(h => h.w === w + 1).forEach(h => $(h.edge).classList.add('hot'));
+    if (w < r.waves.length - 1 && step) await new Promise(res => setTimeout(res, step));
+  }
+  if (my !== runId) return;
+  r.cov.forEach(c => $(c).classList.add('cov'));
+  r.held.forEach(nid => $(`n-${nid}`).classList.add('held'));
+  const others = r.down.size - 1;
+  let msg = others === 0
+    ? `${byId[id].l} fällt aus. Sonst fällt nichts mit aus.`
+    : `${byId[id].l} fällt aus. ${others} ${others === 1 ? 'weiteres Ding steht' : 'weitere Dinge stehen'} still.`;
+  if (reserves && r.held.size) msg += ` ${r.held.size} ${r.held.size === 1 ? 'hält' : 'halten'} vorerst durch.`;
+  result.textContent = msg;
+  resetBtn.hidden = false;
+}
+
+resBtn.addEventListener('click', () => {
+  reserves = !reserves;
+  svg.classList.toggle('reserves', reserves);
+  resBtn.setAttribute('aria-pressed', String(reserves));
+  resBtn.textContent = reserves ? 'Ohne Reserven' : 'Zeig mir die Reserven';
+  note.hidden = !reserves;
+  if (origin) fail(origin);
+});
+resetBtn.addEventListener('click', () => {
+  runId++; origin = null; clear();
+  result.textContent = 'Tippe auf einen Punkt.';
+  resetBtn.hidden = true;
+});
+
+build();
+</script>
+</body>
+</html>

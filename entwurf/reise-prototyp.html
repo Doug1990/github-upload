@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deine Reise · Prototyp</title>
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+:root{
+  --bg:#E9EEEA; --ink:#1D2B2F; --muted:#5C6B6E; --line:#A7B3B1; --ghost:#C9D2CF;
+  --kult:#B9832A; --digi:#5563BF; --phys:#2C7A82; --bio:#56903F;
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans:'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#141C1F; --ink:#E3EBE9; --muted:#93A3A3; --line:#4D5D5F; --ghost:#2B383B;
+    --kult:#D9A64A; --digi:#8590E6; --phys:#4FA9B1; --bio:#7DBB63; }
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:var(--sans);font-size:17px;line-height:1.5;
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--digi);outline-offset:3px;border-radius:4px}
+
+.wrap{display:grid;grid-template-columns:150px minmax(0,560px);gap:48px;
+  justify-content:center;padding:48px 24px 80px}
+.back{font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{text-decoration:underline}
+
+/* Tiefenleiste: Legende und Orientierung zugleich */
+.rail{position:sticky;top:48px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.band{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);
+  padding:10px 0 10px 12px;border-left:4px solid var(--ghost);transition:color .3s,border-color .3s}
+.band.on{color:var(--ink);border-left-color:var(--c)}
+.band[data-e=kult]{--c:var(--kult)} .band[data-e=digi]{--c:var(--digi)}
+.band[data-e=phys]{--c:var(--phys)} .band[data-e=bio]{--c:var(--bio)}
+
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);
+  line-height:1.1;margin:18px 0 22px;letter-spacing:-.01em}
+
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{font:inherit;font-size:15px;border:1.5px solid var(--line);background:transparent;
+  color:var(--ink);padding:7px 15px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.go{font:inherit;font-size:15px;font-weight:600;margin-left:auto;border:0;cursor:pointer;
+  background:var(--phys);color:#fff;padding:9px 20px;border-radius:999px;position:relative}
+.go.hint::after{content:"";position:absolute;inset:-5px;border-radius:999px;
+  border:2px solid var(--phys);animation:pulse 1.8s ease-out infinite}
+@keyframes pulse{from{opacity:.8;transform:scale(1)}to{opacity:0;transform:scale(1.15)}}
+.skip{font:inherit;font-size:14px;background:none;border:0;color:var(--muted);
+  text-decoration:underline;cursor:pointer;padding:4px}
+.skip[hidden]{display:none}
+
+.stage{margin-top:20px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+
+.endline{font-family:var(--serif);font-size:20px;line-height:1.35;margin:4px 0 0;min-height:1.35em;opacity:0;transition:opacity .45s .3s}
+.endline.on{opacity:1}
+.why{font:inherit;font-size:14px;margin-top:4px;background:none;cursor:pointer;color:var(--muted);
+  border:1.5px dashed var(--line);border-radius:999px;padding:5px 13px}
+.why[hidden]{display:none}
+.whytext{font-size:15px;color:var(--muted);margin:10px 0 0;max-width:46ch}
+
+/* SVG-Elemente */
+.main{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.ghostline{fill:none;stroke:var(--ghost);stroke-width:3;stroke-dasharray:2 7;stroke-linecap:round}
+.st circle{fill:var(--ghost);stroke:var(--bg);stroke-width:3;transition:fill .4s,r .4s}
+.st text{font-family:var(--sans);font-size:15px;fill:var(--ink);opacity:0;transition:opacity .4s}
+.st.on circle{fill:var(--c)}
+.st.on text{opacity:1}
+.st.you circle{fill:var(--bg);stroke:var(--ghost);stroke-width:3}
+.st.you.on circle{stroke:var(--ink);stroke-width:4}
+.st.you text{font-family:var(--serif);font-size:19px;font-weight:600}
+.st .det, .st.you .det{font-family:var(--sans);font-size:14px;font-weight:400;fill:var(--muted)}
+.st .endtxt, .st.you .endtxt{font-family:var(--serif);font-size:16px;font-weight:400;fill:var(--ink);opacity:0;transition:opacity .45s .3s}
+.net .extra.fx{opacity:0}
+.net.full .extra.fx{opacity:1}
+.net .branch.fx{stroke-dashoffset:1}
+.net.full .branch.fx{stroke-dashoffset:0}
+.dot{fill:var(--ink)}
+
+.extra, .ret, .retnode{opacity:0;transition:opacity .45s}
+.extra circle{fill:var(--c)}
+.extra text, .retnode text{font-family:var(--sans);font-size:13px;fill:var(--muted);text-anchor:middle}
+.branch{fill:none;stroke:var(--c);stroke-width:1.5;opacity:.7;
+  stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .6s ease}
+.ret{fill:none;stroke:var(--phys);stroke-width:1.5;stroke-dasharray:5 6}
+.retnode circle{fill:var(--bg);stroke:var(--phys);stroke-width:2}
+.net .extra,.net .ret,.net .retnode{opacity:1}
+.net .branch{stroke-dashoffset:0}
+.net .main{stroke-width:2;transition:stroke-width .8s}
+
+@media (max-width:760px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:0;padding:24px 16px 64px}
+  .rail{position:sticky;top:0;z-index:2;flex-direction:row;gap:4px;background:var(--bg);
+    padding:10px 0 8px;order:0}
+  .band{flex:1;border-left:0;border-top:4px solid var(--ghost);padding:6px 0 0;font-size:12px;justify-content:center}
+  .band.on{border-top-color:var(--c)}
+  .go{margin-left:0}
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="rail" aria-label="Ebenen, von oben nach unten">
+    <div class="band" data-e="kult">Kulturell</div>
+    <div class="band" data-e="digi">Digital</div>
+    <div class="band" data-e="phys">Physisch</div>
+    <div class="band" data-e="bio">Biologisch</div>
+  </nav>
+
+  <main>
+    <a class="back" href="../index.html">Zur Startseite</a>
+    <h1 id="titel">Wie kommt das Wasser zu dir?</h1>
+
+    <div class="controls" role="group" aria-label="Was soll zu dir kommen?">
+      <button class="chip" data-cat="wasser" aria-pressed="true">Wasser</button>
+      <button class="chip" data-cat="strom" aria-pressed="false">Strom</button>
+      <button class="chip" data-cat="broetchen" aria-pressed="false">Brötchen</button>
+      <button class="go hint" id="go">Losschicken</button>
+    </div>
+
+    <div class="stage">
+      <svg id="svg" role="img" aria-labelledby="titel"></svg>
+            <p class="endline" id="endline"></p>
+      <button class="why" id="why" aria-expanded="false">Zeig mir den gesamten Prozess</button>
+      <p class="whytext" id="whytext" hidden></p>
+    </div>
+  </main>
+</div>
+
+<script>
+const DATA = {
+  wasser: {
+    titel: 'Wie kommt das Wasser zu dir?',
+    st: [
+      {l:'Rhein', e:'bio', t:'Der Fluss füllt das Grundwasser am Ufer.'},
+      {l:'Brunnen am Ufer', e:'phys', t:'Kies und Sand filtern es auf dem Weg in die Brunnen.'},
+      {l:'Wasserwerk', e:'phys', t:'Hier wird es weiter aufbereitet.'},
+      {l:'Labor', e:'kult', t:'Menschen prüfen es nach festen Regeln.'},
+      {l:'Leitstelle', e:'digi', t:'Messwerte zeigen, wo Druck fehlt.'},
+      {l:'Rohrnetz', e:'phys', t:'Leitungen unter jeder Straße.'},
+      {l:'Dein Hahn', e:'you', t:'Aufdrehen, und es läuft.'}
+    ],
+    ex: [
+      {l:'Strom für Pumpen', e:'phys', at:1.5, to:2, also:[1,5]},
+      {l:'Trinkwasserregeln', e:'kult', at:2.6, to:3, also:[2]},
+      {l:'Hochbehälter', e:'phys', at:4.4, to:5, also:[4]},
+      {l:'Bereitschaftsdienst', e:'kult', at:5.6, to:5, also:[2]}
+    ],
+    full: [
+      {l:'Zweites Wasserwerk', e:'phys', at:0.6, to:[0,2]},
+      {l:'Notstrom', e:'phys', at:3.5, to:[2,4]}
+    ],
+    ret: 'Abwasser, Klärwerk',
+    end: 'Eigentlich ist es ein Netz und keine Linie.',
+    why: 'Die sieben Stationen sind eine Auswahl. In Wirklichkeit gibt es Zweige, Reserven und Rückläufe, und vieles hängt an mehreren Stellen zugleich.'
+  },
+  strom: {
+    titel: 'Wie kommt der Strom zu dir?',
+    st: [
+      {l:'Kraftwerke', e:'phys', t:'Hier wird Strom erzeugt, aus mehreren Quellen zugleich.'},
+      {l:'Hochspannung', e:'phys', t:'Über weite Strecken, mit wenig Verlust.'},
+      {l:'Netzleitstelle', e:'digi', t:'Rund um die Uhr wird Angebot und Bedarf ausgeglichen.'},
+      {l:'Umspannwerk', e:'phys', t:'Die Spannung wird heruntergesetzt.'},
+      {l:'Ortsnetzstation', e:'phys', t:'Der kleine Kasten in deiner Straße.'},
+      {l:'Zähler', e:'digi', t:'Er misst, was bei dir ankommt.'},
+      {l:'Deine Steckdose', e:'you', t:'Einstecken, und es läuft.'}
+    ],
+    ex: [
+      {l:'Wetterprognose', e:'digi', at:0.6, to:0, also:[2]},
+      {l:'Speicher', e:'phys', at:1.6, to:2, also:[4]},
+      {l:'Strommarkt', e:'kult', at:2.6, to:2, also:[0]},
+      {l:'Bereitschaftsdienst', e:'kult', at:4.5, to:4, also:[3]}
+    ],
+    full: [
+      {l:'Reservekraftwerk', e:'phys', at:3.5, to:[2,3]},
+      {l:'Verbundnetz Europa', e:'phys', at:5.5, to:[1,3]}
+    ],
+    ret: 'Solar vom Dach',
+    end: 'Eigentlich ist es ein Netz und keine Linie.',
+    why: 'Strom fließt nicht nacheinander durch Stationen. Viele Quellen speisen gleichzeitig ein, und manche Dächer liefern zurück ins Netz.'
+  },
+  broetchen: {
+    titel: 'Wie kommt das Brötchen zu dir?',
+    st: [
+      {l:'Feld', e:'bio', t:'Weizen wächst mit Boden, Regen und Sonne.'},
+      {l:'Mühle', e:'phys', t:'Aus Korn wird Mehl.'},
+      {l:'Lastwagen', e:'phys', t:'Nachts unterwegs, damit morgens alles da ist.'},
+      {l:'Bäckerei um drei Uhr', e:'kult', t:'Jemand steht auf, während du schläfst.'},
+      {l:'Hefe im Teig', e:'bio', t:'Lebende Zellen lassen den Teig aufgehen.'},
+      {l:'Kasse', e:'digi', t:'Bezahlen, oft ohne Bargeld.'},
+      {l:'Dein Frühstück', e:'you', t:'Aufschneiden und los.'}
+    ],
+    ex: [
+      {l:'Wetter', e:'bio', at:0.5, to:0, also:[2]},
+      {l:'Lebensmittelaufsicht', e:'kult', at:2.5, to:3, also:[1]},
+      {l:'Strom für den Ofen', e:'phys', at:3.5, to:3, also:[1,5]},
+      {l:'Wasser', e:'phys', at:4.6, to:4}
+    ],
+    full: [
+      {l:'Weitere Felder', e:'bio', at:1.5, to:[1]},
+      {l:'Lager und Kühlung', e:'phys', at:5.5, to:[2,6]}
+    ],
+    ret: 'Reste, Biotonne',
+    end: 'Eigentlich ist es ein Netz und keine Linie.',
+    why: 'Hinter jeder Station stehen weitere Betriebe, Leitungen und Menschen. Und was übrig bleibt, geht wieder zurück in den Kreislauf.'
+  }
+};
+
+const $ = id => document.getElementById(id);
+const svg = $('svg'), go = $('go'), why = $('why'), whytext = $('whytext');
+const bands = [...document.querySelectorAll('.band')];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const NS = 'http://www.w3.org/2000/svg';
+const X = 200, XE = 80, STEP = 86, TOP = 40;
+let cat = 'wasser', runId = 0, state = 'idle';
+
+const yAt = i => TOP + i * STEP;
+const col = e => e === 'you' ? 'var(--ink)' : `var(--${e})`;
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+function el(tag, attrs, parent){
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function text(parent, x, y, s, extra = {}){
+  const t = el('text', {x, y, ...extra}, parent); t.textContent = s; return t;
+}
+
+function wrap(str, max){
+  const out = []; let cur = '';
+  str.split(' ').forEach(w => {
+    if (cur && (cur + ' ' + w).length > max){ out.push(cur); cur = w; }
+    else cur = cur ? cur + ' ' + w : w;
+  });
+  if (cur) out.push(cur);
+  return out;
+}
+
+function setRail(e){
+  bands.forEach(b => b.classList.toggle('on', e === 'all' || b.dataset.e === e));
+}
+
+function render(){
+  const d = DATA[cat], n = d.st.length, y0 = yAt(0), yn = yAt(n - 1);
+  $('titel').textContent = d.titel;
+  svg.innerHTML = '';
+  svg.classList.remove('net', 'full');
+  svg.setAttribute('viewBox', `-50 0 500 ${yn + 60}`);
+
+  // Rücklauf: vom Ende außen herum zurück zum Anfang
+  const L = -20, B = yn + 36;
+  el('path', {class:'ret', d:`M${X},${yn + 16} Q${X},${B} ${X - 24},${B} L${L + 30},${B} Q${L},${B} ${L},${B - 30} L${L},${y0 + 30} Q${L},${y0} ${L + 30},${y0} L${X - 16},${y0}`}, svg);
+  const rg = el('g', {class:'retnode'}, svg);
+  const ry = (y0 + yn) / 2;
+  el('circle', {cx:L, cy:ry, r:6}, rg);
+  text(rg, L - 14, ry, d.ret, {transform:`rotate(-90 ${L - 14} ${ry})`});
+
+  // Zweige
+  d.ex.forEach((x, i) => {
+    const ye = TOP + x.at * STEP, ys = yAt(x.to);
+    const p = el('path', {class:'branch', pathLength:1,
+      d:`M${XE},${ye} Q${(XE + X) / 2},${ye} ${X},${ys}`}, svg);
+    p.style.setProperty('--c', col(x.e));
+    p.style.transitionDelay = (0.12 * i) + 's';
+  });
+  d.ex.forEach((x, i) => {
+    const ye = TOP + x.at * STEP;
+    const g = el('g', {class:'extra'}, svg);
+    g.style.setProperty('--c', col(x.e));
+    g.style.transitionDelay = (0.12 * i + 0.2) + 's';
+    el('circle', {cx:XE, cy:ye, r:7}, g);
+    text(g, XE, ye + 24, x.l);
+  });
+
+  // Gesamter Prozess: weitere Abhängigkeiten und Reserven
+  const branch = (ye, ys, e, cls, delay) => {
+    const p = el('path', {class:'branch ' + cls, pathLength:1,
+      d:`M${XE},${ye} Q${(XE + X) / 2},${ye} ${X},${ys}`}, svg);
+    p.style.setProperty('--c', col(e)); p.style.transitionDelay = delay + 's';
+  };
+  let k = 0;
+  d.ex.forEach(x => (x.also || []).forEach(t => branch(TOP + x.at * STEP, yAt(t), x.e, 'fx', 0.08 * k++)));
+  (d.full || []).forEach(x => x.to.forEach(t => branch(TOP + x.at * STEP, yAt(t), x.e, 'fx', 0.08 * k++)));
+  (d.full || []).forEach((x, i) => {
+    const ye = TOP + x.at * STEP;
+    const g = el('g', {class:'extra fx'}, svg);
+    g.style.setProperty('--c', col(x.e));
+    g.style.transitionDelay = (0.15 * i + 0.2) + 's';
+    el('circle', {cx:XE, cy:ye, r:7}, g);
+    text(g, XE, ye + 24, x.l);
+  });
+
+  // Hauptlinie
+  el('path', {class:'ghostline', d:`M${X},${y0} L${X},${yn}`}, svg);
+  const main = el('path', {class:'main', id:'main', pathLength:1,
+    d:`M${X},${y0} L${X},${yn}`, 'stroke-dasharray':1, 'stroke-dashoffset':1}, svg);
+
+  // Stationen
+  d.st.forEach((s, i) => {
+    const g = el('g', {class:'st' + (s.e === 'you' ? ' you' : ''), 'data-i':i}, svg);
+    g.style.setProperty('--c', col(s.e));
+    el('circle', {cx:X, cy:yAt(i), r: s.e === 'you' ? 14 : 10}, g);
+    text(g, X + 26, yAt(i) + 5, s.l);
+    const lines = wrap(s.t, 30);
+    lines.forEach((ln, k) => text(g, X + 26, yAt(i) + 25 + k * 17, ln, {class:'det'}));
+  });
+
+  el('circle', {class:'dot', id:'dot', cx:X, cy:y0, r:6, opacity:0}, svg);
+
+  state = 'idle'; setRail(null);
+  whytext.hidden = true; why.setAttribute('aria-expanded', 'false');
+  why.textContent = 'Zeig mir den gesamten Prozess';
+  whytext.textContent = d.why;
+  $('endline').textContent = d.end; $('endline').classList.remove('on');
+  go.textContent = 'Losschicken'; go.classList.add('hint');
+}
+
+function reveal(i){
+  const s = DATA[cat].st[i];
+  svg.querySelector(`.st[data-i="${i}"]`).classList.add('on');
+  setRail(s.e === 'you' ? null : s.e);
+}
+
+function move(from, to, ms, id){
+  const d = DATA[cat], y0 = yAt(0), yn = yAt(d.st.length - 1);
+  const dot = $('dot'), main = $('main');
+  return new Promise(res => {
+    const a = yAt(from), b = yAt(to), t0 = performance.now();
+    (function step(now){
+      if (id !== runId) return res();
+      const k = Math.min(1, (now - t0) / ms), e = k < .5 ? 2*k*k : 1 - Math.pow(-2*k + 2, 2) / 2;
+      const y = a + (b - a) * e;
+      dot.setAttribute('cy', y);
+      main.setAttribute('stroke-dashoffset', 1 - (y - y0) / (yn - y0));
+      k < 1 ? requestAnimationFrame(step) : res();
+    })(t0);
+  });
+}
+
+function toNetwork(){
+  const d = DATA[cat];
+  d.st.forEach((_, i) => svg.querySelector(`.st[data-i="${i}"]`).classList.add('on'));
+  $('main').setAttribute('stroke-dashoffset', 0);
+  $('dot').setAttribute('opacity', 0);
+  svg.classList.add('net');
+  state = 'net';
+  setRail('all');
+  $('endline').classList.add('on');
+  go.textContent = 'Nochmal';
+}
+
+async function run(){
+  const id = ++runId;
+  render();
+  go.classList.remove('hint');
+  state = 'run';
+  if (reduce){ toNetwork(); return; }
+  $('dot').setAttribute('opacity', 1);
+  const n = DATA[cat].st.length;
+  for (let i = 0; i < n; i++){
+    if (i > 0) await move(i - 1, i, 380, id);
+    if (id !== runId) return;
+    reveal(i);
+    await wait(i === n - 1 ? 700 : 520);
+    if (id !== runId) return;
+  }
+  toNetwork();
+}
+
+go.addEventListener('click', run);
+why.addEventListener('click', () => {
+  const open = !svg.classList.contains('full');
+  if (open && state !== 'net'){ runId++; go.classList.remove('hint'); toNetwork(); }
+  svg.classList.toggle('full', open);
+  whytext.hidden = !open;
+  why.setAttribute('aria-expanded', String(open));
+  why.textContent = open ? 'Zurück zur einfachen Ansicht' : 'Zeig mir den gesamten Prozess';
+});
+document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => {
+  document.querySelectorAll('.chip').forEach(o => o.setAttribute('aria-pressed', String(o === c)));
+  cat = c.dataset.cat; runId++; render();
+}));
+
+render();
+</script>
+</body>
+</html>
