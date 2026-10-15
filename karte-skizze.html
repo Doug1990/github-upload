@@ -252,8 +252,8 @@
   <header>
     <p class="eyebrow sans">Skizze · Düsseldorf</p>
     <h1>Was leuchtet, wenn du etwas tust?</h1>
-    <p class="lead sans">Tipp an, was du heute gemacht hast. Auf der Karte gehen die Stellen an, an denen das hängt, jede Tätigkeit in ihrer eigenen Farbe. Mehrere Dinge gehen auch zusammen. Tipp einen Ort an, um mehr zu erfahren.</p>
-    <p class="pfad-zeile sans">In 2 Minuten: Tipp zwei oder drei Tätigkeiten an und lies unten, was dafür mitläuft.</p>
+    <p class="lead sans">Tipp an, was du heute getan hast. Die Orte, an denen das hängt, leuchten auf. Tipp einen Ort an für mehr.</p>
+    <p class="pfad-zeile sans">Tipp zwei oder drei Tätigkeiten an.</p>
     <div class="chips" id="chips" role="group" aria-label="Tätigkeiten"></div>
   </header>
 
@@ -271,8 +271,8 @@
     </section>
   </div>
 
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Karte</span></summary><div class="hinkt-body"><p>Die Karte ist eine Skizze, keine Netzkarte. Die Linien zeigen, dass Orte zusammenhängen. Sie geben nicht den Verlauf echter Leitungen, Gleise oder Straßen wieder, und die Standorte sind schematisch.</p><p>Ein Ort, der aufleuchtet, hängt an der Tätigkeit, ist aber nicht allein zuständig. Und ein Ort, der dunkel bleibt, ist nicht unbeteiligt: Die Auswahl je Tätigkeit ist klein.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welchen Ort würdest du bei deiner Tätigkeit zusätzlich aufleuchten lassen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Das ist offen. Oft fehlen Orte, die man nicht sieht, etwa Wasserwerk, Leitstelle oder Rechenzentrum.</p></div></details>
-  <p class="note sans">Skizze: Standorte sind schematisch und nicht maßstabsgetreu. Die Inhalte stammen aus <a href="index.html">der Hauptseite</a>, einzelne Orte und Aussagen sind vereinfacht. Diese Seite ist KI-generiert.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Karte</span></summary><div class="hinkt-body"><p>Die Karte ist eine Skizze. Die Linien zeigen Zusammenhänge, keine echten Leitungen, Gleise oder Straßen.</p><p>Ein Ort, der aufleuchtet, hängt an der Tätigkeit, ist aber nicht allein zuständig. Ein dunkler Ort ist nicht unbeteiligt: Die Auswahl je Tätigkeit ist klein.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welchen Ort würdest du bei deiner Tätigkeit zusätzlich aufleuchten lassen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Das ist offen. Oft fehlen Orte, die man nicht sieht, etwa Wasserwerk, Leitstelle oder Rechenzentrum.</p></div></details>
+  <p class="note sans">Orte schematisch, Inhalte aus <a href="index.html">der Hauptseite</a>. Diese Seite ist KI-generiert.</p>
 </main>
 
 <nav class="pfad-weiter" aria-label="Weiter zur nächsten Seite">
@@ -290,10 +290,10 @@
 (function () {
   const NS = 'http://www.w3.org/2000/svg';
   const LAYER = {
-    kult: { name: 'Kulturell',  c: '#7B5EA8', g: '#B39DDB' },
-    digi: { name: 'Digital',    c: '#4A9B9B', g: '#7FCFCF' },
-    phys: { name: 'Physisch',   c: '#8B6844', g: '#E0B97E' },
-    bio:  { name: 'Biologisch', c: '#3D5A3D', g: '#8FD9A8' },
+    kult: { name: 'Kulturell',  c: '#B9832A', g: '#D9A64A' },
+    digi: { name: 'Digital',    c: '#5563BF', g: '#8590E6' },
+    phys: { name: 'Physisch',   c: '#2C7A82', g: '#4FA9B1' },
+    bio:  { name: 'Biologisch', c: '#56903F', g: '#7DBB63' },
   };
 
   // Karte: x = Ost, y = Süd (0..100). Der Rhein läuft von Süd nach Nord, die Stadt liegt überwiegend östlich.
