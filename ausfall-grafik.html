@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Was hängt woran?</title>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+:root{
+  --bg:#E9EEEA; --ink:#1D2B2F; --muted:#56666A; --line:#8C9A9A; --ghost:#C9D2CF;
+  --kult:#B9832A; --digi:#5563BF; --phys:#2C7A82; --bio:#56903F; --fail:#A8432E; --onhot:#fff;
+  --hot:var(--fail);
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans:'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#141C1F; --ink:#E3EBE9; --muted:#9AAAAA; --line:#6F8082; --ghost:#2B383B;
+    --kult:#D9A64A; --digi:#8590E6; --phys:#4FA9B1; --bio:#7DBB63; --fail:#E0735A; --onhot:#141C1F; }
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font-family:var(--sans);font-size:17px;line-height:1.5;
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+:focus-visible{outline:2px solid var(--digi);outline-offset:3px;border-radius:4px}
+.node:focus,.node:focus-visible{outline:none}
+.node:focus-visible .sel{opacity:1;stroke:var(--digi);stroke-width:3}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.wrap{display:grid;grid-template-columns:150px minmax(0,560px);gap:48px;
+  justify-content:center;padding:48px 24px 80px}
+.back{font-size:14px;color:var(--muted);text-decoration:none}
+.back:hover{text-decoration:underline}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(30px,5vw,44px);
+  line-height:1.1;margin:18px 0 18px;letter-spacing:-.01em}
+
+/* Tiefenleiste: zeigt, welche Ebenen betroffen sind */
+.rail{position:sticky;top:48px;align-self:start;display:flex;flex-direction:column;gap:6px}
+.band{display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:14px;color:var(--muted);
+  padding:10px 0 10px 12px;border-left:4px solid var(--ghost);transition:color .3s,border-color .3s}
+.band .ct{font-variant-numeric:tabular-nums;font-size:13px;opacity:0;transition:opacity .3s}
+.band.on{color:var(--ink);border-left-color:var(--hot)}
+.band.on .ct{opacity:1}
+
+.modes{display:inline-flex;border:1.5px solid var(--line);border-radius:999px;padding:3px;gap:2px}
+.mode{font:inherit;font-size:15px;border:0;background:transparent;color:var(--ink);
+  padding:7px 16px;border-radius:999px;cursor:pointer}
+.mode[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+
+svg{display:block;width:100%;max-width:480px;height:auto;overflow:visible;margin-top:14px}
+.result{font-family:var(--serif);font-size:20px;line-height:1.35;margin:10px 0 0;max-width:34em;min-height:2.7em}
+.legend{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;color:var(--muted);margin:6px 0 0;min-height:1.5em}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:50%}
+.legend .k-hot{background:var(--hot)}
+.legend .k-hold{border:2px solid var(--phys)}
+.legend .k-has{border:2px dashed var(--phys)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.btn{font:inherit;font-size:14px;cursor:pointer;color:var(--muted);background:none;
+  border:1.5px dashed var(--line);border-radius:999px;padding:6px 14px}
+.btn[aria-pressed=true]{border-style:solid;border-color:var(--phys);color:var(--ink)}
+.btn[hidden],.note[hidden],.legend span[hidden]{display:none}
+.fine{font-size:13px;color:var(--muted);margin:14px 0 0}
+.note{font-size:15px;color:var(--muted);margin:10px 0 0;max-width:46ch}
+
+/* SVG */
+.bandbg{opacity:.08;pointer-events:none}
+.bandlbl{font-family:var(--sans);font-size:11px;fill:var(--muted);letter-spacing:.08em;pointer-events:none}
+.base{fill:none;stroke:var(--line);stroke-width:1;opacity:.32;pointer-events:none;transition:opacity .4s}
+.sel .base{opacity:.1}
+#overlay{pointer-events:none}
+.tree{fill:none;stroke:var(--hot);stroke-width:2.4;stroke-linecap:round;
+  stroke-dasharray:1;stroke-dashoffset:0;transition:stroke-dashoffset .35s ease}
+.tree.hid{stroke-dashoffset:1}
+.tree.cov{stroke:var(--phys);stroke-width:2;stroke-dasharray:5 5;transition:opacity .35s}
+.tree.cov.hid{opacity:0;stroke-dashoffset:0}
+.arrow{fill:var(--hot);transition:opacity .2s .25s}
+.arrow.cov{fill:var(--phys)}
+.arrow.hid{opacity:0;transition:none}
+
+.node{cursor:pointer}
+.node .c{fill:var(--c);stroke:var(--bg);stroke-width:3;transition:fill .3s}
+.node .lbl{font-family:var(--sans);font-size:14px;fill:var(--ink);text-anchor:middle;
+  paint-order:stroke;stroke:var(--bg);stroke-width:5px;stroke-linejoin:round;transition:fill .3s}
+.node .num{font-family:var(--sans);font-size:11px;font-weight:700;fill:var(--onhot);text-anchor:middle;
+  opacity:0;pointer-events:none;transition:opacity .3s}
+.node .ring{fill:none;stroke:var(--phys);stroke-width:2;stroke-dasharray:3 3;opacity:0;transition:opacity .3s}
+.node .ripple{fill:none;stroke:var(--hot);stroke-width:2;opacity:0}
+.node .sel{fill:none;stroke:var(--ink);stroke-width:2;opacity:0}
+.node.down .c{fill:var(--hot)}
+.node.down .num{opacity:1}
+.node.down .lbl{fill:var(--muted)}
+.node.origin .lbl{fill:var(--hot);font-weight:600}
+.node.origin .sel{opacity:1}
+.node.held .ring{opacity:1;stroke-dasharray:none}
+.reserves .node.hasres .ring{opacity:.75}
+.reserves .node.held .ring{opacity:1}
+.node.down .ripple{animation:rip .6s ease-out}
+@keyframes rip{from{opacity:.9;r:11}to{opacity:0;r:30}}
+.hint .node .c{animation:breathe 2.6s ease-in-out infinite}
+@keyframes breathe{50%{opacity:.55}}
+.mode-trace{--hot:var(--ink)}
+.mode-trace .node.down .lbl{fill:var(--ink)}
+.mode-trace .node.down .ripple{animation:none}
+
+@media (max-width:760px){
+  .wrap{grid-template-columns:minmax(0,1fr);gap:0;padding:24px 16px 64px}
+  .rail{position:sticky;top:0;z-index:2;flex-direction:row;gap:4px;background:var(--bg);padding:10px 0 8px}
+  .band{flex:1;flex-direction:column;align-items:center;gap:0;border-left:0;border-top:4px solid var(--ghost);
+    padding:6px 0 0;font-size:12px}
+  .band .ct{font-size:12px}
+  .band.on{border-top-color:var(--hot)}
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="rail" aria-label="Betroffene Ebenen">
+    <div class="band" data-e="kult"><span>Kulturell</span><span class="ct"></span></div>
+    <div class="band" data-e="digi"><span>Digital</span><span class="ct"></span></div>
+    <div class="band" data-e="phys"><span>Physisch</span><span class="ct"></span></div>
+    <div class="band" data-e="bio"><span>Biologisch</span><span class="ct"></span></div>
+  </nav>
+
+  <main id="main">
+    <a class="back" href="index.html">Zur Startseite</a>
+    <h1>Was hängt woran?</h1>
+
+    <div class="modes" role="group" aria-label="Ansicht">
+      <button class="mode" id="m-fail" aria-pressed="true">Was fällt aus?</button>
+      <button class="mode" id="m-trace" aria-pressed="false">Woran hängt es?</button>
+    </div>
+
+    <svg id="svg" class="hint" role="group" aria-label="Abhängigkeiten zwischen 15 Bausteinen des Alltags"></svg>
+
+    <p class="result" id="result" aria-live="polite"></p>
+    <p class="sr" id="srlist" aria-live="polite"></p>
+    <div class="legend" id="legend" aria-hidden="true">
+      <span id="lg-hot" hidden><i class="k-hot"></i><b id="lg-hot-t" style="font-weight:400"></b></span>
+      <span id="lg-hold" hidden><i class="k-hold"></i>hält durch</span>
+      <span id="lg-has" hidden><i class="k-has"></i>hat eine Reserve</span>
+      <span id="lg-num" hidden></span>
+      <span id="lg-arr" hidden></span>
+    </div>
+    <div class="controls">
+      <button class="btn" id="res" aria-pressed="false">Zeig mir die Reserven</button>
+      <button class="btn" id="reset" hidden>Zurücksetzen</button>
+    </div>
+    <p class="fine">Vereinfachtes Modell mit 15 Bausteinen, keine Prognose.</p>
+    <p class="note" id="note" hidden>Notstrom, Akkus, Vorräte und Funk überbrücken meist nur Stunden bis wenige Tage. Danach hängt wieder alles an derselben Kette.</p>
+  </main>
+</div>
+
+<script>
+const POS = {"arbeit": [45, 62], "schule": [142, 62], "einkauf": [335, 62], "notruf": [238, 62], "internet": [190, 160], "bezahlen": [45, 160], "mobil": [335, 160], "wasser": [335, 262], "klinik": [238, 262], "verkehr": [142, 262], "heizung": [45, 262], "strom": [190, 335], "rhein": [45, 445], "gesund": [335, 445], "nahrung": [190, 445]};
+// nm: Name im Satz, fall: Satz bei Ausfall. res: Reserve je Abhängigkeit
+const NODES = [
+  {id:'arbeit',  l:'Arbeit',     e:'kult', nm:'Die Arbeit',     needs:['internet','verkehr','schule']},
+  {id:'schule',  l:'Schule',     e:'kult', nm:'Die Schule',     needs:['heizung','wasser','verkehr']},
+  {id:'einkauf', l:'Einkaufen',  e:'kult', nm:'Das Einkaufen',  needs:['bezahlen','verkehr','nahrung']},
+  {id:'notruf',  l:'Notruf',     e:'kult', nm:'Der Notruf',     needs:['mobil'], res:{mobil:'Digitalfunk'}},
+  {id:'internet',l:'Internet',   e:'digi', nm:'Das Internet',   needs:['strom']},
+  {id:'bezahlen',l:'Bezahlen',   e:'digi', nm:'Das Bezahlen',   needs:['internet']},
+  {id:'mobil',   l:'Mobilfunk',  e:'digi', nm:'Der Mobilfunk',  needs:['strom'], res:{strom:'Akkus'}},
+  {id:'strom',   l:'Strom',      e:'phys', nm:'Der Strom',      needs:[]},
+  {id:'wasser',  l:'Wasser',     e:'phys', nm:'Die Wasserversorgung', needs:['strom','rhein'], res:{strom:'Notstrom'}},
+  {id:'verkehr', l:'Verkehr',    e:'phys', nm:'Der Verkehr',    needs:['strom']},
+  {id:'heizung', l:'Heizung',    e:'phys', nm:'Die Heizung',    needs:['strom']},
+  {id:'klinik',  l:'Klinik',     e:'phys', nm:'Die Klinik',     needs:['strom','wasser'], res:{strom:'Notstrom'}},
+  {id:'rhein',   l:'Rhein',      e:'bio',  nm:'Der Rhein',      needs:[]},
+  {id:'nahrung', l:'Nahrung',    e:'bio',  nm:'Die Nahrung',    needs:['verkehr','strom'], res:{verkehr:'Vorräte', strom:'Vorräte'}},
+  {id:'gesund',  l:'Gesundheit', e:'bio',  nm:'Die Gesundheit', fall:'Die Gesundheit ist gefährdet.', needs:['wasser','klinik','nahrung','notruf']}
+];
+const BANDS = [{e:'kult',top:6,h:100,l:'KULTURELL'},{e:'digi',top:112,h:100,l:'DIGITAL'},{e:'phys',top:218,h:175,l:'PHYSISCH'},{e:'bio',top:399,h:100,l:'BIOLOGISCH'}];
+NODES.forEach(n => { n.x = POS[n.id][0]; n.y = POS[n.id][1]; });
+const BY = Object.fromEntries(NODES.map(n => [n.id, n]));
+const TOTAL = {kult:0, digi:0, phys:0, bio:0}; NODES.forEach(n => TOTAL[n.e]++);
+
+const NS = 'http://www.w3.org/2000/svg';
+const $ = id => document.getElementById(id);
+const svg = $('svg'), main = $('main');
+const rail = [...document.querySelectorAll('.band')];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+let mode = 'fail', reserves = false, selected = null, runId = 0;
+
+function el(tag, attrs, parent){
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(n);
+  return n;
+}
+function edgePath(a, b){
+  const dx = b.x - a.x, dy = b.y - a.y, len = Math.hypot(dx, dy);
+  let nx = -dy / len, ny = dx / len;
+  if (dy === 0) { nx = 0; ny = -1; }
+  const bow = Math.min(30, len * 0.1);
+  return `M${a.x},${a.y} Q${(a.x + b.x) / 2 + nx * bow},${(a.y + b.y) / 2 + ny * bow} ${b.x},${b.y}`;
+}
+
+/* ---------- Aufbau ---------- */
+let gOver;
+function build(){
+  svg.setAttribute('viewBox', '0 0 380 505');
+  BANDS.forEach(b => {
+    el('rect', {class:'bandbg', x:0, y:b.top, width:380, height:b.h, rx:10, fill:`var(--${b.e})`}, svg);
+    el('text', {class:'bandlbl', x:10, y:b.top + 16}, svg).textContent = b.l;
+  });
+  const gBase = el('g', {}, svg);
+  NODES.forEach(n => n.needs.forEach(d => el('path', {class:'base', d:edgePath(BY[d], n)}, gBase)));
+  gOver = el('g', {id:'overlay'}, svg);
+  NODES.forEach(n => {
+    const g = el('g', {class:'node' + (n.res ? ' hasres' : ''), id:'n-' + n.id, tabindex:0, role:'button'}, svg);
+    g.style.setProperty('--c', `var(--${n.e})`);
+    el('rect', {x:n.x - 35, y:n.y - (n.e === 'kult' ? 44 : 26), width:70, height:70, fill:'transparent'}, g);
+    el('circle', {class:'ring', cx:n.x, cy:n.y, r:17}, g);
+    el('circle', {class:'ripple', cx:n.x, cy:n.y, r:11}, g);
+    el('circle', {class:'sel', cx:n.x, cy:n.y, r:17}, g);
+    el('circle', {class:'c', cx:n.x, cy:n.y, r:11}, g);
+    el('text', {class:'num', x:n.x, y:n.y + 4}, g);
+    el('text', {class:'lbl', x:n.x, y:n.y + (n.e === 'kult' ? -19 : 31)}, g).textContent = n.l;
+    const go = () => (selected === n.id ? clearSel() : run(n.id));
+    g.addEventListener('click', go);
+    g.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); go(); }});
+  });
+  labelNodes();
+}
+function labelNodes(){
+  NODES.forEach(n => $('n-' + n.id).setAttribute('aria-label',
+    mode === 'fail' ? `${n.l}: Ausfall zeigen` : `${n.l}: zeigen, woran es hängt`));
+}
+
+/* ---------- Modell ---------- */
+// Ausfall: wer etwas braucht, das ausgefallen ist, fällt mit aus. Eine Reserve fängt eine Abhängigkeit auf.
+function cascade(start){
+  const wave = {[start]:0}, parent = {}, held = {};
+  let frontier = [start], w = 0;
+  while (frontier.length){
+    w++;
+    const next = [];
+    NODES.forEach(n => {
+      if (n.id in wave) return;
+      let hot = null, cov = null;
+      for (const d of n.needs){
+        if (!frontier.includes(d)) continue;
+        const rn = reserves && n.res && n.res[d];
+        if (rn) { if (!cov) cov = {from:d, name:rn}; }
+        else if (!hot) hot = d;
+      }
+      if (hot) { next.push(n.id); parent[n.id] = hot; delete held[n.id]; }
+      else if (cov && !held[n.id]) held[n.id] = {...cov, w};
+    });
+    next.forEach(id => wave[id] = w);
+    frontier = next;
+  }
+  const mh = Math.max(0, ...Object.values(held).map(h => h.w));
+  return {wave, parent, held, max:Math.max(mh, ...Object.values(wave))};
+}
+// Herkunft: alles, wovon etwas (auch über mehrere Schritte) abhängt
+function trace(target){
+  const wave = {[target]:0}, parent = {};
+  let frontier = [target], w = 0;
+  while (frontier.length){
+    w++;
+    const next = [];
+    frontier.forEach(f => BY[f].needs.forEach(d => {
+      if (d in wave) return;
+      wave[d] = w; parent[d] = f; next.push(d);
+    }));
+    frontier = next;
+  }
+  return {wave, parent, held:{}, max:Math.max(...Object.values(wave))};
+}
+
+/* ---------- Anzeige ---------- */
+function resetVisual(){
+  gOver.innerHTML = '';
+  svg.querySelectorAll('.node').forEach(g => {
+    g.classList.remove('down', 'origin', 'held'); g.removeAttribute('aria-pressed');
+    g.querySelector('.num').textContent = '';
+  });
+  rail.forEach(b => { b.classList.remove('on'); b.querySelector('.ct').textContent = ''; });
+}
+function drawEdge(from, to, cov){
+  const a = BY[from], b = BY[to];
+  const p = el('path', {class:'tree hid' + (cov ? ' cov' : ''), d:edgePath(a, b), pathLength:1}, gOver);
+  const L = p.getTotalLength(), tip = p.getPointAtLength(L - 13), back = p.getPointAtLength(L - 21);
+  const ang = Math.atan2(tip.y - back.y, tip.x - back.x), c = Math.cos(ang), s = Math.sin(ang);
+  const pt = (f, o) => `${tip.x - c * f - s * o},${tip.y - s * f + c * o}`;
+  const ar = el('polygon', {class:'arrow hid' + (cov ? ' cov' : ''), points:`${tip.x},${tip.y} ${pt(9, 4.5)} ${pt(9, -4.5)}`}, gOver);
+  return [p, ar];
+}
+function showEdge(pair){ pair.forEach(x => x.classList.remove('hid')); }
+
+async function run(id){
+  const my = ++runId;
+  selected = id;
+  svg.classList.remove('hint'); svg.classList.add('sel');
+  svg.dataset.done = '0';
+  resetVisual();
+  const r = mode === 'fail' ? cascade(id) : trace(id);
+  const step = reduce ? 0 : 420;
+  const edges = {};
+  Object.keys(r.parent).forEach(n => {
+    edges[n] = mode === 'fail' ? drawEdge(r.parent[n], n, false) : drawEdge(n, r.parent[n], false);
+  });
+  const heldEdges = {};
+  Object.entries(r.held).forEach(([n, h]) => heldEdges[n] = drawEdge(h.from, n, true));
+
+  for (let w = 0; w <= r.max; w++){
+    if (w > 0) await sleep(step);
+    if (my !== runId) return;
+    Object.entries(r.wave).filter(([, k]) => k === w).forEach(([n]) => {
+      const g = $('n-' + n);
+      g.classList.add('down');
+      if (w === 0) g.classList.add('origin'); else { g.querySelector('.num').textContent = w; if (edges[n]) showEdge(edges[n]); }
+    });
+    Object.entries(r.held).filter(([, h]) => h.w === w).forEach(([n]) => {
+      $('n-' + n).classList.add('held'); showEdge(heldEdges[n]);
+    });
+  }
+  if (my !== runId) return;
+  $('n-' + id).setAttribute('aria-pressed', 'true');
+  summarize(id, r);
+  svg.dataset.done = '1';
+}
+
+function listNames(ids){
+  const t = ids.map(i => BY[i].l);
+  return t.length < 2 ? t.join('') : t.slice(0, -1).join(', ') + ' und ' + t[t.length - 1];
+}
+function summarize(id, r){
+  const n = BY[id], inv = Object.keys(r.wave), others = inv.filter(i => i !== id);
+  const heldIds = Object.keys(r.held);
+  const per = {kult:0, digi:0, phys:0, bio:0}; inv.forEach(i => per[BY[i].e]++);
+  rail.forEach(b => { const e = b.dataset.e; if (per[e]) { b.classList.add('on'); b.querySelector('.ct').textContent = `${per[e]}/${TOTAL[e]}`; } });
+  let msg, sr;
+  if (mode === 'fail'){
+    msg = n.fall || `${n.nm} fällt aus.`;
+    const hasDependents = NODES.some(x => x.needs.includes(id));
+    if (others.length) msg += ` ${others.length} ${others.length === 1 ? 'weiteres Ding steht' : 'weitere Dinge stehen'} still.`;
+    else if (!hasDependents) msg += ' Hier endet die Kette: Nichts hängt weiter dran.';
+    else msg += ' Nichts fällt mit aus.';
+    if (heldIds.length) msg += ` Dank Reserven halten durch: ${heldIds.map(h => `${BY[h].l} (${r.held[h].name})`).join(', ')}.`;
+    sr = others.length ? `Mit ausgefallen: ${listNames(others)}.` : '';
+  } else {
+    if (!others.length) msg = `${n.nm} steht hier am Anfang der Kette.`;
+    else {
+      const roots = others.filter(i => !BY[i].needs.length);
+      msg = `${n.nm} hängt an ${others.length} ${others.length === 1 ? 'anderen Ding' : 'anderen Dingen'}. Am Anfang der Kette: ${listNames(roots)}.`;
+    }
+    sr = others.length ? `Abhängig von: ${listNames(others)}.` : '';
+  }
+  $('result').textContent = msg; $('srlist').textContent = sr;
+  $('lg-hot').hidden = !others.length; $('lg-hot-t').textContent = mode === 'fail' ? 'fällt aus' : 'wird gebraucht';
+  $('lg-hold').hidden = !heldIds.length;
+  $('lg-num').hidden = !others.length;
+  $('lg-num').textContent = mode === 'fail' ? 'Zahl = Reihenfolge des Ausfalls' : 'Zahl = Schritte bis zu deinem Punkt';
+  $('lg-arr').hidden = !others.length;
+  $('lg-arr').textContent = mode === 'fail' ? '→ reißt mit' : '→ trägt';
+  $('reset').hidden = false; legendHas();
+}
+
+function legendHas(){ $('lg-has').hidden = !(reserves && mode === 'fail'); }
+function clearSel(){
+  runId++; selected = null; svg.dataset.done = '';
+  svg.classList.remove('sel'); resetVisual();
+  idleText(); ['lg-hot', 'lg-hold', 'lg-num', 'lg-arr'].forEach(i => $(i).hidden = true);
+  $('srlist').textContent = ''; $('reset').hidden = true; legendHas();
+}
+function idleText(){
+  $('result').textContent = mode === 'fail' ? 'Tippe auf etwas, das ausfallen soll.' : 'Tippe auf etwas, um zu sehen, woran es hängt.';
+}
+
+/* ---------- Bedienung ---------- */
+function setMode(m){
+  mode = m;
+  svg.classList.toggle('mode-trace', m === 'trace'); main.classList.toggle('mode-trace', m === 'trace');
+  document.querySelector('.wrap').classList.toggle('mode-trace', m === 'trace');
+  $('m-fail').setAttribute('aria-pressed', String(m === 'fail'));
+  $('m-trace').setAttribute('aria-pressed', String(m === 'trace'));
+  $('res').hidden = m !== 'fail';
+  if (m === 'trace') { $('note').hidden = true; svg.classList.remove('reserves'); }
+  else { $('note').hidden = !reserves; svg.classList.toggle('reserves', reserves); }
+  labelNodes(); legendHas();
+  if (selected) run(selected); else idleText();
+}
+$('m-fail').addEventListener('click', () => mode !== 'fail' && setMode('fail'));
+$('m-trace').addEventListener('click', () => mode !== 'trace' && setMode('trace'));
+$('res').addEventListener('click', () => {
+  reserves = !reserves;
+  svg.classList.toggle('reserves', reserves);
+  $('res').setAttribute('aria-pressed', String(reserves));
+  $('res').textContent = reserves ? 'Ohne Reserven' : 'Zeig mir die Reserven';
+  $('note').hidden = !reserves; legendHas();
+  if (selected) run(selected);
+});
+$('reset').addEventListener('click', clearSel);
+
+build(); idleText();
+</script>
+</body>
+</html>
