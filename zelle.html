@@ -2074,7 +2074,14 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 
 <section class="sec reveal" id="dna">
   <h2>Der Bauplan ist digital.</h2>
-  <p class="lead">DNA schreibt mit vier Buchstaben: A, C, G und T. Tippe ein Wort und sieh, wie es in diesem Alphabet aussähe.</p>
+  <p class="lead">DNA schreibt mit A, C, G und T. Tippe ein Wort.</p>
+  <svg class="zb-bild" viewBox="0 0 360 150" role="img" aria-labelledby="zbDnaT">
+    <title id="zbDnaT">Schema: Eine Reihe von Bausteinen mit den Buchstaben A, C, G und T. Ein Lesekopf wandert über die Reihe und liest je drei Buchstaben als einen Baustein ab.</title>
+    <text x="12" y="18" class="zb-s">Code: eine Folge aus vier Bausteinen</text>
+    <rect x="12" y="30" width="24" height="26" rx="5" class="zb-b zb-bio"/><text x="24" y="48" text-anchor="middle" class="zb-bt">A</text><rect x="40" y="30" width="24" height="26" rx="5" class="zb-b zb-phys"/><text x="52" y="48" text-anchor="middle" class="zb-bt">T</text><rect x="68" y="30" width="24" height="26" rx="5" class="zb-b zb-digi"/><text x="80" y="48" text-anchor="middle" class="zb-bt">G</text><rect x="96" y="30" width="24" height="26" rx="5" class="zb-b zb-digi"/><text x="108" y="48" text-anchor="middle" class="zb-bt">G</text><rect x="124" y="30" width="24" height="26" rx="5" class="zb-b zb-bio"/><text x="136" y="48" text-anchor="middle" class="zb-bt">A</text><rect x="152" y="30" width="24" height="26" rx="5" class="zb-b zb-digi"/><text x="164" y="48" text-anchor="middle" class="zb-bt">G</text><rect x="180" y="30" width="24" height="26" rx="5" class="zb-b zb-digi"/><text x="192" y="48" text-anchor="middle" class="zb-bt">G</text><rect x="208" y="30" width="24" height="26" rx="5" class="zb-b zb-kult"/><text x="220" y="48" text-anchor="middle" class="zb-bt">C</text><rect x="236" y="30" width="24" height="26" rx="5" class="zb-b zb-phys"/><text x="248" y="48" text-anchor="middle" class="zb-bt">T</text><rect x="264" y="30" width="24" height="26" rx="5" class="zb-b zb-phys"/><text x="276" y="48" text-anchor="middle" class="zb-bt">T</text><rect x="292" y="30" width="24" height="26" rx="5" class="zb-b zb-digi"/><text x="304" y="48" text-anchor="middle" class="zb-bt">G</text><rect x="320" y="30" width="24" height="26" rx="5" class="zb-b zb-digi"/><text x="332" y="48" text-anchor="middle" class="zb-bt">G</text>
+    <g class="zb-lese"><rect x="8" y="25" width="88" height="36" rx="8" class="zb-rahmen"/><path d="M52 61 V84" class="zb-pfeil"/><text x="52" y="102" text-anchor="middle" class="zb-s">liest drei</text></g>
+    <text x="180" y="138" text-anchor="middle" class="zb-t">drei Buchstaben, ein Baustein</text>
+  </svg>
   <label class="sans" style="display:block;text-align:center;font-size:12px;color:var(--dim);margin-bottom:6px;" for="dnaIn">Dein Wort (max. 10 Zeichen)</label>
   <input class="dna-in" id="dnaIn" maxlength="10" value="Leben" autocomplete="off" spellcheck="false">
   <div class="dna-out" id="dnaOut" aria-live="polite"></div>
@@ -2132,7 +2139,20 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 4c. Genregulation -->
 <section class="sec reveal" id="regulation">
   <h2>Gleiches Archiv, andere Akten.</h2>
-  <p class="lead">Alle Zellen tragen dieselbe DNA, aber jeder Zelltyp schlägt andere Akten auf. Wähle einen Zelltyp und sieh, was offen ist.</p>
+  <p class="lead">Jeder Zelltyp schlägt andere Akten auf. Wähle einen.</p>
+  <svg class="zb-bild" viewBox="0 0 360 196" role="img" aria-labelledby="zbRegT">
+    <title id="zbRegT">Schema: Oben das Archiv mit der ganzen DNA, darunter eine Muskelzelle und eine Nervenzelle. Beide bekommen dasselbe Archiv. In der Muskelzelle sind Kraftwerk, Skelett und Myosin an, in der Nervenzelle Kraftwerk, Skelett und Synapse. Der Rest ist aus.</title>
+    <rect x="100" y="4" width="160" height="40" rx="10" class="zb-arch"/>
+    <text x="180" y="29" text-anchor="middle" class="zb-t">Archiv: ganze DNA</text>
+    <path d="M130 44 L90 90" class="zb-leit"/><path d="M230 44 L270 90" class="zb-leit"/>
+    <circle r="4.5" class="zb-punkt" cx="130" cy="44" style="--dx:-40px;--dy:46px;--rx:-26px;--ry:30px"/>
+    <circle r="4.5" class="zb-punkt p2" cx="130" cy="44" style="--dx:-40px;--dy:46px;--rx:-14px;--ry:16px"/>
+    <circle r="4.5" class="zb-punkt" cx="230" cy="44" style="--dx:40px;--dy:46px;--rx:26px;--ry:30px"/>
+    <circle r="4.5" class="zb-punkt p2" cx="230" cy="44" style="--dx:40px;--dy:46px;--rx:14px;--ry:16px"/>
+    <rect x="8" y="90" width="164" height="100" rx="12" class="zb-zelle"/><rect x="188" y="90" width="164" height="100" rx="12" class="zb-zelle"/>
+    <text x="90" y="107" text-anchor="middle" class="zb-t zb-klein">Muskelzelle</text><text x="270" y="107" text-anchor="middle" class="zb-t zb-klein">Nervenzelle</text>
+    <rect x="16" y="112" width="72" height="30" rx="7" class="zb-an"/><text x="52" y="131" text-anchor="middle" class="zb-st">Kraftwerk</text><rect x="92" y="112" width="72" height="30" rx="7" class="zb-an"/><text x="128" y="131" text-anchor="middle" class="zb-st">Skelett</text><rect x="16" y="148" width="72" height="30" rx="7" class="zb-an"/><text x="52" y="167" text-anchor="middle" class="zb-st">Myosin</text><rect x="92" y="148" width="72" height="30" rx="7" class="zb-aus"/><text x="128" y="167" text-anchor="middle" class="zb-st zb-dim">Synapse</text><rect x="196" y="112" width="72" height="30" rx="7" class="zb-an"/><text x="232" y="131" text-anchor="middle" class="zb-st">Kraftwerk</text><rect x="272" y="112" width="72" height="30" rx="7" class="zb-an"/><text x="308" y="131" text-anchor="middle" class="zb-st">Skelett</text><rect x="196" y="148" width="72" height="30" rx="7" class="zb-aus"/><text x="232" y="167" text-anchor="middle" class="zb-st zb-dim">Myosin</text><rect x="272" y="148" width="72" height="30" rx="7" class="zb-an"/><text x="308" y="167" text-anchor="middle" class="zb-st">Synapse</text>
+  </svg>
   <div class="panel" id="regPanel">
     <div class="reg-seg" role="group" aria-label="Zelltyp wählen" id="regSeg"></div>
     <div class="reg-grid" id="regGrid"></div>
@@ -2280,7 +2300,26 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 6. Signale zwischen Zellen als Postsystem -->
 <section class="sec reveal" id="signale">
   <h2>Zellen schreiben sich Briefe.</h2>
-  <p class="lead">Zellen schicken Post: Botenstoff im Blut, langsam an alle, oder Impuls über einen Nerv, schnell und gezielt. Sende ein Signal ab.</p>
+  <p class="lead">Hormon: langsam an alle. Nerv: schnell und gezielt. Sende ein Signal ab.</p>
+  <svg class="zb-bild" viewBox="0 0 360 224" role="img" aria-labelledby="zbSigT">
+    <title id="zbSigT">Schema: Drei Wege für Signale. Hormon: ein Brief im Blut, langsam, er treibt zu allen Zellen, und nur Zellen mit passendem Rezeptor reagieren. Nerv: ein Kabel, sehr schnell, mit einem festen Ziel. Nachbarzelle: ein Zuruf, der nur die Zellen direkt daneben erreicht.</title>
+    <text x="8" y="18" class="zb-t zb-klein">Hormon: Brief im Blut</text><text x="352" y="18" text-anchor="end" class="zb-s">Sekunden bis Minuten</text>
+    <path d="M32 44 Q80 28 128 44 T224 44" class="zb-leit zb-bio"/>
+    <circle cx="22" cy="44" r="11" class="zb-send"/>
+    <circle r="4.5" class="zb-punkt zb-bio-f zb-lang" cx="32" cy="44" style="--d:200px;--r:60px"/>
+    <circle r="4.5" class="zb-punkt zb-bio-f zb-lang" cx="32" cy="44" style="--d:200px;--r:130px;animation-delay:-2.4s"/>
+    <circle r="4.5" class="zb-punkt zb-bio-f zb-lang" cx="32" cy="44" style="--d:200px;--r:190px;animation-delay:-4.8s"/>
+    <circle cx="252" cy="44" r="9" class="zb-an"/><circle cx="292" cy="44" r="9" class="zb-aus"/><circle cx="332" cy="44" r="9" class="zb-an"/>
+    <text x="8" y="94" class="zb-t zb-klein">Nerv: Kabel zum Ziel</text><text x="352" y="94" text-anchor="end" class="zb-s">Millisekunden</text>
+    <path d="M32 120 H320" class="zb-kabel"/>
+    <circle cx="22" cy="120" r="11" class="zb-send"/>
+    <circle r="5" class="zb-punkt zb-digi-f zb-schnell" cx="32" cy="120" style="--d:270px;--r:270px"/>
+    <circle cx="332" cy="120" r="9" class="zb-an"/>
+    <text x="8" y="170" class="zb-t zb-klein">Nachbar: Zuruf</text><text x="352" y="170" text-anchor="end" class="zb-s">nur nebenan</text>
+    <circle cx="22" cy="198" r="11" class="zb-send"/>
+    <circle cx="54" cy="198" r="14" class="zb-puff"/><circle cx="54" cy="198" r="14" class="zb-puff p2"/>
+    <circle cx="86" cy="198" r="9" class="zb-an"/><circle cx="118" cy="198" r="9" class="zb-an"/><circle cx="150" cy="198" r="9" class="zb-aus"/><circle cx="182" cy="198" r="9" class="zb-aus"/>
+  </svg>
   <div class="sig-bar">
     <div class="sig-seg" role="group" aria-label="Signalweg">
       <button type="button" id="sigModeHor" aria-pressed="true">Hormon</button>
@@ -2336,7 +2375,18 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 6b. Immunsystem als Stadtwache, Zwilling der Signale -->
 <section class="sec reveal" id="immun">
   <h2>Eine Stadtwache ohne Wachstube.</h2>
-  <p class="lead">Keine Zentrale, trotzdem merkt der Körper, wenn etwas eindringt. Geh die fünf Schritte durch, einmal mit Eindringling, einmal mit Fehlalarm.</p>
+  <p class="lead">Keine Zentrale, trotzdem merkt der Körper den Eindringling. Geh die fünf Schritte durch.</p>
+  <svg class="zb-bild" viewBox="0 0 360 196" role="img" aria-labelledby="zbImmT">
+    <title id="zbImmT">Schema: Streifen verteilen sich im Gewebe, eine Wachstube gibt es nicht. Eine Streife trifft auf einen Eindringling und erkennt ihn. Ringe als Alarm breiten sich aus, die anderen Streifen laufen zum Eindringling.</title>
+    <rect x="4" y="4" width="352" height="164" rx="14" class="zb-gewebe"/>
+    <rect x="236" y="12" width="112" height="26" rx="6" class="zb-leer"/><text x="292" y="30" text-anchor="middle" class="zb-st zb-dim">keine Wachstube</text>
+    <circle cx="190" cy="100" r="60" class="zb-ring"/><circle cx="190" cy="100" r="60" class="zb-ring r2"/>
+    <path d="M190 86 L204 100 L190 114 L176 100 Z" class="zb-feind"/>
+    <circle cx="80" cy="100" r="11" class="zb-w zb-wA" style="--dx:70px;--dy:0px"/><circle cx="60" cy="40" r="11" class="zb-w zb-wB" style="--dx:40px;--dy:24px"/><circle cx="310" cy="70" r="11" class="zb-w zb-wB" style="--dx:-48px;--dy:22px"/><circle cx="270" cy="140" r="11" class="zb-w zb-wB" style="--dx:-38px;--dy:-26px"/><circle cx="110" cy="142" r="11" class="zb-w zb-wB" style="--dx:26px;--dy:-4px"/>
+    <circle cx="20" cy="182" r="7" class="zb-w"/><text x="32" y="187" class="zb-s">Streife</text>
+    <path d="M120 175 L128 183 L120 191 L112 183 Z" class="zb-feind"/><text x="134" y="187" class="zb-s">Eindringling</text>
+    <circle cx="246" cy="182" r="7" class="zb-ring-l"/><text x="258" y="187" class="zb-s">Alarm</text>
+  </svg>
   <div class="imm-bar">
     <div class="imm-seg" role="group" aria-label="Fall zum Ausprobieren">
       <button type="button" id="immCaseIn" aria-pressed="true">Eindringling</button>
@@ -2503,6 +2553,70 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   .warum-body p { margin: 0 0 8px; }
   details.bau-ort { padding: 0 14px; max-width: none; }
 </style>
+<style>
+  /* Zeichnungen der Abschnitte dna, regulation, signale und immun (Präfix zb-) */
+  .zb-bild { display: block; width: 100%; max-width: 560px; height: auto; margin: 6px auto 14px; overflow: visible; }
+  .zb-bild .zb-t { font: 600 16px 'Fraunces', serif; fill: #E8EAF2; }
+  .zb-bild .zb-t.zb-klein { font-size: 14px; }
+  .zb-bild .zb-s, .zb-bild .zb-st { font: 13px 'IBM Plex Sans', sans-serif; fill: #C7CAD6; }
+  .zb-bild .zb-st { font-size: 12px; fill: #E8EAF2; }
+  .zb-bild .zb-st.zb-dim { fill: #A9AFC0; }
+  .zb-bild .zb-bt { font: 600 14px 'IBM Plex Sans', sans-serif; fill: #E8EAF2; }
+  .zb-bild .zb-b { stroke-width: 1.5; }
+  .zb-bild .zb-bio { fill: rgba(125,187,99,0.22); stroke: #7DBB63; } .zb-bild .zb-digi { fill: rgba(133,144,230,0.22); stroke: #8590E6; }
+  .zb-bild .zb-phys { fill: rgba(79,169,177,0.22); stroke: #4FA9B1; } .zb-bild .zb-kult { fill: rgba(217,166,74,0.22); stroke: #D9A64A; }
+  .zb-bild .zb-arch { fill: rgba(85,99,191,0.18); stroke: #8590E6; stroke-width: 2; }
+  .zb-bild .zb-rahmen { fill: none; stroke: #D9A64A; stroke-width: 2.5; }
+  .zb-bild .zb-pfeil { stroke: #D9A64A; stroke-width: 2; stroke-dasharray: 5 4; fill: none; }
+  .zb-bild .zb-leit { stroke: #D9A64A; stroke-width: 2.5; stroke-dasharray: 7 6; fill: none; }
+  .zb-bild .zb-leit.zb-bio { stroke: #7DBB63; fill: none; }
+  .zb-bild .zb-kabel { stroke: #8590E6; stroke-width: 3; fill: none; }
+  .zb-bild .zb-zelle { fill: rgba(255,255,255,0.03); stroke: #4FA9B1; stroke-width: 1.5; }
+  .zb-bild .zb-an { fill: rgba(125,187,99,0.32); stroke: #7DBB63; stroke-width: 2; }
+  .zb-bild .zb-aus { fill: none; stroke: #7C8599; stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .zb-bild .zb-send { fill: rgba(217,166,74,0.3); stroke: #D9A64A; stroke-width: 2; }
+  .zb-bild .zb-punkt { fill: #D9A64A; }
+  .zb-bild .zb-bio-f { fill: #7DBB63; } .zb-bild .zb-digi-f { fill: #8590E6; }
+  .zb-bild .zb-puff { fill: none; stroke: #4FA9B1; stroke-width: 2; transform-box: fill-box; transform-origin: center; }
+  .zb-bild .zb-gewebe { fill: rgba(255,255,255,0.025); stroke: #4FA9B1; stroke-width: 1.5; }
+  .zb-bild .zb-leer { fill: none; stroke: #7C8599; stroke-width: 1.5; stroke-dasharray: 4 3; }
+  .zb-bild .zb-w { fill: rgba(125,187,99,0.35); stroke: #7DBB63; stroke-width: 2; }
+  .zb-bild .zb-feind { fill: rgba(255,138,101,0.35); stroke: #FF8A65; stroke-width: 2; }
+  .zb-bild .zb-ring, .zb-bild .zb-ring-l { fill: none; stroke: #D9A64A; stroke-width: 2.5; }
+  .zb-bild .zb-ring { transform-box: fill-box; transform-origin: center; }
+  @media (prefers-reduced-motion: no-preference) {
+    .zb-lese { animation: zb-lese 8s steps(1) infinite; }
+    @keyframes zb-lese { 0% { transform: translateX(0); } 25% { transform: translateX(84px); } 50% { transform: translateX(168px); } 75% { transform: translateX(252px); } }
+    .zb-bild .zb-punkt[style*="--dx"] { animation: zb-ab 3s linear infinite; }
+    .zb-bild .zb-punkt.p2 { animation-delay: -1.5s !important; }
+    @keyframes zb-ab { from { transform: translate(0, 0); } to { transform: translate(var(--dx), var(--dy)); } }
+    .zb-lang { animation: zb-lauf 7s linear infinite; }
+    .zb-schnell { animation: zb-lauf 1.1s linear infinite; }
+    @keyframes zb-lauf { from { transform: translateX(0); } to { transform: translateX(var(--d)); } }
+    .zb-puff { animation: zb-puff 2.4s ease-out infinite; }
+    .zb-puff.p2 { animation-delay: -1.2s; }
+    @keyframes zb-puff { from { transform: scale(0.3); opacity: 0.9; } to { transform: scale(1.5); opacity: 0; } }
+    .zb-wA { animation: zb-streife 8s ease-in-out infinite; }
+    .zb-wB { animation: zb-hin 8s ease-in-out infinite; }
+    @keyframes zb-streife { 0%, 5% { transform: translate(0, 0); } 30%, 92% { transform: translate(var(--dx), var(--dy)); } 100% { transform: translate(0, 0); } }
+    @keyframes zb-hin { 0%, 35% { transform: translate(0, 0); } 62%, 92% { transform: translate(var(--dx), var(--dy)); } 100% { transform: translate(0, 0); } }
+    .zb-ring { animation: zb-ring 8s ease-out infinite; }
+    .zb-ring.r2 { animation-delay: 0.6s; }
+    @keyframes zb-ring { 0%, 29% { transform: scale(0.2); opacity: 0; } 31% { transform: scale(0.2); opacity: 0.9; } 62%, 100% { transform: scale(1); opacity: 0; } }
+    html.zb-pause .zb-bild * { animation-play-state: paused !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .zb-bild .zb-punkt[style*="--dx"] { transform: translate(var(--rx), var(--ry)); }
+    .zb-bild .zb-lang, .zb-bild .zb-schnell { transform: translateX(var(--r)); }
+    .zb-bild .zb-puff { transform: scale(1); opacity: 0.5; } .zb-bild .zb-puff.p2 { transform: scale(1.4); opacity: 0.3; }
+    .zb-bild .zb-wA, .zb-bild .zb-wB { transform: translate(var(--dx), var(--dy)); }
+    .zb-bild .zb-ring { transform: scale(0.5); opacity: 0.6; } .zb-bild .zb-ring.r2 { transform: scale(0.9); opacity: 0.35; }
+  }
+</style>
+<script>
+  // Zeichnungen dna, regulation, signale, immun: Animationen pausieren, wenn der Tab unsichtbar ist
+  document.addEventListener('visibilitychange', function () { document.documentElement.classList.toggle('zb-pause', document.hidden); });
+</script>
 </main>
 
 <nav class="pfad-weiter" aria-label="Weiter zur nächsten Seite">
