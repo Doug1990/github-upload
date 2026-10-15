@@ -1256,6 +1256,34 @@
     <a class="pfad-knopf" href="#stadt">Ganz in Ruhe</a></p>
 </div>
 
+<style>
+/* Bild statt Text: kleine Zeichnungen und zugeklappte Wortfelder (Hero bis Meldung) */
+.card-ic { display: block; width: 100%; max-width: 160px; height: auto; margin: 0 0 8px; overflow: visible; }
+.card-ic .ic-main { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
+.card-ic .ic-alt { fill: none; stroke: var(--gold); stroke-width: 2.5; stroke-dasharray: 5 5; stroke-linecap: round; }
+.card-ic .ic-node { fill: #173126; stroke: var(--accent); stroke-width: 2.5; }
+.card-ic .ic-dot { fill: var(--gold); }
+.card-ic .ic-l1 { fill: #2C7A82; } .card-ic .ic-l2 { fill: #56903F; } .card-ic .ic-l3 { fill: #B9832A; }
+.card-ic .ic-tank { fill: none; stroke: var(--blue); stroke-width: 2.5; }
+.card-ic .ic-fill { fill: var(--blue); opacity: 0.55; }
+.card-ic .ic-c1 { fill: #56903F; } .card-ic .ic-c2 { fill: #B9832A; } .card-ic .ic-c3 { fill: #5563BF; }
+.card-ic .ic-weg { opacity: 0.35; }
+.card-ic .ic-x { fill: none; stroke: var(--coral); stroke-width: 3; stroke-linecap: round; }
+.card-ic .ic-bak { fill: #B26A44; stroke: #F2C46B; stroke-width: 1.5; }
+.card-ic .ic-zelle { fill: #173126; stroke: var(--accent); stroke-width: 3; }
+.card-ic .ic-kern { fill: #2D3A6E; stroke: #B39DDB; stroke-width: 2; }
+.card-ic .ic-in { stroke-width: 1; }
+.endo-ic { max-width: 320px; }
+@media (prefers-reduced-motion: reduce) { .card-ic .ic-dot { display: none; } }
+details.wort-vorab { margin: 8px auto; max-width: min(94vw, 54ch); text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; }
+details.wort-vorab > summary { display: flex; align-items: center; min-height: 44px; padding: 8px 14px; cursor: pointer; list-style: none; border: 1px dashed rgba(127,217,168,0.5); border-radius: 10px; background: rgba(127,217,168,0.06); color: var(--accent); font-size: 13px; }
+details.wort-vorab > summary::-webkit-details-marker { display: none; }
+details.wort-vorab > summary::after { content: ""; margin-left: auto; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); }
+details.wort-vorab[open] > summary::after { transform: rotate(-135deg); }
+details.wort-vorab > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.65; color: #C7CAD6; }
+.dorf-ort details.wort-vorab { margin-left: 0; margin-right: 0; max-width: none; }
+</style>
 <main id="main" tabindex="-1">
 <section class="hero">
   <svg class="hero-bg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -1265,7 +1293,7 @@
   </svg>
   <p class="eyebrow">Infrastruktur · Teil 2</p>
   <h1 class="hero-title">In jeder deiner Zellen steht ein Kraftwerk.</h1>
-  <p class="hero-thesis">Archiv, Fabrik, Müllabfuhr, Stadtgrenze: Eine einzelne Zelle ist organisiert wie eine kleine Stadt. Und sie läuft seit Milliarden Jahren, ohne dass jemand sie geplant hat.</p>
+  <p class="hero-thesis">Archiv, Fabrik, Müllabfuhr, Stadtgrenze: Eine Zelle ist eine kleine Stadt, die seit Milliarden Jahren läuft.</p>
   <a class="hero-cta" href="#stadt">Rein in die Zelle &darr;</a>
 </section>
 
@@ -1335,7 +1363,8 @@
 <!-- 1. Zelle als Stadt -->
 <section class="sec reveal" id="stadt">
   <h2>Die Zelle ist eine Stadt in klein.</h2>
-  <p class="lead">Tippe auf einen Bestandteil: Die Kamera fährt hinein, und du siehst, was dort gerade passiert. Mit dem Schalter wechselst du zwischen der Sprache der Biologie und der der Stadtplanung. Neue Wörter werden direkt erklärt. Das <a href="glossar.html">Glossar</a> sammelt sie zum Wiederholen. Drei Wörter vorab: Die Membran ist die dünne Haut um die Zelle. Eiweiße sind die winzigen Bauteile und Maschinen, die fast alles in der Zelle tun. ATP ist ein kleines Molekül, das Energie trägt, wie eine Münze, mit der die Zelle bezahlt.</p>
+  <p class="lead">Tippe auf einen Bestandteil, die Kamera fährt hinein. Der Schalter wechselt zwischen Zelle und Stadt.</p>
+  <details class="wort-vorab"><summary>Drei Wörter vorab</summary><p>Die Membran ist die dünne Haut um die Zelle. Eiweiße sind die winzigen Bauteile und Maschinen, die fast alles in der Zelle tun. ATP ist ein kleines Molekül, das Energie trägt, wie eine Münze. Mehr im <a href="glossar.html">Glossar</a>.</p></details>
   <div class="seg" role="group" aria-label="Ansicht">
     <button type="button" id="viewBio" aria-pressed="true">Zelle</button>
     <button type="button" id="viewCity" aria-pressed="false">Stadt</button>
@@ -1431,13 +1460,13 @@
   </div>
   <p class="livecap sans" id="liveCap" aria-live="polite"></p>
   <div class="infocard" id="info" aria-live="polite"></div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zell-Zoom</span></summary><div class="hinkt-body"><p>Eine Stadt hat ein Rathaus und Leute, die etwas wollen. Die Zelle hat keinen Bürgermeister und keine Absicht, ihre Teile folgen chemischen Regeln.</p><p>Auch die Anordnung ist geschönt: Hier liegen die Bauteile getrennt und ordentlich nebeneinander, in einer echten Zelle ist es dichter und ständig in Bewegung.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet in einer Zelle, was wo gebaut wird?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand allein. Signale von außen und aus der Zelle selbst bestimmen, welche Gene abgelesen und welche Eiweiße gebaut werden. <a href="#regulation">Mehr dazu</a></p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zell-Zoom</span></summary><div class="hinkt-body"><p>Eine Stadt hat ein Rathaus und Leute, die etwas wollen. Die Zelle hat keinen Bürgermeister, ihre Teile folgen chemischen Regeln. Auch die Anordnung ist geschönt, echte Zellen sind dichter und ständig in Bewegung.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet in einer Zelle, was wo gebaut wird?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand allein. Signale von außen und aus der Zelle selbst bestimmen, welche Gene abgelesen und welche Eiweiße gebaut werden. <a href="#regulation">Mehr dazu</a></p></div></details>
 </section>
 
 <!-- 1a. Dein Tag in einer Zelle -->
 <section class="sec reveal" id="tag">
   <h2>Auch eine Zelle hat einen Tag, nur keinen Stundenplan.</h2>
-  <p class="lead">Auf der <a href="index.html">Düsseldorf-Seite</a> ging es darum, was deinen Tag trägt. Hier geht es darum, was in dir währenddessen passiert. Schieb die Uhr und sieh, was gerade im Vordergrund steht. Alles läuft immer gleichzeitig, nur die Gewichte verschieben sich.</p>
+  <p class="lead">Schieb die Uhr: Alles läuft gleichzeitig, nur die Gewichte verschieben sich. Den Tag der Stadt zeigt die <a href="index.html">Düsseldorf-Seite</a>.</p>
   <div class="panel" id="tagPanel">
     <div class="tag-time"><b id="tagT">7 Uhr</b><span id="tagPh">Morgen</span></div>
     <div class="tag-strip"><i class="tag-mark" id="tagM" aria-hidden="true"></i><input type="range" class="tag-reg" id="tagH" min="0" max="23" step="1" value="7" aria-label="Uhrzeit" aria-valuetext="7 Uhr, Morgen"></div>
@@ -1452,14 +1481,14 @@
     <div class="col"><b>In der Zelle</b><span id="tagZ"></span></div>
     <div class="col city"><b>In der Stadt</b><span id="tagS"></span></div>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Dein Tag</span></summary><div class="hinkt-body"><p>Zellen haben eine innere Uhr aus Eiweißen, die einen Rhythmus mitgibt. Aber niemand liest dort einen Plan ab. Was gerade gebraucht wird, entscheiden Signale, das Angebot und der Zelltyp.</p><p>Herzzellen arbeiten Tag und Nacht, Nervenzellen speichern kaum etwas, und wer nachts arbeitet, verschiebt alles. Die Balken zeigen ein Bild der Gewichte, keine Messwerte.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Woher weiß eine Zelle, dass es Morgen ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Sie weiß es nicht selbst. Licht und Hormone melden den Tag an den Körper, und eine innere Uhr aus Eiweißen gibt den Rhythmus vor. <a href="#signale">Mehr dazu</a></p></div></details>
-  <p class="note">Stark vereinfacht: Aufräumen, Reparatur und Bau laufen immer, nur in unterschiedlichem Maß. Die Werte hinter den Balken sind frei gewählt. Der Tag ist ein Beispiel für einen Menschen mit gewöhnlichem Rhythmus, nicht für jede Zelle und nicht für jeden Körper.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Dein Tag</span></summary><div class="hinkt-body"><p>Zellen haben eine innere Uhr aus Eiweißen, aber niemand liest dort einen Plan ab. Was gebraucht wird, entscheiden Signale, das Angebot und der Zelltyp. Herzzellen arbeiten Tag und Nacht, wer nachts arbeitet, verschiebt alles.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Woher weiß eine Zelle, dass es Morgen ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Sie weiß es nicht selbst. Licht und Hormone melden den Tag an den Körper, und eine innere Uhr aus Eiweißen gibt den Rhythmus vor. <a href="#signale">Mehr dazu</a></p></div></details>
+  <p class="note">Stark vereinfacht: Aufräumen, Reparatur und Bau laufen immer, nur in unterschiedlichem Maß. Die Werte sind frei gewählt, für einen Menschen mit gewöhnlichem Rhythmus.</p>
 </section>
 
 <!-- 2. Kraftwerk -->
 <section class="sec reveal" id="kraftwerk">
   <h2>Das Kraftwerk: Wasserkraft im Miniaturformat.</h2>
-  <p class="lead">Wasser wird in einen Stausee gepumpt, fließt durch eine Turbine zurück und liefert Strom. Die Zelle macht dasselbe mit winzigen, positiv geladenen Teilchen (Protonen) und stellt dabei ATP her, ihren Treibstoff. Gefälle heißt: Auf einer Seite der Membran sind mehr Teilchen als auf der anderen. Schiebe den Regler und sieh, was passiert.</p>
+  <p class="lead">Wasser steigt in den Stausee und fällt durch die Turbine. Die Zelle macht dasselbe mit Teilchen (Protonen) und stellt dabei ATP her. Schiebe den Regler.</p>
   <div class="kw-schritte" id="kwSchritte" role="group" aria-label="Erklärung in vier Schritten">
     <button type="button" class="btn" id="kwZur" disabled>Zurück</button>
     <button type="button" class="btn primary" id="kwWeit">Erklär es mir in vier Schritten</button>
@@ -1518,22 +1547,22 @@
     <div class="stat"><small>ATP pro Sekunde</small><span id="sRate">0</span></div>
     <div class="stat"><small>ATP gesamt</small><span id="sTotal">0</span></div>
   </div>
-  <p class="stat-erkl"><b>Pegel:</b> wie voll der Stausee ist. 0 Prozent heißt kein Gefälle, 100 Prozent heißt oben ist alles voll. <b>ATP pro Sekunde:</b> was die Turbine gerade herstellt. <b>ATP gesamt:</b> alles seit dem Start. Echte Zellen schaffen Millionen pro Sekunde.</p>
+  <p class="stat-erkl"><b>Pegel:</b> wie voll der Stausee ist, also wie groß das Gefälle der Teilchen zwischen den Seiten der Membran ist.</p>
   <div class="controls">
     <label>Nahrung &amp; O₂ <input type="range" id="power" min="0" max="100" value="55" aria-label="Pumpleistung"></label>
     <button type="button" class="btn" id="o2btn">Sauerstoff abdrehen</button>
   </div>
   <p class="status" id="tstatus" aria-live="polite"></p>
   <div class="legend"><span><i style="background:#FF8A65"></i>Teilchen (Proton, H⁺)</span><span><i style="background:#F2C46B"></i>ATP (fertige Energiewährung)</span><span><i style="background:#4FC3D9"></i>Turbine dreht sich mit dem Rückfluss</span></div>
-  <p class="fachwort-zeile"><b>Fachwörter:</b> ATP ist ein kleines Molekül, das Energie trägt, wie eine Münze, mit der die Zelle bezahlt. Das Kraftwerk hat zwei Häute. Der Stausee ist der Raum zwischen ihnen, der Keller innen heißt Matrix. Turbine und ATP-Fabrik sind zusammen die ATP-Synthase. Verbrauchtes ATP wird sofort wieder aufgeladen. Darum setzt ein Körper am Tag etwa sein eigenes Gewicht an ATP um, obwohl er nie viel davon vorrätig hat.</p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kraftwerk</span></summary><div class="hinkt-body"><p>Ein Stausee füllt sich und speichert Energie für Tage. Von ATP hat eine Zelle nur wenig auf Vorrat, es wird laufend neu gemacht.</p><p>Auch die Turbine sieht anders aus: In der Zelle ist sie ein winziges Eiweiß in einer Membran, das von Protonen angetrieben wird.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert in einer Zelle, wenn das Nachliefern nur kurz stockt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Der kleine Vorrat an ATP reicht nur für Sekunden. Dann stehen zuerst Pumpen, Aufräumen und Bau still. <a href="#ausfall">Mehr dazu</a></p></div></details>
-  <p class="note">Vereinfacht: In der Simulation braucht ein ATP vier Protonen. Der echte Wert liegt grob bei drei bis vier und hängt von der Zellart ab. Alles hier ist eine Skizze des Prinzips, kein exaktes Modell.</p>
+  <details class="wort-vorab"><summary>Fachwörter</summary><p>ATP ist ein kleines Molekül, das Energie trägt, wie eine Münze. Der Stausee ist der Raum zwischen den zwei Häuten des Kraftwerks, der Keller innen heißt Matrix. Turbine und ATP-Fabrik sind zusammen die ATP-Synthase. Verbrauchtes ATP wird sofort wieder aufgeladen. Darum setzt ein Körper am Tag etwa sein eigenes Gewicht an ATP um, obwohl er nie viel davon vorrätig hat.</p></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kraftwerk</span></summary><div class="hinkt-body"><p>Ein Stausee speichert Energie für Tage, von ATP hat eine Zelle nur wenig auf Vorrat. Die Turbine ist in der Zelle ein winziges Eiweiß in einer Membran, das von Protonen angetrieben wird.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert in einer Zelle, wenn das Nachliefern nur kurz stockt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Der kleine Vorrat an ATP reicht nur für Sekunden. Dann stehen zuerst Pumpen, Aufräumen und Bau still. <a href="#ausfall">Mehr dazu</a></p></div></details>
+  <p class="note">Vereinfacht: Hier braucht ein ATP vier Protonen, echt sind es grob drei bis vier. Echte Zellen schaffen Millionen ATP pro Sekunde. Eine Skizze des Prinzips.</p>
 </section>
 
 <!-- 2a. Fließband -->
 <section class="sec reveal" id="fliessband">
   <h2>Das Fließband: Wo es eng wird, staut es sich.</h2>
-  <p class="lead">Aus Nahrung wird nicht in einem Schritt ein Baustein. Es geht Station für Station, und an jeder arbeitet ein Enzym (ein Eiweiß, das genau einen chemischen Schritt beschleunigt). Drossle Station 3 und sieh, wie sich der Stau nach hinten ausbreitet. Dann schalte die Rückkopplung ein: Das Endprodukt bremst die erste Station.</p>
+  <p class="lead">Jede Station hat ein Enzym, ein Eiweiß für genau einen chemischen Schritt. Drossle Station 3, dann schalte die Rückkopplung ein: Das Endprodukt bremst Station 1.</p>
   <div class="panel fb-panel" id="fbPanel">
     <svg id="fbSvg" class="fb-svg" viewBox="0 0 640 296" role="img" aria-labelledby="fbSvgT">
       <title id="fbSvgT">Schema eines Stoffwechselwegs mit vier Stationen. Links kommt Rohstoff aufs Band, jede Station macht einen Schritt, rechts sammelt sich das Endprodukt. Ist eine Station langsamer, staut sich das Material davor.</title>
@@ -1580,12 +1609,12 @@
   <p class="status" id="fbStatus" aria-live="polite"></p>
   <div class="legend"><span><i style="background:#FF8A65"></i>Rohstoff, Station 1</span><span><i style="background:#F2C46B"></i>Zwischenstufe 2</span><span><i style="background:#7FD9A8"></i>Zwischenstufe 3</span><span><i style="background:#4FC3D9"></i>Fast fertig, Station 4</span><span><i style="background:#B79CFF"></i>Endprodukt</span></div>
   <div class="fb-cols">
-    <div class="col"><b>In der Zelle</b>Ein Stoffwechselweg ist eine Kette von Schritten. Jeden Schritt macht ein Enzym, und ist eines langsam, bestimmt es das Tempo des ganzen Wegs. Oft bremst das Endprodukt selbst das erste Enzym, damit nicht mehr entsteht, als gebraucht wird.</div>
-    <div class="col city"><b>In der Stadt</b>Ein Fließband in einer Fabrik. Die langsamste Station gibt den Takt vor, davor staut sich das Material. Meldet das Lager "voll", wird der Zulauf gedrosselt, und das Band bleibt leer statt überfüllt.</div>
+    <div class="col"><b>In der Zelle</b>Das langsamste Enzym bestimmt das Tempo des Wegs. Oft bremst das Endprodukt das erste Enzym.</div>
+    <div class="col city"><b>In der Stadt</b>Die langsamste Station gibt den Takt vor. Meldet das Lager "voll", wird der Zulauf gedrosselt.</div>
     <p class="aha">Die Rückkopplung spart am Anfang, nicht am Ende: Es wird nur Rohstoff eingesetzt, der auch gebraucht wird.</p>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Fließband</span></summary><div class="hinkt-body"><p>Ein Fließband hat eine feste Reihenfolge und jemanden, der es plant. In der Zelle bilden die Wege ein Netz. Viele Stoffe gehören zu mehreren Wegen, und ein Enzym ist kein Arbeiter, der Teile weiterreicht. Es beschleunigt eine Reaktion, und der Stoff wandert weiter, weil die Reaktion abläuft.</p><p>Die Kästchen auf dem Band sind einzelne Teile. In der Zelle sind es Milliarden Moleküle, die sich zufällig bewegen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert, wenn zwei Wege dasselbe Enzym brauchen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Sie konkurrieren um das Enzym. Der Weg, der es dringender braucht oder schneller bekommt, setzt sich durch, der andere staut sich.</p></div></details>
-  <p class="note">Stark vereinfacht: Die Zahlen sind frei gewählt und keine Messwerte. Echte Wege haben meist mehr Stationen, Verzweigungen und mehrere Stellen, an denen gebremst wird. Die Warteschlange vor einer Station steht für die Menge an Zwischenprodukt, nicht für Teile in einer Reihe.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Fließband</span></summary><div class="hinkt-body"><p>Ein Fließband hat eine feste Reihenfolge und jemanden, der es plant. In der Zelle bilden die Wege ein Netz, und viele Stoffe gehören zu mehreren Wegen. Ein Enzym reicht keine Teile weiter, es beschleunigt eine Reaktion. Die Kästchen stehen für Milliarden Moleküle, die sich zufällig bewegen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert, wenn zwei Wege dasselbe Enzym brauchen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Sie konkurrieren um das Enzym. Der Weg, der es dringender braucht oder schneller bekommt, setzt sich durch, der andere staut sich.</p></div></details>
+  <p class="note">Stark vereinfacht: Die Zahlen sind frei gewählt. Echte Wege haben mehr Stationen und Verzweigungen. Die Warteschlange steht für die Menge an Zwischenprodukt.</p>
 </section>
 
 <div class="teil-kopf" id="teil2" role="group" aria-label="Teil 2 von 5: Leben unter Druck">
@@ -1597,31 +1626,34 @@
 <!-- 3. Robust statt perfekt -->
 <section class="sec reveal" id="robust">
   <h2>Gut genug schlägt perfekt.</h2>
-  <p class="lead">Technik wird nach Plan gebaut. Niemand hat das Leben entworfen. Es hat sich in kleinen Schritten verändert, und was funktionierte, blieb. Heraus kommt ein Aufbau, der einen Ingenieur nervös macht und trotzdem erstaunlich zuverlässig läuft.</p>
+  <p class="lead">Technik wird geplant, das Leben nie. Was funktionierte, blieb. Das macht Ingenieure nervös und läuft trotzdem zuverlässig.</p>
   <div class="cards">
     <article class="card">
+      <svg class="card-ic" viewBox="0 0 160 56" aria-hidden="true" focusable="false"><path class="ic-main" d="M12 38 H148"/><path class="ic-alt" d="M40 38 C52 10 108 10 120 38"/><circle class="ic-node" cx="12" cy="38" r="6"/><circle class="ic-node" cx="148" cy="38" r="6"/><circle class="ic-dot" r="4"><animateMotion dur="3.2s" repeatCount="indefinite" path="M40 38 C52 10 108 10 120 38"/></circle></svg>
       <h3>Redundanz</h3>
-      <p>Viele Funktionen sind mehrfach vorhanden, überlappend und scheinbar verschwenderisch. Fällt ein Teil aus, springt ein anderes ein.</p>
-      <p class="infra">In der Stadt: Ringleitungen, zwei Zufahrten, Notstrom.</p>
+      <p>Teile sind mehrfach da. Fällt eines aus, springt ein anderes ein.</p>
+      <p class="infra">Stadt: Ringleitung, zwei Zufahrten, Notstrom.</p>
     </article>
     <article class="card">
+      <svg class="card-ic" viewBox="0 0 160 56" aria-hidden="true" focusable="false"><rect class="ic-l1" x="24" y="40" width="112" height="10" rx="3"/><rect class="ic-l2" x="40" y="26" width="96" height="10" rx="3"/><rect class="ic-l3" x="56" y="12" width="80" height="10" rx="3"/></svg>
       <h3>Alte Reste bleiben</h3>
-      <p>Evolution räumt nicht auf. Was einmal funktioniert hat, wird überschrieben, ergänzt, umgangen, aber selten entfernt.</p>
-      <p class="infra">In der Stadt: Der Altbau unter dem Neubau, die Leitung aus den Fünfzigern, die noch immer läuft.</p>
+      <p>Evolution räumt nicht auf. Was einmal funktionierte, wird ergänzt und umgangen, selten entfernt.</p>
+      <p class="infra">Stadt: Der Altbau unter dem Neubau.</p>
     </article>
     <article class="card">
+      <svg class="card-ic" viewBox="0 0 160 56" aria-hidden="true" focusable="false"><rect class="ic-tank" x="52" y="8" width="56" height="42" rx="6"/><rect class="ic-fill" x="56" y="30" width="48" height="16" rx="3"/><path class="ic-alt" d="M44 24 H116"/></svg>
       <h3>Robust vor effizient</h3>
-      <p>Optimiert wird nichts, es muss nur reichen. Dafür hält das System auch unter chaotischen Bedingungen durch.</p>
-      <p class="infra">In der Stadt: Puffer und Reserven kosten Geld und retten im Ernstfall den Betrieb.</p>
+      <p>Es muss nur reichen. Dafür hält das System auch unter chaotischen Bedingungen durch.</p>
+      <p class="infra">Stadt: Puffer kosten Geld und retten den Betrieb.</p>
     </article>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Gut genug schlägt perfekt</span></summary><div class="hinkt-body"><p>Eine Stadt plant Reserven, weil jemand an den Ernstfall denkt. Im Leben bleibt, was zufällig gereicht hat, und dass etwas mehrfach vorhanden ist, hatte vorher keinen Zweck.</p><p>Auch das Wort Design ist hier nur ein Bild. Es hat keinen Entwerfer gegeben.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was würde ein Ingenieur an dieser Stelle aufräumen, und was würde dann fehlen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Er würde doppelte Wege und alte Reste streichen. Dann fehlt der Ersatz, sobald ein Teil ausfällt. <a href="#ausfall">Mehr dazu</a></p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Gut genug schlägt perfekt</span></summary><div class="hinkt-body"><p>Eine Stadt plant Reserven, weil jemand an den Ernstfall denkt. Im Leben bleibt, was zufällig gereicht hat, und dass etwas mehrfach vorhanden ist, hatte vorher keinen Zweck. Auch das Wort Design ist nur ein Bild, es gab keinen Entwerfer.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was würde ein Ingenieur an dieser Stelle aufräumen, und was würde dann fehlen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Er würde doppelte Wege und alte Reste streichen. Dann fehlt der Ersatz, sobald ein Teil ausfällt. <a href="#ausfall">Mehr dazu</a></p></div></details>
 </section>
 
 <!-- 3a. Zoll im Detail -->
 <section class="sec reveal" id="reserve">
   <h2>Ein Lager macht Ausfälle erträglich.</h2>
-  <p class="lead">Zellen horten Vorräte, damit sie nicht jede Lieferung sofort brauchen. Wähle einen Zelltyp, lasse die Lieferung ausfallen und stelle ein, wie viele Stunden vergangen sind. Sieh, welches Lager zuerst leer wird und wie lange die Reserve reicht.</p>
+  <p class="lead">Zellen horten Vorräte. Wähle einen Zelltyp, lass die Lieferung ausfallen und stelle die Stunden ein: Welches Lager wird zuerst leer?</p>
   <div class="panel res">
     <div class="reg-seg" role="group" aria-label="Zelltyp wählen" id="resSeg"></div>
     <div class="res-row"><span>Glykogen (schnelles Lager)</span><div class="res-bar"><i id="resGlyk"></i></div><output id="resGlykO">100 %</output></div>
@@ -1633,16 +1665,16 @@
     <label class="sig-slider" for="resH"><span class="row"><span>Stunden ohne Lieferung</span><output id="resHO" for="resH">0 h</output></span><input type="range" id="resH" min="0" max="120" step="1" value="0"></label>
     <p class="status" id="resStatus" aria-live="polite"></p>
     <div class="aus-cols">
-      <div class="col"><b>In der Zelle</b><span>Glykogen ist ein Zuckerlager, das schnell zur Hand ist. Fett speichert viel mehr Energie, ist aber langsamer abrufbar. Eine Zelle nutzt zuerst das, was schnell geht.</span></div>
-      <div class="col city"><b>In der Stadt</b><span>Der Vorratsraum im Supermarkt für den Alltag, das große Zentrallager für den Notfall. Wer nichts lagert, hängt an jeder Lieferung.</span></div>
+      <div class="col"><b>In der Zelle</b><span>Glykogen ist ein Zuckerlager, schnell zur Hand. Fett speichert viel mehr, ist aber langsamer abrufbar. Zuerst kommt das Schnelle dran.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Vorratsraum für den Alltag, Zentrallager für den Notfall. Wer nichts lagert, hängt an jeder Lieferung.</span></div>
     </div>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Reserven</span></summary><div class="hinkt-body"><p>Ein Lager in der Stadt hat eine Menge und einen Preis. Zellen steuern ihre Speicher laufend über Hormone und Signale. Je nach Zelltyp sind sie sehr verschieden: Nervenzellen speichern kaum etwas und hängen an der Lieferung, Fettzellen sind fast nur Lager. Der Körper hat zusätzlich zentrale Reserven, etwa in der Leber.</p><p>Die Stunden sind frei gewählte Beispielwerte. Das Bild sagt nichts darüber, wie lange ein Mensch ohne Nahrung auskommt, und es ist keine Empfehlung zum Essen oder Fasten.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Warum speichern Nervenzellen kaum etwas?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Sie arbeiten ständig und haben kaum Platz für Vorräte. Darum hängen sie stark an der laufenden Lieferung über das Blut.</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Reserven</span></summary><div class="hinkt-body"><p>Zellen steuern ihre Speicher laufend über Hormone und Signale. Nervenzellen speichern kaum etwas, Fettzellen sind fast nur Lager. Der Körper hat zusätzlich zentrale Reserven, etwa in der Leber.</p><p>Die Stunden sind frei gewählte Beispielwerte. Das Bild sagt nichts darüber, wie lange ein Mensch ohne Nahrung auskommt, und ist keine Empfehlung zum Essen oder Fasten.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Warum speichern Nervenzellen kaum etwas?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Sie arbeiten ständig und haben kaum Platz für Vorräte. Darum hängen sie stark an der laufenden Lieferung über das Blut.</p></div></details>
 </section>
 
 <section class="sec reveal" id="zoll">
   <h2>Der Zoll: Drei Wege über die Grenze.</h2>
-  <p class="lead">Die Membran ist die dünne Haut um die Zelle. Durch sie führen drei Wege, und nur einer kostet Energie. Pore, Pumpe und Tor sind Eiweiße in dieser Haut. Wähle einen Weg, ändere das Gefälle (wie viel mehr Teilchen auf der einen Seite sind als auf der anderen) und schalte das ATP ab. Dann siehst du, wer das Gefälle hält und wer es nur nutzt. Der Schalter wechselt zwischen Biologie und Stadt.</p>
+  <p class="lead">Durch die Membran, die dünne Haut der Zelle, führen drei Wege. Nur einer kostet Energie. Ändere das Gefälle (wie viel mehr Teilchen auf einer Seite sind) und schalte ATP ab.</p>
   <div class="zoll-seg" role="group" aria-label="Ansicht des Zolls">
     <button type="button" id="zollViewBio" aria-pressed="true">Zelle</button>
     <button type="button" id="zollViewCity" aria-pressed="false">Stadt</button>
@@ -1768,35 +1800,36 @@
   <div class="zoll-det" id="zollDet-pore">
     <div class="hd"><small>Weg 1, kostet nichts</small><h3>Pore: offen, aber ohne Antrieb</h3></div>
     <div class="zoll-cols">
-      <div class="col"><b>In der Zelle</b>Eine Pore ist ein offener Kanal durch die Membran. Teilchen wandern von der vollen auf die leere Seite, einfach weil sie sich zufällig bewegen und dort mehr Platz ist. Das kostet nichts und hört auf, sobald beide Seiten gleich voll sind.</div>
-      <div class="col city"><b>In der Stadt</b>Eine offene Straße über die Grenze. Wo sich viele Wagen drängen, fahren mehr hinüber als zurück. Niemand schiebt. Es gleicht sich von selbst aus, bis auf beiden Seiten gleich viel los ist.</div>
+      <div class="col"><b>In der Zelle</b>Ein offener Kanal durch die Membran. Teilchen wandern von der vollen auf die leere Seite, weil sie sich zufällig bewegen. Das kostet nichts und endet, wenn beide Seiten gleich voll sind.</div>
+      <div class="col city"><b>In der Stadt</b>Eine offene Straße über die Grenze. Wo viele Wagen drängen, fahren mehr hinüber als zurück, bis auf beiden Seiten gleich viel los ist.</div>
       <p class="aha">Eine Pore baut kein Gefälle auf, sie verbraucht es nur. Ohne etwas, das nachlädt, wäre es bald weg.</p>
     </div>
   </div>
   <div class="zoll-det" id="zollDet-pump" hidden>
     <div class="hd"><small>Weg 2, kostet ATP</small><h3>Pumpe: der Weg gegen das Gefälle</h3></div>
     <div class="zoll-cols">
-      <div class="col"><b>In der Zelle</b>Eine Pumpe schiebt Teilchen dorthin, wo schon viele sind. Das ist Arbeit gegen das Gefälle, und dafür spaltet sie ATP. Die Membran ist nie ganz dicht, deshalb sickert immer etwas zurück, und die Pumpe muss laufend nachschieben.</div>
-      <div class="col city"><b>In der Stadt</b>Eine Schleuse mit Motor. Sie bringt Wagen dorthin, wo schon Stau ist, und der Motor braucht Strom. Weil jeder Zaun Lücken hat, kommt immer etwas zurück. Je größer der Unterschied, desto mehr Strom braucht es.</div>
-      <p class="aha">Hier hängt alles am ATP. Die Membran ist nie ganz dicht, es sickert immer etwas zurück. Ohne ATP gleicht sich das Gefälle darum aus. Das passiert, wenn das Kraftwerk ausfällt.</p>
+      <div class="col"><b>In der Zelle</b>Eine Pumpe schiebt Teilchen dorthin, wo schon viele sind, und spaltet dafür ATP. Die Membran ist nie ganz dicht, darum muss sie laufend nachschieben.</div>
+      <div class="col city"><b>In der Stadt</b>Eine Schleuse mit Motor. Sie bringt Wagen dorthin, wo schon Stau ist, und braucht Strom. Jeder Zaun hat Lücken, es kommt immer etwas zurück.</div>
+      <p class="aha">Hier hängt alles am ATP. Ohne ATP gleicht sich das Gefälle aus. Das passiert, wenn das Kraftwerk ausfällt.</p>
     </div>
   </div>
   <div class="zoll-det" id="zollDet-gate" hidden>
     <div class="hd"><small>Weg 3, braucht ein Signal</small><h3>Tor: erst Signal, dann durch</h3></div>
     <div class="zoll-cols">
-      <div class="col"><b>In der Zelle</b>Ein Tor ist meist zu. Erst ein Signal, zum Beispiel ein Botenstoff oder eine Spannung, öffnet es für kurze Zeit. Dann lässt es durch, was passt, und das Gefälle bestimmt die Richtung, wie bei der Pore.</div>
-      <div class="col city"><b>In der Stadt</b>Eine Schranke mit Zollhäuschen. Ohne Genehmigung bleibt sie unten. Mit Genehmigung geht sie hoch, und wer die richtigen Papiere hat, fährt durch.</div>
-      <p class="aha">Ein Tor braucht kein ATP zum Durchlassen, nur ein Signal zum Öffnen. Ohne Gefälle bringt auch ein offenes Tor nichts, und das Gefälle bauen die Pumpen.</p>
+      <div class="col"><b>In der Zelle</b>Ein Tor ist meist zu. Ein Signal, etwa ein Botenstoff oder eine Spannung, öffnet es kurz. Das Gefälle bestimmt die Richtung.</div>
+      <div class="col city"><b>In der Stadt</b>Eine Schranke mit Zollhäuschen. Mit Genehmigung geht sie hoch.</div>
+      <p class="aha">Ein Tor braucht kein ATP, nur ein Signal. Ohne Gefälle bringt ein offenes Tor nichts, das Gefälle bauen die Pumpen.</p>
     </div>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zoll</span></summary><div class="hinkt-body"><p>Ein Zoll hat Beamte, die Papiere prüfen und entscheiden. An der Membran entscheidet niemand. Pore, Pumpe und Tor wirken durch ihre Form und ihre Chemie, und was durchkommt, hängt vom Gefälle ab.</p><p>Die Wagen in der Stadtansicht haben ein Ziel. Die Teilchen haben keines, sie bewegen sich zufällig.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer legt in der Zelle fest, welche Teilchen als passend gelten?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand. Form und Ladung der Teilchen passen zu Poren, Pumpen und Toren oder eben nicht. Das entscheidet die Chemie.</p></div></details>
-  <p class="note">Stark vereinfacht: Ein Gefälle ist Statistik und keine Absicht. Die Teilchen bewegen sich zufällig, im Mittel wandern nur mehr von der vollen auf die leere Seite. Deshalb schwanken die Zahlen. Wasser wandert zusätzlich dorthin, wo mehr Teilchen gelöst sind (Osmose). Viele echte Transporte sind gekoppelt, und echte Pumpen brauchen nicht ein ATP je Teilchen. Die Zahlen sind kein Messwert.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Zoll</span></summary><div class="hinkt-body"><p>Ein Zoll hat Beamte, die entscheiden. An der Membran entscheidet niemand: Pore, Pumpe und Tor wirken durch Form und Chemie, was durchkommt, hängt vom Gefälle ab. Die Wagen in der Stadtansicht haben ein Ziel, die Teilchen nicht.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer legt in der Zelle fest, welche Teilchen als passend gelten?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand. Form und Ladung der Teilchen passen zu Poren, Pumpen und Toren oder eben nicht. Das entscheidet die Chemie.</p></div></details>
+  <p class="note">Stark vereinfacht: Das Gefälle ist Statistik, darum schwanken die Zahlen. Wasser folgt gelösten Teilchen (Osmose). Viele Transporte sind gekoppelt, echte Pumpen brauchen nicht ein ATP je Teilchen.</p>
 </section>
 
 <!-- 3a. Ausfall in der Zell-Stadt -->
 <section class="sec reveal" id="ausfall">
   <h2>Fällt eine Stelle aus, merkt es der Rest.</h2>
-  <p class="lead">Redundanz fängt vieles ab, aber nicht alles. An vier Stellen hängt viel an einem einzigen Teil. Lege eines lahm und sieh, was nach und nach mit ausfällt. Du kannst auch mehrere zusammen ausschalten. Der Schalter wechselt wieder zwischen Biologie und Stadt. Kurz erklärt: Der Zellkern bewahrt den Bauplan. Ribosomen bauen Eiweiße. Das Mitochondrium liefert Energie. Der Golgi-Apparat verpackt und verschickt. Das Lysosom entsorgt. Das Membrantor kontrolliert den Zugang. <a href="#zoll">Wie der Zoll genau arbeitet, steht davor.</a></p>
+  <p class="lead">Redundanz fängt vieles ab, aber an vier Stellen hängt viel an einem Teil. Lege eines lahm, auch mehrere zusammen. <a href="#zoll">Der Zoll steht davor.</a></p>
+  <details class="wort-vorab"><summary>Die Bauteile kurz</summary><p>Der Zellkern bewahrt den Bauplan. Ribosomen bauen Eiweiße. Das Mitochondrium liefert Energie. Der Golgi-Apparat verpackt und verschickt. Das Lysosom ist ein Bläschen, das entsorgt. Das Membrantor kontrolliert den Zugang.</p></details>
   <div class="aus-seg" role="group" aria-label="Ansicht des Ausfalls">
     <button type="button" id="ausViewBio" aria-pressed="true">Zelle</button>
     <button type="button" id="ausViewCity" aria-pressed="false">Stadt</button>
@@ -1821,14 +1854,14 @@
   <p class="aus-status" id="ausStatus" aria-live="polite"></p>
   <div class="panel alt" id="alt">
     <h3>Zusatzfall: Alterung und Reparatur</h3>
-    <p class="alt-txt">Jede Zelle sammelt mit der Zeit Schäden an Eiweißen, Kraftwerken und DNA. Reparatur und Müllabfuhr räumen das meiste weg. Was übrig bleibt, summiert sich. Stelle das Alter ein und sieh, wie viel liegen bleibt.</p>
+    <p class="alt-txt">Schäden an Eiweißen, Kraftwerken und DNA summieren sich, soweit Reparatur und Müllabfuhr sie nicht wegräumen. Stelle das Alter ein.</p>
     <div class="alt-row"><span>Ohne Reparatur</span><div class="alt-bar"><i id="altOhne"></i></div><output id="altOhneO">0</output></div>
     <div class="alt-row"><span>Mit Reparatur</span><div class="alt-bar"><i id="altMit" class="mit"></i></div><output id="altMitO">0</output></div>
     <label class="sig-slider" for="altAge"><span class="row"><span>Alter der Zelle</span><output id="altAgeO" for="altAge">0 Jahre</output></span><input type="range" id="altAge" min="0" max="80" step="1" value="10"></label>
     <p class="status" id="altStatus" aria-live="polite"></p>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Ausfall</span></summary><div class="hinkt-body"><p>Die Stufen wirken wie ein Fahrplan: erst fällt das eine aus, dann das nächste. Die Seite nennt sie selbst ein Bild für Abhängigkeiten, und wie schnell etwas in einer echten Zelle folgt, hängt vom Fall ab.</p><p>Sieben Bauteile sind eine kleine Auswahl. In einer Zelle hängt mehr zusammen, in mehr Richtungen, als diese Skizze zeigt.</p><p>Beim Zusatzfall sind die Werte erfundene Beispielzahlen, keine Messwerte. Zellen altern je nach Typ sehr verschieden: Manche werden nach Tagen ersetzt, manche (etwa viele Nervenzellen) halten ein Leben lang. Alter ist hier ein Regler, in echt hängt es von vielen Dingen ab und sagt nichts über einen einzelnen Menschen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Abhängigkeit fehlt in dieser Skizze?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel das Zellskelett: Fällt es aus, kommt keine Fracht mehr an. Auch die Signale von außen fehlen in der Skizze. <a href="#skelett">Mehr dazu</a></p></div></details>
-  <p class="note">Stark vereinfacht: Echte Krankheiten sind selten ein einzelner Ausfall. Meist stecken genetische und mehrstufige Ursachen dahinter, und die Bauteile hängen in echt in viel mehr Richtungen zusammen als hier. Die Stufen sind ein Bild für Abhängigkeiten, kein Zeitplan. Die Krankheitsgruppen sind nur Beispiele, keine Diagnose und keine Heilversprechen. Kein Beispiel hier ersetzt ärztlichen Rat.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Ausfall</span></summary><div class="hinkt-body"><p>Die Stufen wirken wie ein Fahrplan, sind aber ein Bild für Abhängigkeiten. Wie schnell etwas in einer echten Zelle folgt, hängt vom Fall ab. Sieben Bauteile sind eine kleine Auswahl, in echt hängt mehr in mehr Richtungen zusammen.</p><p>Beim Zusatzfall sind die Werte erfundene Beispielzahlen. Zellen altern je nach Typ sehr verschieden: Manche werden nach Tagen ersetzt, viele Nervenzellen halten ein Leben lang. Das sagt nichts über einen einzelnen Menschen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Abhängigkeit fehlt in dieser Skizze?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel das Zellskelett: Fällt es aus, kommt keine Fracht mehr an. Auch die Signale von außen fehlen in der Skizze. <a href="#skelett">Mehr dazu</a></p></div></details>
+  <p class="note">Stark vereinfacht: Echte Krankheiten sind selten ein einzelner Ausfall, meist stecken genetische und mehrstufige Ursachen dahinter. Die Beispiele sind keine Diagnose und keine Heilversprechen. Kein Beispiel hier ersetzt ärztlichen Rat.</p>
   <p class="aus-hint" id="ausHint">Noch läuft alles. Schalte oben eine Stelle aus, dann steht hier Stufe für Stufe, was daran hängt.</p>
   <div class="aus-detail" id="ausDetail" hidden>
     <div class="aus-head"><small id="ausEyebrow"></small><h3 id="ausTitle"></h3></div>
@@ -1845,7 +1878,7 @@
 <!-- 3b. Evolution -->
 <section class="sec reveal" id="muell">
   <h2>Was liegen bleibt, stört.</h2>
-  <p class="lead">Jede Zelle erzeugt Abfall: beschädigte Eiweiße, abgenutzte Kraftwerke, Reste. Spezielle Anlagen holen ihn ab und zerlegen ihn in Bausteine, die wieder gebraucht werden. Stelle ein, wie viel anfällt, und sieh, was passiert, wenn die Abfuhr streikt.</p>
+  <p class="lead">Jede Zelle erzeugt Abfall und zerlegt ihn in Bausteine zum Wiederverwenden. Stelle den Anfall ein und lass die Abfuhr streiken.</p>
   <div class="panel muell">
     <div class="muell-field" id="muellField" role="img" aria-label="Müllhaufen"></div>
     <div class="stats" aria-live="off">
@@ -1862,12 +1895,12 @@
     </div>
     <p class="status" id="muellStatus" aria-live="polite"></p>
     <div class="aus-cols">
-      <div class="col"><b>In der Zelle</b><span>Lysosomen, kleine Bläschen mit Verdauungsstoffen (Enzymen), zerlegen Abfall. Das Proteasom, ein Eiweißkomplex, baut beschädigte Eiweiße einzeln ab. Beim Recycling entstehen Aminosäuren, die Bausteine der Eiweiße, und werden neu verbaut.</span></div>
-      <div class="col city"><b>In der Stadt</b><span>Müllabfuhr und Recyclinghof. Stoppt die Abfuhr, stapelt sich der Abfall in den Straßen, bis nichts mehr geht.</span></div>
+      <div class="col"><b>In der Zelle</b><span>Lysosomen, Bläschen mit Verdauungsstoffen (Enzymen), zerlegen Abfall. Das Proteasom baut beschädigte Eiweiße einzeln ab. Die Aminosäuren, Bausteine der Eiweiße, werden neu verbaut.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Müllabfuhr und Recyclinghof. Steht die Abfuhr still, stapelt sich der Abfall, bis nichts mehr geht.</span></div>
     </div>
-    <p class="bruecke">Und wer hält in der Stadt die Rohre instand? Auch dort altert alles und wird irgendwann erneuert. Das steht auf der Düsseldorf-Seite bei <a href="index.html#instand">Was alt wird, muss erneuert werden</a>.</p>
+    <p class="bruecke">Auch in der Stadt altert alles: <a href="index.html#instand">Was alt wird, muss erneuert werden</a>.</p>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Müllabfuhr</span></summary><div class="hinkt-body"><p>Eine Stadt hat eine zentrale Abfuhr. In der Zelle ist die Entsorgung verteilt: Lysosomen, Proteasomen und die Selbstverdauung (Autophagie) arbeiten an vielen Stellen gleichzeitig, und die Zelle steuert sie je nach Bedarf. Es gibt keinen Fahrplan und keinen Streik im engeren Sinn, sondern Störungen, etwa durch Mangel an Enzymen.</p><p>Die Zahlen sind Beispielwerte. Das Bild verspricht nichts: Eine gut arbeitende Entsorgung ist ein Teil von vielen und kein Mittel gegen das Altern.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet in der Zelle, was Abfall ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Zelle markiert alte oder beschädigte Eiweiße mit einem kleinen Anhängsel (Ubiquitin). Das Proteasom erkennt diese Markierung und baut das Eiweiß ab. <a href="#eiweiss">Mehr dazu</a></p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Müllabfuhr</span></summary><div class="hinkt-body"><p>Eine Stadt hat eine zentrale Abfuhr. In der Zelle ist die Entsorgung verteilt: Lysosomen, Proteasomen und die Selbstverdauung (Autophagie) arbeiten an vielen Stellen und werden je nach Bedarf gesteuert. Einen Streik gibt es im engeren Sinn nicht, wohl aber Störungen, etwa durch Mangel an Enzymen.</p><p>Die Zahlen sind Beispielwerte. Gute Entsorgung ist ein Teil von vielen und kein Mittel gegen das Altern.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet in der Zelle, was Abfall ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Zelle markiert alte oder beschädigte Eiweiße mit einem kleinen Anhängsel (Ubiquitin). Das Proteasom erkennt diese Markierung und baut das Eiweiß ab. <a href="#eiweiss">Mehr dazu</a></p></div></details>
 </section>
 
 <div class="teil-kopf" id="teil3" role="group" aria-label="Teil 3 von 5: Entstehung und Wege">
@@ -1878,11 +1911,11 @@
 
 <section class="sec reveal" id="evolution">
   <h2>Ohne Bauamt: Was sich bewährt, bleibt.</h2>
-  <p class="lead">Stell dir viele Zellen vor, jede wie ein Stadtviertel. Reicht bei einer die Versorgung nicht, stirbt sie. Die übrigen vermehren sich weiter. Beim Kopieren schleichen sich zufällige Fehler in den Bauplan ein, die Mutationen heißen. Die meisten ändern nichts Spürbares, manche schaden, wenige helfen. Niemand entwirft das Ergebnis. Drehe an den Reglern und sieh, was sich durchsetzt. Fitness meint hier Passung: wie gut eine Zelle mit Nahrung, Hitze und Gift zurechtkommt. Wer besser passt, hat mehr Nachkommen.</p>
+  <p class="lead">Jede Zelle ist ein Stadtviertel. Reicht die Versorgung nicht, stirbt sie, die übrigen vermehren sich. Fitness heißt Passung zu Nahrung, Hitze und Gift. Niemand entwirft das Ergebnis.</p>
   <div class="evo-steps">
-    <div class="evo-step"><b>Variation</b>Beim Kopieren schleichen sich kleine Fehler ein. Keine Zelle gleicht der anderen.<em>Stadt: Jedes Viertel wird etwas anders gebaut.</em></div>
-    <div class="evo-step"><b>Auswahl</b>Wer mit Hunger oder Gift schlechter zurechtkommt, stirbt häufiger.<em>Stadt: Ohne Versorgung wird ein Viertel aufgegeben.</em></div>
-    <div class="evo-step"><b>Vererbung</b>Wer bleibt, gibt seinen Bauplan weiter, samt kleinen Abweichungen.<em>Stadt: Was funktioniert, wird nachgebaut.</em></div>
+    <div class="evo-step"><svg class="card-ic" viewBox="0 0 160 40" aria-hidden="true" focusable="false"><circle class="ic-c1" cx="30" cy="20" r="9"/><circle class="ic-c2" cx="64" cy="20" r="12"/><circle class="ic-c3" cx="102" cy="20" r="7"/><circle class="ic-c1" cx="132" cy="20" r="10"/></svg><b>Variation</b>Zufällige Fehler beim Kopieren heißen Mutationen. Die meisten ändern nichts Spürbares, manche schaden, wenige helfen.<em>Stadt: Jedes Viertel wird etwas anders gebaut.</em></div>
+    <div class="evo-step"><svg class="card-ic" viewBox="0 0 160 40" aria-hidden="true" focusable="false"><circle class="ic-c1" cx="30" cy="20" r="10"/><circle class="ic-c2 ic-weg" cx="68" cy="20" r="10"/><circle class="ic-c1" cx="106" cy="20" r="10"/><path class="ic-x" d="M60 12 L76 28 M76 12 L60 28"/></svg><b>Auswahl</b>Wer schlechter passt, stirbt häufiger.<em>Stadt: Ohne Versorgung wird ein Viertel aufgegeben.</em></div>
+    <div class="evo-step"><svg class="card-ic" viewBox="0 0 160 40" aria-hidden="true" focusable="false"><circle class="ic-c2" cx="28" cy="20" r="11"/><path class="ic-main" d="M46 20 H80"/><circle class="ic-c2" cx="100" cy="12" r="8"/><circle class="ic-c3" cx="124" cy="28" r="8"/><path class="ic-main" d="M80 20 L92 13 M80 20 L116 27"/></svg><b>Vererbung</b>Wer bleibt, gibt den Bauplan samt Abweichungen weiter.<em>Stadt: Was funktioniert, wird nachgebaut.</em></div>
   </div>
   <div class="panel" id="evoPanel">
     <div class="evo-env"><span>Umwelt: <b id="evoEnvName">Hungerzeit</b></span><span>Jeder Kreis ist eine Zelle, leere Punkte sind freie Grundstücke.</span></div>
@@ -1915,14 +1948,14 @@
     </div>
     <p class="status" id="evoStatus" aria-live="polite"></p>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Evolution</span></summary><div class="hinkt-body"><p>Ein Viertel, das aufgegeben wird, legt einen Bauherrn nahe, der entscheidet. Hier entscheidet niemand. Eine Zelle stirbt, und wer bleibt, hat zufällig besser gepasst.</p><p>Eine Zelle ändert ihren Bauplan auch nicht, weil sie es braucht. Die Abweichungen entstehen zufällig beim Kopieren, die Auswahl kommt erst danach.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer hat in dieser Simulation festgelegt, was als gut gilt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Simulation legt Nahrung und Umwelt fest. Gut ist, was dort überlebt und sich vermehrt. Ein Ziel gibt es nicht.</p></div></details>
-  <p class="note">Stark vereinfacht: Es gibt nur zwei Merkmale, die Zellen teilen sich ohne Partner, und Auswahl heißt hier allein Überleben. Eine dickere Mauer kostet Energie, deshalb ist keine Lösung in jeder Lage die beste. Echte Evolution braucht viel mehr Merkmale und viel mehr Zeit. Der Zufall hat einen festen Startwert, ein Neustart verläuft also immer gleich.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Evolution</span></summary><div class="hinkt-body"><p>Ein aufgegebenes Viertel legt einen Bauherrn nahe, der entscheidet. Hier entscheidet niemand: Wer bleibt, hat zufällig besser gepasst. Eine Zelle ändert ihren Bauplan auch nicht, weil sie es braucht. Die Abweichungen entstehen zufällig, die Auswahl kommt danach.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer hat in dieser Simulation festgelegt, was als gut gilt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Simulation legt Nahrung und Umwelt fest. Gut ist, was dort überlebt und sich vermehrt. Ein Ziel gibt es nicht.</p></div></details>
+  <p class="note">Stark vereinfacht: Nur zwei Merkmale, Teilung ohne Partner, Auswahl heißt allein Überleben. Eine dickere Mauer kostet Energie, keine Lösung ist in jeder Lage die beste. Echte Evolution braucht mehr Merkmale und mehr Zeit. Der Zufall hat einen festen Startwert.</p>
 </section>
 
 <!-- 3c. Dorf oder Stadt: Bakterium und Zelle mit Kern, Größenregler -->
 <section class="sec reveal" id="dorf">
   <h2>Dorf oder Stadt: Je größer die Zelle, desto mehr Stadtteile.</h2>
-  <p class="lead">Ein Bakterium ist wie ein Dorf, in dem fast alles rund um den Marktplatz passiert. Eine Zelle mit Kern (so eine wie deine) ist eher eine Stadt mit Stadtteilen, also Kern, Kraftwerken und Fabrik. Mit dem Regler machst du beide Zellen zusammen größer oder kleiner und siehst, warum das mit der Größe zu tun hat. Der Schalter wählt, welche der beiden Zellen der Text darunter erklärt.</p>
+  <p class="lead">Ein Bakterium ist ein Dorf um einen Marktplatz. Eine Zelle mit Kern, wie deine, ist eine Stadt mit Stadtteilen. Der Regler macht beide größer, der Schalter wählt, welche der Text erklärt.</p>
   <div class="dorf-seg" role="group" aria-label="Welche Zelle erklärt der Text?">
     <button type="button" id="dorfPickBak" aria-pressed="true">Bakterium</button>
     <button type="button" id="dorfPickEuk" aria-pressed="false">Zelle mit Kern</button>
@@ -1961,34 +1994,37 @@
   </div>
   <div class="dorf-ort">
     <h3>Woher kommen die Kraftwerke?</h3>
-    <p>Die Kraftwerke der Zelle mit Kern (die Mitochondrien) stammen sehr wahrscheinlich von Bakterien ab. Diese gelangten vor sehr langer Zeit in eine andere Zelle und blieben dort. Dafür spricht einiges: Mitochondrien haben eine eigene kleine, ringförmige DNA wie viele Bakterien. Sie haben eigene Ribosomen, die denen von Bakterien ähneln. Und sie vermehren sich durch Teilung. Bei Pflanzen gilt Ähnliches für die Blattgrünkörner (Chloroplasten), die wohl von Cyanobakterien (Bakterien, die Photosynthese betreiben) abstammen.</p>
-    <p>Diese Idee heißt Endosymbiose, Zusammenleben im Inneren, und gilt als gut belegt. Offen ist vieles im Einzelnen. Zum Beispiel wissen wir nicht genau, wie die aufnehmende Zelle aussah. Sie war nach heutigem Stand wohl mit einer weiteren Gruppe von Einzellern ohne Kern verwandt, den Archaeen. Auch ob der Kern vor oder nach den Kraftwerken entstand, ist unklar.</p>
+    <svg class="card-ic endo-ic" viewBox="0 0 320 70" aria-hidden="true" focusable="false"><ellipse class="ic-bak" cx="40" cy="35" rx="22" ry="12"/><path class="ic-alt" d="M70 35 H128"/><ellipse class="ic-zelle" cx="215" cy="35" rx="80" ry="30"/><circle class="ic-kern" cx="188" cy="32" r="14"/><ellipse class="ic-bak ic-in" cx="244" cy="40" rx="16" ry="8"/><ellipse class="ic-bak ic-in" cx="232" cy="22" rx="12" ry="6"/></svg>
+    <p>Sehr wahrscheinlich von Bakterien, die vor langer Zeit in eine andere Zelle gelangten und blieben. Die Idee heißt Endosymbiose und gilt als gut belegt.</p>
+    <details class="wort-vorab"><summary>Belege und offene Fragen</summary>
+    <p>Dafür spricht: Mitochondrien haben eine eigene ringförmige DNA wie viele Bakterien und eigene Ribosomen, die denen von Bakterien ähneln. Sie vermehren sich durch Teilung. Bei Pflanzen stammen die Chloroplasten wohl von Cyanobakterien ab, Bakterien mit Photosynthese.</p>
+    <p>Offen ist vieles im Einzelnen. Wie die aufnehmende Zelle aussah, ist unklar, wohl war sie mit den Archaeen verwandt, Einzellern ohne Kern. Auch ob der Kern vor oder nach den Kraftwerken entstand, ist offen.</p></details>
     <a class="dorf-link" href="#kraftwerk">Wie das Kraftwerk arbeitet, steht weiter oben &uarr;</a>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Dorf oder Stadt</span></summary><div class="hinkt-body"><p>Das Dorf klingt nach einfach und die Stadt nach weiter entwickelt. So ist es nicht gemeint, denn Bakterien sind eine eigene und sehr erfolgreiche Lebensform, die seit Milliarden Jahren fast überall lebt, und keine Vorstufe von uns. Sie haben auch innere Ordnung, z.B. Gerüsteiweiße, feste Plätze für ihr Erbgut und bei manchen Arten eigene Fächer aus Eiweiß oder Membranen.</p><p>Eine Stadt hat außerdem einen Bürgermeister. Weder das Bakterium noch die Zelle mit Kern hat so etwas, und auch der Kern ist eher ein Archiv als ein Rathaus.</p><p>Und Größe ist nicht alles: Es gibt Riesenbakterien, die man mit bloßem Auge sieht, und Zellen mit Kern, die kaum größer sind als ein gewöhnliches Bakterium. Was die beiden Gruppen trennt, ist vor allem ihre Bauweise (Kern, Kraftwerke, innere Membranen), die Größe ist nur eine Tendenz.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was könnte einem Riesenbakterium helfen, ohne Kern so groß zu werden?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Viele Kopien des Erbguts, die über die Zelle verteilt liegen, und innere Fächer. So bleiben die Wege kurz. Manche Riesenbakterien machen das so. <a href="#weg">Mehr dazu</a></p></div></details>
-  <p class="note">Stark vereinfacht: Die Zellen sind nicht maßstäblich gezeichnet. Der Regler reicht von etwa 1 bis 100 µm (1 µm ist ein tausendstel Millimeter), das Bild wächst aber viel weniger. Die Rechnung gilt für eine Kugel, andere Formen verhalten sich ähnlich. Alle Größen sind grobe Beispiele. Wie die Zelle mit Kern genau entstand, ist in Teilen offen.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Dorf oder Stadt</span></summary><div class="hinkt-body"><p>Das Dorf klingt nach einfach, die Stadt nach weiter entwickelt. Gemeint ist es anders: Bakterien sind eine eigene, sehr erfolgreiche Lebensform und keine Vorstufe von uns. Sie haben auch innere Ordnung, etwa Gerüsteiweiße, feste Plätze für ihr Erbgut und bei manchen Arten eigene Fächer.</p><p>Einen Bürgermeister hat keine der beiden Zellen, und der Kern ist eher ein Archiv als ein Rathaus.</p><p>Auch Größe trennt nur tendenziell: Es gibt Riesenbakterien, die man mit bloßem Auge sieht, und Zellen mit Kern, die kaum größer sind als ein Bakterium. Entscheidend ist die Bauweise (Kern, Kraftwerke, innere Membranen).</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was könnte einem Riesenbakterium helfen, ohne Kern so groß zu werden?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Viele Kopien des Erbguts, die über die Zelle verteilt liegen, und innere Fächer. So bleiben die Wege kurz. Manche Riesenbakterien machen das so. <a href="#weg">Mehr dazu</a></p></div></details>
+  <p class="note">Stark vereinfacht: Nicht maßstäblich. Der Regler reicht von etwa 1 bis 100 µm (1 µm ist ein tausendstel Millimeter), das Bild wächst viel weniger. Die Rechnung gilt für eine Kugel. Alle Größen sind grobe Beispiele.</p>
 </section>
 
 <!-- 4. Information -->
 <section class="sec reveal" id="weg">
   <h2>Kurze Wege treibt die Natur, lange der Motor.</h2>
-  <p class="lead">Stoffe treiben von allein durch die Zelle, weil sie durch Wärme zufällig hin und her zittern. Das heißt Diffusion. Auf kurzen Strecken ist sie schnell, auf langen sehr langsam. Dann hilft ein Motorprotein, ein kleines Eiweiß, das an Fäden entlangläuft und Fracht trägt. Es ist gleichmäßig langsam. Stelle die Strecke ein und sieh, wann sich der Motor lohnt.</p>
+  <p class="lead">Stoffe zittern durch Wärme zufällig hin und her (Diffusion): schnell auf kurzen Strecken, sehr langsam auf langen. Ein Motorprotein trägt Fracht an Fäden entlang. Wann lohnt sich der Motor?</p>
   <div class="panel weg">
     <div class="weg-row"><span>Von allein (Diffusion)</span><div class="weg-bar"><i id="wegD"></i></div><output id="wegDO"></output></div>
     <div class="weg-row"><span>Mit Motorprotein</span><div class="weg-bar"><i id="wegM" class="m"></i></div><output id="wegMO"></output></div>
     <label class="sig-slider" for="wegS"><span class="row"><span id="wegSL">Strecke</span><output id="wegSO" for="wegS"></output></span><input type="range" id="wegS" min="0" max="5" step="1" value="2" aria-valuetext=""></label>
     <p class="status" id="wegStatus" aria-live="polite"></p>
     <div class="aus-cols">
-      <div class="col"><b>In der Zelle</b><span>Zufälliges Umherstoßen kommt bei der doppelten Strecke erst nach der vierfachen Zeit an. Ein Motorprotein braucht bei der doppelten Strecke genau die doppelte Zeit.</span></div>
-      <div class="col city"><b>In der Stadt</b><span>Um die Ecke geht man zu Fuß. Für den Weg quer durch die Stadt nimmt man die Bahn, auch wenn man auf sie warten muss.</span></div>
+      <div class="col"><b>In der Zelle</b><span>Doppelte Strecke heißt bei Diffusion vierfache Zeit, beim Motorprotein doppelte Zeit.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Um die Ecke geht man zu Fuß, quer durch die Stadt nimmt man die Bahn.</span></div>
     </div>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Weg</span></summary><div class="hinkt-body"><p>Eine Bahn fährt gleichmäßig auf einer Strecke. Ein Motorprotein schreitet in kleinen Stufen, hat zufällige Pausen und lässt auch einmal los. Diffusion hängt stark vom Stoff und vom Gedränge im Zellinneren ab, und viele Stoffe sind in Wirklichkeit deutlich langsamer.</p><p>Die Werte sind Größenordnungen mit frei gewählten Beispielzahlen (Diffusion 100 µm² je Sekunde, Motorprotein 1 µm je Sekunde). Die Maßstäbe von Zelle und Stadt sind nicht vergleichbar.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Warum haben große Zellen wie Nervenzellen ein Transportsystem?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Ihre Wege sind lang. Über lange Strecken wäre zufälliges Umherstoßen viel zu langsam, ein Motorprotein ist dort schneller. <a href="#skelett">Mehr dazu</a></p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Weg</span></summary><div class="hinkt-body"><p>Eine Bahn fährt gleichmäßig. Ein Motorprotein schreitet in kleinen Stufen, macht zufällige Pausen und lässt auch einmal los. Diffusion hängt vom Stoff und vom Gedränge ab, viele Stoffe sind deutlich langsamer.</p><p>Die Werte sind frei gewählte Größenordnungen (Diffusion 100 µm² je Sekunde, Motorprotein 1 µm je Sekunde). Die Maßstäbe von Zelle und Stadt sind nicht vergleichbar.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Warum haben große Zellen wie Nervenzellen ein Transportsystem?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Ihre Wege sind lang. Über lange Strecken wäre zufälliges Umherstoßen viel zu langsam, ein Motorprotein ist dort schneller. <a href="#skelett">Mehr dazu</a></p></div></details>
 </section>
 
 <section class="sec reveal" id="meldung">
   <h2>Eine Meldung, drei Geschwindigkeiten.</h2>
-  <p class="lead">Dieselbe Nachricht kann auf drei Wegen reisen. In der Stadt sind das Post, Kabel und Funk. Der Körper kennt zwei davon: Botenstoffe (Hormone) treiben durch das Blut, langsam, aber an viele. Nervenzellen leiten elektrische Impulse, schnell und gezielt. Funk gibt es im Körper nicht. Wähle eine Strecke und sieh, wie lange jeder Weg braucht.</p>
+  <p class="lead">Dieselbe Nachricht reist als Post, Kabel oder Funk. Der Körper kennt Hormone im Blut (langsam, an viele) und Nerven (schnell, gezielt). Wähle eine Strecke.</p>
   <div class="panel mel">
     <div class="reg-seg" role="group" aria-label="Strecke wählen" id="melSeg"></div>
     <div class="mel-row" id="melR0"><span></span><div class="mel-bar"><i></i></div><output></output></div>
@@ -1996,11 +2032,11 @@
     <div class="mel-row" id="melR2"><span></span><div class="mel-bar"><i class="f"></i></div><output></output></div>
     <p class="status" id="melStatus" aria-live="polite"></p>
     <div class="aus-cols">
-      <div class="col"><b>In der Zelle und im Körper</b><span>Botenstoffe wandern durch Flüssigkeit oder das Blut. Nervenzellen leiten elektrische Impulse. Funk nutzt der Körper für Meldungen nicht.</span></div>
-      <div class="col city"><b>In der Stadt</b><span>Die Post bringt Briefe an viele, ein Kabel leitet Signale schnell von A nach B, Funk braucht keine Leitung und ist am schnellsten.</span></div>
+      <div class="col"><b>In der Zelle und im Körper</b><span>Hormone wandern durch das Blut, Nerven leiten elektrische Impulse. Funk nutzt der Körper nicht.</span></div>
+      <div class="col city"><b>In der Stadt</b><span>Post erreicht viele, das Kabel verbindet A mit B, Funk braucht keine Leitung.</span></div>
     </div>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Meldung</span></summary><div class="hinkt-body"><p>Die Zeiten sind Größenordnungen mit frei gewählten Beispielwerten und im Bild gestaucht, weil sie über viele Zehnerpotenzen reichen. Nervenzellen leiten Signale über Ionen, geladene Teilchen, die durch Kanäle in der Zellhülle strömen. Das ist deutlich langsamer als Strom in einem Kabel.</p><p>Hormone und Nerven wirken auch zusammen, und die Vergleiche mit Post, Kabel und Funk sind ein Bild. Die Strecken von 10 Kilometern gibt es im Körper nicht, dort steht die Stadt für sich.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Warum nutzt der Körper keinen Funk?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Nach heutigem Wissen hat die Evolution keine Funkübertragung hervorgebracht. Chemische und elektrische Signale reichen für die Aufgaben und brauchen wenig Energie.</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Meldung</span></summary><div class="hinkt-body"><p>Die Zeiten sind frei gewählte Größenordnungen und im Bild gestaucht, weil sie über viele Zehnerpotenzen reichen. Nerven leiten Signale über Ionen, geladene Teilchen in den Kanälen der Zellhülle. Das ist deutlich langsamer als Strom im Kabel.</p><p>Hormone und Nerven wirken auch zusammen. Strecken von 10 Kilometern gibt es im Körper nicht, dort steht die Stadt für sich.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Warum nutzt der Körper keinen Funk?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Nach heutigem Wissen hat die Evolution keine Funkübertragung hervorgebracht. Chemische und elektrische Signale reichen für die Aufgaben und brauchen wenig Energie.</p></div></details>
 </section>
 
 <section class="sec reveal" id="skelett">
