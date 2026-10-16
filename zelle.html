@@ -5517,7 +5517,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   function render() {
     while (scene.firstChild) scene.removeChild(scene.firstChild);
     while (glbl.firstChild) glbl.removeChild(glbl.firstChild);
-    var r = 60 + size * 7.5;
+    var r = 70 + size * 6;
     var P = portrait ? { bak: [180, 160, 24], euk: [180, 432, 296] } : { bak: [165, 165, 22], euk: [475, 165, 22] };
     var gb = mk('g', { 'class': 'dorf-cell' + (pick === 'bak' ? '' : ' dim') }, scene);
     var ge = mk('g', { 'class': 'dorf-cell' + (pick === 'euk' ? '' : ' dim') }, scene);
