@@ -2028,7 +2028,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     <button type="button" id="dorfPickEuk" aria-pressed="false">Zelle mit Kern</button>
   </div>
   <div class="panel dorf-panel" id="dorfPanel" data-size="1" data-pick="bak">
-    <svg id="dorfSvg" class="dorf-svg" viewBox="0 0 640 360" role="img" aria-labelledby="dorfSvgT">
+    <svg id="dorfSvg" class="dorf-svg" viewBox="0 0 640 290" role="img" aria-labelledby="dorfSvgT">
       <title id="dorfSvgT">Schema, nicht maßstäblich: links ein Bakterium mit Zellwand, Membran mit Toren, Erbgut frei im Plasma und Ribosomen, rechts eine Zelle mit Kern, Kraftwerken, Fabrik und Schienen. Beide wachsen mit dem Regler. Was gerade zu sehen ist, steht im Text unter dem Bild.</title>
     </svg>
     <div class="dorf-legend" id="dorfLegend"></div>
@@ -5517,8 +5517,8 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   function render() {
     while (scene.firstChild) scene.removeChild(scene.firstChild);
     while (glbl.firstChild) glbl.removeChild(glbl.firstChild);
-    var r = 44 + size * 13;
-    var P = portrait ? { bak: [180, 196, 30], euk: [180, 534, 368] } : { bak: [165, 196, 22], euk: [475, 196, 22] };
+    var r = 60 + size * 7.5;
+    var P = portrait ? { bak: [180, 160, 24], euk: [180, 432, 296] } : { bak: [165, 165, 22], euk: [475, 165, 22] };
     var gb = mk('g', { 'class': 'dorf-cell' + (pick === 'bak' ? '' : ' dim') }, scene);
     var ge = mk('g', { 'class': 'dorf-cell' + (pick === 'euk' ? '' : ' dim') }, scene);
     var hb = drawBak(gb, P.bak[0], P.bak[1], r, size), he = drawEuk(ge, P.euk[0], P.euk[1], r, size);
@@ -5530,7 +5530,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   function layout() {
     var w = panel.clientWidth - 28;
     if (w < 40) return;
-    portrait = w < 520; W = portrait ? 360 : 640; H = portrait ? 700 : 360;
+    portrait = w < 520; W = portrait ? 360 : 640; H = portrait ? 556 : 290;
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     scale = w / W;
     render();
