@@ -1146,6 +1146,10 @@
     transition: border-color 0.25s ease, color 0.25s ease;
   }
   @media (max-width: 760px), (pointer: coarse) { .sound-toggle, .dna-in { min-height: 44px; } }
+  @media (max-width: 520px) {
+    .sound-toggle { top: 8px; right: 8px; width: 44px; padding: 0; justify-content: center; }
+    .sound-toggle > span { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  }
   .sound-toggle:hover { border-color: var(--accent); color: var(--ink); }
   .sound-toggle[aria-pressed="true"] { border-color: rgba(var(--accent-rgb),0.7); color: var(--accent); }
   .sound-toggle svg { width: 16px; height: 16px; flex: none; }
@@ -1279,6 +1283,7 @@ details.wort-vorab { margin: 8px auto; max-width: min(94vw, 54ch); text-align: l
 details.wort-vorab > summary { display: flex; align-items: center; min-height: 44px; padding: 8px 14px; cursor: pointer; list-style: none; border: 1px dashed rgba(127,217,168,0.5); border-radius: 10px; background: rgba(127,217,168,0.06); color: var(--accent); font-size: 13px; }
 details.wort-vorab > summary::-webkit-details-marker { display: none; }
 details.wort-vorab > summary::after { content: ""; margin-left: auto; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg); }
+details.wort-vorab.imm-mehr { max-width: none; margin: 10px 0 0; }
 details.wort-vorab[open] > summary::after { transform: rotate(-135deg); }
 details.wort-vorab > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.65; color: #C7CAD6; }
@@ -2028,7 +2033,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     <button type="button" id="dorfPickEuk" aria-pressed="false">Zelle mit Kern</button>
   </div>
   <div class="panel dorf-panel" id="dorfPanel" data-size="1" data-pick="bak">
-    <svg id="dorfSvg" class="dorf-svg" viewBox="0 0 640 360" role="img" aria-labelledby="dorfSvgT">
+    <svg id="dorfSvg" class="dorf-svg" viewBox="0 0 640 290" role="img" aria-labelledby="dorfSvgT">
       <title id="dorfSvgT">Schema, nicht maßstäblich: links ein Bakterium mit Zellwand, Membran mit Toren, Erbgut frei im Plasma und Ribosomen, rechts eine Zelle mit Kern, Kraftwerken, Fabrik und Schienen. Beide wachsen mit dem Regler. Was gerade zu sehen ist, steht im Text unter dem Bild.</title>
     </svg>
     <div class="dorf-legend" id="dorfLegend"></div>
@@ -2375,24 +2380,23 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <section class="sec reveal" id="signale">
   <h2>Zellen schreiben sich Briefe.</h2>
   <p class="lead">Hormon: langsam an alle. Nerv: schnell und gezielt. Sende ein Signal ab.</p>
-  <svg class="zb-bild" viewBox="0 0 360 224" role="img" aria-labelledby="zbSigT">
+  <svg class="zb-bild zb-kopf" viewBox="0 0 360 116" role="img" aria-labelledby="zbSigT">
     <title id="zbSigT">Schema: Drei Wege für Signale. Hormon: ein Brief im Blut, langsam, er treibt zu allen Zellen, und nur Zellen mit passendem Rezeptor reagieren. Nerv: ein Kabel, sehr schnell, mit einem festen Ziel. Nachbarzelle: ein Zuruf, der nur die Zellen direkt daneben erreicht.</title>
-    <text x="8" y="18" class="zb-t zb-klein">Hormon: Brief im Blut</text><text x="352" y="18" text-anchor="end" class="zb-s">Sekunden bis Minuten</text>
-    <path d="M32 44 Q80 28 128 44 T224 44" class="zb-leit zb-bio"/>
-    <circle cx="22" cy="44" r="11" class="zb-send"/>
-    <circle r="4.5" class="zb-punkt zb-bio-f zb-lang" cx="32" cy="44" style="--d:200px;--r:60px"/>
-    <circle r="4.5" class="zb-punkt zb-bio-f zb-lang" cx="32" cy="44" style="--d:200px;--r:130px;animation-delay:-2.4s"/>
-    <circle r="4.5" class="zb-punkt zb-bio-f zb-lang" cx="32" cy="44" style="--d:200px;--r:190px;animation-delay:-4.8s"/>
-    <circle cx="252" cy="44" r="9" class="zb-an"/><circle cx="292" cy="44" r="9" class="zb-aus"/><circle cx="332" cy="44" r="9" class="zb-an"/>
-    <text x="8" y="94" class="zb-t zb-klein">Nerv: Kabel zum Ziel</text><text x="352" y="94" text-anchor="end" class="zb-s">Millisekunden</text>
-    <path d="M32 120 H320" class="zb-kabel"/>
-    <circle cx="22" cy="120" r="11" class="zb-send"/>
-    <circle r="5" class="zb-punkt zb-digi-f zb-schnell" cx="32" cy="120" style="--d:270px;--r:270px"/>
-    <circle cx="332" cy="120" r="9" class="zb-an"/>
-    <text x="8" y="170" class="zb-t zb-klein">Nachbar: Zuruf</text><text x="352" y="170" text-anchor="end" class="zb-s">nur nebenan</text>
-    <circle cx="22" cy="198" r="11" class="zb-send"/>
-    <circle cx="54" cy="198" r="14" class="zb-puff"/><circle cx="54" cy="198" r="14" class="zb-puff p2"/>
-    <circle cx="86" cy="198" r="9" class="zb-an"/><circle cx="118" cy="198" r="9" class="zb-an"/><circle cx="150" cy="198" r="9" class="zb-aus"/><circle cx="182" cy="198" r="9" class="zb-aus"/>
+    <text x="8" y="27" class="zb-t zb-klein">Hormon</text><text x="352" y="27" text-anchor="end" class="zb-s">Sekunden bis Minuten</text>
+<g transform="translate(14 0)"><path d="M88 22 Q108 12 128 22 T152 22" class="zb-leit zb-bio"/></g>
+<g transform="translate(14 0)"><circle cx="76" cy="22" r="8" class="zb-send"/></g>
+<g transform="translate(14 0)"><circle r="3.5" class="zb-punkt zb-bio-f zb-lang" cx="88" cy="22" style="--d:66px;--r:20px"/></g>
+<g transform="translate(14 0)"><circle r="3.5" class="zb-punkt zb-bio-f zb-lang" cx="88" cy="22" style="--d:66px;--r:44px;animation-delay:-2.4s"/></g>
+<g transform="translate(14 0)"><circle cx="160" cy="22" r="7" class="zb-an"/><circle cx="178" cy="22" r="7" class="zb-aus"/><circle cx="196" cy="22" r="7" class="zb-an"/></g>
+    <text x="8" y="63" class="zb-t zb-klein">Nerv</text><text x="352" y="63" text-anchor="end" class="zb-s">Millisekunden</text>
+<g transform="translate(14 0)"><path d="M86 58 H190" class="zb-kabel"/></g>
+<g transform="translate(14 0)"><circle cx="76" cy="58" r="8" class="zb-send"/></g>
+<g transform="translate(14 0)"><circle r="4" class="zb-punkt zb-digi-f zb-schnell" cx="86" cy="58" style="--d:104px;--r:104px"/></g>
+<g transform="translate(14 0)"><circle cx="200" cy="58" r="7" class="zb-an"/></g>
+    <text x="8" y="99" class="zb-t zb-klein">Nachbar</text><text x="352" y="99" text-anchor="end" class="zb-s">nur nebenan</text>
+<g transform="translate(14 0)"><circle cx="76" cy="94" r="8" class="zb-send"/></g>
+<g transform="translate(14 0)"><circle cx="98" cy="94" r="10" class="zb-puff"/><circle cx="98" cy="94" r="10" class="zb-puff p2"/></g>
+<g transform="translate(14 0)"><circle cx="122" cy="94" r="7" class="zb-an"/><circle cx="146" cy="94" r="7" class="zb-an"/><circle cx="170" cy="94" r="7" class="zb-aus"/><circle cx="194" cy="94" r="7" class="zb-aus"/></g>
   </svg>
   <div class="sig-bar">
     <div class="sig-seg" role="group" aria-label="Signalweg">
@@ -2495,6 +2499,12 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     <div class="col city"><b>In der Stadt</b><span id="immTown"></span></div>
     <p class="aha" id="immAha"></p>
   </div>
+  <details class="wort-vorab mehr imm-mehr"><summary>Mehr zu diesem Schritt</summary>
+    <div class="imm-cols">
+      <div class="col" id="immCellMoreBox"><b>Im Körper</b><span id="immCellMore"></span></div>
+      <div class="col city" id="immTownMoreBox"><b>In der Stadt</b><span id="immTownMore"></span></div>
+    </div>
+  </details>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Stadtwache</span></summary><div class="hinkt-body"><p>Ein Merkmal ist eine Struktur auf der Oberfläche, zum Beispiel eines Bakteriums. Fehlalarm heißt: Die Abwehr greift Zellen des eigenen Körpers an. Die Abwehrzellen sind über den Körper verteilt und reagieren auf Signale in ihrer Nähe. Trifft eine auf ihr Merkmal, vermehrt sie sich.</p><p>Eine Stadtwache hat eine Wachstube, einen Dienstplan und jemanden, der Befehle gibt. Die Abwehr hat nichts davon. Auch der Lymphknoten ist eher ein Treffpunkt als eine Zentrale.</p><p>Eine Wache lernt vorher, wen sie sucht. Die Abwehr lernt erst im Ernstfall: Der Körper hält sehr viele verschiedene Abwehrzellen auf Vorrat, zum großen Teil zufällig entstanden. Der Kontakt mit einem Merkmal entscheidet, welche sich vermehren.</p><p>Ein Wachmann kann nachfragen, ob er den Richtigen hat. Eine Abwehrzelle prüft nur, ob ein Merkmal passt. Darum greift sie manchmal Eigenes an.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer merkt im Körper eigentlich, dass ein Alarm falsch war?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Oft niemand sofort. Bremsende Signale und Abwehrzellen, die Eigenes erkennen, dämpfen den Alarm. Fehlt das, kann eine Autoimmunerkrankung entstehen.</p><p>Das Immunsystem hat viel mehr Zelltypen und Wege, und viele Eindringlinge erledigt die angeborene Abwehr allein. Der Fehlalarm steht für viele Autoimmunerkrankungen, die sehr unterschiedlich verlaufen. Diese Seite gibt keinen Rat zu Impfungen oder Therapien. Das gehört in ärztliche Hände.</p></div></details>
 
 </section>
@@ -2630,6 +2640,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <style>
   /* Zeichnungen der Abschnitte dna, regulation, signale und immun (Präfix zb-) */
   .zb-bild { display: block; width: 100%; max-width: 560px; height: auto; margin: 6px auto 14px; overflow: visible; }
+  .zb-bild.zb-kopf { max-width: 460px; margin: 4px auto 6px; }
   .zb-bild .zb-t { font: 600 16px 'Fraunces', serif; fill: #E8EAF2; }
   .zb-bild .zb-t.zb-klein { font-size: 14px; }
   .zb-bild .zb-s, .zb-bild .zb-st { font: 13px 'IBM Plex Sans', sans-serif; fill: #C7CAD6; }
@@ -4967,63 +4978,78 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   var TXT = {
     'in': [
       { title: ['Barriere: Haut und Schleimhäute', 'Die Stadtmauer'],
-        cell: 'Die erste Abwehr sind Haut und Schleimhäute. Sie halten das meiste draußen, und Schleim, Flimmerhärchen und die Säure im Magen erledigen vieles, bevor überhaupt eine Abwehrzelle etwas merkt. Durch eine kleine Wunde kommt hier trotzdem ein Eindringling herein.',
+        cell: 'Haut und Schleimhäute halten das meiste draußen. Durch eine kleine Wunde kommt trotzdem ein Eindringling herein.',
+        cellMore: 'Schleim, Flimmerhärchen und die Säure im Magen erledigen vieles, bevor überhaupt eine Abwehrzelle etwas merkt.',
         town: 'Die Stadtmauer hält die meisten Einbrecher draußen. Durch eine Lücke in der Mauer schlüpft aber einer durch, und noch hat ihn niemand bemerkt.',
         aha: ['Im Bild: Die meisten Eindringlinge (gezackt) bleiben vor der Barriere, einer ist durch die Lücke gekommen.', 'Im Bild: Die meisten Einbrecher (gezackt) bleiben vor der Mauer, einer ist durch die Lücke gekommen.'],
         status: ['Barriere: Die meisten Eindringlinge bleiben draußen, einer ist durch eine Wunde gekommen.', 'Mauer: Die meisten Einbrecher bleiben draußen, einer ist durch eine Lücke gekommen.'],
         target: ['noch keins', 'noch keins'], state: 'Noch ruhig' },
       { title: ['Alarm: Eine Fresszelle erkennt den Eindringling', 'Eine Streife bemerkt den Einbrecher'],
-        cell: 'Fresszellen sitzen verteilt im Gewebe und erkennen typische Muster auf Bakterien und anderen Fremdlingen (z.B. Bestandteile ihrer Hülle). Sie schlucken, was sie erwischen, und geben dabei Alarm. Eine Zentrale fragen sie vorher nicht, sie reagieren einfach auf das, was vor Ort passt.',
-        town: 'Eine Streife, die gerade in der Nähe ist, erkennt den Einbrecher an Kleidung und Werkzeug und hält ihn fest. Gemeldet wird erst danach, eine Anweisung von oben braucht sie dafür nicht.',
+        cell: 'Fresszellen im Gewebe erkennen typische Muster auf Fremdlingen, schlucken sie und geben Alarm. Eine Zentrale fragen sie vorher nicht.',
+        cellMore: 'Typische Muster sind zum Beispiel Bestandteile der Hülle von Bakterien. Die Fresszellen reagieren einfach auf das, was vor Ort passt.',
+        town: 'Eine Streife in der Nähe erkennt den Einbrecher an Kleidung und Werkzeug und hält ihn fest. Eine Anweisung von oben braucht sie nicht.',
+        townMore: 'Gemeldet wird erst danach.',
         aha: ['Im Bild: Die Fresszelle hat den Eindringling geschluckt, der gestrichelte Ring zeigt den Alarm.', 'Im Bild: Die Streife hat den Einbrecher geschnappt, der gestrichelte Ring zeigt den Alarm.'],
         status: ['Alarm: Eine Fresszelle hat den Eindringling erkannt und schluckt ihn.', 'Alarm: Eine Streife hat den Einbrecher erkannt und hält ihn fest.'],
         target: ['Eindringling', 'Einbrecher'], state: 'Alarm' },
       { title: ['Meldung: Botenstoffe rufen Verstärkung', 'Funkspruch und Fahndungsfoto'],
-        cell: 'Fresszellen und Gewebe geben Botenstoffe ab. Die Stelle wird stärker durchblutet, sie wird warm, rot und schwillt an (das ist die Entzündung), und weitere Abwehrzellen wandern dorthin. Einzelne Zellen tragen Bruchstücke des Eindringlings zum nächsten Lymphknoten. Die Eindringlinge vermehren sich derweil.',
-        town: 'Die Streife ruft per Funk Verstärkung, und die Straße wird abgesperrt. Ein Bote bringt ein Fahndungsfoto zum Treffpunkt der Wache, während drinnen schon weitere Einbrecher unterwegs sind.',
+        cell: 'Fresszellen und Gewebe geben Botenstoffe ab. Die Stelle wird stärker durchblutet und entzündet sich, weitere Abwehrzellen kommen.',
+        cellMore: 'Die Stelle wird warm, rot und schwillt an (das ist die Entzündung). Einzelne Zellen tragen Bruchstücke des Eindringlings zum nächsten Lymphknoten. Die Eindringlinge vermehren sich derweil.',
+        town: 'Die Streife ruft per Funk Verstärkung, und die Straße wird abgesperrt. Ein Bote bringt ein Fahndungsfoto zum Treffpunkt der Wache.',
+        townMore: 'Drinnen sind derweil schon weitere Einbrecher unterwegs.',
         aha: ['Im Bild: Botenstoffe (Rauten) ziehen zum Lymphknoten, die Entzündung leuchtet rötlich, und drinnen sind es mehr Eindringlinge geworden.', 'Im Bild: Funksprüche (Rauten) gehen zum Treffpunkt, die Absperrung leuchtet rötlich, und drinnen sind es mehr Einbrecher geworden.'],
         status: ['Meldung: Botenstoffe rufen Verstärkung, die Stelle entzündet sich.', 'Meldung: Funk ruft Verstärkung, die Straße ist abgesperrt.'],
         target: ['Eindringling', 'Einbrecher'], state: 'Alarm' },
       { title: ['Spezialeinheit: Antikörper und Gedächtnis', 'Die passende Einheit rückt aus'],
-        cell: 'Im Lymphknoten treffen die Bruchstücke auf sehr viele verschiedene T- und B-Zellen. Nur die wenigen, die genau dieses Merkmal erkennen, vermehren sich. B-Zellen bilden Antikörper, die am Eindringling haften und ihn für die Fresszellen markieren, T-Zellen helfen dabei oder greifen befallene Zellen direkt an. Beim ersten Kontakt dauert das einige Tage, und ein Teil bleibt danach als Gedächtniszellen übrig.',
-        town: 'Am Treffpunkt sehen sich viele Einheiten das Fahndungsfoto an, und nur die passende rückt aus. Sie markiert die Einbrecher so, dass die Streife sie leicht findet. Ein paar aus der Einheit behalten das Foto im Kopf.',
+        cell: 'Im Lymphknoten vermehren sich nur die T- und B-Zellen, die das Merkmal erkennen. B-Zellen bilden Antikörper, die den Eindringling markieren.',
+        cellMore: 'Im Lymphknoten treffen die Bruchstücke auf sehr viele verschiedene T- und B-Zellen. Die Antikörper haften am Eindringling und markieren ihn für die Fresszellen. T-Zellen helfen dabei oder greifen befallene Zellen direkt an. Beim ersten Kontakt dauert das einige Tage, und ein Teil bleibt danach als Gedächtniszellen übrig.',
+        town: 'Am Treffpunkt prüfen viele Einheiten das Fahndungsfoto, und nur die passende rückt aus. Sie markiert die Einbrecher.',
+        townMore: 'So findet die Streife sie leicht. Ein paar aus der Einheit behalten das Foto im Kopf.',
         aha: ['Im Bild: Antikörper (Y) haften an den Eindringlingen, im Lymphknoten haben sich die passenden Zellen vermehrt, und eine Gedächtniszelle (Stern) bleibt.', 'Im Bild: Markierungen (Y) hängen an den Einbrechern, am Treffpunkt ist die passende Einheit größer geworden, und einer behält das Foto (Stern).'],
         status: ['Spezialeinheit: Antikörper markieren die Eindringlinge, Gedächtniszellen entstehen.', 'Spezialeinheit: Die Einbrecher sind markiert, ein paar Wachleute merken sich das Foto.'],
         target: ['Eindringling', 'Einbrecher'], state: 'Alarm' },
       { title: ['Aufräumen und Entwarnung', 'Die Absperrung wird aufgehoben'],
-        cell: 'Sind die Eindringlinge beseitigt, fehlt der Reiz für neuen Alarm. Bremsende Botenstoffe und Zellen fahren die Entzündung herunter, Fresszellen räumen Reste weg, und das Gewebe wird repariert. Die Gedächtniszellen bleiben, und beim nächsten Kontakt mit demselben Erreger geht es meist schneller.',
-        town: 'Die Einbrecher sind gefasst, die Absperrung wird aufgehoben, und die Stadtreinigung kehrt die Straße. Wer das Fahndungsfoto kennt, bleibt in der Stadt und erkennt den Einbrecher beim nächsten Mal früher.',
+        cell: 'Sind die Eindringlinge beseitigt, klingt die Entzündung ab, und das Gewebe wird repariert. Die Gedächtniszellen bleiben.',
+        cellMore: 'Es fehlt der Reiz für neuen Alarm. Bremsende Botenstoffe und Zellen fahren die Entzündung herunter, Fresszellen räumen Reste weg. Beim nächsten Kontakt mit demselben Erreger geht es meist schneller.',
+        town: 'Die Einbrecher sind gefasst, und die Absperrung wird aufgehoben. Wer das Fahndungsfoto kennt, erkennt den Einbrecher beim nächsten Mal früher.',
+        townMore: 'Die Stadtreinigung kehrt die Straße. Wer das Foto kennt, bleibt in der Stadt.',
         aha: ['Im Bild: Die Eindringlinge sind weg, die Wunde ist geschlossen (gestrichelte Narbe), und nur die Gedächtniszelle (Stern) bleibt.', 'Im Bild: Die Einbrecher sind weg, die Lücke ist geflickt (gestrichelt), und nur der Wachmann mit dem Foto (Stern) bleibt.'],
         status: ['Entwarnung: Die Eindringlinge sind beseitigt, und die Entzündung klingt ab.', 'Entwarnung: Die Einbrecher sind gefasst, und die Absperrung ist aufgehoben.'],
         target: ['keins mehr', 'keiner mehr'], state: 'Entwarnung' }
     ],
     self: [
       { title: ['Barriere: Von außen kommt diesmal nichts', 'Die Mauer ist dicht'],
-        cell: 'Diesmal kommt nichts von außen, die Barriere hält. Ärger kann es trotzdem geben, weil sich die Abwehr gegen ein Merkmal richten kann, das der Körper selbst trägt.',
+        cell: 'Diesmal kommt nichts von außen, die Barriere hält. Ärger gibt es trotzdem.',
+        cellMore: 'Die Abwehr kann sich gegen ein Merkmal richten, das der Körper selbst trägt.',
         town: 'Die Mauer ist dicht und kein Einbrecher in Sicht. Der Ärger beginnt diesmal in der Stadt selbst.',
         aha: ['Im Bild: Die Barriere ist dicht, und es ist kein Eindringling zu sehen.', 'Im Bild: Die Mauer ist dicht, und es ist kein Einbrecher zu sehen.'],
         status: ['Barriere: Es kommt nichts von außen.', 'Mauer: Kein Einbrecher in Sicht.'],
         target: ['noch keins', 'noch keins'], state: 'Ruhig' },
       { title: ['Fehlalarm: Ein eigenes Merkmal gilt als fremd', 'Ein Nachbar wird für einen Einbrecher gehalten'],
-        cell: 'Abwehrzellen, die stark auf Eigenes reagieren, werden bei ihrer Reifung meist aussortiert oder später gebremst. Das klappt nicht immer vollständig. Hier hält die Abwehr ein Merkmal eigener Zellen für fremd. Warum das passiert, ist oft nur teilweise geklärt (Erbanlagen, Infekte und Umwelt spielen wohl zusammen).',
-        town: 'Eine Streife hält einen Nachbarn für einen Einbrecher, weil er einem Fahndungsfoto ähnlich sieht. Nachfragen kann sie nicht, sie prüft nur, ob das Merkmal passt.',
+        cell: 'Die Abwehr hält ein Merkmal eigener Zellen für fremd. Warum das passiert, ist oft nur teilweise geklärt.',
+        cellMore: 'Abwehrzellen, die stark auf Eigenes reagieren, werden bei ihrer Reifung meist aussortiert oder später gebremst. Das klappt nicht immer vollständig. Erbanlagen, Infekte und Umwelt spielen wohl zusammen.',
+        town: 'Eine Streife hält einen Nachbarn für einen Einbrecher, weil er einem Fahndungsfoto ähnlich sieht.',
+        townMore: 'Nachfragen kann sie nicht, sie prüft nur, ob das Merkmal passt.',
         aha: ['Im Bild: Eine eigene Zelle ist fälschlich markiert (gestrichelter Ring mit Ausrufezeichen).', 'Im Bild: Ein eigenes Haus ist fälschlich markiert (gestrichelter Ring mit Ausrufezeichen).'],
         status: ['Fehlalarm: Ein Merkmal eigener Zellen wird für fremd gehalten.', 'Fehlalarm: Ein Nachbar wird für einen Einbrecher gehalten.'],
         target: ['Eigene Zellen', 'Eigene Häuser'], state: 'Fehlalarm' },
       { title: ['Meldung: Der Alarm läuft wie immer', 'Funkspruch ohne Einbrecher'],
-        cell: 'Die Meldung läuft genauso wie bei einem echten Eindringling. Botenstoffe locken weitere Abwehrzellen an, und die Stelle entzündet sich, obwohl es nichts Fremdes zu bekämpfen gibt.',
+        cell: 'Die Meldung läuft wie bei einem echten Eindringling. Die Stelle entzündet sich, obwohl es nichts Fremdes zu bekämpfen gibt.',
+        cellMore: 'Botenstoffe locken weitere Abwehrzellen an.',
         town: 'Der Funkspruch klingt wie immer, Verstärkung rückt an, und die Straße wird abgesperrt, obwohl es gar keinen Einbrecher gibt.',
         aha: ['Im Bild: Botenstoffe (Rauten) laufen wie bei einem echten Alarm zum Lymphknoten, und die Stelle leuchtet rötlich.', 'Im Bild: Funksprüche (Rauten) gehen wie bei einem echten Alarm zum Treffpunkt, und die Straße leuchtet rötlich.'],
         status: ['Meldung: Botenstoffe rufen Verstärkung, obwohl es keinen Eindringling gibt.', 'Meldung: Funk ruft Verstärkung, obwohl es keinen Einbrecher gibt.'],
         target: ['Eigene Zellen', 'Eigene Häuser'], state: 'Fehlalarm' },
       { title: ['Spezialeinheit gegen Eigenes', 'Die Einheit rückt gegen die eigenen Häuser aus'],
-        cell: 'Spezialeinheiten, die das eigene Merkmal erkennen, vermehren sich. Antikörper (Eiweiße, die ein Merkmal erkennen) oder T-Zellen (bestimmte Abwehrzellen) greifen eigene Zellen an, und auch dafür entsteht ein Gedächtnis.',
+        cell: 'Spezialeinheiten, die das eigene Merkmal erkennen, vermehren sich und greifen eigene Zellen an. Dafür entsteht auch ein Gedächtnis.',
+        cellMore: 'Das tun Antikörper (Eiweiße, die ein Merkmal erkennen) oder T-Zellen (bestimmte Abwehrzellen).',
         town: 'Die Spezialeinheit rückt mit dem falschen Foto aus und nimmt sich Häuser der eigenen Stadt vor. Das Foto bleibt im Gedächtnis.',
         aha: ['Im Bild: Antikörper (Y) haften an eigenen Zellen, und im Lymphknoten bleibt eine Gedächtniszelle (Stern).', 'Im Bild: Markierungen (Y) hängen an eigenen Häusern, und am Treffpunkt behält einer das falsche Foto (Stern).'],
         status: ['Spezialeinheit: Antikörper haften an eigenen Zellen.', 'Spezialeinheit: Eigene Häuser sind markiert.'],
         target: ['Eigene Zellen', 'Eigene Häuser'], state: 'Fehlalarm' },
       { title: ['Die Entwarnung bleibt aus', 'Die Absperrung bleibt'],
-        cell: 'Es gibt keinen Eindringling, der verschwinden könnte, und das eigene Merkmal ist immer wieder da. Darum kann der Alarm anhalten oder in Schüben wiederkommen, und Gewebe nimmt Schaden. Solche Autoimmunerkrankungen gibt es viele, sie verlaufen sehr verschieden, und ob und wie behandelt wird, gehört in ärztliche Hände.',
+        cell: 'Das eigene Merkmal ist immer wieder da, darum kann der Alarm anhalten oder in Schüben wiederkommen. Gewebe nimmt Schaden.',
+        cellMore: 'Es gibt keinen Eindringling, der verschwinden könnte. Solche Autoimmunerkrankungen gibt es viele, sie verlaufen sehr verschieden, und ob und wie behandelt wird, gehört in ärztliche Hände.',
         town: 'Weil der gesuchte Einbrecher nie gefasst wird (es gibt ihn ja nicht), wird die Absperrung nicht aufgehoben. Die Wache bleibt in Alarm und beschädigt dabei eigene Häuser.',
         aha: ['Im Bild: Die markierten eigenen Zellen sind beschädigt (Kreuz), und die Botenstoffe laufen weiter.', 'Im Bild: Die markierten Häuser sind beschädigt (Kreuz), und der Funk läuft weiter.'],
         status: ['Entwarnung bleibt aus: Das eigene Merkmal ist weiter da, also läuft der Alarm weiter, und eigenes Gewebe nimmt Schaden.', 'Entwarnung bleibt aus: Den Einbrecher gibt es nicht, also bleibt die Absperrung, und eigene Häuser nehmen Schaden.'],
@@ -5234,7 +5260,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     var t = TXT[cas][step], c = city ? 1 : 0;
     q('immEyebrow').textContent = (cas === 'in' ? 'Eindringling' : 'Fehlalarm gegen Eigenes') + ', Schritt ' + (step + 1) + ' von ' + N + ': ' + STEP_NAMES[step];
     q('immTitle').textContent = t.title[c];
-    q('immCell').textContent = t.cell; q('immTown').textContent = t.town; q('immAha').textContent = '→ ' + t.aha[c];
+    q('immCell').textContent = t.cell; q('immTown').textContent = t.town;
+    q('immCellMore').textContent = t.cellMore || ''; q('immTownMore').textContent = t.townMore || '';
+    q('immCellMoreBox').hidden = !t.cellMore; q('immTownMoreBox').hidden = !t.townMore; q('immAha').textContent = '→ ' + t.aha[c];
     q('immStatus').textContent = t.status[c];
     q('immStepN').textContent = (step + 1) + ' von ' + N;
     q('immTarget').textContent = t.target[c];
@@ -5517,8 +5545,8 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   function render() {
     while (scene.firstChild) scene.removeChild(scene.firstChild);
     while (glbl.firstChild) glbl.removeChild(glbl.firstChild);
-    var r = 44 + size * 13;
-    var P = portrait ? { bak: [180, 196, 30], euk: [180, 534, 368] } : { bak: [165, 196, 22], euk: [475, 196, 22] };
+    var r = 70 + size * 6;
+    var P = portrait ? { bak: [180, 160, 24], euk: [180, 432, 296] } : { bak: [165, 165, 22], euk: [475, 165, 22] };
     var gb = mk('g', { 'class': 'dorf-cell' + (pick === 'bak' ? '' : ' dim') }, scene);
     var ge = mk('g', { 'class': 'dorf-cell' + (pick === 'euk' ? '' : ' dim') }, scene);
     var hb = drawBak(gb, P.bak[0], P.bak[1], r, size), he = drawEuk(ge, P.euk[0], P.euk[1], r, size);
@@ -5530,7 +5558,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   function layout() {
     var w = panel.clientWidth - 28;
     if (w < 40) return;
-    portrait = w < 520; W = portrait ? 360 : 640; H = portrait ? 700 : 360;
+    portrait = w < 520; W = portrait ? 360 : 640; H = portrait ? 556 : 290;
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     scale = w / W;
     render();
@@ -7596,6 +7624,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 </script>
 <style>
   section[id] { scroll-margin-top: 16px; }
+  @media (max-width: 520px) { section[id] { scroll-margin-top: 60px; } }
   .linkbtn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; margin: -14px 0 -14px 2px; padding: 0; vertical-align: middle; background: none; border: 0; border-radius: 50%; color: inherit; opacity: 0.45; cursor: pointer; font: inherit; }
   .linkbtn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .linkbtn:hover, .linkbtn:focus-visible { opacity: 1; }

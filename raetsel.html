@@ -65,13 +65,13 @@
   .rt-bild .ic { fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   .rt-bild .ic.kult { stroke: #D9A64A; } .rt-bild .ic.bio { stroke: #7DBB63; }
   .rt.js:not(.fertig) .rt-bild { opacity: .18; }
-  .bk-bild { display: block; width: 100%; height: auto; margin: 0 0 10px; }
+  .bk-bild { display: block; width: 100%; max-width: 460px; height: auto; margin: 0 auto 10px; }
   .bk-bild .kante { stroke: #4A4F5E; stroke-width: 2; stroke-dasharray: 4 6; fill: none; stroke-linecap: round; }
   .bk-bild .kante.an { stroke: #4FA9B1; stroke-dasharray: 0.1 14; stroke-width: 4; animation: bkfluss 1.6s linear infinite; }
   .bk-bild .knoten { fill: #0B1220; stroke: #4A4F5E; stroke-width: 3; stroke-dasharray: 3 4; transition: fill .3s, stroke .3s; }
-  .bk-bild .knoten.laeuft { fill: #4FA9B1; stroke: #4FA9B1; stroke-dasharray: none; }
+  .bk-bild .knoten.laeuft { fill: rgba(79,169,177,0.3); stroke: #4FA9B1; stroke-dasharray: none; }
   .bk-bild .knoten.fehlt { stroke: #D9A64A; stroke-dasharray: none; }
-  .bk-bild text { font-family: 'IBM Plex Sans', sans-serif; font-size: 24px; fill: #C7CAD6; text-anchor: middle; }
+  .bk-bild text { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; fill: #E8EAF2; text-anchor: middle; dominant-baseline: central; }
   @keyframes bkfluss { to { stroke-dashoffset: -14; } }
   @media (prefers-reduced-motion: reduce) { .bk-bild .kante.an { animation: none; } .bk-bild .knoten, .rt-bild { transition: none; } }
 </style>
@@ -156,7 +156,7 @@
   <section class="bk" id="baukasten">
     <h2>Baue deine Stadt</h2>
     <p style="max-width:64ch">Baue eine Stadt und sieh, was woran hängt. Ein Baustein läuft nur, wenn alles läuft, was er braucht.</p>
-    <svg class="bk-bild" id="bkBild" viewBox="0 0 640 180" aria-hidden="true" focusable="false"></svg>
+    <svg class="bk-bild" id="bkBild" viewBox="0 0 360 240" aria-hidden="true" focusable="false"></svg>
     <div class="bk-liste" id="bkListe"></div>
     <p class="bk-stand" id="bkStand" aria-live="polite"></p>
     <div class="rt-ctl"><button type="button" class="rt-b" id="bkAlle">Alles bauen</button><button type="button" class="rt-b" id="bkLeer">Alles abreißen</button></div>
@@ -191,13 +191,13 @@
     var p = document.createElement('p'); p.className = 'bk-s';
     z.appendChild(b); z.appendChild(p); liste.appendChild(z); zeilen[t.id] = { z: z, b: b, p: p };
   });
-  var POS = { strasse: [70, 90], kraft: [215, 90], wasser: [365, 45], muell: [365, 135], klinik: [545, 45], wohnen: [545, 135] };
+  var POS = { strasse: [55, 30], kraft: [180, 30], wasser: [305, 30], muell: [105, 120], wohnen: [180, 210], klinik: [305, 210] };
   var KANTEN = [['strasse', 'kraft'], ['kraft', 'wasser'], ['kraft', 'muell'], ['wasser', 'klinik'], ['wasser', 'wohnen'], ['muell', 'wohnen']];
   var bild = document.getElementById('bkBild'), bk = {}, NS = 'http://www.w3.org/2000/svg';
   function se(n, a) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); bild.appendChild(e); return e; }
   if (bild) {
     var kl = KANTEN.map(function (k) { return se('line', { class: 'kante', x1: POS[k[0]][0], y1: POS[k[0]][1], x2: POS[k[1]][0], y2: POS[k[1]][1] }); });
-    TEILE.forEach(function (t) { bk[t.id] = se('circle', { class: 'knoten', cx: POS[t.id][0], cy: POS[t.id][1], r: 15 }); se('text', { x: POS[t.id][0], y: POS[t.id][1] + 40 }).textContent = t.n; });
+    TEILE.forEach(function (t) { bk[t.id] = se('rect', { class: 'knoten', x: POS[t.id][0] - 50, y: POS[t.id][1] - 17, width: 100, height: 34, rx: 17 }); se('text', { x: POS[t.id][0], y: POS[t.id][1] + 1 }).textContent = t.n; });
   }
   function zeichne() {
     if (!bild) return;
