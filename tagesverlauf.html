@@ -101,8 +101,9 @@
 <main id="main" tabindex="-1">
   <nav aria-label="Zurück"><a class="back" href="index.html">&larr; Zurück</a></nav>
   <h1>Ein Tag im Netz</h1>
-  <p>Wähle ein Netz und stelle die Uhrzeit ein. Die Kurven sind Beispiele ohne Messwerte, 100 ist die Spitze des Tages.</p>
+  <p>Netz wählen, Uhrzeit einstellen. Beispielkurven, 100 ist die Tagesspitze.</p>
 
+  <noscript><p>Ohne JavaScript fehlt das Diagramm. Strom wird abends am meisten gebraucht, die Sonne liefert mittags am meisten.</p></noscript>
   <div class="tv" id="tv">
     <div class="tv-tabs" role="group" aria-label="Netz wählen" id="tvTabs"></div>
     <svg id="tvSvg" class="tv-svg" viewBox="0 0 640 260" role="img" aria-labelledby="tvSvgT">
@@ -118,12 +119,12 @@
   </div>
 
   <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Was in den Kurven steckt</summary>
-    <p><b>Strom:</b> Die Last ist abends am höchsten, die Sonne liefert mittags am meisten. Die Lücke füllen andere Kraftwerke oder Speicher.</p>
-    <p><b>Wasser:</b> Gebraucht wird morgens und abends, die Pumpen laufen gleichmäßig. Ein Hochbehälter, ein Wassertank auf einem Hügel, gleicht aus. Er füllt sich nachts und gibt tagsüber ab.</p>
-    <p><b>Verkehr:</b> Die Bahn ist morgens und am späten Nachmittag am vollsten. Dann fahren mehr Fahrzeuge.</p>
+    <p><b>Strom:</b> Last abends am höchsten, Sonne mittags. Die Lücke füllen Kraftwerke oder Speicher.</p>
+    <p><b>Wasser:</b> Pumpen laufen gleichmäßig, der Hochbehälter auf dem Hügel gleicht aus.</p>
+    <p><b>Verkehr:</b> Morgens und späten Nachmittag am vollsten.</p>
   </details>
 
-  <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Wo das Bild hinkt</summary><p>Alle Kurven sind frei gewählte Beispiele, keine Messwerte. Ein echter Tag hängt von Wetter, Jahreszeit und Ereignissen ab. Das Stromnetz hat viele Erzeuger und Speicher, hier nur Sonne und einen Rest. Hochbehälter und Fahrpläne sind stark vereinfacht.</p></details>
+  <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Wo das Bild hinkt</summary><p>Alle Kurven sind frei gewählte Beispiele. Echte Tage hängen von Wetter, Jahreszeit und Ereignissen ab. Erzeuger, Hochbehälter und Fahrpläne sind stark vereinfacht.</p></details>
 
   <p>Mehr: <a href="index.html">Was trägt deinen Tag?</a>, <a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a>, <a href="glossar.html">Glossar</a>.</p>
 </main>
