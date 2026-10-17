@@ -1924,7 +1924,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 3a. Ausfall in der Zell-Stadt -->
 <section class="sec reveal" id="ausfall">
   <h2>Fällt eine Stelle aus, merkt es der Rest.</h2>
-  <p class="lead">An vier Stellen hängt viel an einem Teil. Lege eines lahm, auch mehrere zusammen. <a href="#zoll">Der Zoll steht davor.</a></p>
+  <p class="lead"><a href="#zoll">Der Zoll steht davor.</a></p>
   <figure class="aus-leit">
     <svg viewBox="0 0 640 262" role="img" aria-labelledby="ausLeitT">
       <title id="ausLeitT">Zwei Leitungen mit einer Lücke. Oben fließt es über einen Umweg weiter. Unten gibt es keinen Umweg: Davor staut es sich, dahinter bleibt es leer.</title>
@@ -1977,7 +1977,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   <p class="aus-status" id="ausStatus" aria-live="polite"></p>
   <div class="panel alt" id="alt">
     <h3>Zusatzfall: Alterung und Reparatur</h3>
-    <p class="alt-txt">Schäden summieren sich, soweit Reparatur und Müllabfuhr sie nicht wegräumen.</p>
+    <svg class="alt-bild" viewBox="0 0 360 64" role="img" aria-label="Zeichnung: Schäden fließen von links als Punkte in die Zelle. Reparatur und Müllabfuhr räumen sie auf einem gestrichelten Weg wieder weg. Was bleibt, summiert sich."><circle cx="26" cy="26" r="9" class="ab-n"/><path d="M38 26 H322" class="ab-l"/><circle cx="336" cy="26" r="9" class="ab-n"/><path d="M110 26 C130 54 230 54 250 26" class="ab-l ab-um"/><circle r="4" class="ab-p" cx="38" cy="26"/><circle r="4" class="ab-p p2" cx="38" cy="26"/><text x="26" y="58" text-anchor="middle">Schaden</text><text x="180" y="62" text-anchor="middle">Reparatur, Müllabfuhr</text><text x="336" y="58" text-anchor="middle">bleibt</text></svg>
     <div class="alt-row"><span>Ohne Reparatur</span><div class="alt-bar"><i id="altOhne"></i></div><output id="altOhneO">0</output></div>
     <div class="alt-row"><span>Mit Reparatur</span><div class="alt-bar"><i id="altMit" class="mit"></i></div><output id="altMitO">0</output></div>
     <label class="sig-slider" for="altAge"><span class="row"><span>Alter der Zelle</span><output id="altAgeO" for="altAge">0 Jahre</output></span><input type="range" id="altAge" min="0" max="80" step="1" value="10"></label>
@@ -2005,7 +2005,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 3b. Evolution -->
 <section class="sec reveal" id="muell">
   <h2>Was liegen bleibt, stört.</h2>
-  <p class="lead">Jede Zelle erzeugt Abfall und zerlegt ihn in Bausteine zum Wiederverwenden. Stelle den Anfall ein und lass die Abfuhr streiken.</p>
+  <p class="lead">Stelle den Anfall ein und lass die Abfuhr streiken.</p>
   <div class="panel muell">
     <div class="muell-field" id="muellField" role="img" aria-label="Müllhaufen"></div>
     <div class="stats" aria-live="off">
@@ -2021,10 +2021,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       <button type="button" class="btn" id="muellReset">Zurücksetzen</button>
     </div>
     <p class="status" id="muellStatus" aria-live="polite"></p>
-    <div class="aus-cols">
-      <div class="col"><b>In der Zelle</b><span>Lysosomen, Bläschen mit Verdauungsstoffen (Enzymen), zerlegen Abfall. Das Proteasom baut beschädigte Eiweiße einzeln ab. Die Aminosäuren, Bausteine der Eiweiße, werden neu verbaut.</span></div>
-      <div class="col city"><b>In der Stadt</b><span>Müllabfuhr und Recyclinghof. Steht die Abfuhr still, stapelt sich der Abfall, bis nichts mehr geht.</span></div>
-    </div>
+    <svg class="mu-bild" viewBox="0 0 360 230" role="img" aria-labelledby="muBildT"><title id="muBildT">Zeichnung: Oben die Zelle. Abfall fließt zu Lysosomen, Bläschen mit Verdauungsstoffen (Enzymen), und zum Proteasom, das beschädigte Eiweiße einzeln abbaut. Heraus kommen Aminosäuren, die Bausteine der Eiweiße, und werden auf einem gestrichelten Weg neu verbaut. Unten die Stadt: Müll fließt zur Müllabfuhr und zum Recyclinghof, von dort gehen Stoffe zurück in die Nutzung. Steht die Abfuhr still, staut sich der Müll davor.</title>
+<text x="6" y="14" class="mu-z">In der Zelle</text><path d="M44 70 H110 M230 70 H298" class="mu-l mu-lz"/><path d="M320 56 C320 24 30 24 30 56" class="mu-l mu-um mu-lz"/><circle cx="30" cy="70" r="14" class="mu-n"/><rect x="110" y="48" width="120" height="44" rx="9" class="mu-b"/><text x="170" y="68" text-anchor="middle">Lysosom</text><text x="170" y="84" text-anchor="middle">Proteasom</text><circle cx="320" cy="70" r="14" class="mu-n mu-nz"/><circle r="4.5" class="mu-p mu-pz" cx="44" cy="70"/><circle r="4.5" class="mu-p mu-pz p2" cx="44" cy="70"/><text x="30" y="104" text-anchor="middle">Abfall</text><text x="170" y="108" text-anchor="middle">Enzyme zerlegen</text><text x="320" y="104" text-anchor="middle">Aminosäuren</text><text x="190" y="20" text-anchor="middle">neu verbaut</text>
+<text x="6" y="134" class="mu-s">In der Stadt</text><path d="M44 190 H110 M230 190 H298" class="mu-l mu-ls"/><path d="M320 176 C320 144 30 144 30 176" class="mu-l mu-um mu-ls"/><circle cx="30" cy="190" r="14" class="mu-n mu-ns"/><rect x="110" y="168" width="120" height="44" rx="9" class="mu-b mu-bs"/><text x="170" y="195" text-anchor="middle">Müllabfuhr</text><circle cx="320" cy="190" r="14" class="mu-n mu-ns"/><circle r="4.5" class="mu-p mu-ps" cx="44" cy="190"/><circle r="4.5" class="mu-p mu-ps p2" cx="44" cy="190"/><g class="mu-stau"><circle cx="72" cy="190" r="7"/><circle cx="88" cy="190" r="7"/><circle cx="80" cy="177" r="7"/></g><text x="30" y="224" text-anchor="middle">Müll</text><text x="320" y="224" text-anchor="middle">Recyclinghof</text><text x="190" y="140" text-anchor="middle">neu genutzt</text><text x="62" y="224" class="mu-bad">Stau bei Streik</text></svg>
     <p class="bruecke">Auch in der Stadt altert alles: <a href="index.html#instand">Was alt wird, muss erneuert werden</a>.</p>
   </div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Müllabfuhr</span></summary><div class="hinkt-body"><p>Eine Stadt hat eine zentrale Abfuhr. In der Zelle ist die Entsorgung verteilt: Lysosomen, Proteasomen und die Selbstverdauung (Autophagie) arbeiten an vielen Stellen und werden je nach Bedarf gesteuert. Einen Streik gibt es im engeren Sinn nicht, wohl aber Störungen, etwa durch Mangel an Enzymen.</p><p>Die Zahlen sind Beispielwerte. Gute Entsorgung ist ein Teil von vielen und kein Mittel gegen das Altern.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet in der Zelle, was Abfall ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Zelle markiert alte oder beschädigte Eiweiße mit einem kleinen Anhängsel (Ubiquitin). Das Proteasom erkennt diese Markierung und baut das Eiweiß ab. <a href="#eiweiss">Mehr dazu</a></p></div></details>
@@ -2092,7 +2091,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 3c. Dorf oder Stadt: Bakterium und Zelle mit Kern, Größenregler -->
 <section class="sec reveal" id="dorf">
   <h2>Dorf oder Stadt: Je größer die Zelle, desto mehr Stadtteile.</h2>
-  <p class="lead">Ein Bakterium ist ein Dorf um einen Marktplatz, eine Zelle mit Kern wie deine eine Stadt mit Stadtteilen. Der Regler macht beide größer.</p>
+  <p class="lead">Bakterium: Dorf. Zelle mit Kern: Stadt. Der Regler macht beide größer.</p>
   <div class="dorf-seg" role="group" aria-label="Welche Zelle erklärt der Text?">
     <button type="button" id="dorfPickBak" aria-pressed="true">Bakterium</button>
     <button type="button" id="dorfPickEuk" aria-pressed="false">Zelle mit Kern</button>
@@ -2107,7 +2106,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       <div class="stat"><small>Oberfläche je Volumen</small><span id="dorfOV">&nbsp;</span><div class="bar" aria-hidden="true"><i id="dorfOB"></i></div></div>
       <div class="stat"><small>Weg zur Mitte</small><span id="dorfWeg">&nbsp;</span><div class="bar" aria-hidden="true"><i id="dorfWB"></i></div></div>
     </div>
-    <p class="dorf-vgl-l">Kleiner heißt mehr Hülle je Inhalt. Balken gestaucht, die Zahlen zählen.</p>
+    <p class="dorf-vgl-l">Kleiner: mehr Hülle je Inhalt.</p>
     <div class="dorf-vgl" role="group" aria-label="Hülle und Inhalt im Vergleich zu 1 µm, Maßstab gestaucht">
       <div class="dv"><span>Hülle</span><div class="bar" aria-hidden="true"><i id="dorfHB"></i></div><output id="dorfHO">&times;1</output></div>
       <div class="dv"><span>Inhalt</span><div class="bar" aria-hidden="true"><i class="in" id="dorfIB"></i></div><output id="dorfIO">&times;1</output></div>
@@ -2145,7 +2144,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     <a class="dorf-link" href="#kraftwerk">Wie das Kraftwerk arbeitet, steht weiter oben &uarr;</a>
   </div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Dorf oder Stadt</span></summary><div class="hinkt-body"><p>Dorf klingt einfach, Stadt weiter entwickelt. Gemeint ist es anders: Bakterien sind eine eigene, sehr erfolgreiche Lebensform und keine Vorstufe von uns. Auch sie haben innere Ordnung, etwa Gerüsteiweiße und feste Plätze fürs Erbgut.</p><p>Keine Zelle hat einen Bürgermeister, der Kern ist eher Archiv als Rathaus. Auch Größe trennt nur tendenziell: Es gibt Riesenbakterien und Zellen mit Kern, die kaum größer sind als ein Bakterium. Entscheidend ist die Bauweise.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was könnte einem Riesenbakterium helfen, ohne Kern so groß zu werden?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Viele Kopien des Erbguts, verteilt über die Zelle, und innere Fächer. So bleiben die Wege kurz. <a href="#weg">Mehr dazu</a></p></div></details>
-  <p class="note">Stark vereinfacht: Nicht maßstäblich, das Bild wächst weniger als der Regler (1 bis 100 µm, 1 µm ist ein tausendstel Millimeter). Die Rechnung gilt für eine Kugel, alle Größen sind Beispiele.</p>
+  <p class="note">Stark vereinfacht: nicht maßstäblich, Bild wächst langsamer als der Regler. 1 µm ist ein tausendstel Millimeter. Kugelrechnung, alle Größen sind Beispiele.</p>
 </section>
 
 <!-- 4. Information -->
@@ -2235,23 +2234,18 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 4b. Gene: Abschrift und Fabrik -->
 <section class="sec reveal" id="gen">
   <h2>Das Archiv gibt die Originale nie heraus.</h2>
-  <p class="lead">Das Archiv behält das Original, die Fabrik arbeitet nach einer Kopie. Tausche Buchstaben aus.</p>
-  <svg class="gen-bild" viewBox="0 0 360 120" role="img" aria-labelledby="genBildT">
-    <title id="genBildT">Schema: Links das Archiv mit der DNA im Zellkern, rechts die Fabrik. Eine gestrichelte Leitung trägt die Kopie, die RNA, vom Archiv zur Fabrik. Das Original bleibt im Archiv.</title>
+  <p class="lead">Tausche Buchstaben aus.</p>
+  <svg class="gen-bild" viewBox="0 0 360 140" role="img" aria-labelledby="genBildT">
+    <title id="genBildT">Schema: Links das Archiv mit der DNA im Zellkern, rechts die Fabrik. Eine gestrichelte Leitung trägt die Kopie, die RNA, vom Archiv zur Fabrik. Das Original bleibt im Archiv. Die Gene bestehen aus den Buchstaben A, C, G und T, die Abschrift hat U statt T, und je drei Buchstaben ergeben einen Baustein.</title>
     <rect x="6" y="20" width="108" height="80" rx="10" class="gb-arch"/>
-    <text x="60" y="56" text-anchor="middle" class="gb-t">Archiv</text><text x="60" y="78" text-anchor="middle" class="gb-s">DNA im Kern</text>
+    <text x="60" y="56" text-anchor="middle" class="gb-t">Archiv</text><text x="60" y="78" text-anchor="middle" class="gb-s">DNA im Kern</text><text x="60" y="94" text-anchor="middle" class="gb-s">A C G T</text>
     <rect x="246" y="20" width="108" height="80" rx="10" class="gb-fab"/>
     <text x="300" y="56" text-anchor="middle" class="gb-t">Fabrik</text><text x="300" y="78" text-anchor="middle" class="gb-s">baut Eiweiß</text>
     <path d="M114 60 H246" class="gb-leit"/>
-    <text x="180" y="46" text-anchor="middle" class="gb-s">Kopie (RNA)</text>
+    <text x="180" y="46" text-anchor="middle" class="gb-s">Kopie (RNA)</text><text x="180" y="84" text-anchor="middle" class="gb-s">U statt T</text><text x="180" y="132" text-anchor="middle" class="gb-s">Je 3 Buchstaben = 1 Baustein</text>
     <circle r="5" class="gb-punkt" cx="114" cy="60"/>
     <circle r="5" class="gb-punkt p2" cx="114" cy="60"/>
   </svg>
-  <div class="evo-steps">
-    <div class="evo-step"><b>Archiv</b>Gene aus A, C, G und T.</div>
-    <div class="evo-step"><b>Abschrift</b>Abschrift als RNA, mit U statt T.</div>
-    <div class="evo-step"><b>Fabrik</b>Je drei Buchstaben ergeben einen Baustein.</div>
-  </div>
   <div class="panel gen-panel" id="genPanel">
     <div class="gen-row"><span class="gen-lab">Archiv (DNA)</span><div class="gen-cods" id="genDna" role="group" aria-label="Buchstaben des Beispielgens. Tippe einen Buchstaben an, um ihn auszutauschen."></div></div>
     <div class="gen-row" id="genRowRna" hidden><span class="gen-lab">Abschrift (RNA)</span><div class="gen-cods" id="genRna"></div></div>
@@ -2282,7 +2276,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 4c. Genregulation -->
 <section class="sec reveal" id="regulation">
   <h2>Gleiches Archiv, andere Akten.</h2>
-  <p class="lead">Jeder Zelltyp schlägt andere Akten auf. Wähle einen.</p>
+  <p class="lead">Wähle einen Zelltyp.</p>
   <svg class="zb-bild" viewBox="0 0 360 196" role="img" aria-labelledby="zbRegT">
     <title id="zbRegT">Schema: Oben das Archiv mit der ganzen DNA, darunter eine Muskelzelle und eine Nervenzelle. Beide bekommen dasselbe Archiv. In der Muskelzelle sind Kraftwerk, Skelett und Myosin an, in der Nervenzelle Kraftwerk, Skelett und Synapse. Der Rest ist aus.</title>
     <rect x="100" y="4" width="160" height="40" rx="10" class="zb-arch"/>
@@ -2453,21 +2447,21 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 6. Signale zwischen Zellen als Postsystem -->
 <section class="sec reveal" id="signale">
   <h2>Zellen schreiben sich Briefe.</h2>
-  <p class="lead">Hormon: langsam an viele. Nerv: schnell und gezielt. Nachbarzellen rufen sich Botenstoffe direkt zu, die Reichweite ist kurz. Sende ein Signal ab.</p>
+  <p class="lead">Sende ein Signal ab.</p>
   <svg class="zb-bild zb-kopf" viewBox="0 0 360 116" role="img" aria-labelledby="zbSigT">
     <title id="zbSigT">Schema: Drei Wege für Signale. Hormon: ein Brief im Blut, langsam, er treibt zu allen Zellen, und nur Zellen mit passendem Rezeptor reagieren. Nerv: ein Kabel, sehr schnell, mit einem festen Ziel. Nachbarzelle: ein Zuruf, der nur die Zellen direkt daneben erreicht.</title>
-    <text x="8" y="27" class="zb-t zb-klein">Hormon</text><text x="352" y="27" text-anchor="end" class="zb-s">Sekunden bis Minuten</text>
+    <text x="8" y="27" class="zb-t zb-klein">Hormon</text><text x="352" y="22" text-anchor="end" class="zb-s">Sekunden bis Minuten</text><text x="352" y="38" text-anchor="end" class="zb-s">an viele</text>
 <g transform="translate(14 0)"><path d="M88 22 Q108 12 128 22 T152 22" class="zb-leit zb-bio"/></g>
 <g transform="translate(14 0)"><circle cx="76" cy="22" r="8" class="zb-send"/></g>
 <g transform="translate(14 0)"><circle r="3.5" class="zb-punkt zb-bio-f zb-lang" cx="88" cy="22" style="--d:66px;--r:20px"/></g>
 <g transform="translate(14 0)"><circle r="3.5" class="zb-punkt zb-bio-f zb-lang" cx="88" cy="22" style="--d:66px;--r:44px;animation-delay:-2.4s"/></g>
 <g transform="translate(14 0)"><circle cx="160" cy="22" r="7" class="zb-an"/><circle cx="178" cy="22" r="7" class="zb-aus"/><circle cx="196" cy="22" r="7" class="zb-an"/></g>
-    <text x="8" y="63" class="zb-t zb-klein">Nerv</text><text x="352" y="63" text-anchor="end" class="zb-s">Millisekunden</text>
+    <text x="8" y="63" class="zb-t zb-klein">Nerv</text><text x="352" y="58" text-anchor="end" class="zb-s">Millisekunden</text><text x="352" y="74" text-anchor="end" class="zb-s">schnell und gezielt</text>
 <g transform="translate(14 0)"><path d="M86 58 H190" class="zb-kabel"/></g>
 <g transform="translate(14 0)"><circle cx="76" cy="58" r="8" class="zb-send"/></g>
 <g transform="translate(14 0)"><circle r="4" class="zb-punkt zb-digi-f zb-schnell" cx="86" cy="58" style="--d:104px;--r:104px"/></g>
 <g transform="translate(14 0)"><circle cx="200" cy="58" r="7" class="zb-an"/></g>
-    <text x="8" y="99" class="zb-t zb-klein">Nachbar</text><text x="352" y="99" text-anchor="end" class="zb-s">Zuruf, nur nebenan</text>
+    <text x="8" y="99" class="zb-t zb-klein">Nachbar</text><text x="352" y="94" text-anchor="end" class="zb-s">Zuruf, nur nebenan</text><text x="352" y="110" text-anchor="end" class="zb-s">kurze Reichweite</text>
 <g transform="translate(14 0)"><circle cx="76" cy="94" r="8" class="zb-send"/></g>
 <g transform="translate(14 0)"><circle cx="98" cy="94" r="10" class="zb-puff"/><circle cx="98" cy="94" r="10" class="zb-puff p2"/></g>
 <g transform="translate(14 0)"><circle cx="122" cy="94" r="7" class="zb-an"/><circle cx="146" cy="94" r="7" class="zb-an"/><circle cx="170" cy="94" r="7" class="zb-aus"/><circle cx="194" cy="94" r="7" class="zb-aus"/></g>
@@ -2513,10 +2507,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   </div>
   <div class="panel quorum" id="quorum">
     <h3>Zusatzfall: Bakterien zählen sich</h3>
-    <p class="quorum-txt">Wenige Bakterien: Der Botenstoff verflüchtigt sich. Viele: Er steigt, und ab der Schwelle schalten alle gleichzeitig um.</p>
-    <div class="quorum-field" id="quorumField" role="img" aria-label="Feld mit Bakterien"></div>
+        <div class="quorum-field" id="quorumField" role="img" aria-label="Feld mit Bakterien"></div>
     <div class="quorum-meter"><div class="quorum-bar" id="quorumBar"></div><div class="quorum-mark" aria-hidden="true"></div></div>
-    <div class="quorum-lbl"><span>wenig Botenstoff</span><span>Schwelle</span><span>viel</span></div>
+    <div class="quorum-lbl"><span>wenig: verfliegt</span><span>Schwelle</span><span>viel: alle schalten um</span></div>
     <label class="sig-slider" for="quorumN"><span class="row"><span>Zahl der Bakterien</span><output id="quorumO" for="quorumN">8</output></span><input type="range" id="quorumN" min="2" max="60" step="2" value="8"></label>
     <p class="status" id="quorumStatus" aria-live="polite"></p>
   </div>
@@ -2527,13 +2520,13 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 6b. Immunsystem als Stadtwache, Zwilling der Signale -->
 <section class="sec reveal" id="immun">
   <h2>Eine Stadtwache ohne Wachstube.</h2>
-  <p class="lead">Keine Zentrale, trotzdem merkt der Körper den Eindringling. Geh die fünf Schritte durch.</p>
+  <p class="lead">Geh die fünf Schritte durch.</p>
   <svg class="zb-bild" viewBox="0 0 360 196" role="img" aria-labelledby="zbImmT">
     <title id="zbImmT">Schema: Streifen verteilen sich im Gewebe, eine Wachstube gibt es nicht. Eine Streife trifft auf einen Eindringling und erkennt ihn. Ringe als Alarm breiten sich aus, die anderen Streifen laufen zum Eindringling.</title>
     <rect x="4" y="4" width="352" height="164" rx="14" class="zb-gewebe"/>
     <rect x="236" y="12" width="112" height="26" rx="6" class="zb-leer"/><text x="292" y="30" text-anchor="middle" class="zb-st zb-dim">keine Wachstube</text>
     <circle cx="190" cy="100" r="60" class="zb-ring"/><circle cx="190" cy="100" r="60" class="zb-ring r2"/>
-    <path d="M190 86 L204 100 L190 114 L176 100 Z" class="zb-feind"/>
+    <path d="M190 86 L204 100 L190 114 L176 100 Z" class="zb-feind"/><text x="190" y="78" text-anchor="middle" class="zb-st">erkannt</text><text x="190" y="138" text-anchor="middle" class="zb-st">alle laufen hin</text>
     <circle cx="80" cy="100" r="11" class="zb-w zb-wA" style="--dx:70px;--dy:0px"/><circle cx="60" cy="40" r="11" class="zb-w zb-wB" style="--dx:40px;--dy:24px"/><circle cx="310" cy="70" r="11" class="zb-w zb-wB" style="--dx:-48px;--dy:22px"/><circle cx="270" cy="140" r="11" class="zb-w zb-wB" style="--dx:-38px;--dy:-26px"/><circle cx="110" cy="142" r="11" class="zb-w zb-wB" style="--dx:26px;--dy:-4px"/>
     <circle cx="20" cy="182" r="7" class="zb-w"/><text x="32" y="187" class="zb-s">Streife</text>
     <path d="M120 175 L128 183 L120 191 L112 183 Z" class="zb-feind"/><text x="134" y="187" class="zb-s">Eindringling</text>
@@ -2695,6 +2688,32 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 </section>
 
 <style>
+  .alt-bild { display: block; width: 100%; max-width: 460px; height: auto; margin: 0 0 10px; }
+  .alt-bild text { font: 13px 'IBM Plex Sans', sans-serif; fill: #C7CAD6; }
+  .alt-bild .ab-n { fill: rgba(125,187,99,0.2); stroke: #7DBB63; stroke-width: 2; }
+  .alt-bild .ab-l { fill: none; stroke: #7DBB63; stroke-width: 2.5; }
+  .alt-bild .ab-um { stroke-dasharray: 6 6; stroke: #D9A64A; }
+  .alt-bild .ab-p { fill: #FF8A65; animation: abFlow 3.2s linear infinite; }
+  .alt-bild .ab-p.p2 { animation-delay: -1.6s; }
+  @keyframes abFlow { from { transform: translateX(0); opacity: 1; } 85% { opacity: 1; } to { transform: translateX(180px); opacity: 0; } }
+  .mu-bild { display: block; width: 100%; max-width: 460px; height: auto; margin: 4px auto 12px; }
+  .mu-bild text { font: 13px 'IBM Plex Sans', sans-serif; fill: #C7CAD6; }
+  .mu-bild .mu-z, .mu-bild .mu-s { font: 600 14px 'IBM Plex Sans', sans-serif; letter-spacing: 0.04em; }
+  .mu-bild .mu-z { fill: #7DBB63; } .mu-bild .mu-s { fill: #D9A64A; }
+  .mu-bild .mu-bad { fill: #FF8A65; }
+  .mu-bild .mu-l { fill: none; stroke-width: 2.5; }
+  .mu-bild .mu-lz { stroke: #7DBB63; } .mu-bild .mu-ls { stroke: #D9A64A; }
+  .mu-bild .mu-um { stroke-dasharray: 6 6; opacity: 0.8; }
+  .mu-bild .mu-n { fill: rgba(125,187,99,0.2); stroke: #7DBB63; stroke-width: 2; }
+  .mu-bild .mu-ns { fill: rgba(217,166,74,0.2); stroke: #D9A64A; }
+  .mu-bild .mu-b { fill: rgba(125,187,99,0.14); stroke: #7DBB63; stroke-width: 2; }
+  .mu-bild .mu-bs { fill: rgba(217,166,74,0.14); stroke: #D9A64A; }
+  .mu-bild .mu-stau circle { fill: #FF8A65; stroke: #0A1310; stroke-width: 1.5; }
+  .mu-bild .mu-p { animation: muFlow 3.4s linear infinite; }
+  .mu-bild .mu-pz { fill: #7DBB63; } .mu-bild .mu-ps { fill: #D9A64A; }
+  .mu-bild .mu-p.p2 { animation-delay: -1.7s; }
+  @keyframes muFlow { from { transform: translateX(0); opacity: 1; } 90% { opacity: 1; } to { transform: translateX(262px); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .alt-bild .ab-p, .mu-bild .mu-p { animation: none; } .alt-bild .ab-p { transform: translateX(60px); } .alt-bild .ab-p.p2 { transform: translateX(240px); } .mu-bild .mu-p { transform: translateX(22px); } .mu-bild .mu-p.p2 { transform: translateX(210px); } }
   .gen-bild { display: block; width: 100%; max-width: 560px; height: auto; margin: 6px auto 14px; }
   .sb { display: block; width: 100%; max-width: 420px; height: auto; margin: 12px auto 4px; }
   .sb text { font: 13px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #C7CAD6; }
