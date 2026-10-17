@@ -16,7 +16,7 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 ## Offen, Priorität hoch
 
 2. **CI-Workflow (läuft seit 10. Oktober 2026, `.github/workflows/pruefen.yml`).** Läuft bei Pull Request und Push auf main. Offen nur der Branch-Schutz, siehe Entscheidung 14. Aufwand S.
-53. **Prüfskripte schneller und ruhiger machen, Rest 2.** Gemeinsamer Browser steht (`alle.mjs` startet einen Chrome, jedes Skript öffnet nur einen Tab, `check.mjs` und `chrome.mjs` kennen `CHROME_PORT`). Offen: zeitabhängige Texte einfrieren und die Laufzeit senken. Parallele Läufe (`--parallel=3`) wurden gemessen und sind keine Hilfe: 31 Skripte in 876 Sekunden, `check` und `teilen` hingen im ersten Versuch (Hintergrund-Tabs werden gedrosselt) und bestanden erst im zweiten. Sequenziell im gemeinsamen Browser bestehen sie. Die Zeit steckt in festen Wartezeiten und Seitenaufbau (`b.open` wartet 2,2 Sekunden plus Durchscrollen), nicht im Browserstart. Akzeptanz: Gesamtlauf unter 3 Minuten. Aufwand M.
+53. **Prüfskripte schneller und ruhiger machen, Rest 3.** Stand 17. Oktober 2026: Gesamtlauf `--schnell` von 1192 auf 808 Sekunden gesenkt. Ursachen: ein nicht gelöschter 15-Sekunden-Timer in `chrome.mjs` hielt jeden Prozess nach dem Ende noch rund 10 Sekunden am Leben (in jedem der 39 Skripte), und `b.open` wartete fest 2,2 Sekunden (jetzt: auf geladene Seite und Schriften warten, dann 0,5 s). Gemessen auf freiem Rechner, bei Last durch andere Läufe sind die Zeiten wertlos (`ordnung` 600 statt 36 Sekunden). Rest: `check` 180 s, `fliessband` 81, `mikrotext` 77. Das Ziel unter 3 Minuten ist mit Einzeltuning nicht erreichbar, parallele Läufe helfen nicht. Aufwand für den Rest M, Nutzen klein.
 
 ## Offen, Priorität mittel
 
