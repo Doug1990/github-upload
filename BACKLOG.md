@@ -239,6 +239,12 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 - Bauamt mit Kontrollpunkten (#23)
 - Barrierefreiheit (#21): Kontraste, Skip-Link, Tastatur, Tippflächen, Reduced Motion, Fallbacks, Skripte `tests/kontrast.mjs` und `tests/tastatur.mjs`
 
+## Nachtbericht 17. Oktober 2026
+
+Gemerged (alle nach grüner Prüfung): #145 Backlog-Stand CI, #156 Prüfskripte schneller (Gesamtlauf `--schnell` 1192 auf 808 Sekunden: nicht gelöschter 15-Sekunden-Timer in `chrome.mjs` und feste 2,2 Sekunden in `b.open`), #157 `assets/shared.css` (19 wortgleiche Regeln der sechs kleinen Seiten, berechnete Stile vorher und nachher gleich), #158 visuelle Referenzbilder erneuert (14 Bilder waren rot, weil sich die Seiten gewollt geändert hatten, `visuell` läuft nicht in der CI) und Einschätzung zu Punkt 5 und 17.
+Nicht gebaut, mit Begründung: Punkt 5 Teil 3 (Schalter gibt es nur in `zelle.html`), Teil 2 (Ton, nur nach Hörprobe mit Punkt 8), Punkt 17 (erst messen, kein Nutzen ohne gemeinsames Skript). Nicht angefasst: Branch-Schutz, Datenschutz- und Impressumtexte, Fachtexte, Lernpfad.
+Offen für Björn: Branch-Schutz für main setzen (Settings, Branches, Pflicht-Check "Prüfen"), Hörprobe für Ton-Bausteine, Fachtexte, Geräte-Durchlauf (Punkt 42). Merke: `visuell` und weitere lange Prüfungen laufen nicht in der CI, nach Bild- oder Textumbauten `node tests/visuell.mjs --update` ausführen und die Differenzbilder ansehen.
+
 ## Nachtbericht 9. auf 10. Oktober
 
 Jede Zeile ein Schritt, neueste unten. Stand der Zell-Seite: Gewicht 133,9 KB gzip von 150 KB.
