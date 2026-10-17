@@ -36,6 +36,12 @@
   h1 { font-weight: 500; font-size: clamp(26px, 4.5vw, 40px); line-height: 1.15; margin: 0 0 12px; text-wrap: balance; }
   .lead { font-size: 14px; line-height: 1.65; color: #A9AFC0; max-width: 540px; margin: 0 auto 22px; }
 
+  .lesen { display: block; width: 100%; max-width: 420px; height: auto; margin: 0 auto 22px; }
+  .lesen .lt { font: 12px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #C7CAD6; }
+  .lesen .lt2 { font: 12px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #E8E6E0; }
+  .lesen .lb { font: 500 11px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #FFE3B0; }
+  .lesen .fluss { animation: flow 1.6s linear infinite; }
+  @media (prefers-reduced-motion: reduce) { .lesen .fluss { animation: none; } }
   .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
   .chip {
     font-size: 13px; padding: 7px 14px 7px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px;
@@ -252,7 +258,32 @@
   <header>
     <p class="eyebrow sans">Skizze · Düsseldorf</p>
     <h1>Was leuchtet, wenn du etwas tust?</h1>
-    <p class="lead sans">Tipp an, was du heute getan hast. Die Orte dahinter leuchten auf.</p>
+    <p class="lead sans">Tipp an, was du heute getan hast.</p>
+    <svg class="lesen" viewBox="0 0 300 134" role="img" aria-label="So liest du die Karte" focusable="false">
+      <title>So liest du die Karte: Du tippst eine Tätigkeit an, die beteiligten Orte leuchten mit Nummer, eine Linie läuft zu dir, graue Orte sind nicht beteiligt.</title>
+      <g transform="translate(5 2)">
+        <rect x="14" y="8" width="112" height="30" rx="15" fill="none" stroke="#F2C46B" stroke-width="1.5"/>
+        <circle cx="34" cy="23" r="5" fill="#B39DDB"/>
+        <text x="46" y="27" class="lt2">Zocken</text>
+        <text x="70" y="58" class="lt" text-anchor="middle">Tätigkeit antippen</text>
+      </g>
+      <g transform="translate(155 2)">
+        <circle cx="70" cy="22" r="22" fill="#F2C46B" opacity=".18"/>
+        <polygon points="70,8 88,17 70,26 52,17" fill="#FFE3B0"/><polygon points="52,17 70,26 70,40 52,31" fill="#C9A15A"/><polygon points="88,17 70,26 70,40 88,31" fill="#A9823E"/>
+        <circle cx="92" cy="9" r="8" fill="#0B1220" stroke="#FFE3B0" stroke-width="1.2"/><text x="92" y="13" class="lb" text-anchor="middle">1</text>
+        <text x="70" y="58" class="lt" text-anchor="middle">Ort leuchtet, mit Nummer</text>
+      </g>
+      <g transform="translate(5 67)">
+        <circle cx="22" cy="22" r="5" fill="#FFE3B0"/><circle cx="22" cy="22" r="9" fill="none" stroke="#F2C48D" stroke-width="1.2"/>
+        <path class="fluss" d="M32 22H108" fill="none" stroke="#F2C46B" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 7"/>
+        <polygon points="120,17 128,22 120,27" fill="#F2C46B"/>
+        <text x="70" y="58" class="lt" text-anchor="middle">Linie: läuft mit</text>
+      </g>
+      <g transform="translate(155 67)">
+        <polygon points="70,8 88,17 70,26 52,17" fill="#3A4560"/><polygon points="52,17 70,26 70,40 52,31" fill="#262F45"/><polygon points="88,17 70,26 70,40 88,31" fill="#1E2639"/>
+        <text x="70" y="58" class="lt" text-anchor="middle">Grau: nicht beteiligt</text>
+      </g>
+    </svg>
         <div class="chips" id="chips" role="group" aria-label="Tätigkeiten"></div>
   </header>
 
@@ -533,7 +564,7 @@
 
     // Legende
     if (!on.size) {
-      legend.innerHTML = '<h2>Was dafür mitläuft</h2><p class="empty">Noch nichts gewählt. Tipp oben eine Tätigkeit an, dann erscheint hier, welche Stellen dafür gebraucht werden.</p>';
+      legend.innerHTML = '<h2>Was dafür mitläuft</h2><p class="empty">Noch nichts gewählt.</p>';
     } else {
       legend.innerHTML = '<h2>Was dafür mitläuft</h2><ul role="group" aria-label="Orte, die dafür gebraucht werden">' + rows.map(id => {
         const n = NODES[id];
@@ -548,7 +579,7 @@
 
     // Ort-Karte
     if (!selected) {
-      info.innerHTML = '<p class="empty">Tipp einen Ort auf der Karte oder in der Liste an. Dann siehst du hier, was er tut und wofür er gebraucht wird.</p>';
+      info.innerHTML = '<p class="empty">Tipp einen Ort an.</p>';
     } else {
       const n = NODES[selected];
       const uses = ACTS.filter(a => a.edges.flat().includes(selected));
