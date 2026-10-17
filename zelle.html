@@ -1897,7 +1897,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       <text x="480" y="250" text-anchor="middle" class="al-mut">leer</text>
     </svg>
   </figure>
-  <details class="wort-vorab"><summary>Die Bauteile kurz</summary><p>Der Zellkern bewahrt den Bauplan. Ribosomen bauen Eiweiße. Das Mitochondrium liefert Energie. Der Golgi-Apparat verpackt und verschickt. Das Lysosom ist ein Bläschen, das entsorgt. Das Membrantor kontrolliert den Zugang.</p></details>
+  <details class="wort-vorab"><summary>Die Bauteile kurz</summary><p>Zellkern: Bauplan. Ribosomen: bauen Eiweiße. Mitochondrium: Energie. Golgi-Apparat: verpackt und verschickt. Lysosom: Bläschen, das entsorgt. Membrantor: kontrolliert den Zugang.</p></details>
   <div class="aus-seg" role="group" aria-label="Ansicht des Ausfalls">
     <button type="button" id="ausViewBio" aria-pressed="true">Zelle</button>
     <button type="button" id="ausViewCity" aria-pressed="false">Stadt</button>
@@ -1922,14 +1922,14 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   <p class="aus-status" id="ausStatus" aria-live="polite"></p>
   <div class="panel alt" id="alt">
     <h3>Zusatzfall: Alterung und Reparatur</h3>
-    <p class="alt-txt">Schäden summieren sich, soweit Reparatur und Müllabfuhr sie nicht wegräumen. Stelle das Alter ein.</p>
+    <p class="alt-txt">Schäden summieren sich, soweit Reparatur und Müllabfuhr sie nicht wegräumen.</p>
     <div class="alt-row"><span>Ohne Reparatur</span><div class="alt-bar"><i id="altOhne"></i></div><output id="altOhneO">0</output></div>
     <div class="alt-row"><span>Mit Reparatur</span><div class="alt-bar"><i id="altMit" class="mit"></i></div><output id="altMitO">0</output></div>
     <label class="sig-slider" for="altAge"><span class="row"><span>Alter der Zelle</span><output id="altAgeO" for="altAge">0 Jahre</output></span><input type="range" id="altAge" min="0" max="80" step="1" value="10"></label>
     <p class="status" id="altStatus" aria-live="polite"></p>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Ausfall</span></summary><div class="hinkt-body"><p>Die Stufen wirken wie ein Fahrplan, sind aber ein Bild für Abhängigkeiten. Wie schnell etwas in einer echten Zelle folgt, hängt vom Fall ab. Sieben Bauteile sind eine kleine Auswahl, in echt hängt mehr in mehr Richtungen zusammen.</p><p>Beim Zusatzfall sind die Werte erfundene Beispielzahlen. Zellen altern je nach Typ sehr verschieden: Manche werden nach Tagen ersetzt, viele Nervenzellen halten ein Leben lang. Das sagt nichts über einen einzelnen Menschen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Abhängigkeit fehlt in dieser Skizze?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel das Zellskelett: Fällt es aus, kommt keine Fracht mehr an. Auch die Signale von außen fehlen in der Skizze. <a href="#skelett">Mehr dazu</a></p></div></details>
-  <p class="note">Stark vereinfacht: Echte Krankheiten sind selten ein einzelner Ausfall, meist stecken genetische und mehrstufige Ursachen dahinter. Die Beispiele sind keine Diagnose und keine Heilversprechen. Kein Beispiel hier ersetzt ärztlichen Rat.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Ausfall</span></summary><div class="hinkt-body"><p>Die Stufen sind ein Bild für Abhängigkeiten, kein Fahrplan. Sieben Bauteile sind eine kleine Auswahl, in echt hängt mehr zusammen.</p><p>Die Werte beim Zusatzfall sind erfundene Beispielzahlen. Manche Zellen werden nach Tagen ersetzt, viele Nervenzellen halten ein Leben lang. Das sagt nichts über einen einzelnen Menschen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Welche Abhängigkeit fehlt in dieser Skizze?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Zum Beispiel das Zellskelett: Fällt es aus, kommt keine Fracht mehr an. Auch die Signale von außen fehlen in der Skizze. <a href="#skelett">Mehr dazu</a></p></div></details>
+  <p class="note">Stark vereinfacht: Echte Krankheiten haben selten einen einzelnen Ausfall als Ursache, meist mehrstufige, oft genetische. Die Beispiele sind keine Diagnose und kein ärztlicher Rat.</p>
   <p class="aus-hint" id="ausHint">Noch läuft alles. Schalte eine Stelle aus.</p>
   <div class="aus-detail" id="ausDetail" hidden>
     <div class="aus-head"><small id="ausEyebrow"></small><h3 id="ausTitle"></h3></div>
@@ -2027,7 +2027,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 3c. Dorf oder Stadt: Bakterium und Zelle mit Kern, Größenregler -->
 <section class="sec reveal" id="dorf">
   <h2>Dorf oder Stadt: Je größer die Zelle, desto mehr Stadtteile.</h2>
-  <p class="lead">Ein Bakterium ist ein Dorf um einen Marktplatz. Eine Zelle mit Kern, wie deine, ist eine Stadt mit Stadtteilen. Der Regler macht beide größer.</p>
+  <p class="lead">Ein Bakterium ist ein Dorf um einen Marktplatz, eine Zelle mit Kern wie deine eine Stadt mit Stadtteilen. Der Regler macht beide größer.</p>
   <div class="dorf-seg" role="group" aria-label="Welche Zelle erklärt der Text?">
     <button type="button" id="dorfPickBak" aria-pressed="true">Bakterium</button>
     <button type="button" id="dorfPickEuk" aria-pressed="false">Zelle mit Kern</button>
@@ -2042,7 +2042,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       <div class="stat"><small>Oberfläche je Volumen</small><span id="dorfOV">&nbsp;</span><div class="bar" aria-hidden="true"><i id="dorfOB"></i></div></div>
       <div class="stat"><small>Weg zur Mitte</small><span id="dorfWeg">&nbsp;</span><div class="bar" aria-hidden="true"><i id="dorfWB"></i></div></div>
     </div>
-    <p class="dorf-vgl-l">Je kleiner die Zelle, desto mehr Hülle je Inhalt. Die Balken sind gestaucht, die Zahlen rechts zählen.</p>
+    <p class="dorf-vgl-l">Kleiner heißt mehr Hülle je Inhalt. Balken gestaucht, die Zahlen zählen.</p>
     <div class="dorf-vgl" role="group" aria-label="Hülle und Inhalt im Vergleich zu 1 µm, Maßstab gestaucht">
       <div class="dv"><span>Hülle</span><div class="bar" aria-hidden="true"><i id="dorfHB"></i></div><output id="dorfHO">&times;1</output></div>
       <div class="dv"><span>Inhalt</span><div class="bar" aria-hidden="true"><i class="in" id="dorfIB"></i></div><output id="dorfIO">&times;1</output></div>
@@ -2064,7 +2064,6 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     <div class="status" id="dorfStatus" aria-live="polite"></div>
   </div>
   <div class="dorf-head"><small id="dorfEyebrow"></small><h3 id="dorfTitle"></h3></div>
-  <p class="dorf-aha" id="dorfAha"></p>
   <details class="wort-vorab mehr"><summary>Mehr zu dieser Größe</summary>
     <div class="dorf-cols">
       <div class="col"><b>In der Zelle</b><span id="dorfCell"></span></div>
@@ -2074,14 +2073,14 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   <div class="dorf-ort">
     <h3>Woher kommen die Kraftwerke?</h3>
     <svg class="card-ic endo-ic" viewBox="0 0 320 70" aria-hidden="true" focusable="false"><ellipse class="ic-bak" cx="40" cy="35" rx="22" ry="12"/><path class="ic-alt" d="M70 35 H128"/><ellipse class="ic-zelle" cx="215" cy="35" rx="80" ry="30"/><circle class="ic-kern" cx="188" cy="32" r="14"/><ellipse class="ic-bak ic-in" cx="244" cy="40" rx="16" ry="8"/><ellipse class="ic-bak ic-in" cx="232" cy="22" rx="12" ry="6"/></svg>
-    <p>Sehr wahrscheinlich von Bakterien, die vor langer Zeit in eine andere Zelle gelangten und blieben. Die Idee heißt Endosymbiose und gilt als gut belegt.</p>
+    <p>Sehr wahrscheinlich von Bakterien, die vor langer Zeit in eine andere Zelle gelangten und blieben (Endosymbiose, gut belegt).</p>
     <details class="wort-vorab"><summary>Belege und offene Fragen</summary>
-    <p>Dafür spricht: Mitochondrien haben eine eigene ringförmige DNA wie viele Bakterien und eigene Ribosomen, die denen von Bakterien ähneln. Sie vermehren sich durch Teilung. Bei Pflanzen stammen die Chloroplasten wohl von Cyanobakterien ab, Bakterien mit Photosynthese.</p>
-    <p>Offen ist vieles im Einzelnen. Wie die aufnehmende Zelle aussah, ist unklar, wohl war sie mit den Archaeen verwandt, Einzellern ohne Kern. Auch ob der Kern vor oder nach den Kraftwerken entstand, ist offen.</p></details>
+    <p>Dafür spricht: Mitochondrien haben eigene ringförmige DNA, bakterienähnliche Ribosomen und vermehren sich durch Teilung. Chloroplasten der Pflanzen stammen wohl von Cyanobakterien ab, Bakterien mit Photosynthese.</p>
+    <p>Offen ist, wie die aufnehmende Zelle aussah (wohl mit Archaeen verwandt, Einzellern ohne Kern) und ob der Kern vor oder nach den Kraftwerken entstand.</p></details>
     <a class="dorf-link" href="#kraftwerk">Wie das Kraftwerk arbeitet, steht weiter oben &uarr;</a>
   </div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Dorf oder Stadt</span></summary><div class="hinkt-body"><p>Das Dorf klingt nach einfach, die Stadt nach weiter entwickelt. Gemeint ist es anders: Bakterien sind eine eigene, sehr erfolgreiche Lebensform und keine Vorstufe von uns. Sie haben auch innere Ordnung, etwa Gerüsteiweiße, feste Plätze für ihr Erbgut und bei manchen Arten eigene Fächer.</p><p>Einen Bürgermeister hat keine der beiden Zellen, und der Kern ist eher ein Archiv als ein Rathaus.</p><p>Auch Größe trennt nur tendenziell: Es gibt Riesenbakterien, die man mit bloßem Auge sieht, und Zellen mit Kern, die kaum größer sind als ein Bakterium. Entscheidend ist die Bauweise (Kern, Kraftwerke, innere Membranen).</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was könnte einem Riesenbakterium helfen, ohne Kern so groß zu werden?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Viele Kopien des Erbguts, die über die Zelle verteilt liegen, und innere Fächer. So bleiben die Wege kurz. Manche Riesenbakterien machen das so. <a href="#weg">Mehr dazu</a></p></div></details>
-  <p class="note">Stark vereinfacht: Nicht maßstäblich. Der Regler reicht von etwa 1 bis 100 µm (1 µm ist ein tausendstel Millimeter), das Bild wächst viel weniger. Die Rechnung gilt für eine Kugel. Alle Größen sind grobe Beispiele.</p>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Dorf oder Stadt</span></summary><div class="hinkt-body"><p>Dorf klingt einfach, Stadt weiter entwickelt. Gemeint ist es anders: Bakterien sind eine eigene, sehr erfolgreiche Lebensform und keine Vorstufe von uns. Auch sie haben innere Ordnung, etwa Gerüsteiweiße und feste Plätze fürs Erbgut.</p><p>Keine Zelle hat einen Bürgermeister, der Kern ist eher Archiv als Rathaus. Auch Größe trennt nur tendenziell: Es gibt Riesenbakterien und Zellen mit Kern, die kaum größer sind als ein Bakterium. Entscheidend ist die Bauweise.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was könnte einem Riesenbakterium helfen, ohne Kern so groß zu werden?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Viele Kopien des Erbguts, verteilt über die Zelle, und innere Fächer. So bleiben die Wege kurz. <a href="#weg">Mehr dazu</a></p></div></details>
+  <p class="note">Stark vereinfacht: Nicht maßstäblich, das Bild wächst weniger als der Regler (1 bis 100 µm, 1 µm ist ein tausendstel Millimeter). Die Rechnung gilt für eine Kugel, alle Größen sind Beispiele.</p>
 </section>
 
 <!-- 4. Information -->
@@ -2171,7 +2170,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 4b. Gene: Abschrift und Fabrik -->
 <section class="sec reveal" id="gen">
   <h2>Das Archiv gibt die Originale nie heraus.</h2>
-  <p class="lead">Das Archiv behält das Original, die Fabrik arbeitet nach einer Kopie. Gehe die drei Schritte durch und tausche Buchstaben aus.</p>
+  <p class="lead">Das Archiv behält das Original, die Fabrik arbeitet nach einer Kopie. Tausche Buchstaben aus.</p>
   <svg class="gen-bild" viewBox="0 0 360 120" role="img" aria-labelledby="genBildT">
     <title id="genBildT">Schema: Links das Archiv mit der DNA im Zellkern, rechts die Fabrik. Eine gestrichelte Leitung trägt die Kopie, die RNA, vom Archiv zur Fabrik. Das Original bleibt im Archiv.</title>
     <rect x="6" y="20" width="108" height="80" rx="10" class="gb-arch"/>
@@ -2184,9 +2183,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     <circle r="5" class="gb-punkt p2" cx="114" cy="60"/>
   </svg>
   <div class="evo-steps">
-    <div class="evo-step"><b>Archiv</b>Gene als Folge von A, C, G und T.<em>Stadt: Die Akte steht im Archiv.</em></div>
-    <div class="evo-step"><b>Abschrift</b>Das Gen wird als RNA abgeschrieben, mit U statt T.<em>Stadt: Eine Kopie geht zur Fabrik.</em></div>
-    <div class="evo-step"><b>Fabrik</b>Je drei Buchstaben ergeben einen Baustein.<em>Stadt: Die Fabrik baut nach der Kopie.</em></div>
+    <div class="evo-step"><b>Archiv</b>Gene aus A, C, G und T.</div>
+    <div class="evo-step"><b>Abschrift</b>Abschrift als RNA, mit U statt T.</div>
+    <div class="evo-step"><b>Fabrik</b>Je drei Buchstaben ergeben einen Baustein.</div>
   </div>
   <div class="panel gen-panel" id="genPanel">
     <div class="gen-row"><span class="gen-lab">Archiv (DNA)</span><div class="gen-cods" id="genDna" role="group" aria-label="Buchstaben des Beispielgens. Tippe einen Buchstaben an, um ihn auszutauschen."></div></div>
@@ -2202,16 +2201,16 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   </div>
   <details class="gen-zeit"><summary>Wie man darauf kam</summary>
     <ol>
-      <li><b>1860er</b>Gregor Mendel kreuzt Erbsen und schließt auf vererbbare Elemente, die wir heute Gene nennen.</li>
-      <li><b>Um 1910</b>Thomas Hunt Morgan zeigt: Gene liegen auf Chromosomen.</li>
-      <li><b>1953</b>Watson und Crick beschreiben die Doppelhelix, auf Grundlage der Röntgenbilder von Rosalind Franklin und Maurice Wilkins.</li>
+      <li><b>1860er</b>Mendel kreuzt Erbsen und schließt auf vererbbare Elemente, heute Gene genannt.</li>
+      <li><b>Um 1910</b>Morgan zeigt: Gene liegen auf Chromosomen.</li>
+      <li><b>1953</b>Watson und Crick beschreiben die Doppelhelix, nach Röntgenbildern von Rosalind Franklin und Maurice Wilkins.</li>
       <li><b>1960er</b>Der genetische Code ist entschlüsselt.</li>
-      <li><b>1977</b>Fred Sanger entwickelt ein Verfahren, die Buchstaben zu lesen.</li>
-      <li><b>1978</b>Bakterien stellen mit dem menschlichen Insulin-Gen Insulin her (Markt 1982).</li>
-      <li><b>2003</b>Das menschliche Genom gilt als im Wesentlichen gelesen.</li>
+      <li><b>1977</b>Sanger entwickelt ein Verfahren, die Buchstaben zu lesen.</li>
+      <li><b>1978</b>Bakterien stellen mit dem menschlichen Insulin-Gen Insulin her.</li>
+      <li><b>2003</b>Das menschliche Genom ist im Wesentlichen gelesen.</li>
     </ol>
   </details>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Gene</span></summary><div class="hinkt-body"><p>Die DNA liegt im Zellkern, dem abgeschlossenen Raum der Zelle. Ein Gen ist ein Abschnitt davon mit der Anleitung für ein Eiweiß. Das Ribosom heißt in der Stadt Fabrik.</p><p>Eine Akte im Archiv ist fertig geschrieben und wird nur gelesen. Eine Zelle kopiert, verändert und repariert ihre DNA laufend, und beim Abschreiben werden Teile eines Gens herausgeschnitten, bevor die Fabrik anfängt.</p><p>Hinter einem Gen sitzt kein Auftraggeber. Ob die Akte abgeschrieben wird, hängt von der Zelle und ihrer Lage ab (mehr im nächsten Abschnitt).</p><p>Stark vereinfacht: Gezeigt ist nur ein Strang und ein Gen mit sechs Codons. Echte Gene sind hunderte bis tausende Buchstaben lang. Met, Glu, Ala, Trp und Lys sind Kürzel für Aminosäuren. Nur 1 bis 2 Prozent des Erbguts enthalten Anleitungen für Eiweiße, deshalb bleiben viele Veränderungen ohne spürbare Folge.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer hat die Akte geschrieben, die das Archiv gerade enthält?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand. Über sehr lange Zeit sind kleine zufällige Änderungen entstanden, und was funktioniert hat, ist geblieben. <a href="#evolution">Mehr dazu</a></p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Gene</span></summary><div class="hinkt-body"><p>Ein Gen ist ein Abschnitt der DNA im Zellkern mit der Anleitung für ein Eiweiß. Eine Zelle kopiert, verändert und repariert ihre DNA laufend. Beim Abschreiben werden Teile eines Gens herausgeschnitten, bevor die Fabrik anfängt.</p><p>Hinter einem Gen sitzt kein Auftraggeber. Ob es abgeschrieben wird, hängt von der Zelle und ihrer Lage ab.</p><p>Stark vereinfacht: ein Strang, ein Gen mit sechs Codons. Echte Gene sind hunderte bis tausende Buchstaben lang. Met, Glu und so weiter sind Aminosäuren. Nur 1 bis 2 Prozent des Erbguts enthalten Anleitungen für Eiweiße, darum bleiben viele Veränderungen folgenlos.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer hat die Akte geschrieben, die das Archiv gerade enthält?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand. Über sehr lange Zeit sind kleine zufällige Änderungen entstanden, und was funktioniert hat, ist geblieben. <a href="#evolution">Mehr dazu</a></p></div></details>
 
 </section>
 
@@ -2332,7 +2331,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <!-- 5b. Bauamt mit Kontrollpunkten -->
 <section class="sec reveal" id="bauamt">
   <h2>Ein Bauamt gibt es nicht, geprüft wird trotzdem.</h2>
-  <p class="lead">Vor der Teilung prüft die Zelle an drei Toren: G1, G2 und Metaphase. Wähle, was ankommt, und lass den Prüfer ausfallen.</p>
+  <p class="lead">Vor der Teilung prüft die Zelle an drei Toren. Wähle, was ankommt, und lass den Prüfer ausfallen.</p>
   <div class="bau-seg" role="group" aria-label="Ansicht des Rundgangs">
     <button type="button" id="bauViewBio" aria-pressed="true">Zelle</button>
     <button type="button" id="bauViewCity" aria-pressed="false">Stadt</button>
@@ -2349,7 +2348,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     </div>
   </div>
   <div class="bau-steps" role="group" aria-label="Tore des Rundgangs" id="bauSteps"></div>
-  <div class="bau-head"><small id="bauEyebrow"></small><h3 id="bauTitle"></h3><p class="bau-q" id="bauQ"></p></div>
+  <div class="bau-head"><small id="bauEyebrow"></small><h3 id="bauTitle"></h3></div>
   <div class="bau-cols">
     <div class="col"><b>In der Zelle</b><span id="bauCell"></span></div>
     <div class="col city"><b>In der Stadt</b><span id="bauTown"></span></div>
@@ -2365,8 +2364,8 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     <button type="button" class="btn" id="bauReset">Neu beginnen</button>
   </div>
   <div class="bau-sum" id="bauSum" aria-live="polite" hidden></div>
-  <details class="warum bau-ort"><summary>Wer prüft hier eigentlich?</summary><div class="warum-body"><p>Niemand. Das Bauamt ist ein Bild. Die Tore sind Rückkopplungen: Eiweiße melden Probleme, und solange eine Meldung anliegt, bleibt der nächste Schritt gebremst. Die Kontrolle entsteht aus vielen kleinen Teilen, die sich gegenseitig prüfen.</p></div></details>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Bauamt</span></summary><div class="hinkt-body"><p>G1 fragt: Passen Größe und Umgebung? G2: Ist die DNA vollständig kopiert? Metaphase: Stehen alle Chromosomen (aufgewickelte DNA-Pakete, beim Menschen 46) in der Mitte?</p><p>Ein Amt hat Akten, Zuständigkeiten und jemanden, der geradesteht. Die Kontrollpunkte haben nichts davon. Es sind Eiweiße, die einander bremsen oder freigeben.</p><p>Ein Stopp heißt auch nicht immer Ablehnung. Eine Zelle mit einem Schaden wird manchmal angehalten und manchmal gezielt abgebaut.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer trägt die Verantwortung, wenn eine Kontrolle versagt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand, denn es gibt keine Zuständigen. Fällt eine Kontrolle aus, können Fehler in die nächste Zelle gelangen. Bei Krebs ist das eine von vielen Ursachen.</p><p>Echte Kontrollpunkte sind mehr und komplexer, die Fehlerfälle hier sind Beispiele. Krebs hat viele Ursachen, meist müssen mehrere Veränderungen zusammenkommen. Diese Seite ersetzt keinen ärztlichen Rat.</p></div></details>
+  <details class="warum bau-ort"><summary>Wer prüft hier eigentlich?</summary><div class="warum-body"><p>Niemand, das Bauamt ist ein Bild. Die Tore sind Rückkopplungen: Eiweiße melden Probleme und bremsen den nächsten Schritt, solange die Meldung anliegt.</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Bauamt</span></summary><div class="hinkt-body"><p>G1: Passen Größe und Umgebung? G2: Ist die DNA vollständig kopiert? Metaphase: Stehen alle Chromosomen (DNA-Pakete, beim Menschen 46) in der Mitte?</p><p>Ein Amt hat Akten, Zuständige und jemanden, der geradesteht. Die Kontrollpunkte sind Eiweiße, die einander bremsen oder freigeben. Ein Stopp heißt auch nicht immer Ablehnung: Eine Zelle mit Schaden wird manchmal angehalten, manchmal gezielt abgebaut.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer trägt die Verantwortung, wenn eine Kontrolle versagt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Niemand, denn es gibt keine Zuständigen. Fällt eine Kontrolle aus, können Fehler in die nächste Zelle gelangen. Bei Krebs ist das eine von vielen Ursachen.</p><p>Echte Kontrollpunkte sind mehr und komplexer, die Fehlerfälle sind Beispiele. Krebs hat viele Ursachen, meist müssen mehrere Veränderungen zusammenkommen. Kein ärztlicher Rat.</p></div></details>
 
 </section>
 
@@ -3296,8 +3295,8 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     }
     function message(res, cs, oc) {
       var changes = 0; seq.forEach(function (b, i) { if (b !== ORIG[i]) changes++; });
-      if (step === 1) return changes ? 'Du hast ' + changes + (changes === 1 ? ' Buchstaben' : ' Buchstaben') + ' im Archiv verändert. Gehe weiter bis zur Fabrik, um zu sehen, was das bewirkt.' : 'Das ist die Akte im Archiv: 18 Buchstaben in sechs Dreiergruppen. Tippe einen Buchstaben an, um ihn zu tauschen, oder gehe weiter zur Abschrift.';
-      if (step === 2) return 'Die Zelle schreibt die Akte ab. In der Abschrift steht U statt T (das ist normal: In Abschriften heißt T immer U), das Original bleibt im Archiv.' + (changes ? ' Die Änderung ist in der Kopie mit drin.' : '');
+      if (step === 1) return changes ? 'Du hast ' + changes + (changes === 1 ? ' Buchstaben' : ' Buchstaben') + ' im Archiv verändert. Gehe weiter bis zur Fabrik, um zu sehen, was das bewirkt.' : 'Die Akte im Archiv: 18 Buchstaben in sechs Dreiergruppen. Tippe einen Buchstaben an, um ihn zu tauschen.';
+      if (step === 2) return 'Die Zelle schreibt die Akte ab. In Abschriften heißt T immer U, das Original bleibt im Archiv.' + (changes ? ' Die Änderung ist in der Kopie mit drin.' : '');
       if (!changes) return 'Die Fabrik liest je drei Buchstaben und baut Met, Glu, Ala, Trp, Lys. Beim sechsten Dreier kommt das Stoppsignal. Tausche jetzt einen Buchstaben im Archiv.';
       if (!res.started) return 'Das Startsignal fehlt (ATG). Die Fabrik fängt gar nicht erst an zu bauen.';
       var short = res.stopAt !== -1 && res.stopAt < 5;
@@ -4185,8 +4184,8 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   var GATES = [
     { tab: ['G1', 'Bauantrag'], pill: ['G1', 'Antrag'], title: ['G1-Kontrollpunkt', 'Bauantrag'],
       q: ['Ist die Zelle groß genug und die Umgebung günstig?', 'Ist das Grundstück groß genug, und sind Material und Genehmigung da?'],
-      cell: 'Am G1-Punkt entscheidet die Zelle, ob sie sich überhaupt teilen will. Sie prüft ihre Größe, ihre Vorräte, die Wachstumssignale von außen und ob die DNA heil ist. Fehlt etwas, bleibt sie in der Wartestellung.',
-      town: 'Beim Bauantrag wird geprüft, ob das Grundstück reicht, ob Material und Strom da sind und ob der Baugrund taugt. Fehlt etwas, wird nicht gebaut.',
+      cell: 'Hier entscheidet die Zelle, ob sie sich teilen will. Sie prüft Größe, Vorräte, Wachstumssignale und ob die DNA heil ist. Fehlt etwas, wartet sie.',
+      town: 'Geprüft wird, ob Grundstück, Material, Strom und Baugrund reichen. Fehlt etwas, wird nicht gebaut.',
       aha: 'Teilen ist teuer, also wird vorher gefragt, ob es sich lohnt.',
       ok: ['Die Zelle ist groß genug, die Umgebung stimmt, die DNA ist heil. Das Tor öffnet sich.', 'Grundstück, Material und Baugrund passen. Der Bauantrag ist genehmigt.'],
       cases: [
@@ -4205,8 +4204,8 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       ] },
     { tab: ['G2', 'Bauabnahme'], pill: ['G2', 'Abnahme'], title: ['G2-Kontrollpunkt', 'Bauabnahme'],
       q: ['Wurde die DNA vollständig und fehlerfrei kopiert?', 'Wurden alle Pläne vollständig und fehlerfrei kopiert?'],
-      cell: 'Nach dem Kopieren prüft die Zelle, ob jedes Stück DNA genau einmal kopiert wurde und die Kopie zum Original passt. Meldet ein Eiweiß noch offene Stellen oder Schäden, bleibt der Antrieb der Teilung gebremst.',
-      town: 'Bei der Bauabnahme wird jede Kopie Seite für Seite mit dem Original verglichen. Erst wenn alles stimmt, gibt es den Stempel.',
+      cell: 'Die Zelle prüft, ob jedes Stück DNA genau einmal kopiert wurde und zum Original passt. Meldet ein Eiweiß offene Stellen oder Schäden, bleibt die Teilung gebremst.',
+      town: 'Jede Kopie wird Seite für Seite mit dem Original verglichen. Erst dann gibt es den Stempel.',
       aha: 'Ein Fehler im Plan landet sonst in beiden Städten.',
       ok: ['Die Kopie ist vollständig und stimmt mit dem Original überein. Das Tor öffnet sich.', 'Alle Kopien sind komplett und stimmen. Die Abnahme ist erteilt.'],
       cases: [
@@ -4221,8 +4220,8 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       ] },
     { tab: ['Metaphase', 'Statikprüfung'], pill: ['Metaphase', 'Statik'], title: ['Kontrollpunkt der Metaphase', 'Statikprüfung'],
       q: ['Sind alle Chromosomen richtig an der Spindel befestigt?', 'Hängen alle Seile an beiden Seiten fest, bevor gezogen wird?'],
-      cell: 'In der Metaphase liegen die Chromosomen in der Mitte, die Spindelfasern haben angedockt. Ein Chromosom, das noch nicht von beiden Seiten gehalten wird, sendet ein Stoppsignal gegen die Trennung. Erst wenn das letzte richtig hängt, verstummt es.',
-      town: 'Bei der Statikprüfung wird vor dem Ziehen geprüft, ob jedes Seil auf beiden Seiten fest sitzt. Ein loses Seil hält den ganzen Umzug an.',
+      cell: 'Die Chromosomen liegen in der Mitte, die Spindelfasern haben angedockt. Ein Chromosom, das nicht von beiden Seiten gehalten wird, sendet ein Stoppsignal, bis das letzte richtig hängt.',
+      town: 'Vor dem Ziehen sitzt jedes Seil beidseitig fest, sonst ruht der Umzug.',
       aha: 'Gezogen wird erst, wenn alles hält. Danach lässt sich nichts zurücknehmen.',
       ok: ['Alle Chromosomen hängen an beiden Seiten. Das Tor öffnet sich, die Hälften werden getrennt.', 'Alle Seile sitzen fest. Die Statik ist freigegeben, der Umzug beginnt.'],
       cases: [
@@ -4364,7 +4363,6 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     }
     q('bauEyebrow').textContent = 'Tor ' + (cur + 1) + ' von 3';
     q('bauTitle').textContent = G.title[i];
-    q('bauQ').textContent = G.q[i];
     q('bauCell').textContent = G.cell; q('bauTown').textContent = G.town; q('bauAha').textContent = '→ ' + G.aha;
     optBtns.forEach(function (b, k) { b.setAttribute('aria-pressed', String(cases[cur] === k)); });
     tagEl.textContent = TAGS[st][0]; tagEl.className = 'bau-tag ' + TAGS[st][1];
@@ -5386,13 +5384,13 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   function pct(v) { return Math.max(3, Math.min(100, v)).toFixed(1) + '%'; }
   var TEIL = ['', 'die Hälfte', 'ein Fünftel', 'ein Zehntel', 'ein Zwanzigstel', 'ein Fünfzigstel', 'ein Hundertstel'];
   var EX = [
-    'So klein sind viele Bakterien und auch einige Algen mit Kern.',
-    'Ungefähr so groß ist ein typisches Stäbchenbakterium, z.B. aus dem Darm.',
-    'Für ein Bakterium ist das schon groß.',
-    'In dieser Gegend liegen viele Zellen mit Kern, z.B. manche weiße Blutkörperchen.',
-    'In dieser Größenordnung liegen z.B. viele Zellen der Leber.',
-    'Das ist schon eine große Zelle mit Kern.',
-    'Ungefähr so groß ist eine menschliche Eizelle, man kann sie gerade noch mit bloßem Auge erahnen.'
+    'So klein sind viele Bakterien und einige Algen mit Kern.',
+    'So groß ist ein typisches Stäbchenbakterium, etwa aus dem Darm.',
+    'Für ein Bakterium schon groß.',
+    'Hier liegen viele Zellen mit Kern, etwa manche weiße Blutkörperchen.',
+    'Typisch für viele Leberzellen.',
+    'Schon eine große Zelle mit Kern.',
+    'So groß ist eine menschliche Eizelle, gerade noch mit bloßem Auge zu erahnen.'
   ];
   var FAR = [0, 0, 0.45, 0.62, 0.74, 0.84, 0.9];
   var MITO = [1, 2, 3, 5, 6, 8, 10];
@@ -5402,31 +5400,25 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   // ---- Texte je Lage ----
   var BAK = [
     { word: 'Läuft', status: 'das Bakterium läuft gut', title: 'Das Dorf: Alles liegt nah am Marktplatz',
-      cell: 'Alles liegt nah beieinander. Das Erbgut liegt als Ring frei im Zellinneren, in einem Bereich ohne Hülle (Nukleoid). Die Ribosomen lesen Abschriften oft schon beim Entstehen ab. Was über die Membran kommt, ist schnell überall, und die Energie entsteht direkt an der Außenhaut.',
-      town: 'Wie in einem Dorf läuft alles rund um den Marktplatz, und jeder Weg ist kurz. Ein eigenes Rathaus oder Gewerbegebiet braucht es nicht.',
-      aha: 'Im Bild: Das Erbgut (Schleife) liegt frei im Plasma, die Pfeile von den Toren reichen fast bis in die Mitte.' },
+      cell: 'Das Erbgut liegt als Ring frei im Zellinneren (Nukleoid). Die Ribosomen lesen Abschriften oft schon beim Entstehen ab. Was über die Membran kommt, ist schnell überall, die Energie entsteht an der Außenhaut.',
+      town: 'Alles läuft rund um den Marktplatz, jeder Weg ist kurz. Rathaus und Gewerbegebiet braucht es nicht.' },
     { word: 'Wird eng', status: 'beim Bakterium wird es eng', title: 'Das Dorf wächst, die Zufahrten nicht',
-      cell: 'Der Inhalt wächst schneller als die Außenhaut. Auf jede Portion Inhalt kommt weniger Membran, und an der Membran hängen beim Bakterium Zoll und Kraftwerk zugleich. Der doppelte Weg zur Mitte dauert beim Treibenlassen etwa viermal so lange.',
-      town: 'Das Dorf wird größer, die Zufahrten am Ortsrand kaum. Vor den Toren bildet sich eine Schlange.',
-      aha: 'Im Bild: Vor den Toren warten Teilchen (Ringe außen), die Mitte (schraffiert) liegt weit vom Rand.' },
+      cell: 'Der Inhalt wächst schneller als die Außenhaut. Je Portion Inhalt gibt es weniger Membran, und dort hängen Zoll und Kraftwerk zugleich. Der doppelte Weg zur Mitte dauert beim Treibenlassen etwa viermal so lange.',
+      town: 'Das Dorf wächst, die Zufahrten kaum. Vor den Toren bildet sich eine Schlange.' },
     { word: 'Engpass', status: 'das Bakterium steckt im Engpass', title: 'Ein Dorf so groß wie eine Stadt',
-      cell: 'So groß kommt ein gewöhnliches Bakterium kaum zurecht. Die Membran reicht nicht für so viel Inhalt, und die Mitte liegt weit vom Rand. Es gibt trotzdem Riesenbakterien, die sich mit Tricks behelfen, zum Beispiel mit einer großen Blase innen. Das Leben findet dann in einer dünnen Schicht am Rand statt.',
-      town: 'Das Dorf ist so groß wie eine Stadt, hat aber nur einen Marktplatz. Die Tore sind überlastet, in der Mitte kommt kaum etwas an.',
-      aha: 'Im Bild: Die schraffierte Mitte ist groß, die Ribosomen dort warten als Ringe, vor jedem Tor staut es sich.' }
+      cell: 'So groß kommt ein gewöhnliches Bakterium kaum zurecht: Die Membran reicht nicht, die Mitte liegt weit vom Rand. Riesenbakterien helfen sich mit Tricks, etwa einer großen Blase innen. Das Leben findet dann in einer dünnen Randschicht statt.',
+      town: 'Ein Dorf so groß wie eine Stadt, mit nur einem Marktplatz. Die Tore sind überlastet, in der Mitte kommt kaum etwas an.' }
   ];
   var EUK = [
     { word: 'Klein, geht', status: 'die Zelle mit Kern geht, hat aber kaum Platz für Stadtteile', title: 'Eine Stadt im Kleinformat',
-      cell: 'Auch eine Zelle mit Kern kann so klein sein, einige Algen kommen auf etwa 1 µm. Für Stadtteile ist dann wenig Platz.',
-      town: 'Eine Stadt im Kleinformat hat ihr Archiv und ein Kraftwerk, mehr passt nicht hinein.',
-      aha: 'Im Bild: Kern und ein, zwei Kraftwerke füllen die kleine Zelle fast aus.' },
+      cell: 'Auch eine Zelle mit Kern kann so klein sein, einige Algen kommen auf etwa 1 µm. Für Stadtteile ist wenig Platz.',
+      town: 'Archiv und ein Kraftwerk, mehr passt nicht hinein.' },
     { word: 'Läuft', status: 'die Zelle mit Kern läuft mit Stadtteilen', title: 'Die Stadt teilt ihre Arbeit auf',
-      cell: 'Die Arbeit ist aufgeteilt. Das Erbgut liegt im Kern hinter einer Hülle mit Poren. Die Kraftwerke (Mitochondrien) machen Energie an eigenen, stark gefalteten Membranen. Die Fabrik (Endoplasmatisches Retikulum) bringt viel innere Fläche mit. So wächst die Arbeitsfläche mit den Stadtteilen, auch wenn die Außenhaut im Verhältnis kleiner wird. Lange Wege überbrückt das Zellskelett als Netz aus Schienen.',
-      town: 'Das Archiv steht im Zentrum, die Kraftwerke liegen in den Vierteln, im Gewerbegebiet wird gebaut. Straßen verbinden die Viertel, die Stadtgrenze muss nicht alles allein leisten.',
-      aha: 'Im Bild: Kern mit Poren, Kraftwerke mit gefalteter Innenhaut, Fabrik in Bändern um den Kern, gestrichelte Schienen zum Rand.' },
+      cell: 'Das Erbgut liegt im Kern hinter einer Hülle mit Poren. Die Kraftwerke (Mitochondrien) machen Energie an eigenen, stark gefalteten Membranen, die Fabrik (Endoplasmatisches Retikulum) bringt viel innere Fläche mit. So wächst die Arbeitsfläche mit den Stadtteilen, auch wenn die Außenhaut im Verhältnis kleiner wird. Lange Wege überbrückt das Zellskelett.',
+      town: 'Archiv im Zentrum, Kraftwerke in den Vierteln, Gewerbegebiet für den Bau, Straßen dazwischen. Die Stadtgrenze muss nicht alles allein leisten.' },
     { word: 'Läuft, lange Wege', status: 'die Zelle mit Kern läuft, braucht aber lange Schienen', title: 'Die große Stadt lebt von ihren Straßen',
-      cell: 'Selbst bei etwa 100 µm geht das noch, eine menschliche Eizelle ist ungefähr so groß. Je größer die Zelle, desto wichtiger werden die Schienen, und ganz ohne Grenzen geht es auch hier nicht. Sehr große Zellen haben deshalb oft besondere Formen oder mehrere Kerne (z.B. Muskelfasern).',
-      town: 'In einer großen Stadt hängt alles an den Straßen. Ohne gute Verbindungen kommt in den Außenbezirken wenig an.',
-      aha: 'Im Bild: Viele Kraftwerke, gestrichelte Schienen vom Kern bis an den Rand.' }
+      cell: 'Selbst bei etwa 100 µm geht das noch, eine menschliche Eizelle ist so groß. Je größer die Zelle, desto wichtiger die Schienen, ganz ohne Grenzen geht es nicht. Sehr große Zellen haben oft besondere Formen oder mehrere Kerne (z.B. Muskelfasern).',
+      town: 'In einer großen Stadt hängt alles an den Straßen. Ohne gute Verbindungen kommt am Rand wenig an.' }
   ];
 
   // ---- Zustand ----
@@ -5582,8 +5574,8 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   }
   (function legend() {
     var groups = [
-      ['Bakterium', [['wall', 'Zellwand und Membran'], ['gate', 'Tor mit Lieferweg'], ['chr', 'Erbgut ohne Hülle (Nukleoid)'], ['ribo', 'Ribosomen'], ['wait', 'Ribosom wartet'], ['far', 'Weit weg vom Rand'], ['queue', 'Stau vor dem Tor']]],
-      ['Zelle mit Kern', [['nuc', 'Kern mit Poren (Archiv)'], ['mito', 'Kraftwerk (Mitochondrium)'], ['er', 'Fabrik mit Ribosomen'], ['track', 'Schienen (Zellskelett)']]]
+      ['Bakterium', [['wall', 'Zellwand, Membran'], ['gate', 'Tor mit Lieferweg'], ['chr', 'Erbgut (Nukleoid)'], ['ribo', 'Ribosomen'], ['wait', 'Ribosom wartet'], ['far', 'Weit vom Rand'], ['queue', 'Stau am Tor']]],
+      ['Zelle mit Kern', [['nuc', 'Kern (Archiv)'], ['mito', 'Kraftwerk (Mitochondrium)'], ['er', 'Fabrik'], ['track', 'Schienen (Zellskelett)']]]
     ];
     var html = '';
     groups.forEach(function (gr) {
@@ -5630,7 +5622,6 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     $('dorfCell').textContent = T.cell;
     $('dorfTownL').textContent = pick === 'bak' ? 'Im Dorf' : 'In der Stadt';
     $('dorfTown').textContent = T.town;
-    $('dorfAha').textContent = '→ ' + T.aha;
     $('dorfSmaller').disabled = i === 0; $('dorfBigger').disabled = i === SIZES.length - 1;
     panel.setAttribute('data-size', String(i)); panel.setAttribute('data-pick', pick);
     panel.setAttribute('data-bak', String(lb)); panel.setAttribute('data-euk', String(le));
@@ -6795,10 +6786,10 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
         { e: [['ribo', 'golgi']], t: ['Die Produktion stockt, dem Golgi-Apparat fehlen Eiweiße.', 'Die Produktion stockt, dem Paketzentrum fehlt Ware.'] },
         { e: [['golgi', 'lyso'], ['golgi', 'muell']], t: ['Der Müll staut sich, auch das Lysosom braucht Energie.', 'Der Müll staut sich, der Recyclinghof fährt ohne Strom nicht.'] }
       ],
-      cell: 'Mitochondrien machen den größten Teil des ATP. Fehlt es, bleiben Pumpen an der Membran, Eiweißbau und Reparaturen ohne Antrieb.',
-      town: 'Das Kraftwerk liefert den Strom für die ganze Stadt. Steht es still, laufen Tore und Maschinen nicht mehr, auch wenn sonst alles heil ist.',
+      cell: 'Mitochondrien machen den größten Teil des ATP. Fehlt es, bleiben Pumpen, Eiweißbau und Reparaturen ohne Antrieb.',
+      town: 'Das Kraftwerk liefert den Strom für die ganze Stadt. Steht es still, laufen Tore und Maschinen nicht, auch wenn sonst alles heil ist.',
       aha: 'Wer ganz unten in der Kette liegt, reißt am meisten mit.',
-      ex: ['Mitochondriopathien', 'Eine Gruppe seltener, meist genetisch bedingter Erkrankungen, bei denen die Energiegewinnung in den Mitochondrien gestört ist. Betroffen sind oft Organe mit hohem Energiebedarf, etwa Muskeln, Nerven, Herz und Gehirn. Verlauf und Schwere sind sehr verschieden.']
+      ex: ['Mitochondriopathien', 'Seltene, meist genetisch bedingte Erkrankungen, bei denen die Energiegewinnung in den Mitochondrien gestört ist. Oft betroffen sind Organe mit hohem Energiebedarf wie Muskeln, Nerven, Herz und Gehirn. Verlauf und Schwere sind sehr verschieden.']
     },
     abfuhr: {
       src: 'lyso',
@@ -6810,10 +6801,10 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
         { e: [['ribo', 'mito']], t: ['Alte Mitochondrien bleiben, das Kraftwerk arbeitet schlechter.', 'Alte Kraftwerksblöcke bleiben, das Kraftwerk leistet weniger.'] },
         { e: [['mito', 'zoll'], ['mito', 'golgi']], t: ['Zoll und Golgi-Apparat werden langsamer, die Zelle träge.', 'Zoll und Paketzentrum werden langsamer, die Stadt träge.'] }
       ],
-      cell: 'Im Lysosom werden Altes und Defektes in Bausteine zerlegt. Fällt es aus, bleibt der Abfall liegen, und die Bausteine kommen nicht zurück.',
-      town: 'Die Müllabfuhr holt ab, was die Stadt nicht mehr braucht, und der Recyclinghof macht daraus wieder Rohstoff. Beim Streik bleibt beides liegen.',
+      cell: 'Im Lysosom werden Altes und Defektes in Bausteine zerlegt. Fällt es aus, bleibt der Abfall liegen, und die Bausteine fehlen.',
+      town: 'Die Müllabfuhr holt ab, was nicht mehr gebraucht wird, der Recyclinghof macht Rohstoff daraus. Beim Streik bleibt beides liegen.',
       aha: 'Ein Müllstreik tut anfangs nicht weh. Der Stau wächst leise, und irgendwann fehlt etwas anderes.',
-      ex: ['Lysosomale Speicherkrankheiten', 'Eine Gruppe seltener, meist erblicher Erkrankungen, zum Beispiel Morbus Gaucher, Morbus Fabry oder Morbus Pompe. Bei jeder fehlt oder wirkt ein bestimmtes Enzym im Lysosom nicht richtig, und ein bestimmtes Material häuft sich in den Zellen an. Ob und wie behandelt wird, hängt von der Form ab und gehört in ärztliche Hände.']
+      ex: ['Lysosomale Speicherkrankheiten', 'Seltene, meist erbliche Erkrankungen, etwa Morbus Gaucher, Morbus Fabry oder Morbus Pompe. Bei jeder wirkt ein Enzym im Lysosom nicht richtig, und ein bestimmtes Material häuft sich in den Zellen an. Die Behandlung hängt von der Form ab und gehört in ärztliche Hände.']
     },
     zoll: {
       src: 'zoll',
@@ -6825,10 +6816,10 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
         { e: [['golgi', 'ribo'], ['golgi', 'muell']], t: ['Den Ribosomen fehlt Rohstoff, Abfall kommt nicht hinaus, der Müll staut sich.', 'Den Werkstätten fehlt Material, Abfall kommt nicht hinaus, der Müll staut sich.'] },
         { e: [['zoll', 'kern']], t: ['Signale von außen erreichen den Kern nicht mehr.', 'Aufträge von außen erreichen das Archiv nicht mehr.'] }
       ],
-      cell: 'Kanäle und Pumpen in der Membran lassen gezielt Stoffe herein und heraus. Fällt ein Transporter aus, stimmt die Bilanz zwischen innen und außen nicht mehr. Es kommt nichts herein und nichts hinaus.',
-      town: 'Der Zoll entscheidet, was in die Stadt darf und was sie verlässt. Bleibt das Tor zu, kommt nichts an und nichts hinaus.',
+      cell: 'Kanäle und Pumpen in der Membran lassen gezielt Stoffe herein und heraus. Fällt ein Transporter aus, stimmt die Bilanz zwischen innen und außen nicht mehr.',
+      town: 'Der Zoll entscheidet, was in die Stadt darf und was sie verlässt. Bleibt das Tor zu, geht nichts hinein oder hinaus.',
       aha: 'Innen ist nichts kaputt, und trotzdem läuft alles ins Leere. Eine Kette ist nur so stark wie ihr Tor.',
-      ex: ['Mukoviszidose', 'Eine erbliche Erkrankung, bei der ein Kanal für Chlorid in der Zellmembran nicht richtig arbeitet. Salz- und Wassertransport sind gestört, der Schleim wird zäh, vor allem in Lunge und Verdauung. Hier fällt nur ein einzelnes Tor aus, der übrige Zoll arbeitet weiter.']
+      ex: ['Mukoviszidose', 'Erbliche Erkrankung, bei der ein Chlorid-Kanal in der Zellmembran nicht richtig arbeitet. Salz- und Wassertransport sind gestört, der Schleim wird zäh, vor allem in Lunge und Verdauung. Nur ein einzelnes Tor fällt aus, der übrige Zoll arbeitet weiter.']
     },
     archiv: {
       src: 'kern',
@@ -6840,10 +6831,10 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
         { e: [['kern', 'zoll'], ['kern', 'lyso'], ['kern', 'golgi']], t: ['Ersatz fehlt: Kanäle, Enzyme und Golgi-Teile.', 'Ersatz fehlt: Tore, Geräte und Teile fürs Paketzentrum.'] },
         { e: [['ribo', 'mito'], ['golgi', 'muell']], t: ['Das Kraftwerk altert, der Müll wächst.', 'Das Kraftwerk verschleißt, der Müll wächst.'] }
       ],
-      cell: 'Im Kern liegt der Bauplan. Ist er nicht lesbar oder beschädigt, entstehen keine richtigen Abschriften, und Ersatzteile lassen sich nicht nachbauen. Auch viele Bauteile des Kraftwerks stammen aus diesem Plan.',
-      town: 'Das Archiv hält die Pläne für alles, was die Stadt baut. Sind sie unleserlich, kann niemand mehr nachbauen oder reparieren.',
+      cell: 'Im Kern liegt der Bauplan. Ist er beschädigt, entstehen keine richtigen Abschriften, und Ersatzteile lassen sich nicht nachbauen, auch viele fürs Kraftwerk.',
+      town: 'Das Archiv hält die Pläne für alles, was die Stadt baut. Sind sie unleserlich, kann niemand nachbauen oder reparieren.',
       aha: 'Dieser Ausfall fällt zuletzt auf. Die Stadt lebt erst vom Vorrat und merkt es, wenn Ersatz nötig wird.',
-      ex: ['Defekte der DNA-Reparatur und der Kernhülle', 'Zwei verschiedene Gruppen seltener Erkrankungen. Bei Xeroderma pigmentosum werden UV-Schäden an der DNA schlecht repariert, bei Laminopathien ist die Kernhülle gestört. Die Ursachen sind genetisch, und die Krankheitsbilder unterscheiden sich stark.']
+      ex: ['Defekte der DNA-Reparatur und der Kernhülle', 'Zwei Gruppen seltener Erkrankungen: Bei Xeroderma pigmentosum werden UV-Schäden an der DNA schlecht repariert, bei Laminopathien ist die Kernhülle gestört. Die Ursachen sind genetisch, die Krankheitsbilder sehr verschieden.']
     }
   };
   var on = {}, prog = {}, order = [];
