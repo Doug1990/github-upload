@@ -843,12 +843,18 @@
   .bild .b-fluss.l2 { animation-duration: 5.6s; animation-delay: -1.4s; }
   .bild .b-fluss.l3 { animation-duration: 3.4s; animation-delay: -2.2s; }
   .bild .b-fluss.l4 { animation-duration: 6.4s; animation-delay: -3s; }
+  .bild .kost-fluss { animation: kp-fluss 2.2s linear infinite; }
+  .bild .kp-fluss { animation: kp-fluss 5s linear infinite; } .bild .kp-fluss.l2 { animation-delay: -2.5s; }
+  .bild a { cursor: pointer; outline: none; } .bild .kp-hit { fill: transparent; } .bild .kp-dot { fill: #1B2740; stroke: #F2C46B; stroke-width: 2; }
+  .bild a text { font-size: 14px; fill: #E8E6E0; } .bild a:hover text { fill: #fff; text-decoration: underline; }
+  .bild a:focus-visible .kp-hit { stroke: #F2C46B; stroke-width: 2; } .bild .kp-opt { font-size: 11.5px; fill: #A9AFC0; }
+  @keyframes kp-fluss { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(var(--h)); opacity: 0; } }
   .bild .b-umweg { animation: b-umweg 4.2s linear infinite; offset-rotate: 0deg; }
   .bild .b-zeit { animation: b-zeit 8s ease-in-out infinite; }
   @keyframes b-fluss { 0% { transform: translateX(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateX(var(--w, 200px)); opacity: 0; } }
   @keyframes b-umweg { 0% { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
   @keyframes b-zeit { 0%, 20% { fill: #8FD9A8; } 50% { fill: #F2C46B; } 80%, 100% { fill: #FF8A65; } }
-  @media (prefers-reduced-motion: reduce) { .bild .b-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
+  @media (prefers-reduced-motion: reduce) { .bild .b-fluss, .bild .kp-fluss, .bild .kost-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
 
   /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
   .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
@@ -980,15 +986,18 @@
 
 <aside class="pfad-kurz" id="kurz" aria-labelledby="kurzT">
   <h2 id="kurzT">Das Wichtigste in Kürze</h2>
-  <ol>
-    <li><a href="#tool"><b>Was hast du heute gemacht?</b>Welche Ebenen tragen.</a></li>
-    <li><a href="#journey"><b>Deine Reise</b>Der Weg zu dir.</a></li>
-    <li><a href="#shelfScene"><b>Du gehst einkaufen</b>Was hinter dem Regal läuft.</a></li>
-    <li><a href="#chainGame"><b>Was kommt vor was?</b>Ketten ordnen.</a></li>
-    <li><a href="#belonging"><b>Du gehörst dazu</b>Getragen werden, mittragen.</a></li>
-    <li><a href="#now"><b>Es läuft weiter</b>Hochgerechnet, nicht live.</a></li>
-    <li><a href="#cubeSection"><b>Wie Energie unterwegs entsteht</b>Fünf Stationen.</a></li>
-  </ol>
+  <svg class="bild kp-bild" viewBox="0 0 320 322" role="group" aria-label="Der Weg durch die Seite in sieben Stationen, jede ein Link. Die letzte ist ein Abstecher.">
+    <path class="b-line" d="M24 26V256"/><path class="b-alt" d="M24 256V302"/>
+    <circle class="b-dot kp-fluss" style="--h:230px;--c:#F2C46B" cx="24" cy="26" r="4"/><circle class="b-dot kp-fluss l2" style="--h:230px;--c:#F2C46B" cx="24" cy="26" r="4"/>
+    <a href="#tool" role="link" aria-label="Was hast du heute gemacht?"><rect class="kp-hit" x="0" y="3" width="320" height="46"/><circle class="kp-dot" cx="24" cy="26" r="7"/><text x="48" y="31">Was hast du heute gemacht?</text></a>
+    <a href="#journey" role="link" aria-label="Deine Reise"><rect class="kp-hit" x="0" y="49" width="320" height="46"/><circle class="kp-dot" cx="24" cy="72" r="7"/><text x="48" y="77">Deine Reise</text></a>
+    <a href="#shelfScene" role="link" aria-label="Du gehst einkaufen"><rect class="kp-hit" x="0" y="95" width="320" height="46"/><circle class="kp-dot" cx="24" cy="118" r="7"/><text x="48" y="123">Du gehst einkaufen</text></a>
+    <a href="#chainGame" role="link" aria-label="Was kommt vor was?"><rect class="kp-hit" x="0" y="141" width="320" height="46"/><circle class="kp-dot" cx="24" cy="164" r="7"/><text x="48" y="169">Was kommt vor was?</text></a>
+    <a href="#belonging" role="link" aria-label="Du gehörst dazu"><rect class="kp-hit" x="0" y="187" width="320" height="46"/><circle class="kp-dot" cx="24" cy="210" r="7"/><text x="48" y="215">Du gehörst dazu</text></a>
+    <a href="#now" role="link" aria-label="Es läuft weiter"><rect class="kp-hit" x="0" y="233" width="320" height="46"/><circle class="kp-dot" cx="24" cy="256" r="7"/><text x="48" y="261">Es läuft weiter</text></a>
+    <a href="#cubeSection" role="link" aria-label="Wie Energie unterwegs entsteht"><rect class="kp-hit" x="0" y="279" width="320" height="46"/><circle class="kp-dot" cx="24" cy="302" r="7"/><text x="48" y="307">Wie Energie unterwegs entsteht</text></a>
+    <text class="kp-opt" x="296" y="302" text-anchor="end">optional</text>
+  </svg>
 </aside>
 
 <div class="tool-section" id="tool">
@@ -1087,7 +1096,12 @@
   <p class="cg-lead sans">Glieder antippen, von oben nach unten.</p>
 
   <div class="cg-slots" id="cgSlots"></div>
-  <p class="cg-hint sans">Gleiches Symbol (● ■ ▲ ◆): gleichzeitig.</p>
+  <svg class="bild" viewBox="0 0 320 84" role="img" aria-label="Regel: Gleiches Symbol (Kreis, Quadrat, Dreieck, Raute) heißt gleichzeitig. Zuerst ein Glied, danach zwei Glieder mit demselben Symbol nebeneinander.">
+    <path class="b-line" d="M40 30H110"/><path class="b-line" d="M110 30C150 30 150 14 190 14"/><path class="b-line" d="M110 30C150 30 150 46 190 46"/>
+    <rect class="b-node" x="28" y="22" width="16" height="16" rx="3"/><rect class="b-node" x="102" y="22" width="16" height="16" rx="3"/><rect class="b-node" x="190" y="6" width="16" height="16" rx="3"/><rect class="b-node" x="190" y="38" width="16" height="16" rx="3"/>
+    <circle class="b-dot b-fluss" style="--w:70px;--c:#F2C46B" cx="46" cy="30" r="4"/><circle class="b-dot b-fluss l2" style="--w:70px;--c:#F2C46B" cx="46" cy="30" r="4"/>
+    <text x="36" y="72" text-anchor="middle">zuerst</text><text x="110" y="72" text-anchor="middle">danach</text><text x="222" y="34">gleiches Symbol:</text><text x="222" y="50">gleichzeitig</text>
+  </svg>
   <div class="cg-pool" id="cgPool"></div>
 
   <p class="cg-feedback sans" id="cgFeedback"></p>
@@ -1198,7 +1212,7 @@
     <text x="262" y="48">Nutzende</text>
   </svg>
   <div class="inst-seg" id="kostSeg" role="group" aria-label="Wie wird bezahlt?"></div>
-  <p class="inst-desc" id="kostDesc"></p>
+  <svg class="bild" id="kostViz" viewBox="0 0 320 112" role="img" aria-label=""></svg>
   <div class="inst-panel" id="kostPanel">
     <div id="kostRows"></div>
     <div class="inst-time">
@@ -1222,7 +1236,7 @@
     <p class="now-you-reply sans" id="nowYouReply"></p>
   </div>
 
-  <p class="now-people sans" id="nowPeople"></p>
+  <svg class="bild" id="nowPeople" viewBox="0 0 320 84" role="img" aria-label=""></svg>
   <p class="bruecke sans"><a href="zelle.html#alt">Wer prüft die Rohre, wer die DNA?</a></p>
   <p class="bruecke sans"><a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a></p>
   <p class="now-note sans">Hochgerechnet aus Tagesdurchschnitten, keine Live-Daten.</p>
@@ -3105,15 +3119,19 @@ function playDayChord(counts) {
 
   // Wer gerade arbeitet — richtet sich nach der echten Uhrzeit
   function werArbeitet() {
-    const h = new Date().getHours();
-    const zeit = new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-    if (h < 5) return `Es ist ${zeit} und jemand sitzt in der Leitwarte vor den Pegeln, während du normalerweise schläfst.`;
-    if (h < 9) return `Es ist ${zeit}, die Frühschicht ist schon seit Stunden da. Jemand hat den Druck im Netz gehalten, bevor du heute früh den Hahn aufgedreht hast.`;
-    if (h < 17) return `Es ist ${zeit}. Gerade prüft jemand Wasserproben und jemand anderes repariert eine Weiche. Du wirst davon nichts mitbekommen.`;
-    if (h < 22) return `Es ist ${zeit} und die Spätschicht hat übernommen. Bei Infrastruktur gibt es keinen Feierabend.`;
-    return `Es ist ${zeit} und irgendwo wechselt gerade eine Schicht, damit immer jemand da ist.`;
+    const d = new Date(), h = d.getHours() + d.getMinutes() / 60;
+    const zeit = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+    const sch = h < 6 || h >= 22 ? 'Nachtschicht' : h < 14 ? 'Frühschicht' : 'Spätschicht';
+    const X = (t) => (10 + t * 12.5).toFixed(1);
+    let v = '<path class="b-ebene b-bio" d="M10 40H310"/>';
+    [6, 14, 22].forEach(t => { v += '<path class="b-alt" d="M' + X(t) + ' 28V52"/>'; });
+    v += '<circle class="b-dot b-bio b-fluss" style="--w:140px" cx="10" cy="40" r="4"/><circle class="b-dot b-bio b-fluss l2" style="--w:140px" cx="170" cy="40" r="4"/>';
+    v += '<text x="' + X(3) + '" y="68" text-anchor="middle">Nacht</text><text x="' + X(10) + '" y="68" text-anchor="middle">Früh</text><text x="' + X(18) + '" y="68" text-anchor="middle">Spät</text>';
+    v += '<circle class="b-node" style="fill:#F2C46B" cx="' + X(h) + '" cy="40" r="7"/><text x="' + X(h) + '" y="18" text-anchor="' + (h > 18 ? 'end' : h < 3 ? 'start' : 'middle') + '">jetzt ' + zeit + '</text>';
+    peopleEl.innerHTML = v;
+    peopleEl.setAttribute('aria-label', 'Es ist ' + zeit + ', die ' + sch + ' ist im Dienst. Die Schichten gehen ohne Lücke ineinander über, bei Infrastruktur gibt es keinen Feierabend.');
   }
-  if (peopleEl) peopleEl.textContent = werArbeitet();
+  if (peopleEl) werArbeitet();
 
   // Und du, gerade eben? — keine Wertung, kein Zähler. Nur ein Satz, der sich einreiht.
   const YOU_OPTIONS = [
@@ -4976,15 +4994,23 @@ setTimeout(() => {
   function render() {
     var pct = parseInt($('kostN').value, 10);
     btns.forEach(function (b, i) { b.setAttribute('aria-pressed', String(i === cur)); });
-    $('kostDesc').textContent = MODI[cur].d;
+    var np = Math.round(pct / 10), alle = MODI[cur].id === 'steuer', v = '';
+    for (var k = 0; k < 10; k++) {
+      var x = 20 + k * 31, zahlt = alle || k < np;
+      v += zahlt ? '<path class="b-line" d="M' + x + ' 34V70"/><circle class="b-dot kost-fluss" style="--h:30px;--c:#F2C46B;animation-delay:-' + (k * 0.45).toFixed(2) + 's" cx="' + x + '" cy="36" r="3.5"/>' : '';
+      v += '<circle class="b-node" ' + (zahlt ? 'style="fill:#F2C46B"' : 'style="stroke-dasharray:3 3"') + ' cx="' + x + '" cy="24" r="8"/>';
+    }
+    v += '<path class="b-line" d="M20 70H299"/><path class="b-line" d="M160 70V82"/><rect class="b-node" x="100" y="84" width="120" height="24" rx="8"/><text x="160" y="100" text-anchor="middle">Jahreskosten</text>';
+    v += '<text x="0" y="10" style="font-size:11px">Einwohner</text><text x="316" y="10" text-anchor="end" style="font-size:11px">' + (alle ? 'alle zahlen' : MODI[cur].id === 'preis' ? 'Nutzende, plus 15 % Aufschlag' : 'nur Nutzende zahlen') + '</text>';
+    if (MODI[cur].id === 'preis') v += '<path class="b-alt" d="M236 96H290"/><text x="296" y="100" style="font-size:11px">+ 15 %</text>';
+    $('kostViz').innerHTML = v; $('kostViz').setAttribute('aria-label', MODI[cur].d + ' Gefüllte Punkte zahlen.');
     $('kostNO').textContent = pct + ' %';
     var w = NETZE.map(function (n) { return betrag(n, pct); });
     var max = Math.max.apply(null, NETZE.map(function (n) { return n.mio * 1e6 * 1.15 / (EW * 0.1); }));
     rows.forEach(function (r, i) { r.o.textContent = Math.round(w[i]).toLocaleString('de-DE') + ' € im Jahr'; r.i.style.width = Math.min(100, w[i] / max * 100) + '%'; });
     var sum = w.reduce(function (a, b) { return a + b; }, 0);
     var tx = 'Alle drei zusammen: ' + Math.round(sum).toLocaleString('de-DE') + ' € im Jahr je Kopf.';
-    if (MODI[cur].id === 'steuer') tx += ' Der Betrag ist für alle gleich, auch für Menschen, die nichts davon nutzen.';
-    else if (pct <= 30) tx += ' Wenn nur wenige nutzen, trägt jede und jeder viel.';
+    if (MODI[cur].id === 'steuer') tx += ' Der Betrag ist für alle gleich.';
     $('kostStatus').textContent = tx + ' (Beispielwerte)';
   }
   $('kostN').addEventListener('input', render);
