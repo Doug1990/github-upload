@@ -274,6 +274,24 @@
   .teil-titel { margin: 6px 0 6px; font-family: 'Fraunces', Georgia, serif; font-size: 26px; line-height: 1.25; color: #E8E6E0; }
   .teil-satz { margin: 0 auto; max-width: 52ch; color: #A9AFC0; line-height: 1.6; }
   .pfad-kurz ol.kurz-teile { margin-top: 14px; }
+  .kt-karte { position: relative; margin-top: 16px; }
+  .kt-svg { position: absolute; left: 4px; top: 0; width: 56px; height: 360px; overflow: visible; pointer-events: none; }
+  .kt-l { fill: none; stroke: #7C8599; stroke-width: 3; stroke-linecap: round; }
+  .kt-n { fill: #11161f; stroke-width: 3; }
+  .kt-z { font: 600 14px 'IBM Plex Sans', sans-serif; fill: #E8EAF2; }
+  .kt-p { fill: #F2C46B; animation: kt-lauf 8s linear infinite; }
+  .kt-p2 { animation-delay: -4s; }
+  @keyframes kt-lauf { from { transform: translateY(0); } to { transform: translateY(288px); } }
+  @media (prefers-reduced-motion: reduce) { .kt-p { animation: none; transform: translateY(144px); } .kt-p2 { transform: translateY(216px); } }
+  .pfad-kurz ol.kurz-teile { margin: 0; }
+  .pfad-kurz ol.kurz-teile li { border: 0; height: 72px; }
+  .pfad-kurz ol.kurz-teile li a { height: 72px; box-sizing: border-box; padding: 12px 4px 8px 68px; display: flex; flex-direction: column; justify-content: center; }
+  .pfad-kurz ol.kurz-teile li a span { font-size: 12.5px; color: #A9AFC0; }
+  .pfad-kurz ol.kurz-teile li b { margin: 0; }
+  .pfad-kurz ol.kurz-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; }
+  .pfad-kurz ol.kurz-chips li { border: 0; }
+  .pfad-kurz ol.kurz-chips li a { display: flex; align-items: center; padding: 6px 12px; border: 1.5px solid #4FA9B1; border-radius: 22px; font-size: 13px; line-height: 1.3; }
+  .pfad-kurz ol.kurz-chips.c-kult li a { border-color: #D9A64A; } .pfad-kurz ol.kurz-chips.c-bio li a { border-color: #7DBB63; } .pfad-kurz ol.kurz-chips.c-digi li a { border-color: #8590E6; }
   .kurz-alle { margin-top: 12px; }
   .kurz-alle summary { display: flex; align-items: center; min-height: 48px; cursor: pointer; color: #F2C46B; font-size: 14px; }
   .pfad-kurz ol { list-style: none; margin: 16px 0 0; padding: 0; }
@@ -1303,58 +1321,70 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 </section>
 
 <aside class="pfad-kurz" id="kurz" aria-labelledby="kurzT">
-  <h2 id="kurzT">Das Wichtigste in einem Satz pro Abschnitt</h2>
-  <p class="pfad-vor">Die Seite hat fünf Teile mit 27 Abschnitten. Wer wenig Zeit hat, liest hier den Kern. Jeder Satz führt zum Abschnitt, in dem mehr dazu steht.</p>
-  <ol class="kurz-teile">
-    <li><a href="#teil1"><b>Teil 1 von 5: Die Stadt in klein</b>Bauteile, Tag und Energieversorgung.</a></li>
-    <li><a href="#teil2"><b>Teil 2 von 5: Leben unter Druck</b>Engpässe, Grenzen und Ausfälle.</a></li>
-    <li><a href="#teil3"><b>Teil 3 von 5: Entstehung und Wege</b>Wie Zellen entstehen und wie Stoffe und Meldungen ans Ziel kommen.</a></li>
-    <li><a href="#teil4"><b>Teil 4 von 5: Der Bauplan</b>Speichern, Abschreiben, Prüfen und Weitergeben.</a></li>
-    <li><a href="#teil5"><b>Teil 5 von 5: Zusammenspiel</b>Reden, Schützen und der Weg zum Körper.</a></li>
-  </ol>
+  <h2 id="kurzT">Die Seite als Linie mit fünf Stationen</h2>
+  <p class="pfad-vor">27 Abschnitte, fünf Teile. Tippe eine Station.</p>
+  <div class="kt-karte">
+    <svg class="kt-svg" viewBox="0 0 56 360" aria-hidden="true" focusable="false">
+      <path class="kt-l" d="M28 36 V324"/>
+      <circle class="kt-n" cx="28" cy="36" r="15" style="stroke:#4FA9B1"/><text class="kt-z" x="28" y="41" text-anchor="middle">1</text>
+      <circle class="kt-n" cx="28" cy="108" r="15" style="stroke:#D9A64A"/><text class="kt-z" x="28" y="113" text-anchor="middle">2</text>
+      <circle class="kt-n" cx="28" cy="180" r="15" style="stroke:#7DBB63"/><text class="kt-z" x="28" y="185" text-anchor="middle">3</text>
+      <circle class="kt-n" cx="28" cy="252" r="15" style="stroke:#8590E6"/><text class="kt-z" x="28" y="257" text-anchor="middle">4</text>
+      <circle class="kt-n" cx="28" cy="324" r="15" style="stroke:#4FA9B1"/><text class="kt-z" x="28" y="329" text-anchor="middle">5</text>
+      <circle class="kt-p" cx="28" cy="36" r="4"/>
+      <circle class="kt-p kt-p2" cx="28" cy="36" r="4"/>
+    </svg>
+    <ol class="kurz-teile">
+    <li><a href="#teil1"><b>Teil 1 von 5</b>Die Stadt in klein<span>Bauteile, Tag, Energie</span></a></li>
+    <li><a href="#teil2"><b>Teil 2 von 5</b>Leben unter Druck<span>Engpässe, Grenzen, Ausfälle</span></a></li>
+    <li><a href="#teil3"><b>Teil 3 von 5</b>Entstehung und Wege<span>Wie Zellen entstehen, wie Stoffe wandern</span></a></li>
+    <li><a href="#teil4"><b>Teil 4 von 5</b>Der Bauplan<span>Speichern, Prüfen, Weitergeben</span></a></li>
+    <li><a href="#teil5"><b>Teil 5 von 5</b>Zusammenspiel<span>Reden, Schützen, Körper</span></a></li>
+    </ol>
+  </div>
   <details class="kurz-alle">
-    <summary>Alle 27 Abschnitte mit je einem Satz</summary>
+    <summary>Alle 27 Abschnitte</summary>
   <h3 class="kurz-teil"><a href="#teil1">Teil 1 von 5: Die Stadt in klein</a></h3>
-  <ol>
-    <li><a href="#stadt"><b>Die Zelle ist eine Stadt in klein</b>Eine Zelle ist organisiert wie eine kleine Stadt, als Bild gemeint. Tippe auf einen Bestandteil, um zu sehen, was dort passiert.</a></li>
-    <li><a href="#tag"><b>Dein Tag in einer Zelle</b>Eine Zelle hat keinen Stundenplan. Vieles läuft gleichzeitig, nur die Gewichte verschieben sich im Lauf des Tages. Die Balken sind ein Bild.</a></li>
-    <li><a href="#kraftwerk"><b>Das Kraftwerk</b>Die Zelle macht ihre Energiewährung ATP nach dem Prinzip eines Stausees. Die Simulation ist vereinfacht.</a></li>
-    <li><a href="#fliessband"><b>Das Fließband</b>Ein Stoffwechselweg ist eine Kette von Stationen. Die langsamste bestimmt das Tempo, davor staut es sich, und das Endprodukt kann die erste Station bremsen. Stark vereinfacht.</a></li>
+  <ol class="kurz-chips c-phys">
+    <li><a href="#stadt">Die Zelle ist eine Stadt in klein</a></li>
+    <li><a href="#tag">Dein Tag in einer Zelle</a></li>
+    <li><a href="#kraftwerk">Das Kraftwerk</a></li>
+    <li><a href="#fliessband">Das Fließband</a></li>
   </ol>
   <h3 class="kurz-teil"><a href="#teil2">Teil 2 von 5: Leben unter Druck</a></h3>
-  <ol>
-    <li><a href="#robust"><b>Gut genug schlägt perfekt</b>Das Leben wurde nie geplant, nur verändert. Darum gibt es Redundanz, alte Reste und Reserven, und es läuft trotzdem zuverlässig.</a></li>
-    <li><a href="#reserve"><b>Ein Lager macht Ausfälle erträglich</b>Lager machen Ausfälle erträglich. Glykogen ist schnell zur Hand, Fett hält lange, und Nervenzellen speichern kaum etwas.</a></li>
-    <li><a href="#zoll"><b>Der Zoll: Drei Wege über die Grenze</b>Pore und Tor lassen Stoffe mit dem Gefälle durch, die Pumpe arbeitet dagegen und kostet ATP. Ohne ATP gleicht sich das Gefälle aus. Stark vereinfacht.</a></li>
-    <li><a href="#ausfall"><b>Fällt eine Stelle aus, merkt es der Rest</b>Fällt Kraftwerk, Müllabfuhr, Zoll oder Archiv aus, werden abhängige Teile in Stufen mit lahm. Krankheiten sind selten ein einzelner Ausfall, die Beispiele ersetzen keinen ärztlichen Rat.</a></li>
-    <li><a href="#muell"><b>Was liegen bleibt, stört</b>Abfall und beschädigte Teile werden zerlegt und wiederverwertet. Steht die Entsorgung still, stört der Haufen den Betrieb.</a></li>
+  <ol class="kurz-chips c-kult">
+    <li><a href="#robust">Gut genug schlägt perfekt</a></li>
+    <li><a href="#reserve">Ein Lager macht Ausfälle erträglich</a></li>
+    <li><a href="#zoll">Der Zoll: Drei Wege über die Grenze</a></li>
+    <li><a href="#ausfall">Fällt eine Stelle aus, merkt es der Rest</a></li>
+    <li><a href="#muell">Was liegen bleibt, stört</a></li>
   </ol>
   <h3 class="kurz-teil"><a href="#teil3">Teil 3 von 5: Entstehung und Wege</a></h3>
-  <ol>
-    <li><a href="#evolution"><b>Ohne Bauamt</b>Ohne Bauamt bleibt, was bei knapper Versorgung besteht. Niemand entwirft das Ergebnis.</a></li>
-    <li><a href="#dorf"><b>Dorf oder Stadt</b>Je größer eine Zelle, desto weniger Außenhaut hat sie im Verhältnis zu ihrem Inhalt. Zellen mit Kern teilen ihre Arbeit deshalb in Stadtteile auf, und ihre Kraftwerke stammen sehr wahrscheinlich von Bakterien ab. Bakterien bleiben meist klein und sind trotzdem sehr erfolgreich. Stark vereinfacht.</a></li>
-    <li><a href="#weg"><b>Kurze Wege treibt die Natur, lange der Motor</b>Auf kurzen Strecken wandern Stoffe von allein schnell. Auf langen Strecken brauchen sie Motorproteine.</a></li>
-    <li><a href="#meldung"><b>Eine Meldung, drei Geschwindigkeiten</b>Dieselbe Meldung braucht je nach Weg Mikrosekunden oder Tage, vom Funk über Nerven und Hormone bis zur Post.</a></li>
-    <li><a href="#skelett"><b>Das Gerüst ist auch die Straße</b>Fäden bilden das Gerüst der Zelle und zugleich die Straßen, auf denen Motorproteine Fracht tragen.</a></li>
+  <ol class="kurz-chips c-bio">
+    <li><a href="#evolution">Ohne Bauamt</a></li>
+    <li><a href="#dorf">Dorf oder Stadt</a></li>
+    <li><a href="#weg">Kurze Wege treibt die Natur, lange der Motor</a></li>
+    <li><a href="#meldung">Eine Meldung, drei Geschwindigkeiten</a></li>
+    <li><a href="#skelett">Das Gerüst ist auch die Straße</a></li>
   </ol>
   <h3 class="kurz-teil"><a href="#teil4">Teil 4 von 5: Der Bauplan</a></h3>
-  <ol>
-    <li><a href="#dna"><b>Der Bauplan ist digital</b>DNA schreibt mit vier Buchstaben, das sind zwei Bit pro Base. Dein Wort in DNA ist nur ein Gedankenspiel.</a></li>
-    <li><a href="#gen"><b>Das Archiv gibt die Originale nie heraus</b>Ein Gen wird abgeschrieben und als Kopie zur Fabrik gebracht, die daraus ein Eiweiß baut. Ein Tausch einzelner Buchstaben kann folgenlos bleiben, ein Eiweiß verändern oder es abbrechen. Stark vereinfacht.</a></li>
-    <li><a href="#regulation"><b>Gleiches Archiv, andere Akten</b>Fast jede Zelle hat dieselbe DNA, liest aber je nach Zelltyp und Lage andere Gene und je nach Signal mal mehr, mal weniger. Stark vereinfacht.</a></li>
-    <li><a href="#eiweiss"><b>Gebaut ist noch nicht geliefert</b>Ein gebautes Eiweiß muss richtig gefaltet, geprüft und geliefert werden. Sonst kommt es defekt an oder geht in den Abbau.</a></li>
-    <li><a href="#teilung"><b>Eine Stadt gründet eine zweite</b>Eine Zelle kopiert erst den Bauplan, verdoppelt die Infrastruktur, sortiert und zieht zuletzt eine Grenze. Stark vereinfacht.</a></li>
-    <li><a href="#bauamt"><b>Geprüft wird vor der Teilung</b>Vor der Teilung prüft die Zelle an drei Kontrollpunkten Größe, Kopie und Spindel. Ein Bauamt gibt es dafür nicht, Eiweiße prüfen sich gegenseitig. Stark vereinfacht.</a></li>
+  <ol class="kurz-chips c-digi">
+    <li><a href="#dna">Der Bauplan ist digital</a></li>
+    <li><a href="#gen">Das Archiv gibt die Originale nie heraus</a></li>
+    <li><a href="#regulation">Gleiches Archiv, andere Akten</a></li>
+    <li><a href="#eiweiss">Gebaut ist noch nicht geliefert</a></li>
+    <li><a href="#teilung">Eine Stadt gründet eine zweite</a></li>
+    <li><a href="#bauamt">Geprüft wird vor der Teilung</a></li>
   </ol>
   <h3 class="kurz-teil"><a href="#teil5">Teil 5 von 5: Zusammenspiel</a></h3>
-  <ol>
-    <li><a href="#signale"><b>Zellen schreiben sich Briefe</b>Zellen schicken Botenstoffe durch das Blut oder Impulse über Nerven. Nur Zellen mit passendem Rezeptor reagieren.</a></li>
-    <li><a href="#immun"><b>Eine Stadtwache ohne Wachstube</b>Die Abwehr ist über den Körper verteilt und hat keine Zentrale. Erst hält eine Barriere Eindringlinge draußen, dann schlagen Fresszellen Alarm, ein Botenstoff meldet es weiter, die passende Spezialeinheit greift ein, und zuletzt kommt die Entwarnung. Sie kann sich auch gegen Eigenes richten. Stark vereinfacht und kein medizinischer Rat.</a></li>
-    <li><a href="#verbund"><b>Nachbarn halten sich über Wasser</b>Nachbarzellen teilen Nährstoffe und Signale über Kontaktstellen. Wird ein Viertel abgetrennt, hängt es nur noch an sich selbst.</a></li>
-    <li><a href="#koerper"><b>Der Körper ist ein Netz aus Netzen</b>Blutkreislauf, Nerven und Verdauung sind Netze, die sich im Körper durchdringen.</a></li>
-    <li><a href="#kreislauf"><b>Das Herz liefert, die Gefäße verteilen</b>Das Herz pumpt, die Gefäße verteilen. Bei Anstrengung bekommen die Muskeln mehr Blut.</a></li>
-    <li><a href="#fragen"><b>Drei Fragen zum Schluss</b>Was fällt aus, wer entscheidet, was hat das mit Düsseldorf zu tun? Kurze, vereinfachte Antworten mit Sprung zurück in den Abschnitt.</a></li>
-    <li><a href="#rueckblick"><b>Was nimmst du mit?</b>Sechs Aussagen zum Zuordnen: Gilt das für die Stadt, die Zelle oder beide?</a></li>
+  <ol class="kurz-chips c-phys">
+    <li><a href="#signale">Zellen schreiben sich Briefe</a></li>
+    <li><a href="#immun">Eine Stadtwache ohne Wachstube</a></li>
+    <li><a href="#verbund">Nachbarn halten sich über Wasser</a></li>
+    <li><a href="#koerper">Der Körper ist ein Netz aus Netzen</a></li>
+    <li><a href="#kreislauf">Das Herz liefert, die Gefäße verteilen</a></li>
+    <li><a href="#fragen">Drei Fragen zum Schluss</a></li>
+    <li><a href="#rueckblick">Was nimmst du mit?</a></li>
   </ol>
   </details>
 </aside>
@@ -1559,7 +1589,23 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   </div>
   <p class="status" id="tstatus" aria-live="polite"></p>
   <div class="legend"><span><i style="background:#FF8A65"></i>Teilchen (Proton, H⁺)</span><span><i style="background:#F2C46B"></i>ATP (fertige Energiewährung)</span><span><i style="background:#4FC3D9"></i>Turbine dreht sich mit dem Rückfluss</span></div>
-  <details class="wort-vorab"><summary>Fachwörter</summary><p>ATP ist ein kleines Molekül, das Energie trägt, wie eine Münze. Der Stausee ist der Raum zwischen den zwei Häuten des Kraftwerks, der Keller innen heißt Matrix. Turbine und ATP-Fabrik sind zusammen die ATP-Synthase. Verbrauchtes ATP wird sofort wieder aufgeladen. Darum setzt ein Körper am Tag etwa sein eigenes Gewicht an ATP um, obwohl er nie viel davon vorrätig hat.</p></details>
+  <svg class="kz" viewBox="0 0 360 214" role="img" aria-labelledby="kzKwT">
+    <title id="kzKwT">Zeichnung: Eine Pumpe schiebt Teilchen durch die Membran nach oben in den Stausee. Durch die Turbine fließen sie zurück und laden dabei ATP, die Energie-Münze. Verbrauchtes ATP wird sofort neu geladen.</title>
+    <rect class="kz-ob" x="8" y="14" width="344" height="74" rx="8"/><rect class="kz-un" x="8" y="100" width="344" height="74" rx="8"/>
+    <path class="kz-mem" d="M8 94 H62 M92 94 H222 M262 94 H352"/>
+    <rect class="kz-bau" x="62" y="82" width="30" height="24" rx="6"/><path class="kz-pf" d="M77 102 V86 M71 92 L77 85 L83 92"/>
+    <rect class="kz-bau kz-tu" x="222" y="82" width="40" height="24" rx="6"/>
+    <text class="kz-t" x="16" y="34">Stausee</text><text class="kz-s" x="16" y="52">Raum zwischen den Häuten</text>
+    <text class="kz-t" x="16" y="152">Keller (Matrix)</text>
+    <text class="kz-s" x="77" y="124" text-anchor="middle">Pumpe</text>
+    <text class="kz-s" x="248" y="124" text-anchor="end">Turbine</text>
+    <path class="kz-fl" d="M262 100 H306"/><path class="kz-um" d="M322 116 V160 H258 V108"/>
+    <circle class="kz-atp" cx="314" cy="100" r="14"/><text class="kz-atpt" x="314" y="105" text-anchor="middle">ATP</text>
+    <circle class="kz-pu kz-hoch" cx="77" cy="140" r="4"/><circle class="kz-pu kz-hoch kz-p2" cx="77" cy="140" r="4"/>
+    <circle class="kz-pu kz-runter" cx="242" cy="40" r="4"/><circle class="kz-pu kz-runter kz-p2" cx="242" cy="40" r="4"/>
+    <text class="kz-s" x="280" y="182" text-anchor="middle">sofort neu geladen</text>
+    <text class="kz-s kz-dim" x="180" y="204" text-anchor="middle">Am Tag etwa das Körpergewicht an ATP umgesetzt</text>
+  </svg>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kraftwerk</span></summary><div class="hinkt-body"><p>Ein Stausee speichert Energie für Tage, von ATP hat eine Zelle nur wenig auf Vorrat. Die Turbine ist in der Zelle ein winziges Eiweiß in einer Membran, das von Protonen angetrieben wird.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert in einer Zelle, wenn das Nachliefern nur kurz stockt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Der kleine Vorrat an ATP reicht nur für Sekunden. Dann stehen zuerst Pumpen, Aufräumen und Bau still. <a href="#ausfall">Mehr dazu</a></p></div></details>
   <p class="note">Vereinfacht: Hier braucht ein ATP vier Protonen, echt sind es grob drei bis vier. Echte Zellen schaffen Millionen ATP pro Sekunde. Eine Skizze des Prinzips.</p>
 </section>
@@ -1613,11 +1659,20 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   </div>
   <p class="status" id="fbStatus" aria-live="polite"></p>
   <div class="legend"><span><i style="background:#FF8A65"></i>Rohstoff, Station 1</span><span><i style="background:#F2C46B"></i>Zwischenstufe 2</span><span><i style="background:#7FD9A8"></i>Zwischenstufe 3</span><span><i style="background:#4FC3D9"></i>Fast fertig, Station 4</span><span><i style="background:#B79CFF"></i>Endprodukt</span></div>
-  <div class="fb-cols">
-    <div class="col"><b>In der Zelle</b>Das langsamste Enzym bestimmt das Tempo des Wegs. Oft bremst das Endprodukt das erste Enzym.</div>
-    <div class="col city"><b>In der Stadt</b>Die langsamste Station gibt den Takt vor. Meldet das Lager "voll", wird der Zulauf gedrosselt.</div>
-    <p class="aha">Die Rückkopplung spart am Anfang, nicht am Ende: Es wird nur Rohstoff eingesetzt, der auch gebraucht wird.</p>
-  </div>
+  <svg class="kz" viewBox="0 0 360 200" role="img" aria-labelledby="kzFbT">
+    <title id="kzFbT">Zeichnung: Vier Stationen an einer Linie. Vor der langsamsten Station staut sich das Material, sie gibt den Takt vor. Vom Endprodukt führt eine gestrichelte Linie zurück zu Station 1 und bremst den Zulauf.</title>
+    <path class="kz-fl" d="M10 110 H330"/>
+    <path class="kz-um" d="M338 96 V34 H62 V82" /><path class="kz-pf kz-gold" d="M56 76 L62 84 L68 76"/>
+    <rect class="kz-bau" x="40" y="86" width="44" height="48" rx="8"/><rect class="kz-bau" x="110" y="86" width="44" height="48" rx="8"/>
+    <rect class="kz-bau kz-eng" x="180" y="86" width="44" height="48" rx="8"/><rect class="kz-bau" x="250" y="86" width="44" height="48" rx="8"/>
+    <text class="kz-z" x="62" y="115" text-anchor="middle">1</text><text class="kz-z" x="132" y="115" text-anchor="middle">2</text><text class="kz-z" x="202" y="115" text-anchor="middle">3</text><text class="kz-z" x="272" y="115" text-anchor="middle">4</text>
+    <circle class="kz-pu kz-vor" cx="12" cy="110" r="4"/><circle class="kz-pu kz-vor kz-p2" cx="12" cy="110" r="4"/>
+    <circle class="kz-st" cx="166" cy="110" r="4"/><circle class="kz-st" cx="172" cy="100" r="4"/><circle class="kz-st" cx="172" cy="120" r="4"/>
+    <rect class="kz-tank" x="318" y="96" width="30" height="28" rx="5"/>
+    <text class="kz-s" x="202" y="154" text-anchor="middle">langsamste Station</text><text class="kz-s" x="202" y="170" text-anchor="middle">gibt den Takt</text>
+    <text class="kz-s kz-gold" x="200" y="26" text-anchor="middle">Endprodukt bremst Station 1</text>
+    <text class="kz-s" x="40" y="190"><tspan class="kz-tz">Zelle:</tspan> Enzym 1 gebremst</text><text class="kz-s" x="220" y="190"><tspan class="kz-ts">Stadt:</tspan> Lager meldet voll</text>
+  </svg>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Fließband</span></summary><div class="hinkt-body"><p>Ein Fließband hat eine feste Reihenfolge und jemanden, der es plant. In der Zelle bilden die Wege ein Netz, und viele Stoffe gehören zu mehreren Wegen. Ein Enzym reicht keine Teile weiter, es beschleunigt eine Reaktion. Die Kästchen stehen für Milliarden Moleküle, die sich zufällig bewegen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert, wenn zwei Wege dasselbe Enzym brauchen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Sie konkurrieren um das Enzym. Der Weg, der es dringender braucht oder schneller bekommt, setzt sich durch, der andere staut sich.</p></div></details>
   <p class="note">Stark vereinfacht: Die Zahlen sind frei gewählt. Echte Wege haben mehr Stationen und Verzweigungen. Die Warteschlange steht für die Menge an Zwischenprodukt.</p>
 </section>
@@ -1984,11 +2039,21 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <section class="sec reveal" id="evolution">
   <h2>Ohne Bauamt: Was sich bewährt, bleibt.</h2>
   <p class="lead">Jede Zelle ist ein Stadtviertel. Reicht die Versorgung nicht, stirbt sie, die übrigen vermehren sich. Fitness heißt Passung zu Nahrung, Hitze und Gift. Niemand entwirft das Ergebnis.</p>
-  <div class="evo-steps">
-    <div class="evo-step"><svg class="card-ic" viewBox="0 0 160 40" aria-hidden="true" focusable="false"><circle class="ic-c1" cx="30" cy="20" r="9"/><circle class="ic-c2" cx="64" cy="20" r="12"/><circle class="ic-c3" cx="102" cy="20" r="7"/><circle class="ic-c1" cx="132" cy="20" r="10"/></svg><b>Variation</b>Zufällige Fehler beim Kopieren heißen Mutationen. Die meisten ändern nichts Spürbares, manche schaden, wenige helfen.<em>Stadt: Jedes Viertel wird etwas anders gebaut.</em></div>
-    <div class="evo-step"><svg class="card-ic" viewBox="0 0 160 40" aria-hidden="true" focusable="false"><circle class="ic-c1" cx="30" cy="20" r="10"/><circle class="ic-c2 ic-weg" cx="68" cy="20" r="10"/><circle class="ic-c1" cx="106" cy="20" r="10"/><path class="ic-x" d="M60 12 L76 28 M76 12 L60 28"/></svg><b>Auswahl</b>Wer schlechter passt, stirbt häufiger.<em>Stadt: Ohne Versorgung wird ein Viertel aufgegeben.</em></div>
-    <div class="evo-step"><svg class="card-ic" viewBox="0 0 160 40" aria-hidden="true" focusable="false"><circle class="ic-c2" cx="28" cy="20" r="11"/><path class="ic-main" d="M46 20 H80"/><circle class="ic-c2" cx="100" cy="12" r="8"/><circle class="ic-c3" cx="124" cy="28" r="8"/><path class="ic-main" d="M80 20 L92 13 M80 20 L116 27"/></svg><b>Vererbung</b>Wer bleibt, gibt den Bauplan samt Abweichungen weiter.<em>Stadt: Was funktioniert, wird nachgebaut.</em></div>
-  </div>
+  <svg class="kz" viewBox="0 0 360 190" role="img" aria-labelledby="kzEvT">
+    <title id="kzEvT">Zeichnung in drei Schritten: Variation, vier Zellen sind durch zufällige Kopierfehler leicht verschieden. Auswahl, eine schlecht passende Zelle fällt weg. Vererbung, eine bleibende Zelle teilt sich und gibt den Bauplan samt Abweichung weiter. Eine gestrichelte Linie führt zurück zum Anfang.</title>
+    <circle class="kz-c1" cx="22" cy="50" r="9"/><circle class="kz-c2" cx="52" cy="50" r="12"/><circle class="kz-c3" cx="82" cy="50" r="7"/><circle class="kz-c1" cx="100" cy="64" r="10"/>
+    <path class="kz-fl" d="M118 52 H134"/>
+    <circle class="kz-c1" cx="150" cy="50" r="10"/><circle class="kz-c2 kz-weg" cx="184" cy="50" r="10"/><circle class="kz-c1" cx="218" cy="50" r="10"/><path class="kz-x" d="M176 42 L192 58 M192 42 L176 58"/>
+    <path class="kz-fl" d="M236 52 H252"/>
+    <circle class="kz-c2" cx="268" cy="50" r="11"/><path class="kz-fl" d="M282 50 H296"/><circle class="kz-c2" cx="312" cy="38" r="8"/><circle class="kz-c3" cx="332" cy="62" r="8"/>
+    <path class="kz-um" d="M346 82 V142 H14 V86"/><path class="kz-pf kz-gold" d="M8 92 L14 84 L20 92"/>
+    <text class="kz-t" x="60" y="94" text-anchor="middle">Variation</text><text class="kz-t" x="184" y="94" text-anchor="middle">Auswahl</text><text class="kz-t" x="304" y="94" text-anchor="middle">Vererbung</text>
+    <text class="kz-s" x="60" y="111" text-anchor="middle">Mutation:</text><text class="kz-s" x="60" y="126" text-anchor="middle">Kopierfehler</text>
+    <text class="kz-s" x="184" y="111" text-anchor="middle">wer schlecht</text><text class="kz-s" x="184" y="126" text-anchor="middle">passt, stirbt</text>
+    <text class="kz-s" x="304" y="111" text-anchor="middle">Bauplan</text><text class="kz-s" x="304" y="126" text-anchor="middle">geht weiter</text>
+    <text class="kz-s kz-dim" x="180" y="160" text-anchor="middle">nächste Generation</text>
+    <text class="kz-s" x="180" y="182" text-anchor="middle"><tspan class="kz-ts">Stadt:</tspan> Viertel gebaut, aufgegeben, nachgebaut</text>
+  </svg>
   <div class="panel" id="evoPanel">
     <div class="evo-env"><span>Umwelt: <b id="evoEnvName">Hungerzeit</b></span><span>Jeder Kreis ist eine Zelle, leere Punkte sind freie Grundstücke.</span></div>
     <canvas id="evoPop" class="evo-canvas" role="img" aria-label="Population aus Zellen, die sich über Generationen anpassen."></canvas>
@@ -2255,10 +2320,20 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       <div class="stat"><small>Im Stau</small><span id="eiwStau">0</span></div>
     </div>
     <p class="status" id="eiwStatus" aria-live="polite"></p>
-    <div class="aus-cols">
-      <div class="col"><b>In der Zelle</b><span>Eine Kontrolle schickt Fehlfaltungen in den Abbau. Der Rest wird verpackt und verschickt.</span></div>
-      <div class="col city"><b>In der Stadt</b><span>Fertigung, Prüfung, Versand. Ohne Prüfung kommt Ausschuss an, ohne Versand staut sich die Ware.</span></div>
-    </div>
+    <svg class="kz" viewBox="0 0 360 190" role="img" aria-labelledby="kzEiT">
+      <title id="kzEiT">Zeichnung: Eine Eiweißkette läuft über drei Stationen, Faltung, Kontrolle und Versand. An der Kontrolle führt ein gestrichelter Umweg zum Abbau für fehlgefaltete Eiweiße. Fällt die Kontrolle aus, kommt Ausschuss an, fällt der Versand aus, staut sich die Ware.</title>
+      <path class="kz-fl" d="M10 60 H350"/>
+      <rect class="kz-bau" x="40" y="36" width="70" height="48" rx="8"/><rect class="kz-bau kz-kon" x="145" y="36" width="70" height="48" rx="8"/><rect class="kz-bau" x="250" y="36" width="70" height="48" rx="8"/>
+      <text class="kz-t" x="75" y="58" text-anchor="middle">Faltung</text><text class="kz-s kz-gold" x="75" y="74" text-anchor="middle">Fertigung</text>
+      <text class="kz-t" x="180" y="58" text-anchor="middle">Kontrolle</text><text class="kz-s kz-gold" x="180" y="74" text-anchor="middle">Prüfung</text>
+      <text class="kz-t" x="285" y="58" text-anchor="middle">Versand</text><text class="kz-s kz-gold" x="285" y="74" text-anchor="middle">Auslieferung</text>
+      <circle class="kz-pu kz-lauf" cx="12" cy="60" r="4"/><circle class="kz-pu kz-lauf kz-p2" cx="12" cy="60" r="4"/>
+      <path class="kz-um" d="M180 88 V118 H222"/><path class="kz-pf kz-gold" d="M214 112 L222 118 L214 124"/>
+      <rect class="kz-ab" x="226" y="104" width="94" height="30" rx="6"/><text class="kz-s" x="273" y="124" text-anchor="middle">Abbau</text>
+      <text class="kz-s" x="20" y="124">fehlgefaltet</text><text class="kz-s" x="20" y="140">geht in den Abbau</text>
+      <text class="kz-s" x="180" y="172" text-anchor="middle"><tspan class="kz-tz">Zelle:</tspan> Fehlfaltung wird aussortiert</text>
+      <text class="kz-s kz-dim" x="180" y="188" text-anchor="middle">Ohne Kontrolle kommt Ausschuss an</text>
+    </svg>
   </div>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Eiweiß</span></summary><div class="hinkt-body"><p>Ein Fließband hat feste Stationen in fester Reihenfolge. Faltung ist anders: Viele Eiweiße falten sich von allein, manche mit Helfereiweißen, und beim Bau beginnt die Faltung schon. Auch die Qualitätskontrolle sitzt an vielen Orten der Zelle.</p><p>Die Quoten (2 von 20 falsch gefaltet im Normalfall, 8 bei gestörter Faltung) sind frei gewählte Beispielwerte. Fehlgefaltete Eiweiße im Abbau führen zum Abschnitt über die Müllabfuhr.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert mit einem Eiweiß, das niemand prüft?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Ein falsch gefaltetes Eiweiß kann nutzlos sein oder zusammenklumpen und stören. Darum gibt es Kontrolle und Abbau. <a href="#muell">Mehr dazu</a></p></div></details>
 </section>
@@ -2709,6 +2784,41 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     .zb-bild .zb-puff { transform: scale(1); opacity: 0.5; } .zb-bild .zb-puff.p2 { transform: scale(1.4); opacity: 0.3; }
     .zb-bild .zb-wA, .zb-bild .zb-wB { transform: translate(var(--dx), var(--dy)); }
     .zb-bild .zb-ring { transform: scale(0.5); opacity: 0.6; } .zb-bild .zb-ring.r2 { transform: scale(0.9); opacity: 0.35; }
+  }
+</style>
+<style>
+  /* Zeichnungen Kraftwerk, Fließband, Evolution, Eiweiß (Präfix kz-) */
+  .kz { display: block; width: 100%; max-width: 560px; height: auto; margin: 12px auto; overflow: visible; }
+  .kz text { font: 13px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #C7CAD6; }
+  .kz .kz-t { font: 600 14px 'IBM Plex Sans', sans-serif; fill: #E8EAF2; } .kz .kz-z { font: 600 15px 'IBM Plex Sans', sans-serif; fill: #E8EAF2; }
+  .kz .kz-dim { fill: #A9AFC0; } .kz .kz-gold { fill: #D9A64A; } .kz .kz-tz { fill: #7DBB63; font-weight: 600; } .kz .kz-ts { fill: #D9A64A; font-weight: 600; }
+  .kz .kz-ob { fill: rgba(79,169,177,0.2); } .kz .kz-un { fill: rgba(79,169,177,0.07); }
+  .kz .kz-mem { fill: none; stroke: #4FA9B1; stroke-width: 4; stroke-linecap: round; }
+  .kz .kz-bau { fill: #1A3A3C; stroke: #4FA9B1; stroke-width: 2; } .kz .kz-tu { fill: #262E5C; stroke: #8590E6; }
+  .kz .kz-eng { stroke: #FF8A65; fill: #402823; } .kz .kz-kon { stroke: #D9A64A; fill: #3A3322; }
+  .kz .kz-pf { fill: none; stroke: #D9A64A; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .kz .kz-fl { fill: none; stroke: #7DBB63; stroke-width: 3; stroke-linecap: round; }
+  .kz .kz-um { fill: none; stroke: #D9A64A; stroke-width: 2.5; stroke-dasharray: 7 6; stroke-linecap: round; }
+  .kz .kz-atp { fill: #D9A64A; stroke: #F2C46B; stroke-width: 2; } .kz text.kz-atpt { fill: #1B1405; font-weight: 700; font-size: 12.5px; }
+  .kz .kz-pu { fill: #FF8A65; } .kz .kz-st { fill: #FF8A65; } .kz .kz-tank { fill: rgba(183,156,255,0.25); stroke: #B79CFF; stroke-width: 2; }
+  .kz .kz-c1 { fill: #56903F; } .kz .kz-c2 { fill: #B9832A; } .kz .kz-c3 { fill: #5563BF; } .kz .kz-weg { opacity: 0.35; }
+  .kz .kz-x { fill: none; stroke: #FF8A65; stroke-width: 3; stroke-linecap: round; }
+  .kz .kz-ab { fill: rgba(255,138,101,0.15); stroke: #FF8A65; stroke-width: 2; stroke-dasharray: 5 4; }
+  @media (prefers-reduced-motion: no-preference) {
+    .kz .kz-hoch { animation: kz-hoch 2.6s linear infinite; } .kz .kz-runter { animation: kz-runter 2.6s linear infinite; }
+    .kz .kz-vor { animation: kz-vor 3.2s linear infinite; } .kz .kz-lauf { animation: kz-lauf 4s linear infinite; }
+    .kz .kz-p2 { animation-delay: -1.3s; }
+    @keyframes kz-hoch { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-96px); opacity: 0.2; } }
+    @keyframes kz-runter { from { transform: translateY(0); opacity: 1; } to { transform: translateY(96px); opacity: 0.2; } }
+    @keyframes kz-vor { from { transform: translateX(0); } to { transform: translateX(140px); } }
+    @keyframes kz-lauf { from { transform: translateX(0); } to { transform: translateX(160px); } }
+    html.zb-pause .kz * { animation-play-state: paused !important; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kz .kz-hoch { transform: translateY(-48px); } .kz .kz-hoch.kz-p2 { transform: translateY(-80px); }
+    .kz .kz-runter { transform: translateY(40px); } .kz .kz-runter.kz-p2 { transform: translateY(72px); }
+    .kz .kz-vor { transform: translateX(60px); } .kz .kz-vor.kz-p2 { transform: translateX(110px); }
+    .kz .kz-lauf { transform: translateX(60px); } .kz .kz-lauf.kz-p2 { transform: translateX(120px); }
   }
 </style>
 <script>
