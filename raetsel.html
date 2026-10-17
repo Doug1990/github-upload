@@ -41,7 +41,13 @@
   .rt-a.falsch { border-color: #FF8A65; color: #FF8A65; }
   .rt-fb { margin: 6px 0 0; color: #F2C46B; max-width: 58ch; }
   .rt-loesung summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; color: #A9AFC0; }
-  .rt.js .rt-loesung { display: none; }
+  .rt.js:not(.fertig) .rt-loesung { display: none; }
+  .rt-lb { display: block; width: 100%; max-width: 360px; height: auto; margin: 0 0 8px; }
+  .rt-lb text { font: 500 14px 'IBM Plex Sans', sans-serif; }
+  .rt-lb .fluss { fill: none; stroke: #E8E6E0; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 0.1 13; animation: rtfl 1.8s linear infinite; }
+  @keyframes rtfl { to { stroke-dashoffset: -13; } }
+  @media (prefers-reduced-motion: reduce) { .rt-lb .fluss { animation: none; } }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .rt.js .rt-h:not(.zeige) { display: none; }
   .rt-stand { margin: 0 0 16px; color: #F2C46B; max-width: 58ch; }
   .abs-hinkt { margin: 0 0 10px; border: 1px dashed rgba(242,196,107,0.6); border-radius: 10px; padding: 0 14px; }
@@ -119,7 +125,7 @@
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Zoll</button><button type="button" class="rt-b rt-a">Müllabfuhr</button></div>
     <p class="rt-fb" aria-live="polite"></p>
-    <details class="rt-loesung"><summary>Lösung</summary><p>Kraftwerk, in der Zelle das Mitochondrium.</p></details>
+    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Kraftwerk in der Stadt entspricht Mitochondrium in der Zelle. Verbunden durch: Energie." focusable="false"><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-kraftwerk-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-mito" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Kraftwerk</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Mitochondrium</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Energie</text><path d="M80 40H250" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#4FA9B1"/><circle cx="256" cy="40" r="5" fill="#4FA9B1"/></svg><p class="sr-only">Kraftwerk, in der Zelle das Mitochondrium.</p></details>
   </section>
   <section class="rt" data-i="1" data-loesung="Archiv">
     <div class="rt-kopf"><h2>Rätsel 2</h2><div class="rt-bild" aria-hidden="true"><svg class="ic kult" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-archiv-s"/></svg><span class="gl"></span><svg class="ic bio" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-dna"/></svg></div></div>
@@ -127,7 +133,7 @@
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Stadtwache</button><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Zoll</button></div>
     <p class="rt-fb" aria-live="polite"></p>
-    <details class="rt-loesung"><summary>Lösung</summary><p>Archiv, in der Zelle die DNA im Zellkern.</p></details>
+    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Archiv in der Stadt entspricht DNA in der Zelle. Verbunden durch: Abschrift." focusable="false"><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-archiv-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-dna" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Archiv</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">DNA</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Abschrift</text><path d="M80 40H250" fill="none" stroke="#8590E6" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 6"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#8590E6"/><circle cx="256" cy="40" r="5" fill="#8590E6"/></svg><p class="sr-only">Archiv, in der Zelle die DNA im Zellkern.</p></details>
   </section>
   <section class="rt" data-i="2" data-loesung="Zoll">
     <div class="rt-kopf"><h2>Rätsel 3</h2><div class="rt-bild" aria-hidden="true"><svg class="ic kult" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-zoll-s"/></svg><span class="gl"></span><svg class="ic bio" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-pore"/></svg></div></div>
@@ -135,7 +141,7 @@
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Zoll</button><button type="button" class="rt-b rt-a">Müllabfuhr</button><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Stadtwache</button></div>
     <p class="rt-fb" aria-live="polite"></p>
-    <details class="rt-loesung"><summary>Lösung</summary><p>Zoll, in der Zelle Kernpore und Membran.</p></details>
+    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Zoll in der Stadt entspricht Kernpore in der Zelle. Verbunden durch: Durchlass." focusable="false"><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-zoll-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-pore" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Zoll</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Kernpore</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Durchlass</text><path d="M80 40H140M190 40H250" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H140M190 40H250"/><path d="M140 28V52M190 28V52" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><circle cx="74" cy="40" r="5" fill="#4FA9B1"/><circle cx="256" cy="40" r="5" fill="#4FA9B1"/></svg><p class="sr-only">Zoll, in der Zelle Kernpore und Membran.</p></details>
   </section>
   <section class="rt" data-i="3" data-loesung="Müllabfuhr">
     <div class="rt-kopf"><h2>Rätsel 4</h2><div class="rt-bild" aria-hidden="true"><svg class="ic kult" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-muell-s"/></svg><span class="gl"></span><svg class="ic bio" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-lysosom"/></svg></div></div>
@@ -143,7 +149,7 @@
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Müllabfuhr</button><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Zoll</button><button type="button" class="rt-b rt-a">Archiv</button></div>
     <p class="rt-fb" aria-live="polite"></p>
-    <details class="rt-loesung"><summary>Lösung</summary><p>Müllabfuhr, in der Zelle das Lysosom.</p></details>
+    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Müllabfuhr in der Stadt entspricht Lysosom in der Zelle. Verbunden durch: Abfall zu Bausteinen." focusable="false"><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-muell-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-lysosom" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Müllabfuhr</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Lysosom</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Abfall zu Bausteinen</text><path d="M80 40H250" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#4FA9B1"/><circle cx="256" cy="40" r="5" fill="#4FA9B1"/></svg><p class="sr-only">Müllabfuhr, in der Zelle das Lysosom.</p></details>
   </section>
   <section class="rt" data-i="4" data-loesung="Stadtwache">
     <div class="rt-kopf"><h2>Rätsel 5</h2><div class="rt-bild" aria-hidden="true"><svg class="ic kult" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-wache-s"/></svg><span class="gl"></span><svg class="ic bio" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-wache-z"/></svg></div></div>
@@ -151,7 +157,7 @@
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Stadtwache</button><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Müllabfuhr</button></div>
     <p class="rt-fb" aria-live="polite"></p>
-    <details class="rt-loesung"><summary>Lösung</summary><p>Stadtwache, in der Zelle das Immunsystem.</p></details>
+    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Stadtwache in der Stadt entspricht Immunsystem in der Zelle. Verbunden durch: Schutz." focusable="false"><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-wache-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-wache-z" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Stadtwache</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Immunsystem</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Schutz</text><path d="M80 40H250" fill="none" stroke="#D9A64A" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#D9A64A"/><circle cx="256" cy="40" r="5" fill="#D9A64A"/></svg><p class="sr-only">Stadtwache, in der Zelle das Immunsystem.</p></details>
   </section>
   <section class="bk" id="baukasten">
     <h2>Baue deine Stadt</h2>
@@ -238,8 +244,8 @@
         var ok = b.textContent === k.getAttribute('data-loesung');
         Array.prototype.forEach.call(k.querySelectorAll('.rt-a'), function (x) { x.classList.remove('richtig', 'falsch'); });
         b.classList.add(ok ? 'richtig' : 'falsch');
-        gewaehlt[i] = ok; k.classList.toggle('fertig', ok);
-        k.querySelector('.rt-fb').textContent = ok ? 'Richtig. ' + k.querySelector('.rt-loesung p').textContent : 'Das war es nicht. Probiere eine andere Antwort oder lies den nächsten Hinweis.';
+        gewaehlt[i] = ok; k.classList.toggle('fertig', ok); k.querySelector('.rt-loesung').open = ok;
+        k.querySelector('.rt-fb').textContent = ok ? 'Richtig. Hier ist das Lösungsbild.' : 'Das war es nicht. Probiere eine andere Antwort oder lies den nächsten Hinweis.';
         var richtig = Object.keys(gewaehlt).filter(function (j) { return gewaehlt[j]; }).length;
         document.getElementById('rtStand').textContent = richtig === karten.length ? 'Alle fünf gelöst. Das war ein Anstoß, kein Test.' : richtig + ' von ' + karten.length + ' gelöst.';
       });

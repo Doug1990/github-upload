@@ -32,6 +32,15 @@
   .tv-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
   .tv-tabs button { font: 500 14px 'IBM Plex Sans', sans-serif; min-height: 44px; padding: 8px 16px; border-radius: 999px; border: 1px solid #4A4F5E; color: #C7CAD6; background: transparent; cursor: pointer; }
   .tv-tabs button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); background: rgba(var(--accent-rgb),0.12); }
+  .tv-skizze { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 0 18px; }
+  .tv-p { margin: 0; padding: 8px 8px 6px; border-radius: 12px; background: rgba(255,255,255,0.04); }
+  .tv-p svg { display: block; width: 100%; height: auto; }
+  .tv-p svg text { font: 500 13px 'IBM Plex Sans', sans-serif; }
+  .tv-p figcaption { font-family: 'Fraunces', serif; font-size: 16px; color: #E8E6E0; padding: 2px 4px 0; }
+  .tv-p .fluss { fill: none; stroke: #E8E6E0; stroke-width: 4; stroke-linecap: round; stroke-dasharray: 0.1 13; animation: tvfl 2.2s linear infinite; }
+  @keyframes tvfl { to { stroke-dashoffset: -13; } }
+  @media (max-width: 700px) { .tv-skizze { grid-template-columns: 1fr; } .tv-p svg { max-width: 260px; margin: 0 auto; } }
+  @media (prefers-reduced-motion: reduce) { .tv-p .fluss { animation: none; } }
   .tv-svg { width: 100%; height: auto; display: block; margin: 0 0 8px; }
   .tv-svg .achse { stroke: #4A4F5E; stroke-width: 1; }
   .tv-svg .gitter { stroke: #2A3145; stroke-width: 1; }
@@ -103,6 +112,8 @@
   <h1>Ein Tag im Netz</h1>
   <p>Netz wählen, Uhrzeit einstellen. Beispielkurven, 100 ist die Tagesspitze.</p>
 
+  <div class="tv-skizze"><figure class="tv-p"><svg viewBox="0 0 200 130" role="img" aria-label="Strom: Die Last ist abends am höchsten, die Sonne liefert mittags. Die Lücke füllen Kraftwerke oder Speicher." focusable="false"><path d="M10 100H190" stroke="#4A4F5E" stroke-width="1.5"/><path d="M10 84C50 82 80 72 112 58C138 44 152 24 168 28C180 32 186 60 190 74" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M10 84C50 82 80 72 112 58C138 44 152 24 168 28C180 32 186 60 190 74" style="animation-duration:2.2s"/><path d="M10 100C46 100 66 56 100 56C134 56 154 100 190 100" fill="none" stroke="#D9A64A" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 5"/><text x="168" y="18" text-anchor="middle" fill="#4FA9B1">Last</text><text x="62" y="40" text-anchor="middle" fill="#D9A64A">Sonne</text><text x="100" y="122" text-anchor="middle" fill="#4FA9B1">Lücke: Kraftwerk, Speicher</text></svg><figcaption>Strom</figcaption></figure><figure class="tv-p"><svg viewBox="0 0 200 130" role="img" aria-label="Wasser: Pumpen laufen gleichmäßig. Der Hochbehälter auf dem Hügel gleicht den schwankenden Bedarf aus." focusable="false"><path d="M10 100H190" stroke="#4A4F5E" stroke-width="1.5"/><path d="M10 62H190" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M10 62H190" style="animation-duration:2.6s"/><path d="M10 72C40 40 60 40 80 62C100 84 130 84 150 56C165 38 180 48 190 58" fill="none" stroke="#8590E6" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 5"/><text x="100" y="20" text-anchor="middle" fill="#4FA9B1">Pumpen gleichmäßig</text><text x="100" y="90" text-anchor="middle" fill="#8590E6">Bedarf</text><text x="100" y="122" text-anchor="middle" fill="#4FA9B1">Hochbehälter gleicht aus</text></svg><figcaption>Wasser</figcaption></figure><figure class="tv-p"><svg viewBox="0 0 200 130" role="img" aria-label="Verkehr: Morgens und am späten Nachmittag am vollsten." focusable="false"><path d="M10 100H190" stroke="#4A4F5E" stroke-width="1.5"/><path d="M10 94C28 94 38 32 58 32C78 32 90 84 108 84C126 84 138 30 158 30C178 30 184 94 190 94" fill="none" stroke="#D9A64A" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M10 94C28 94 38 32 58 32C78 32 90 84 108 84C126 84 138 30 158 30C178 30 184 94 190 94" style="animation-duration:2.4s"/><text x="52" y="20" text-anchor="middle" fill="#D9A64A">morgens</text><text x="152" y="20" text-anchor="middle" fill="#D9A64A">nachmittags</text><text x="100" y="122" text-anchor="middle" fill="#D9A64A">Stoßzeiten</text></svg><figcaption>Verkehr</figcaption></figure></div>
+
   <noscript><p>Ohne JavaScript fehlt das Diagramm. Strom wird abends am meisten gebraucht, die Sonne liefert mittags am meisten.</p></noscript>
   <div class="tv" id="tv">
     <div class="tv-tabs" role="group" aria-label="Netz wählen" id="tvTabs"></div>
@@ -118,11 +129,6 @@
     <p class="tv-text" id="tvText" aria-live="polite"></p>
   </div>
 
-  <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Was in den Kurven steckt</summary>
-    <p><b>Strom:</b> Last abends am höchsten, Sonne mittags. Die Lücke füllen Kraftwerke oder Speicher.</p>
-    <p><b>Wasser:</b> Pumpen laufen gleichmäßig, der Hochbehälter auf dem Hügel gleicht aus.</p>
-    <p><b>Verkehr:</b> Morgens und späten Nachmittag am vollsten.</p>
-  </details>
 
   <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Wo das Bild hinkt</summary><p>Alle Kurven sind frei gewählte Beispiele. Echte Tage hängen von Wetter, Jahreszeit und Ereignissen ab. Erzeuger, Hochbehälter und Fahrpläne sind stark vereinfacht.</p></details>
 
