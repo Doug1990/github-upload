@@ -25,7 +25,7 @@ for (const w of [1280, 390]) {
   if (r.n !== 5 || r.hinw.some((x) => x !== 3) || r.opt.some((x) => x !== 4)) fehler.push(`@${w}px Rätsel ${r.n}, Hinweise ${j(r.hinw)}, Antworten ${j(r.opt)}`);
   if (r.h0 !== 1 || r.h1 !== 2 || r.h2 !== 3 || !r.mehrWeg) fehler.push(`@${w}px Hinweise nacheinander: ${r.h0}, ${r.h1}, ${r.h2}, Knopf weg ${r.mehrWeg}`);
   if (!/Das war es nicht/.test(r.falsch) || !/0 von 5/.test(r.stand0)) fehler.push(`@${w}px falsche Antwort: ${r.falsch} / ${r.stand0}`);
-  if (!/^Richtig\. Kraftwerk, in der Zelle das Mitochondrium/.test(r.richtig) || !/1 von 5/.test(r.stand1)) fehler.push(`@${w}px richtige Antwort: ${r.richtig} / ${r.stand1}`);
+  if (!/^Richtig\. Hier ist das Lösungsbild/.test(r.richtig) || !/1 von 5/.test(r.stand1)) fehler.push(`@${w}px richtige Antwort: ${r.richtig} / ${r.stand1}`);
   if (!/Alle fünf gelöst/.test(r.stand5)) fehler.push(`@${w}px Schluss: ${r.stand5}`);
   if (w === 390) { for (const x of r.klein) fehler.push(`@390px Tippfläche unter 44 px: ${j(x)}`); if (r.ueber > 0) fehler.push(`@390px horizontaler Überlauf ${r.ueber} px`); }
 }
