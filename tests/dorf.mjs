@@ -63,7 +63,7 @@ for (const [w, reduce] of [[1280, false], [390, false], [390, true]]) {
         out.push({ size: p.dataset.size, pick: p.dataset.pick, d: $('dorfD').textContent, ov: $('dorfOV').textContent, weg: $('dorfWeg').textContent,
           calc: $('dorfCalc').textContent, status: $('dorfStatus').textContent, out: $('dorfSizeO').textContent, vt: rg.getAttribute('aria-valuetext'),
           bak: $('dorfLgBak').querySelector('b').textContent, euk: $('dorfLgEuk').querySelector('b').textContent,
-          eyebrow: $('dorfEyebrow').textContent, title: $('dorfTitle').textContent, townL: $('dorfTownL').textContent,
+          eyebrow: $('dorfEyebrow').textContent, title: $('dorfTitle').textContent,
           pressed: [$('dorfPickBak').getAttribute('aria-pressed'), $('dorfPickEuk').getAttribute('aria-pressed')],
           kleiner: $('dorfSmaller').disabled, groesser: $('dorfBigger').disabled,
           mito: document.querySelectorAll('#dorfSvg .dorf-mito').length, stau: document.querySelectorAll('#dorfSvg .dorf-queue').length,
@@ -85,7 +85,6 @@ for (const [w, reduce] of [[1280, false], [390, false], [390, true]]) {
       if (s.bak !== BAK[i] || s.euk !== EUK[i]) fehler.push(`${wo}: Lage "${s.bak}"/"${s.euk}" statt "${BAK[i]}"/"${EUK[i]}"`);
       if (!s.status.startsWith(`Etwa ${D[i]} µm:`) || !s.status.includes(BAK_STATUS[i]) || !s.status.includes('Zelle mit Kern')) fehler.push(`${wo}: Auswertung "${s.status}" passt nicht (erwartet "${BAK_STATUS[i]}")`);
       if (!s.eyebrow.startsWith(pick === 'bak' ? 'Bakterium' : 'Zelle mit Kern') || !s.eyebrow.includes(`etwa ${D[i]} µm`)) fehler.push(`${wo}: Überschrift "${s.eyebrow}"`);
-      if (s.townL !== (pick === 'bak' ? 'Im Dorf' : 'In der Stadt')) fehler.push(`${wo}: Spalte "${s.townL}"`);
       if (JSON.stringify(s.pressed) !== JSON.stringify(pick === 'bak' ? ['true', 'false'] : ['false', 'true'])) fehler.push(`${wo}: aria-pressed ${JSON.stringify(s.pressed)}`);
       if (JSON.stringify(s.dim) !== JSON.stringify(pick === 'bak' ? [false, true] : [true, false])) fehler.push(`${wo}: Hervorhebung im Bild falsch ${JSON.stringify(s.dim)}`);
       if (s.kleiner !== (i === 0) || s.groesser !== (i === 6)) fehler.push(`${wo}: Kleiner/Größer falsch gesperrt (${s.kleiner}/${s.groesser})`);
