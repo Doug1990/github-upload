@@ -37,8 +37,8 @@ export async function start() {
     chrome = spawn(chromePath, ['--headless=new', '--disable-gpu', '--mute-audio', ...(process.env.CI ? ['--no-sandbox'] : []), '--remote-debugging-port=0', '--user-data-dir=' + profile, 'about:blank'], { stdio: ['ignore', 'ignore', 'pipe'] });
     const wsUrl = await new Promise((resolve, reject) => {
       let buf = '';
-      chrome.stderr.on('data', (d) => { buf += d; const m = buf.match(/DevTools listening on (ws:\/\/\S+)/); if (m) resolve(m[1]); });
-      setTimeout(() => reject(new Error('Chrome startet nicht')), 15000);
+      const frist = setTimeout(() => reject(new Error('Chrome startet nicht')), 15000);
+      chrome.stderr.on('data', (d) => { buf += d; const m = buf.match(/DevTools listening on (ws:\/\/\S+)/); if (m) { clearTimeout(frist); resolve(m[1]); } });
     });
     port = new URL(wsUrl).port;
     target = (await (await fetch(`http://127.0.0.1:${port}/json`)).json()).find((t) => t.type === 'page');
@@ -56,12 +56,19 @@ export async function start() {
     await b.send('Emulation.setDeviceMetricsOverride', { width, height: 900, deviceScaleFactor: 1, mobile: width < 500 });
     await b.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: opts.reduce ? 'reduce' : 'no-preference' }] });
     await b.send('Page.navigate', { url: `${BASE}/${page}` });
-    await sleep(2200);
-    // Seite einmal durchscrollen, damit sichtbarkeitsgesteuerte Skripte laufen
-    await b.ev(`(async()=>{const h=document.documentElement.scrollHeight;for(let y=0;y<h;y+=700){scrollTo(0,y);await new Promise(r=>setTimeout(r,120));}scrollTo(0,0);})()`);
+    // Statt fester 2,2 s: warten, bis die Zielseite geladen ist und die Schriften bereit sind (höchstens 6 s), dann kurz setzen lassen
+    const ziel = page.split('?')[0].split('#')[0];
+    for (let i = 0; i < 60; i++) {
+      const fertig = await b.ev(`document.readyState === 'complete' && location.pathname.endsWith(${JSON.stringify(ziel)}) && document.fonts.status === 'loaded'`);
+      if (fertig) break;
+      await sleep(100);
+    }
     await sleep(500);
+    // Seite einmal durchscrollen, damit sichtbarkeitsgesteuerte Skripte laufen
+    await b.ev(`(async()=>{const h=document.documentElement.scrollHeight;for(let y=0;y<h;y+=700){scrollTo(0,y);await new Promise(r=>setTimeout(r,80));}scrollTo(0,0);})()`);
+    await sleep(400);
   };
-  b.close = () => { ws.close(); if (geteilt) fetch(`http://127.0.0.1:${port}/json/close/${target.id}`).catch(() => {}); else { chrome.kill(); try { fs.rmSync(profile, { recursive: true, force: true }); } catch {} } server.close(); };
+  b.close = () => { ws.close(); if (geteilt) fetch(`http://127.0.0.1:${port}/json/close/${target.id}`).catch(() => {}); else { chrome.kill(); try { fs.rmSync(profile, { recursive: true, force: true }); } catch {} } server.closeAllConnections?.(); server.close(); };
   return b;
 }
 
