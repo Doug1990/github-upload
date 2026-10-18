@@ -297,7 +297,7 @@
   .now-you-chip { font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; padding: 7px 13px; border-radius: 999px; border: 1px solid #4A5166; background: transparent; color: #C7CAD6; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
   .now-you-chip:hover { background: #ffffff0d; }
   .now-you-chip.picked { border-color: #FFE3B0; color: #FFE3B0; background: #FFE3B01a; }
-  .now-you-reply { min-height: 20px; font-size: 12.5px; color: #A9AFC0; margin: 14px 0 0; line-height: 1.6; max-width: 460px; }
+  .now-you-reply { min-height: 20px; font-size: 12.5px; color: #A9AFC0; margin: 14px 0 0; line-height: 1.6; max-width: 100%; text-wrap: pretty; }
 
   /* --- Energie-Turm: ein hoher Scroll-Abschnitt, isometrisch, wenig Text ---- */
   .cube-section {
@@ -327,7 +327,7 @@
   @keyframes cubeFlowDown { to { stroke-dashoffset: -600; } }
 
   .landing {
-    max-width: min(94vw, 640px); width: 100%; margin: 60px auto 40px; padding: 70px 24px 90px;
+    max-width: min(94vw, 640px); width: 100%; margin: 16px auto 0; padding: 24px 24px 16px;
     text-align: center; position: relative; overflow: visible;
   }
   .landing-roots { display: block; width: 100%; max-width: 340px; height: auto; margin: 0 auto 26px; opacity: 0.55; }
@@ -375,7 +375,8 @@
   .pfad-kurz li a:hover { color: #fff; }
   .pfad-kurz li b { display: block; margin-bottom: 1px; font-weight: 500; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, #7FD9A8); }
 
-  .pfad-weiter { width: 100%; max-width: 640px; margin: 0 auto; padding: 36px 24px 28px; text-align: center; }
+  .pfad-weiter { width: 100%; max-width: 640px; margin: 0 auto; padding: 28px 24px 28px; text-align: center; }
+  @media (max-width: 560px) { .landing { padding: 16px 24px 8px; } .pfad-weiter { padding-top: 20px; } }
   .pfad-weiter .pfad-weiter-eb { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #929CB0; }
   .pfad-weiter .pfad-weiter-frage { margin: 0 auto 16px; max-width: 460px; font-family: 'Fraunces', Georgia, serif; font-size: clamp(18px, 3vw, 22px); line-height: 1.4; color: #E8E6E0; text-wrap: balance; }
   .pfad-weiter a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid var(--accent, #7FD9A8); border-radius: 999px; color: #E8E6E0; text-decoration: none; font-size: 13.5px; }
@@ -470,7 +471,7 @@
   .journey-tab.active { border-color: currentColor; font-weight: 600; background: #ffffff0d; }
   .journey-scene { width: 100%; max-width: min(92vw, 880px); height: auto; display: block; margin: 0 auto; }
   .journey-station { margin: 18px 0 8px; min-height: 76px; }
-  .journey-station-was { display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: #C7CAD6; transition: opacity 0.4s; max-width: 460px; margin-left: auto; margin-right: auto; }
+  .journey-station-was { text-wrap: pretty; display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: #C7CAD6; transition: opacity 0.4s; max-width: 460px; margin-left: auto; margin-right: auto; }
   .journey-chain .jc-was { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .journey-chain.voll { display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .journey-chain.voll .jc-link { display: none; }
@@ -505,7 +506,7 @@
   }
   .shelf-checkout:hover:not(:disabled) { background: #B39DDB1a; }
   .shelf-checkout:disabled { opacity: 0.35; cursor: default; }
-  .shelf-receipt { min-height: 20px; font-size: 12.5px; color: #C9784A; margin: 14px 0 0; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .shelf-receipt { text-wrap: pretty; min-height: 20px; font-size: 12.5px; color: #C9784A; margin: 14px 0 0; line-height: 1.6; max-width: 640px; margin-left: auto; margin-right: auto; }
   .shelf-kette-wrap { max-width: 760px; margin: 22px auto 0; text-align: center; }
   .shelf-kette-t { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; color: #F0EEF4; margin: 0 0 14px; }
   .shelf-kette { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); row-gap: 14px; position: relative; font-family: 'IBM Plex Sans', sans-serif; }
@@ -616,7 +617,7 @@
   }
   .cg-chip:hover { background: #ffffff14; }
   .cg-chip:active { transform: scale(0.96); }
-  .cg-feedback { min-height: 22px; font-size: 13px; color: #8FD9A8; margin: 18px 0 16px; line-height: 1.5; }
+  .cg-feedback { text-wrap: pretty; min-height: 22px; font-size: 13px; color: #8FD9A8; margin: 18px 0 16px; line-height: 1.5; }
   .cg-feedback.miss { color: #E8B98A; }
   .cg-hint { font-size: 11.5px; color: #8E9F92; margin: -6px 0 14px; }
   .cg-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
@@ -716,6 +717,7 @@
     filter: drop-shadow(0 0 6px #FFE3B099);
   }
   .descent-figure.visible { opacity: 0.85; }
+  @media (prefers-reduced-motion: reduce) { .descent-figure { transition: none; } }
   @media (max-width: 720px) { .descent-figure { display: none; } }
   .hud-btn.muted { color: #8E98AC; }
 
@@ -808,7 +810,7 @@
   .st-card[data-status="out"], .st-card[data-status="src"] { border-color: #FF8A65; border-width: 2px; padding: 10px 12px; background: #FF8A650f; }
   .st-card[data-status="out"] .st-state, .st-card[data-status="src"] .st-state { color: #FF8A65; }
   .st-card[data-status="out"] h3, .st-card[data-status="src"] h3 { text-decoration: line-through; text-decoration-color: #FF8A65aa; }
-  .stoer-status { min-height: 44px; margin: 0 auto 6px; max-width: 560px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.6; color: #F2C46B; }
+  .stoer-status { text-wrap: pretty; min-height: 44px; margin: 0 auto 6px; max-width: 560px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.6; color: #F2C46B; }
   @media (max-width: 560px) { .stoer { padding: 34px 16px 30px; border-radius: 18px; } .stoer-title { font-size: 20px; } .stoer-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 380px) { .stoer-grid { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .st-card, .stoer-btn { transition: none; } }
@@ -836,16 +838,33 @@
   .inst-net .inst-eg { margin: 1px 0 6px; font-size: 11.5px; color: #8E98AC; }
   .inst-cells { display: flex; gap: 3px; }
   .inst-cell { flex: 1; min-width: 0; height: 24px; border-radius: 3px; background: #8FD9A8; border: 1px solid #8FD9A8; transition: background 0.3s, border-color 0.3s; }
-  .inst-cell[data-s="alt"] { background: #F2C46B; border-color: #F2C46B; }
+  .inst-cell[data-s="alt"] { background-color: #F2C46B; border-color: #F2C46B; }
   .inst-cell[data-s="def"] { background: repeating-linear-gradient(135deg, #FF8A65 0 3px, #2A1814 3px 6px); border-color: #FF8A65; }
   .inst-count { margin: 6px 0 0; font-size: 12px; color: #A9AFC0; }
   .inst-time { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 4px; font-size: 13px; color: #C9CCD6; }
   .inst-time label { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 220px; min-height: 44px; }
   .inst-time input[type=range] { flex: 1; min-height: 44px; accent-color: #F2C46B; }
   .inst-year { min-width: 64px; font-family: 'Fraunces', serif; font-size: 19px; font-variant-numeric: tabular-nums; color: #F3EFE6; }
-  .inst-status { min-height: 48px; margin: 12px auto 0; max-width: 560px; font-size: 13px; line-height: 1.6; color: #F2C46B; text-align: center; font-family: 'IBM Plex Sans', sans-serif; }
+  .inst-status { text-wrap: pretty; min-height: 48px; margin: 12px auto 0; max-width: 640px; font-size: 13px; line-height: 1.6; color: #F2C46B; text-align: center; font-family: 'IBM Plex Sans', sans-serif; }
   .inst-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 10px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #A9AFC0; }
-  .inst-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -2px; }
+  .inst-legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 6px; vertical-align: -3px; box-sizing: border-box; text-align: center; font-style: normal; font-size: 11px; line-height: 14px; font-weight: 700; color: #0B1220; }
+  .inst-legend-bild { font-size: 12.5px; margin: 0 0 18px; }
+  .inst-legend i.lg-ok { background: #8FD9A8; } .inst-legend i.lg-neu { background: #8FD9A8; }
+  .inst-legend i.lg-alt { background: #F2C46B radial-gradient(#0B122088 1px, transparent 1.2px) 0 0 / 4px 4px; }
+  .inst-legend i.lg-def { background: repeating-linear-gradient(135deg, #FF8A65 0 3px, #2A1814 3px 6px); border: 1px solid #FF8A65; }
+  .inst-legend i.lg-aus { background: transparent; border: 2px dashed #FF8A65; }
+  .inst-bild-t { margin: 0 0 6px; font-size: 14px; font-weight: 600; color: #F3EFE6; }
+  .inst-lese { margin: 0 0 12px; font-size: 13px; line-height: 1.55; color: #C9CCD6; }
+  .inst-cell[data-s="neu"] { text-align: center; font-size: 13px; line-height: 22px; font-weight: 700; color: #0B1220; overflow: hidden; }
+  .inst-cell[data-s="neu"]::after { content: "↻"; }
+  .inst-cell[data-s="alt"] { background-image: radial-gradient(#0B122088 1px, transparent 1.2px); background-size: 4px 4px; }
+  .inst-bild [data-s="ok"], .inst-bild [data-s="neu"] { fill: #8FD9A8; }
+  .inst-bild [data-s="alt"] { fill: #F2C46B; }
+  .inst-bild [data-s="def"] { fill: url(#instSchraeg); stroke: #FF8A65; stroke-width: 1.5; }
+  .inst-bild [data-s="aus"] { fill: none; stroke: #FF8A65; stroke-width: 2; stroke-dasharray: 4 4; }
+  .inst-bild .iz-mark { fill: #0B1220; font-size: 15px; font-weight: 700; }
+  .inst-bild .iz-pf { stroke: #C9CCD6; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .inst-bild #izJahr { font-variant-numeric: tabular-nums; font-weight: 600; fill: #F3EFE6; }
   @media (max-width: 560px) { .instand { padding: 34px 16px 30px; border-radius: 18px; } .inst-title { font-size: 20px; } }
   @media (prefers-reduced-motion: reduce) { .inst-cell, .inst-btn { transition: none; } }
 
@@ -859,6 +878,8 @@
   .bild .b-kult { --c: #D9A64A; } .bild .b-digi { --c: #8590E6; } .bild .b-phys { --c: #4FA9B1; } .bild .b-bio { --c: #7DBB63; }
   .bild .b-dot { fill: var(--c, #F2C46B); }
   .bild .b-ebene { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-linecap: round; opacity: 0.85; }
+  .bild .b-bsp { font-weight: 600; fill: #E8E6E0; }
+  .bild .ld-t { font-size: 14.6px; }
   .bild .b-lbl-fail { fill: #FF8A65; }
   .bild .b-lbl-alt { fill: #4FA9B1; }
   .bild .b-fluss { animation: b-fluss 4.2s linear infinite; }
@@ -877,7 +898,7 @@
   @keyframes b-fluss { 0% { transform: translateX(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateX(var(--w, 200px)); opacity: 0; } }
   @keyframes b-umweg { 0% { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
   @keyframes b-zeit { 0%, 20% { fill: #8FD9A8; } 50% { fill: #F2C46B; } 80%, 100% { fill: #FF8A65; } }
-  @media (prefers-reduced-motion: reduce) { .bild .b-fluss, .bild .kp-fluss, .bild .kost-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
+  @media (prefers-reduced-motion: reduce) { .hero-bild .b-fluss, .now-bild .b-fluss, .landing-bild .b-fluss { transform: translateX(var(--w)); } .bild .b-fluss, .bild .kp-fluss, .bild .kost-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
 
   /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
   .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
@@ -998,11 +1019,11 @@
   <p class="hero-eyebrow">Düsseldorf · in Arbeit</p>
   <h1 class="hero-title">Hinter fast allem, was du machst, steckt Infrastruktur.</h1>
   <p class="hero-thesis">Woran ein Tag in Düsseldorf hängt.</p>
-  <svg class="bild" viewBox="0 0 320 112" role="img" aria-label="Vier Leitungen übereinander, auf jeder laufen Punkte: kulturell (Regeln), digital (Daten), physisch (Rohre), biologisch (Zellen). Zusammen tragen sie einen Tag.">
-    <g class="b-kult"><text x="0" y="18">Kulturell · Regeln</text><path class="b-ebene" d="M135 14H316"/><circle class="b-dot b-fluss" style="--w:150px" cx="135" cy="14" r="4"/><circle class="b-dot" cx="250" cy="14" r="4"/></g>
-    <g class="b-digi"><text x="0" y="46">Digital · Daten</text><path class="b-ebene" d="M135 42H316"/><circle class="b-dot b-fluss l2" style="--w:160px" cx="135" cy="42" r="4"/><circle class="b-dot" cx="210" cy="42" r="4"/></g>
-    <g class="b-phys"><text x="0" y="74">Physisch · Rohre</text><path class="b-ebene" d="M135 70H316"/><circle class="b-dot b-fluss l3" style="--w:170px" cx="135" cy="70" r="4"/><circle class="b-dot" cx="180" cy="70" r="4"/></g>
-    <g class="b-bio"><text x="0" y="102">Biologisch · Körper und Zellen</text><path class="b-ebene" d="M195 98H316"/><circle class="b-dot b-fluss l4" style="--w:115px" cx="195" cy="98" r="4"/><circle class="b-dot" cx="290" cy="98" r="4"/></g>
+  <svg class="bild hero-bild" viewBox="0 0 320 142" role="img" aria-label="Vier Leitungen übereinander, jede mit einem Alltagsbeispiel am Ende. Kulturell (Regeln): die Ampel. Digital (Daten): die Fahrplan-App. Physisch (Rohre): das Wasserrohr. Biologisch (Körper und Zellen): der Muskel. Auf jeder Leitung läuft ein Punkt zum Beispiel hin. Zusammen tragen sie einen Tag.">
+    <g class="b-kult"><text x="0" y="34">Kulturell · Regeln</text><path class="b-ebene" d="M135 30H316"/><circle class="b-dot b-fluss" style="--w:135px" cx="135" cy="30" r="4"/><circle class="b-dot" cx="270" cy="30" r="4"/><text class="b-bsp" x="270" y="21" text-anchor="middle">Ampel</text></g>
+    <g class="b-digi"><text x="0" y="68">Digital · Daten</text><path class="b-ebene" d="M135 64H316"/><circle class="b-dot b-fluss l2" style="--w:135px" cx="135" cy="64" r="4"/><circle class="b-dot" cx="270" cy="64" r="4"/><text class="b-bsp" x="270" y="55" text-anchor="middle">Fahrplan-App</text></g>
+    <g class="b-phys"><text x="0" y="102">Physisch · Rohre</text><path class="b-ebene" d="M135 98H316"/><circle class="b-dot b-fluss l3" style="--w:135px" cx="135" cy="98" r="4"/><circle class="b-dot" cx="270" cy="98" r="4"/><text class="b-bsp" x="270" y="89" text-anchor="middle">Wasserrohr</text></g>
+    <g class="b-bio"><text x="0" y="136">Biologisch · Körper</text><path class="b-ebene" d="M135 132H316"/><circle class="b-dot b-fluss l4" style="--w:135px" cx="135" cy="132" r="4"/><circle class="b-dot" cx="270" cy="132" r="4"/><text class="b-bsp" x="270" y="123" text-anchor="middle">Muskel</text></g>
   </svg>
   <div class="hero-journey-badge" id="heroJourneyBadge">
     <svg viewBox="0 0 90 26" aria-hidden="true">
@@ -1216,17 +1237,19 @@
   <p class="inst-eyebrow sans">Instandhaltung</p>
   <h2 class="inst-title">Was alt wird, muss erneuert werden.</h2>
   <p class="inst-lead sans">Wie erneuert wird, wählen. Zeit vorschieben.</p>
-  <svg class="bild" viewBox="0 0 320 76" role="img" aria-label="Eine Leitung aus acht Abschnitten. Links sind sie neu und grün, in der Mitte alt und gelb, ein Abschnitt altert im Zeitraffer bis zum Ausfall.">
-    <g stroke="none">
-      <rect x="10" y="22" width="32" height="20" rx="3" fill="#8FD9A8"/><rect x="48" y="22" width="32" height="20" rx="3" fill="#8FD9A8"/><rect x="86" y="22" width="32" height="20" rx="3" fill="#8FD9A8"/>
-      <rect x="124" y="22" width="32" height="20" rx="3" fill="#F2C46B"/><rect x="162" y="22" width="32" height="20" rx="3" fill="#F2C46B"/>
-      <rect class="b-zeit" x="200" y="22" width="32" height="20" rx="3" fill="#8FD9A8"/>
-      <rect x="238" y="22" width="32" height="20" rx="3" fill="none" stroke="#FF8A65" stroke-width="2" stroke-dasharray="4 4"/>
-      <rect x="276" y="22" width="32" height="20" rx="3" fill="#8FD9A8"/>
+  <p class="inst-bild-t sans">Eine Leitung, acht Abschnitte</p>
+  <svg class="bild inst-bild" viewBox="0 0 320 96" role="img" aria-label="Eine Leitung aus acht Abschnitten, von links nach rechts: drei neue, grün. Zwei fast am Ende, gelb mit Punkten. Einer altert im Zeitraffer, mit Jahreszähler von 0 bis 40 Jahren: erst grün, dann gelb, dann rot schraffiert, zuletzt gestrichelt. Einer ist ausgefallen, gestrichelt, hier fließt nichts mehr. Der letzte wurde erneuert, grün mit Kreispfeil.">
+    <defs><pattern id="instPunkte" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="2.5" cy="2.5" r="1.1" fill="#0B1220" opacity="0.55"/></pattern><pattern id="instSchraeg" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="3" height="6" fill="#FF8A65"/><rect x="3" width="3" height="6" fill="#2A1814"/></pattern></defs>
+    <g stroke="none" class="iz">
+      <rect data-s="ok" x="10" y="26" width="32" height="22" rx="3"/><rect data-s="ok" x="48" y="26" width="32" height="22" rx="3"/><rect data-s="ok" x="86" y="26" width="32" height="22" rx="3"/><rect data-s="alt" x="124" y="26" width="32" height="22" rx="3"/><rect data-s="alt" x="162" y="26" width="32" height="22" rx="3"/><rect data-s="aus" x="200" y="26" width="32" height="22" rx="3" id="izZeit"/><rect data-s="aus" x="238" y="26" width="32" height="22" rx="3"/><rect data-s="neu" x="276" y="26" width="32" height="22" rx="3"/>
+      <text class="iz-mark" x="292" y="41" text-anchor="middle">↻</text>
     </g>
-    <path class="b-line" d="M10 52H308" opacity="0.5"/>
-    <text x="10" y="70">neu</text><text x="124" y="70">alt</text><text x="238" y="70" class="b-lbl-fail">Lücke</text>
+    <path class="iz-pf" d="M216 17V23M213 20L216 24L219 20" fill="none"/>
+    <text x="210" y="14" text-anchor="end">altert im Zeitraffer</text><text x="224" y="14" id="izJahr">Jahr 40</text>
+    <path class="b-line" d="M10 56H118M124 56H194M238 56H270" opacity="0.5"/>
+    <text x="64" y="74" text-anchor="middle">neu</text><text x="159" y="74" text-anchor="middle">alt</text><text x="254" y="74" text-anchor="middle" class="b-lbl-fail">ausgefallen</text>
   </svg>
+  <div class="inst-legend inst-legend-bild"><span><i class="lg-ok"></i>in Ordnung</span><span><i class="lg-neu">↻</i>erneuert, wieder neu</span><span><i class="lg-alt"></i>fast am Ende</span><span><i class="lg-def"></i>überfällig</span><span><i class="lg-aus"></i>ausgefallen: hier fließt nichts mehr</span></div>
   <div class="inst-seg" id="instSeg" role="group" aria-label="Wie wird erneuert?">
     <button type="button" class="inst-btn" id="instA" data-m="a" aria-pressed="true">Laufend erneuern</button>
     <button type="button" class="inst-btn" id="instB" data-m="b" aria-pressed="false">Erst aufschieben</button>
@@ -1234,6 +1257,7 @@
   </div>
   <p class="inst-desc" id="instDesc"></p>
   <div class="inst-panel" id="instPanel">
+    <p class="inst-lese">Links die jüngsten Abschnitte, rechts die ältesten. Das älteste Stück wird zuerst ersetzt und ist danach wieder neu.</p>
     <div id="instNets"></div>
     <div class="inst-time">
       <label>Jahr <input type="range" id="instJahr" min="0" max="40" step="1" value="0"></label>
@@ -1241,7 +1265,6 @@
       <button type="button" class="inst-btn" id="instPlay" aria-pressed="false">Zeitraffer</button>
     </div>
   </div>
-  <div class="inst-legend"><span><i style="background:#8FD9A8"></i>in Ordnung</span><span><i style="background:#F2C46B"></i>fast am Ende</span><span><i style="background:repeating-linear-gradient(135deg,#FF8A65 0 3px,#2A1814 3px 6px)"></i>überfällig, ausgefallen</span></div>
   <p class="inst-status" id="instStatus" aria-live="polite"></p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer.</p><p>Echte Netze werden nach Zustand und Risiko erneuert. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt. Es gibt zwanzig Abschnitte je Netz, das älteste Stück kommt zuerst dran.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet, welches Rohr zuerst dran ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Betreiber, nach Alter, Zustand und Schäden.</p></div></details>
 </section>
@@ -1278,10 +1301,9 @@
     <p class="now-you-reply sans" id="nowYouReply"></p>
   </div>
 
-  <svg class="bild" id="nowPeople" viewBox="0 0 320 84" role="img" aria-label=""></svg>
+  <svg class="bild now-bild" id="nowPeople" viewBox="0 0 320 196" role="img" aria-label=""></svg>
   <p class="bruecke sans"><a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a></p>
-  <p class="now-note sans">Hochgerechnet aus Tagesdurchschnitten, keine Live-Daten.</p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, die echte Nutzung schwankt. Eine Zahl für genau diesen Moment oder für dich lässt sich nicht ablesen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wann laufen die Zähler schneller?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Strom und Wasser morgens und abends, Bahnen in Stoßzeiten. Nachts langsamer.</p></div></details>
+  <p class="now-note sans">Hochgerechnet aus Tagesdurchschnitten, keine Live-Daten. Die echte Nutzung schwankt.</p>
 </section>
 
 <section class="cube-section" id="cubeSection">
@@ -1295,11 +1317,15 @@
 
 <section class="landing" id="landing">
   <svg class="landing-roots" id="landingRoots" viewBox="0 0 400 160" aria-hidden="true"></svg>
-  <svg class="bild" viewBox="0 0 320 60" role="img" aria-label="Eine Linie, auf der Punkte von mehreren unbekannten Menschen zu dir laufen. Von dir geht eine gestrichelte Linie zu jemand anderem.">
-    <path class="b-line" d="M20 30H190"/><path class="b-alt" d="M190 30H300"/>
-    <circle class="b-node" cx="30" cy="12" r="6"/><circle class="b-node" cx="30" cy="30" r="6"/><circle class="b-node" cx="30" cy="48" r="6"/>
-    <circle class="b-node" cx="190" cy="30" r="9"/><circle class="b-node" cx="304" cy="30" r="6"/>
-    <circle class="b-dot b-fluss" style="--w:150px;--c:#F2C46B" cx="36" cy="30" r="4"/><circle class="b-dot b-fluss l2" style="--w:150px;--c:#F2C46B" cx="36" cy="30" r="4"/>
+  <svg class="bild landing-bild" viewBox="0 0 320 100" role="img" aria-label="Links drei Beispielpunkte für die mindestens zehn Leute, die du nicht kennst. Von ihnen laufen Punkte auf einer Linie zu dir, dem großen Kreis. Von dir führt eine gestrichelte Linie zu jemand, der sich auf dich verlässt.">
+    <path class="b-line" d="M20 42H138"/><path class="b-alt" d="M162 42H300"/>
+    <circle class="b-node" cx="14" cy="26" r="6"/><circle class="b-node" cx="14" cy="42" r="6"/><circle class="b-node" cx="14" cy="58" r="6"/>
+    <circle class="b-node" cx="150" cy="42" r="12"/><circle class="b-node" cx="306" cy="42" r="6"/>
+    <circle class="b-dot b-fluss" style="--w:110px;--c:#F2C46B" cx="26" cy="42" r="4"/><circle class="b-dot b-fluss l2" style="--w:110px;--c:#F2C46B" cx="26" cy="42" r="4"/>
+    <text x="150" y="47" text-anchor="middle" class="ld-t" style="font-weight:600;fill:#F3EFE6">Du</text>
+    <text x="231" y="28" text-anchor="middle" class="ld-t">verlässt sich auf dich</text>
+    <text x="320" y="72" text-anchor="end" class="ld-t">jemand</text>
+    <text x="0" y="94" class="ld-t">Leute, die du nicht kennst</text>
   </svg>
   <p class="landing-eyebrow sans" id="landingEyebrow">Bevor du gehst</p>
   <p class="landing-line" id="landingLine1">Heute haben mindestens zehn Leute, die du nicht kennst, dafür gesorgt, dass du das hier lesen kannst.</p>
@@ -1850,16 +1876,33 @@ function walkRootFigure(svg, path, color, bandId) {
   }, 980);
 }
 
+// Beschriftungsstreifen: links bleibt Platz für Ebenenname und Unterzeile. Linien laufen immer rechts davon,
+// liegt eine Blase weiter links, biegt die Wurzel gleich unter dem Horizont aus (dort steht noch keine Beschriftung).
+let STRIP = 250;
+function labelStripEnd() {
+  const mobil = window.matchMedia && window.matchMedia('(max-width: 560px)').matches;
+  const fam = "'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif";
+  const fl = mobil ? 14 : 12.5, fg = mobil ? 13.8 : 10.5;
+  let ende = 0;
+  BANDS.forEach(b => {
+    ende = Math.max(ende, 52 + measureWidth(b.label, `${fl}px ${fam}`) + b.label.length * fl * 0.04);
+    if (b.gloss) ende = Math.max(ende, 52 + measureWidth(b.gloss, `${fg}px ${fam}`));
+  });
+  return Math.ceil(ende + 18);
+}
 function rootPath(x, band, wiggle) {
   const yMid = (band.yTop + band.yBot) / 2;
-  const c1x = x + wiggle, c1y = HORIZON + (yMid - HORIZON) * 0.35;
-  const c2x = x - wiggle, c2y = HORIZON + (yMid - HORIZON) * 0.7;
-  return `M ${x} ${HORIZON} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${x + wiggle * 0.4} ${yMid}`;
+  const sx = Math.max(x, STRIP + 4), yA = HORIZON + 34;
+  const kl = (v) => Math.max(v, STRIP + 4);
+  const c1x = kl(sx + wiggle), c1y = yA + (yMid - yA) * 0.35;
+  const c2x = kl(sx - wiggle), c2y = yA + (yMid - yA) * 0.7;
+  return `M ${x} ${HORIZON} C ${x} ${HORIZON + 18}, ${sx} ${HORIZON + 18}, ${sx} ${yA} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${kl(sx + wiggle * 0.4)} ${yMid}`;
 }
 
 function crackPath(band) {
   const midY = (band.yTop + band.yBot) / 2;
-  return `M0 ${midY - 10} L120 ${midY + 8} L260 ${midY - 14} L400 ${midY + 10} L560 ${midY - 6} L720 ${midY + 12} L900 ${midY - 8}`;
+  const X = (v) => (STRIP + (v / 900) * (WIDTH - STRIP)).toFixed(1);
+  return `M${X(0)} ${midY - 10} L${X(120)} ${midY + 8} L${X(260)} ${midY - 14} L${X(400)} ${midY + 10} L${X(560)} ${midY - 6} L${X(720)} ${midY + 12} L${X(900)} ${midY - 8}`;
 }
 
 // --- Klick-Logik -------------------------------------------------------
@@ -1961,6 +2004,8 @@ function render() {
   svg.innerHTML = '';
 
   const emphasized = currentEmphasizedBands();
+  STRIP = labelStripEnd();
+  const spaeter = []; // Beschriftungen: werden zuletzt unter den Linien-Ebenen angehängt, damit nichts sie überdeckt
 
   // SVG-Filter für organische Textur
   const defs = el('defs', {});
@@ -1995,7 +2040,7 @@ function render() {
       bIco.setAttribute('x', 28);
       bIco.setAttribute('y', (b.yTop + b.yBot) / 2 - 8.5);
       bIco.setAttribute('opacity', dim ? 0.3 : 0.85);
-      svg.appendChild(bIco);
+      spaeter.push(bIco);
     }
     const label = el('text', { class: 'band-label', x: 52, y: (b.yTop + b.yBot) / 2 + 4, fill: b.glow, 'font-size': 12.5, 'letter-spacing': '0.04em', opacity: dim ? 0.3 : 0.9 });
     label.textContent = b.label;
@@ -2007,7 +2052,7 @@ function render() {
     }
     labelGroup.addEventListener('click', () => selectBand(b.id));
     labelGroup.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectBand(b.id); } });
-    svg.appendChild(labelGroup);
+    spaeter.push(labelGroup);
 
     // Störfall-Schalter (Blitz-Icon)
     const failG = el('g', { class: 'crack-icon', tabindex: 0, role: 'button', 'aria-label': `${b.label} Störfall umschalten` });
@@ -2018,7 +2063,7 @@ function render() {
     failG.appendChild(bolt);
     failG.addEventListener('click', (e) => toggleFailed(b.id, e));
     failG.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') toggleFailed(b.id, e); });
-    svg.appendChild(failG);
+    spaeter.push(failG);
   });
 
   svg.appendChild(el('line', { x1: 0, y1: HORIZON, x2: WIDTH, y2: HORIZON, stroke: '#E8E6E0', 'stroke-width': 1.5, opacity: 0.5 }));
@@ -2034,9 +2079,9 @@ function render() {
     water.connects.forEach((bandId, i) => {
       const band = bandFor(bandId);
       const bandMidY = (band.yTop + band.yBot) / 2;
-      const xOff = 34 - i * 7;
+      const xOff = 34 - i * 2;
       svg.appendChild(el('path', {
-        d: `M 34 ${bandMidY} C ${xOff - 10} ${bandMidY + 40}, ${xOff - 6} ${midY - 60}, 34 ${midY}`,
+        d: `M 27 ${bandMidY} C ${xOff - 24} ${bandMidY + 40}, ${xOff - 24} ${midY - 60}, 27 ${midY}`,
         fill: 'none', stroke: water.glow, 'stroke-width': 1.6, opacity: 0.55,
       }));
       // kleiner Marker an der verbundenen Ebene selbst
@@ -2054,7 +2099,7 @@ function render() {
     gGroup.appendChild(gLabel);
     gGroup.addEventListener('click', selectGroundwater);
     gGroup.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') selectGroundwater(); });
-    svg.appendChild(gGroup);
+    spaeter.push(gGroup);
   }
 
   // Wurzeln — und sie geht tatsächlich einmal daran entlang, statt dass nur eine Linie erscheint.
@@ -2077,6 +2122,8 @@ function render() {
       if (i === 0 && !failed) walkRootFigure(svg, path, act.accent, bandId);
     });
   });
+
+  spaeter.forEach(n => svg.appendChild(n));
 
   // Stämme
   ACTIVITIES.forEach(a => {
@@ -2136,6 +2183,9 @@ function render() {
   updateAmbient();
   if (fokusName) { const n = [...svg.querySelectorAll('[tabindex]')].find((e) => e.getAttribute('aria-label') === fokusName); if (n) n.focus({ preventScroll: true }); }
 }
+
+// Nach dem Laden der Schrift stimmt die Breite des Beschriftungsstreifens, bei Abweichung einmal neu zeichnen.
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (labelStripEnd() !== STRIP) render(); });
 
 function renderPanel() {
   const wrap = document.getElementById('panelWrap');
@@ -3158,21 +3208,45 @@ function playDayChord(counts) {
   tick();
   setInterval(tick, 200);
 
-  // Wer gerade arbeitet — richtet sich nach der echten Uhrzeit
+  // Wer gerade Dienst hat: Beispiel mit drei Schichten auf einer Achse von 0 bis 24 Uhr, richtet sich nach der echten Uhrzeit
+  const SCHICHTEN = [
+    { n: 'Nachtschicht', z: '22 bis 6', von: 22, bis: 6, c: '#8590E6' },
+    { n: 'Frühschicht', z: '6 bis 14', von: 6, bis: 14, c: '#4FA9B1' },
+    { n: 'Spätschicht', z: '14 bis 22', von: 14, bis: 22, c: '#D9A64A' },
+  ];
   function werArbeitet() {
     const d = new Date(), h = d.getHours() + d.getMinutes() / 60;
-    const zeit = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-    const sch = h < 6 || h >= 22 ? 'Nachtschicht' : h < 14 ? 'Frühschicht' : 'Spätschicht';
-    const X = (t) => (10 + t * 12.5).toFixed(1);
-    let v = '<path class="b-ebene b-bio" d="M10 40H310"/>';
-    [6, 14, 22].forEach(t => { v += '<path class="b-alt" d="M' + X(t) + ' 28V52"/>'; });
-    v += '<circle class="b-dot b-bio b-fluss" style="--w:140px" cx="10" cy="40" r="4"/><circle class="b-dot b-bio b-fluss l2" style="--w:140px" cx="170" cy="40" r="4"/>';
-    v += '<text x="' + X(3) + '" y="68" text-anchor="middle">Nacht</text><text x="' + X(10) + '" y="68" text-anchor="middle">Früh</text><text x="' + X(18) + '" y="68" text-anchor="middle">Spät</text>';
-    v += '<circle class="b-node" style="fill:#F2C46B" cx="' + X(h) + '" cy="40" r="7"/><text x="' + X(h) + '" y="18" text-anchor="' + (h > 18 ? 'end' : h < 3 ? 'start' : 'middle') + '">jetzt ' + zeit + '</text>';
+    const zeit = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    const aktiv = SCHICHTEN.find(x => (x.von > x.bis ? (h >= x.von || h < x.bis) : (h >= x.von && h < x.bis)));
+    const X = (t) => 4 + t * 13;
+    const band = (x1, x2, sc, text) => {
+      const an = sc === aktiv;
+      let r = '<rect x="' + X(x1) + '" y="26" width="' + (X(x2) - X(x1)) + '" height="44" rx="4" fill="' + sc.c + '" fill-opacity="' + (an ? 0.6 : 0.25) + '" stroke="' + sc.c + '" stroke-width="' + (an ? 3 : 1.5) + '"/>';
+      if (text) r += '<text x="' + ((X(x1) + X(x2)) / 2) + '" y="52" text-anchor="middle" style="font-weight:500;font-size:12.3px;fill:#F3EFE6">' + sc.n + '</text><text x="' + ((X(x1) + X(x2)) / 2) + '" y="66" text-anchor="middle" style="fill:#E3E6EE">' + sc.z + '</text>';
+      return r;
+    };
+    let v = '';
+    v += band(0, 6, SCHICHTEN[0], true) + band(22, 24, SCHICHTEN[0], false) + band(6, 14, SCHICHTEN[1], true) + band(14, 22, SCHICHTEN[2], true);
+    // Achse 0 bis 24 Uhr
+    v += '<path d="M4 22H316" stroke="#C9CCD6" stroke-width="1.6"/>';
+    [0, 6, 12, 18, 24].forEach(t => { v += '<path d="M' + X(t) + ' 18V26" stroke="#C9CCD6" stroke-width="1.6"/><text x="' + X(t) + '" y="12" text-anchor="' + (t === 24 ? 'end' : t === 0 ? 'start' : 'middle') + '">' + (t === 24 ? '24 Uhr' : t) + '</text>'; });
+    // Übergaben: gestrichelt, mit wandernden Punkten
+    [6, 14, 22].forEach(t => { v += '<path d="M' + X(t) + ' 24V76" stroke="#F3EFE6" stroke-width="1.8" stroke-dasharray="4 3"/><circle class="b-dot b-fluss iz-uebergabe" style="--c:#F3EFE6;--w:24px" cx="' + (X(t) - 12) + '" cy="35" r="3.5"/>'; });
+    // Beschriftung "Übergabe" an der Grenze, die am weitesten von jetzt entfernt liegt
+    const fern = [6, 14, 22].reduce((a, t) => Math.abs(t - h) > Math.abs(a - h) ? t : a, 6);
+    v += '<text x="' + X(fern) + '" y="92" text-anchor="middle">Übergabe</text>';
+    // Marker jetzt
+    const mx = X(h);
+    v += '<path d="M' + mx.toFixed(1) + ' 22V76" stroke="#F2C46B" stroke-width="2.4"/><circle cx="' + mx.toFixed(1) + '" cy="22" r="4.5" fill="#F2C46B"/>';
+    v += '<text x="' + mx.toFixed(1) + '" y="92" text-anchor="' + (h > 20 ? 'end' : h < 3 ? 'start' : 'middle') + '" style="font-weight:600;fill:#F2C46B">jetzt ' + zeit + '</text>';
+    v += '<text x="160" y="116" text-anchor="middle" style="font-size:13.5px;font-weight:600;fill:#F3EFE6">' + aktiv.n + ' hat Dienst</text>';
+    v += '<text x="160" y="134" text-anchor="middle">Dienst haben zum Beispiel</text><text x="160" y="150" text-anchor="middle">Wasserwerk, Leitstelle, Bahn und Pflege.</text>';
+    v += '<path d="M10 166H34" stroke="#F3EFE6" stroke-width="1.8" stroke-dasharray="4 3"/><text x="40" y="170">gestrichelt: Übergabe an die nächste Schicht</text>';
+    v += '<text x="10" y="188">Beispiel: Schichtzeiten sind angenommen.</text>';
     peopleEl.innerHTML = v;
-    peopleEl.setAttribute('aria-label', 'Es ist ' + zeit + ', die ' + sch + ' ist im Dienst. Die Schichten gehen ohne Lücke ineinander über, bei Infrastruktur gibt es keinen Feierabend.');
+    peopleEl.setAttribute('aria-label', 'Beispiel für drei Schichten auf einer Achse von 0 bis 24 Uhr: Nachtschicht von 22 bis 6, Frühschicht von 6 bis 14, Spätschicht von 14 bis 22. An den Grenzen, gestrichelt dargestellt, wird an die nächste Schicht übergeben. Jetzt ist es ' + zeit + ', die ' + aktiv.n + ' hat Dienst. Dienst haben zum Beispiel Wasserwerk, Leitstelle, Bahn und Pflege. Zu jeder Uhrzeit hat jemand Dienst, deshalb läuft es ohne Pause weiter.');
   }
-  if (peopleEl) werArbeitet();
+  if (peopleEl) { werArbeitet(); setInterval(werArbeitet, 60000); }
 
   // Und du, gerade eben? — keine Wertung, kein Zähler. Nur ein Satz, der sich einreiht.
   const YOU_OPTIONS = [
@@ -4709,7 +4783,6 @@ function personalStrand(label) {
   const fig = document.getElementById('descentFigure');
   if (fig) {
     fig.appendChild(makeFigure('#FFE3B0', 26));
-    fig.classList.add('visible');
   }
 
   // Vier Haltepunkte, an der Scroll-Tiefe des jeweiligen Bandes orientiert — dazwischen
@@ -4734,12 +4807,20 @@ function personalStrand(label) {
     return `rgb(${last[0]},${last[1]},${last[2]})`;
   }
 
+  const toolSec = document.getElementById('tool');
   let ticking = false;
   function update() {
     ticking = false;
     const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const frac = Math.max(0, Math.min(1, window.scrollY / max));
-    if (fig) fig.style.top = `calc(14vh + ${frac * 62}vh)`;
+    if (fig && toolSec) {
+      // Die Begleiterin gehört zum Querschnitt: Fortschritt = Position im Abschnitt tool (0 am Anfang, 1 am Ende).
+      const r = toolSec.getBoundingClientRect(), vh = window.innerHeight;
+      const drin = r.top <= vh * 0.5 && r.bottom >= vh * 0.5;
+      const p = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - vh)));
+      fig.style.top = `calc(14vh + ${p * 62}vh)`;
+      fig.classList.toggle('visible', drin);
+    }
     document.body.style.background = mixAt(frac);
     window.__scrollFrac = frac;
   }
@@ -4923,17 +5004,18 @@ setTimeout(() => {
   function simulate(m) {
     var st = NET.map(function (n) {
       var ages = []; for (var i = 0; i < N; i++) ages.push(Math.round(i * n.life * 0.9 / (N - 1)));
-      return { ages: ages, acc: 0, aus: 0, ern: 0 };
+      return { ages: ages, acc: 0, aus: 0, ern: 0, fresh: ages.map(function () { return false; }) };
     });
     var out = [];
     function snap() {
       out.push(st.map(function (s, k) {
-        var life = NET[k].life, ok = 0, alt = 0, def = 0, cells = [];
+        var life = NET[k].life, ok = 0, alt = 0, def = 0, neu = 0, cells = [];
         s.ages.forEach(function (a) {
           var c = a > life ? 'def' : (a > life * ALT ? 'alt' : 'ok');
-          cells.push(c); if (c === 'def') def++; else if (c === 'alt') alt++; else ok++;
+          if (c === 'ok' && s.fresh[cells.length]) { c = 'neu'; neu++; }
+          cells.push(c); if (c === 'def') def++; else if (c === 'alt') alt++; else if (c === 'ok') ok++;
         });
-        return { cells: cells, ok: ok, alt: alt, def: def, aus: s.aus, ern: s.ern };
+        return { cells: cells, ok: ok, alt: alt, def: def, neu: neu, aus: s.aus, ern: s.ern };
       }));
     }
     snap();
@@ -4943,9 +5025,9 @@ setTimeout(() => {
         for (i = 0; i < N; i++) { s.ages[i]++; if (s.ages[i] === life + 1) s.aus++; }
         function renewOldest() {
           var j = 0; for (i = 1; i < N; i++) if (s.ages[i] > s.ages[j]) j = i;
-          s.ages[j] = 0; s.ern++;
+          s.ages[j] = 0; s.fresh[j] = true; s.ern++;
         }
-        if (m === 'c') { for (i = 0; i < N; i++) if (s.ages[i] > life) { s.ages[i] = 0; s.ern++; } }
+        if (m === 'c') { for (i = 0; i < N; i++) if (s.ages[i] > life) { s.ages[i] = 0; s.fresh[i] = true; s.ern++; } }
         else if (m === 'a' || y > 15) { s.acc += (m === 'a' ? 1.1 * rate : 2 * rate); while (s.acc >= 1) { renewOldest(); s.acc -= 1; } }
       });
       snap();
@@ -4966,7 +5048,7 @@ setTimeout(() => {
     NET.forEach(function (n, k) {
       var d = h[k], root = document.getElementById('instN-' + n.id), cells = root.querySelectorAll('.inst-cell');
       d.cells.forEach(function (c, i) { if (cells[i].getAttribute('data-s') !== c) cells[i].setAttribute('data-s', c); });
-      root.querySelector('.inst-count').textContent = 'in Ordnung ' + d.ok + ', fast am Ende ' + d.alt + ', überfällig ' + d.def + ' von ' + N;
+      root.querySelector('.inst-count').textContent = 'in Ordnung ' + d.ok + ', erneuert ' + d.neu + ', fast am Ende ' + d.alt + ', überfällig ' + d.def + ', zusammen ' + N;
       tot.def += d.def; tot.alt += d.alt; tot.aus += d.aus; tot.ern += d.ern;
     });
     document.getElementById('instYearOut').textContent = year === 0 ? 'heute' : 'Jahr ' + year;
@@ -5007,6 +5089,18 @@ setTimeout(() => {
     play.setAttribute('aria-pressed', 'true'); play.textContent = 'Anhalten';
     timer = setInterval(function () { setYear(year + 1); if (year >= YEARS) { stop(); say(paint(), true); } }, 350);
   });
+  // Der Abschnitt im Bild altert im Zeitraffer: Jahr 0 bis 40, grün, gelb, rot schraffiert, zuletzt gestrichelt (ausgefallen).
+  var iz = document.getElementById('izZeit'), izj = document.getElementById('izJahr');
+  if (iz && izj && !reduce) {
+    var zj = 0;
+    setInterval(function () {
+      var r = iz.getBoundingClientRect();
+      if (document.hidden || r.bottom < 0 || r.top > window.innerHeight) return;
+      zj = (zj + 1) % 41;
+      iz.setAttribute('data-s', zj < 20 ? 'ok' : zj < 30 ? 'alt' : zj < 40 ? 'def' : 'aus');
+      izj.textContent = 'Jahr ' + zj;
+    }, 450);
+  }
   setMode('a');
 })();
 </script>
