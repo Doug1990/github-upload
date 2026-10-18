@@ -22,7 +22,7 @@ for (const w of [1280, 390]) {
       const k = s.querySelector('circle[r="4.5"]'); const kb = k.getBoundingClientRect();
       const achse = [...s.querySelectorAll('text')].filter((e) => /^(0|6|12|18|24 Uhr)$/.test(e.textContent));
       const kx = (kb.left + kb.right) / 2;
-      const x0 = sr.left + 10 * sr.width / 320, x24 = sr.left + 310 * sr.width / 320;
+      const x0 = sr.left + 4 * sr.width / 320, x24 = sr.left + 316 * sr.width / 320;
       const erw = x0 + (${h} + ${m} / 60) / 24 * (x24 - x0);
       for (const e of s.querySelectorAll('text')) { const q = e.getBoundingClientRect(); if (parseFloat(getComputedStyle(e).fontSize) * sr.width / 320 < 12) out.push('Schrift unter 12 px: ' + e.textContent); if (q.left < sr.left - 1 || q.right > sr.right + 1) out.push('Text ragt heraus: ' + e.textContent); }
       return { t, achse: achse.length, kx, erw, out, bander: s.querySelectorAll('rect').length, label: s.getAttribute('aria-label'), q: s.querySelectorAll('path[stroke-dasharray]').length };

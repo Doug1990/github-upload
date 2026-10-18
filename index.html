@@ -297,7 +297,7 @@
   .now-you-chip { font-family: 'IBM Plex Sans', sans-serif; font-size: 12px; padding: 7px 13px; border-radius: 999px; border: 1px solid #4A5166; background: transparent; color: #C7CAD6; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
   .now-you-chip:hover { background: #ffffff0d; }
   .now-you-chip.picked { border-color: #FFE3B0; color: #FFE3B0; background: #FFE3B01a; }
-  .now-you-reply { min-height: 20px; font-size: 12.5px; color: #A9AFC0; margin: 14px 0 0; line-height: 1.6; max-width: 460px; }
+  .now-you-reply { min-height: 20px; font-size: 12.5px; color: #A9AFC0; margin: 14px 0 0; line-height: 1.6; max-width: 100%; text-wrap: pretty; }
 
   /* --- Energie-Turm: ein hoher Scroll-Abschnitt, isometrisch, wenig Text ---- */
   .cube-section {
@@ -471,7 +471,7 @@
   .journey-tab.active { border-color: currentColor; font-weight: 600; background: #ffffff0d; }
   .journey-scene { width: 100%; max-width: min(92vw, 880px); height: auto; display: block; margin: 0 auto; }
   .journey-station { margin: 18px 0 8px; min-height: 76px; }
-  .journey-station-was { display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: #C7CAD6; transition: opacity 0.4s; max-width: 460px; margin-left: auto; margin-right: auto; }
+  .journey-station-was { text-wrap: pretty; display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: #C7CAD6; transition: opacity 0.4s; max-width: 460px; margin-left: auto; margin-right: auto; }
   .journey-chain .jc-was { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .journey-chain.voll { display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .journey-chain.voll .jc-link { display: none; }
@@ -506,7 +506,7 @@
   }
   .shelf-checkout:hover:not(:disabled) { background: #B39DDB1a; }
   .shelf-checkout:disabled { opacity: 0.35; cursor: default; }
-  .shelf-receipt { min-height: 20px; font-size: 12.5px; color: #C9784A; margin: 14px 0 0; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .shelf-receipt { text-wrap: pretty; min-height: 20px; font-size: 12.5px; color: #C9784A; margin: 14px 0 0; line-height: 1.6; max-width: 640px; margin-left: auto; margin-right: auto; }
   .shelf-kette-wrap { max-width: 760px; margin: 22px auto 0; text-align: center; }
   .shelf-kette-t { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; color: #F0EEF4; margin: 0 0 14px; }
   .shelf-kette { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); row-gap: 14px; position: relative; font-family: 'IBM Plex Sans', sans-serif; }
@@ -617,7 +617,7 @@
   }
   .cg-chip:hover { background: #ffffff14; }
   .cg-chip:active { transform: scale(0.96); }
-  .cg-feedback { min-height: 22px; font-size: 13px; color: #8FD9A8; margin: 18px 0 16px; line-height: 1.5; }
+  .cg-feedback { text-wrap: pretty; min-height: 22px; font-size: 13px; color: #8FD9A8; margin: 18px 0 16px; line-height: 1.5; }
   .cg-feedback.miss { color: #E8B98A; }
   .cg-hint { font-size: 11.5px; color: #8E9F92; margin: -6px 0 14px; }
   .cg-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
@@ -810,7 +810,7 @@
   .st-card[data-status="out"], .st-card[data-status="src"] { border-color: #FF8A65; border-width: 2px; padding: 10px 12px; background: #FF8A650f; }
   .st-card[data-status="out"] .st-state, .st-card[data-status="src"] .st-state { color: #FF8A65; }
   .st-card[data-status="out"] h3, .st-card[data-status="src"] h3 { text-decoration: line-through; text-decoration-color: #FF8A65aa; }
-  .stoer-status { min-height: 44px; margin: 0 auto 6px; max-width: 560px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.6; color: #F2C46B; }
+  .stoer-status { text-wrap: pretty; min-height: 44px; margin: 0 auto 6px; max-width: 560px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.6; color: #F2C46B; }
   @media (max-width: 560px) { .stoer { padding: 34px 16px 30px; border-radius: 18px; } .stoer-title { font-size: 20px; } .stoer-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 380px) { .stoer-grid { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .st-card, .stoer-btn { transition: none; } }
@@ -845,7 +845,7 @@
   .inst-time label { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 220px; min-height: 44px; }
   .inst-time input[type=range] { flex: 1; min-height: 44px; accent-color: #F2C46B; }
   .inst-year { min-width: 64px; font-family: 'Fraunces', serif; font-size: 19px; font-variant-numeric: tabular-nums; color: #F3EFE6; }
-  .inst-status { min-height: 48px; margin: 12px auto 0; max-width: 560px; font-size: 13px; line-height: 1.6; color: #F2C46B; text-align: center; font-family: 'IBM Plex Sans', sans-serif; }
+  .inst-status { text-wrap: pretty; min-height: 48px; margin: 12px auto 0; max-width: 640px; font-size: 13px; line-height: 1.6; color: #F2C46B; text-align: center; font-family: 'IBM Plex Sans', sans-serif; }
   .inst-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 10px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #A9AFC0; }
   .inst-legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 6px; vertical-align: -3px; box-sizing: border-box; text-align: center; font-style: normal; font-size: 11px; line-height: 14px; font-weight: 700; color: #0B1220; }
   .inst-legend-bild { font-size: 12.5px; margin: 0 0 18px; }
@@ -3218,17 +3218,17 @@ function playDayChord(counts) {
     const d = new Date(), h = d.getHours() + d.getMinutes() / 60;
     const zeit = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
     const aktiv = SCHICHTEN.find(x => (x.von > x.bis ? (h >= x.von || h < x.bis) : (h >= x.von && h < x.bis)));
-    const X = (t) => 10 + t * 12.5;
+    const X = (t) => 4 + t * 13;
     const band = (x1, x2, sc, text) => {
       const an = sc === aktiv;
       let r = '<rect x="' + X(x1) + '" y="26" width="' + (X(x2) - X(x1)) + '" height="44" rx="4" fill="' + sc.c + '" fill-opacity="' + (an ? 0.6 : 0.25) + '" stroke="' + sc.c + '" stroke-width="' + (an ? 3 : 1.5) + '"/>';
-      if (text) r += '<text x="' + ((X(x1) + X(x2)) / 2) + '" y="52" text-anchor="middle" style="font-weight:500;font-size:12.6px;fill:#F3EFE6">' + sc.n + '</text><text x="' + ((X(x1) + X(x2)) / 2) + '" y="66" text-anchor="middle" style="fill:#E3E6EE">' + sc.z + '</text>';
+      if (text) r += '<text x="' + ((X(x1) + X(x2)) / 2) + '" y="52" text-anchor="middle" style="font-weight:500;font-size:12.3px;fill:#F3EFE6">' + sc.n + '</text><text x="' + ((X(x1) + X(x2)) / 2) + '" y="66" text-anchor="middle" style="fill:#E3E6EE">' + sc.z + '</text>';
       return r;
     };
     let v = '';
     v += band(0, 6, SCHICHTEN[0], true) + band(22, 24, SCHICHTEN[0], false) + band(6, 14, SCHICHTEN[1], true) + band(14, 22, SCHICHTEN[2], true);
     // Achse 0 bis 24 Uhr
-    v += '<path d="M10 22H310" stroke="#C9CCD6" stroke-width="1.6"/>';
+    v += '<path d="M4 22H316" stroke="#C9CCD6" stroke-width="1.6"/>';
     [0, 6, 12, 18, 24].forEach(t => { v += '<path d="M' + X(t) + ' 18V26" stroke="#C9CCD6" stroke-width="1.6"/><text x="' + X(t) + '" y="12" text-anchor="' + (t === 24 ? 'end' : t === 0 ? 'start' : 'middle') + '">' + (t === 24 ? '24 Uhr' : t) + '</text>'; });
     // Übergaben: gestrichelt, mit wandernden Punkten
     [6, 14, 22].forEach(t => { v += '<path d="M' + X(t) + ' 24V76" stroke="#F3EFE6" stroke-width="1.8" stroke-dasharray="4 3"/><circle class="b-dot b-fluss iz-uebergabe" style="--c:#F3EFE6;--w:24px" cx="' + (X(t) - 12) + '" cy="35" r="3.5"/>'; });
