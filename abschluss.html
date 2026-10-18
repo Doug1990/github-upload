@@ -100,9 +100,22 @@
   .nm-kabel path { fill: none; stroke-width: 3; stroke-linecap: round; stroke: #6A7088; }
   .nm-kabel .k-m { stroke-dasharray: 1 5; opacity: .6; }
   .nm-zeile.passt .nm-kabel path { stroke: #7FD9A8; stroke-dasharray: none; opacity: 1; }
-  .nm-zeile.nein .nm-kabel .k-l, .nm-zeile.nein .nm-kabel .k-r { stroke: #FF8A65; }
   .nm-zeile.passt .nm-ok { color: #7FD9A8; } .nm-zeile.passt .nm-b { border-color: #7FD9A8; }
-  .nm-zeile.nein .nm-ok { color: #FF8A65; }
+  .nm-b:focus-visible { outline: 3px solid #F2C46B; outline-offset: 2px; }
+  .nm-zeile.nein .nm-kabel .k-l, .nm-zeile.nein .nm-kabel .k-r { stroke: #6A7088; }
+  .nm-zeile.nein .nm-b { border: 2px dashed #A9AFC0; }
+  .nm-zeile.nein .nm-ok { color: #C7CAD6; }
+  .nm-zeile.passt .nm-b { border-width: 2px; box-shadow: 0 0 0 3px rgba(79,169,177,0.55); }
+  .nm-kabel .ring { fill: none; stroke: #4FA9B1; stroke-width: 2.5; opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .nm-zeile.passt .nm-kabel .ring { opacity: 1; }
+  .nm-zeile.passt.neu .nm-kabel .ring { animation: nmring .6s ease-out both; }
+  @keyframes nmring { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .nm-zeile.passt.neu .nm-kabel .ring { animation: none; } }
+  .nm-fort { display: flex; align-items: center; gap: 12px; }
+  .nm-punkte { display: flex; gap: 8px; flex: none; }
+  .nm-punkte i { width: 16px; height: 16px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7CAD6; position: relative; }
+  .nm-punkte i.ok { background: #E8E6E0; border-color: #E8E6E0; }
+  .nm-punkte i.ok::after { content: ""; position: absolute; left: 4px; top: 1px; width: 3px; height: 7px; border: solid #14161F; border-width: 0 2px 2px 0; transform: rotate(40deg); }
   .nm-stand { margin: 10px 0; color: #F2C46B; max-width: 58ch; }
   .nm-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 12px; }
   .nm-norm { border-color: var(--accent); color: var(--accent); }
@@ -290,12 +303,12 @@
     <p>Teile passen nur bei gleicher Norm. Tippe ein Teil an, um die Variante zu wechseln.</p>
     <div class="nm" id="nm">
       <div class="nm-zeile" data-i="0"><h3>Stecker und Steckdose</h3>
-        <div class="nm-paar"><button type="button" class="nm-b" data-seite="0" aria-label="Stecker wechseln"></button><span class="nm-mitte"><svg class="nm-kabel" width="64" height="24" viewBox="0 0 64 24" aria-hidden="true" focusable="false"><path class="k-l" d="M2 12H24"/><path class="k-r" d="M40 12H62"/><path class="k-m" d="M24 12H40"/></svg><span class="nm-ok" aria-live="polite"></span></span><button type="button" class="nm-b" data-seite="1" aria-label="Steckdose wechseln"></button></div></div>
+        <div class="nm-paar"><button type="button" class="nm-b" data-seite="0" aria-label="Stecker wechseln"></button><span class="nm-mitte"><svg class="nm-kabel" width="64" height="24" viewBox="0 0 64 24" aria-hidden="true" focusable="false"><path class="k-l" d="M2 12H24"/><path class="k-r" d="M40 12H62"/><path class="k-m" d="M24 12H40"/><circle class="ring" cx="32" cy="12" r="10"/></svg><span class="nm-ok"></span></span><button type="button" class="nm-b" data-seite="1" aria-label="Steckdose wechseln"></button></div></div>
       <div class="nm-zeile" data-i="1"><h3>Zug und Gleis</h3>
-        <div class="nm-paar"><button type="button" class="nm-b" data-seite="0" aria-label="Zug wechseln"></button><span class="nm-mitte"><svg class="nm-kabel" width="64" height="24" viewBox="0 0 64 24" aria-hidden="true" focusable="false"><path class="k-l" d="M2 12H24"/><path class="k-r" d="M40 12H62"/><path class="k-m" d="M24 12H40"/></svg><span class="nm-ok" aria-live="polite"></span></span><button type="button" class="nm-b" data-seite="1" aria-label="Gleis wechseln"></button></div></div>
+        <div class="nm-paar"><button type="button" class="nm-b" data-seite="0" aria-label="Zug wechseln"></button><span class="nm-mitte"><svg class="nm-kabel" width="64" height="24" viewBox="0 0 64 24" aria-hidden="true" focusable="false"><path class="k-l" d="M2 12H24"/><path class="k-r" d="M40 12H62"/><path class="k-m" d="M24 12H40"/><circle class="ring" cx="32" cy="12" r="10"/></svg><span class="nm-ok"></span></span><button type="button" class="nm-b" data-seite="1" aria-label="Gleis wechseln"></button></div></div>
       <div class="nm-zeile" data-i="2"><h3>Botenstoff und Rezeptor</h3>
-        <div class="nm-paar"><button type="button" class="nm-b" data-seite="0" aria-label="Botenstoff wechseln"></button><span class="nm-mitte"><svg class="nm-kabel" width="64" height="24" viewBox="0 0 64 24" aria-hidden="true" focusable="false"><path class="k-l" d="M2 12H24"/><path class="k-r" d="M40 12H62"/><path class="k-m" d="M24 12H40"/></svg><span class="nm-ok" aria-live="polite"></span></span><button type="button" class="nm-b" data-seite="1" aria-label="Rezeptor wechseln"></button></div></div>
-      <p class="nm-stand" id="nmStand" aria-live="polite"></p>
+        <div class="nm-paar"><button type="button" class="nm-b" data-seite="0" aria-label="Botenstoff wechseln"></button><span class="nm-mitte"><svg class="nm-kabel" width="64" height="24" viewBox="0 0 64 24" aria-hidden="true" focusable="false"><path class="k-l" d="M2 12H24"/><path class="k-r" d="M40 12H62"/><path class="k-m" d="M24 12H40"/><circle class="ring" cx="32" cy="12" r="10"/></svg><span class="nm-ok"></span></span><button type="button" class="nm-b" data-seite="1" aria-label="Rezeptor wechseln"></button></div></div>
+      <div class="nm-fort"><span class="nm-punkte" aria-hidden="true"><i></i><i></i><i></i></span><p class="nm-stand" id="nmStand" aria-live="polite"></p></div>
       <div class="nm-ctl"><button type="button" class="nm-b nm-norm" id="nmNorm">Norm einführen</button><button type="button" class="nm-b" id="nmMisch">Wieder mischen</button></div>
       <noscript><p>Ohne JavaScript fehlt die Übung. Kern: Stecker, Zug und Botenstoff passen nur zu Steckdose, Gleis und Rezeptor derselben Norm.</p></noscript>
     </div>
@@ -352,25 +365,30 @@
   if (!box) return;
   var zeilen = box.querySelectorAll('.nm-zeile'), stand = [];
   function mischen() { stand = PAARE.map(function (v, i) { return [i % 3, (i + 1) % 3]; }); }
+  var letzte = -1, vorher = [];
   function render() {
-    var passt = 0;
+    var passt = 0, punkte = box.querySelectorAll('.nm-punkte i');
     Array.prototype.forEach.call(zeilen, function (z, i) {
       var v = PAARE[i], s = stand[i], ok = s[0] === s[1];
       var bs = z.querySelectorAll('.nm-b');
       bs[0].textContent = v[s[0]]; bs[1].textContent = v[s[1]];
-      z.querySelector('.nm-ok').textContent = ok ? 'passt' : 'passt nicht';
+      z.querySelector('.nm-ok').textContent = ok ? '\u2713 passt' : '\u2260 passt nicht';
+      z.classList.toggle('neu', ok && !vorher[i]); vorher[i] = ok;
       z.classList.toggle('passt', ok); z.classList.toggle('nein', !ok);
+      punkte[i].classList.toggle('ok', ok);
       if (ok) passt++;
     });
-    document.getElementById('nmStand').textContent = passt + ' von ' + PAARE.length + ' Paaren passen.' + (passt === PAARE.length ? ' Mit einer gemeinsamen Norm lassen sich die Teile tauschen und neu kombinieren.' : ' Die anderen Teile folgen verschiedenen Normen und lassen sich nicht verbinden.');
+    var vor = '';
+    if (letzte >= 0) vor = (stand[letzte][0] === stand[letzte][1] ? 'Richtig. ' : 'Noch nicht. ') + zeilen[letzte].querySelector('h3').textContent + (stand[letzte][0] === stand[letzte][1] ? ' passen zusammen. ' : ' passen nicht zusammen. ');
+    document.getElementById('nmStand').textContent = vor + passt + ' von ' + PAARE.length + ' Paaren passen.' + (passt === PAARE.length ? ' Mit einer gemeinsamen Norm lassen sich die Teile tauschen und neu kombinieren.' : ' Die anderen Teile folgen verschiedenen Normen und lassen sich nicht verbinden.');
   }
   Array.prototype.forEach.call(zeilen, function (z, i) {
     Array.prototype.forEach.call(z.querySelectorAll('.nm-b'), function (b) {
-      b.addEventListener('click', function () { var k = parseInt(b.getAttribute('data-seite'), 10); stand[i][k] = (stand[i][k] + 1) % PAARE[i].length; render(); });
+      b.addEventListener('click', function () { var k = parseInt(b.getAttribute('data-seite'), 10); stand[i][k] = (stand[i][k] + 1) % PAARE[i].length; letzte = i; render(); });
     });
   });
-  document.getElementById('nmNorm').addEventListener('click', function () { stand = PAARE.map(function () { return [0, 0]; }); render(); });
-  document.getElementById('nmMisch').addEventListener('click', function () { mischen(); render(); });
+  document.getElementById('nmNorm').addEventListener('click', function () { stand = PAARE.map(function () { return [0, 0]; }); letzte = -1; render(); });
+  document.getElementById('nmMisch').addEventListener('click', function () { mischen(); letzte = -1; render(); });
   mischen(); render();
 })();
 </script>

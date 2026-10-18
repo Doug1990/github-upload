@@ -38,6 +38,25 @@
   @media (prefers-reduced-motion: reduce) { .rt-lb .fluss { animation: none; } }
   .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .rt.js .rt-h:not(.zeige) { display: none; }
+  .rt-fort { display: flex; align-items: center; gap: 12px; margin: 0 0 16px; color: #C7CAD6; }
+  .rt-punkte { display: flex; gap: 8px; margin: 0; padding: 0; list-style: none; }
+  .rt-punkte li { width: 16px; height: 16px; box-sizing: border-box; border-radius: 50%; border: 2px solid #C7CAD6; background: transparent; position: relative; }
+  .rt-punkte li.ok { background: #E8E6E0; border-color: #E8E6E0; }
+  .rt-punkte li.ok::after { content: ""; position: absolute; left: 4px; top: 1px; width: 3px; height: 7px; border: solid #14161F; border-width: 0 2px 2px 0; transform: rotate(40deg); }
+  .rt-punkte li.jetzt { outline: 2px solid #F2C46B; outline-offset: 2px; }
+  .rt-a.falsch { border: 2px dashed #A9AFC0; color: #C7CAD6; background: transparent; }
+  .rt-a.falsch::before { content: "\2260\00a0"; }
+  .rt-a.richtig::before { content: "\2713\00a0"; }
+  .rt-a.richtig { border-width: 2px; }
+  .rt-b:focus-visible, .rt-loesung summary:focus-visible, .rt h2:focus-visible { outline: 3px solid #F2C46B; outline-offset: 2px; }
+  .rt h2:focus { outline: none; } .rt h2:focus-visible { outline: 3px solid #F2C46B; }
+  .rt.fertig .rt-bild .ic { border-radius: 50%; animation: rtring .6s ease-out both; }
+  .rt.fertig .rt-bild .ic.kult { box-shadow: 0 0 0 3px #D9A64A, 0 0 12px #D9A64A; }
+  .rt.fertig .rt-bild .ic.bio { box-shadow: 0 0 0 3px #7DBB63, 0 0 12px #7DBB63; }
+  .rt-lb .ring { fill: none; stroke-width: 3; opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .rt.fertig .rt-lb .ring { opacity: 1; animation: rtring .6s ease-out both; }
+  @keyframes rtring { from { opacity: 0; transform: scale(.75); } to { opacity: 1; transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) { .rt.fertig .rt-bild .ic, .rt.fertig .rt-lb .ring { animation: none; opacity: 1; transform: none; } }
   .rt-stand { margin: 0 0 16px; color: #F2C46B; max-width: 58ch; }
   .abs-hinkt { margin: 0 0 10px; border: 1px dashed rgba(242,196,107,0.6); border-radius: 10px; padding: 0 14px; }
   .abs-hinkt summary { display: flex; align-items: center; gap: 10px; min-height: 48px; cursor: pointer; color: #F2C46B; font-size: 14px; }
@@ -91,6 +110,7 @@
   </div>
   <h1>Wer bin ich? Und baue deine Stadt</h1>
   <p>Fünf Rätsel, je drei Hinweise. Gesucht: ein Teil in Stadt und Zelle. Nichts wird gespeichert.</p>
+  <div class="rt-fort" id="rtFort" hidden><ol class="rt-punkte" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol><span id="rtFortT"></span></div>
 
   <section class="rt" data-i="0" data-loesung="Kraftwerk">
     <div class="rt-kopf"><h2>Rätsel 1</h2><div class="rt-bild" aria-hidden="true"><svg class="ic kult" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-kraftwerk-s"/></svg><span class="gl"></span><svg class="ic bio" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-mito"/></svg></div></div>
@@ -98,7 +118,8 @@
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Zoll</button><button type="button" class="rt-b rt-a">Müllabfuhr</button></div>
     <p class="rt-fb" aria-live="polite"></p>
-    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Kraftwerk in der Stadt entspricht Mitochondrium in der Zelle. Verbunden durch: Energie." focusable="false"><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-kraftwerk-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-mito" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Kraftwerk</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Mitochondrium</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Energie</text><path d="M80 40H250" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#4FA9B1"/><circle cx="256" cy="40" r="5" fill="#4FA9B1"/></svg><p class="sr-only">Kraftwerk, in der Zelle das Mitochondrium.</p></details>
+    <div class="rt-ctl"><button type="button" class="rt-b rt-weiter" hidden>Weiter</button></div>
+    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Kraftwerk in der Stadt entspricht Mitochondrium in der Zelle. Verbunden durch: Energie." focusable="false"><circle class="ring" cx="34" cy="34" r="33" stroke="#D9A64A"/><circle class="ring" cx="286" cy="34" r="33" stroke="#7DBB63"/><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-kraftwerk-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-mito" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Kraftwerk</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Mitochondrium</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Energie</text><path d="M80 40H250" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#4FA9B1"/><circle cx="256" cy="40" r="5" fill="#4FA9B1"/></svg><p class="sr-only">Kraftwerk, in der Zelle das Mitochondrium.</p></details>
   </section>
   <section class="rt" data-i="1" data-loesung="Archiv">
     <div class="rt-kopf"><h2>Rätsel 2</h2><div class="rt-bild" aria-hidden="true"><svg class="ic kult" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-archiv-s"/></svg><span class="gl"></span><svg class="ic bio" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-dna"/></svg></div></div>
@@ -106,7 +127,8 @@
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Stadtwache</button><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Zoll</button></div>
     <p class="rt-fb" aria-live="polite"></p>
-    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Archiv in der Stadt entspricht DNA in der Zelle. Verbunden durch: Abschrift." focusable="false"><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-archiv-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-dna" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Archiv</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">DNA</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Abschrift</text><path d="M80 40H250" fill="none" stroke="#8590E6" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 6"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#8590E6"/><circle cx="256" cy="40" r="5" fill="#8590E6"/></svg><p class="sr-only">Archiv, in der Zelle die DNA im Zellkern.</p></details>
+    <div class="rt-ctl"><button type="button" class="rt-b rt-weiter" hidden>Weiter</button></div>
+    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Archiv in der Stadt entspricht DNA in der Zelle. Verbunden durch: Abschrift." focusable="false"><circle class="ring" cx="34" cy="34" r="33" stroke="#D9A64A"/><circle class="ring" cx="286" cy="34" r="33" stroke="#7DBB63"/><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-archiv-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-dna" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Archiv</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">DNA</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Abschrift</text><path d="M80 40H250" fill="none" stroke="#8590E6" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 6"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#8590E6"/><circle cx="256" cy="40" r="5" fill="#8590E6"/></svg><p class="sr-only">Archiv, in der Zelle die DNA im Zellkern.</p></details>
   </section>
   <section class="rt" data-i="2" data-loesung="Zoll">
     <div class="rt-kopf"><h2>Rätsel 3</h2><div class="rt-bild" aria-hidden="true"><svg class="ic kult" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-zoll-s"/></svg><span class="gl"></span><svg class="ic bio" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-pore"/></svg></div></div>
@@ -114,7 +136,8 @@
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Zoll</button><button type="button" class="rt-b rt-a">Müllabfuhr</button><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Stadtwache</button></div>
     <p class="rt-fb" aria-live="polite"></p>
-    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Zoll in der Stadt entspricht Kernpore in der Zelle. Verbunden durch: Durchlass." focusable="false"><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-zoll-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-pore" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Zoll</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Kernpore</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Durchlass</text><path d="M80 40H250" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><path d="M140 28V52M190 28V52" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><circle cx="74" cy="40" r="5" fill="#4FA9B1"/><circle cx="256" cy="40" r="5" fill="#4FA9B1"/></svg><p class="sr-only">Zoll, in der Zelle Kernpore und Membran.</p></details>
+    <div class="rt-ctl"><button type="button" class="rt-b rt-weiter" hidden>Weiter</button></div>
+    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Zoll in der Stadt entspricht Kernpore in der Zelle. Verbunden durch: Durchlass." focusable="false"><circle class="ring" cx="34" cy="34" r="33" stroke="#D9A64A"/><circle class="ring" cx="286" cy="34" r="33" stroke="#7DBB63"/><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-zoll-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-pore" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Zoll</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Kernpore</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Durchlass</text><path d="M80 40H250" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><path d="M140 28V52M190 28V52" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><circle cx="74" cy="40" r="5" fill="#4FA9B1"/><circle cx="256" cy="40" r="5" fill="#4FA9B1"/></svg><p class="sr-only">Zoll, in der Zelle Kernpore und Membran.</p></details>
   </section>
   <section class="rt" data-i="3" data-loesung="Müllabfuhr">
     <div class="rt-kopf"><h2>Rätsel 4</h2><div class="rt-bild" aria-hidden="true"><svg class="ic kult" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-muell-s"/></svg><span class="gl"></span><svg class="ic bio" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-lysosom"/></svg></div></div>
@@ -122,7 +145,8 @@
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Müllabfuhr</button><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Zoll</button><button type="button" class="rt-b rt-a">Archiv</button></div>
     <p class="rt-fb" aria-live="polite"></p>
-    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Müllabfuhr in der Stadt entspricht Lysosom in der Zelle. Verbunden durch: Abfall zu Bausteinen." focusable="false"><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-muell-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-lysosom" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Müllabfuhr</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Lysosom</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Abfall zu Bausteinen</text><path d="M80 40H250" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#4FA9B1"/><circle cx="256" cy="40" r="5" fill="#4FA9B1"/></svg><p class="sr-only">Müllabfuhr, in der Zelle das Lysosom.</p></details>
+    <div class="rt-ctl"><button type="button" class="rt-b rt-weiter" hidden>Weiter</button></div>
+    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Müllabfuhr in der Stadt entspricht Lysosom in der Zelle. Verbunden durch: Abfall zu Bausteinen." focusable="false"><circle class="ring" cx="34" cy="34" r="33" stroke="#D9A64A"/><circle class="ring" cx="286" cy="34" r="33" stroke="#7DBB63"/><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-muell-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-lysosom" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Müllabfuhr</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Lysosom</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Abfall zu Bausteinen</text><path d="M80 40H250" fill="none" stroke="#4FA9B1" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#4FA9B1"/><circle cx="256" cy="40" r="5" fill="#4FA9B1"/></svg><p class="sr-only">Müllabfuhr, in der Zelle das Lysosom.</p></details>
   </section>
   <section class="rt" data-i="4" data-loesung="Stadtwache">
     <div class="rt-kopf"><h2>Rätsel 5</h2><div class="rt-bild" aria-hidden="true"><svg class="ic kult" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-wache-s"/></svg><span class="gl"></span><svg class="ic bio" width="48" height="48" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><use href="#i-wache-z"/></svg></div></div>
@@ -130,7 +154,8 @@
     <div class="rt-ctl"><button type="button" class="rt-b rt-mehr">Noch ein Hinweis</button></div>
     <div class="rt-opt" role="group" aria-label="Antwort wählen"><button type="button" class="rt-b rt-a">Stadtwache</button><button type="button" class="rt-b rt-a">Kraftwerk</button><button type="button" class="rt-b rt-a">Archiv</button><button type="button" class="rt-b rt-a">Müllabfuhr</button></div>
     <p class="rt-fb" aria-live="polite"></p>
-    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Stadtwache in der Stadt entspricht Immunsystem im Körper. Verbunden durch: Schutz." focusable="false"><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-wache-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-wache-z" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Stadtwache</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Immunsystem</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Schutz</text><path d="M80 40H250" fill="none" stroke="#D9A64A" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#D9A64A"/><circle cx="256" cy="40" r="5" fill="#D9A64A"/></svg><p class="sr-only">Stadtwache, im Körper das Immunsystem.</p></details>
+    <div class="rt-ctl"><button type="button" class="rt-b rt-weiter" hidden>Weiter</button></div>
+    <details class="rt-loesung"><summary>Lösung</summary><svg class="rt-lb" viewBox="0 0 320 100" role="img" aria-label="Stadtwache in der Stadt entspricht Immunsystem im Körper. Verbunden durch: Schutz." focusable="false"><circle class="ring" cx="34" cy="34" r="33" stroke="#D9A64A"/><circle class="ring" cx="286" cy="34" r="33" stroke="#7DBB63"/><g fill="none" stroke="#D9A64A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-wache-s" x="6" y="6" width="56" height="56"/></g><g fill="none" stroke="#7DBB63" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-wache-z" x="258" y="6" width="56" height="56"/></g><text x="4" y="86" fill="#D9A64A">Stadtwache</text><text x="316" y="86" text-anchor="end" fill="#7DBB63">Immunsystem</text><text x="165" y="26" text-anchor="middle" fill="#E8E6E0">Schutz</text><path d="M80 40H250" fill="none" stroke="#D9A64A" stroke-width="3" stroke-linecap="round"/><path class="fluss" d="M80 40H250"/><circle cx="74" cy="40" r="5" fill="#D9A64A"/><circle cx="256" cy="40" r="5" fill="#D9A64A"/></svg><p class="sr-only">Stadtwache, im Körper das Immunsystem.</p></details>
   </section>
   <section class="bk" id="baukasten">
     <h2>Baue deine Stadt</h2>
@@ -143,7 +168,7 @@
     <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Wo das Bild hinkt</summary><p>Echte Städte haben mehr Abhängigkeiten und mehrere Wege je Bedarf. Hier gelten feste Regeln für sechs Bausteine. Ein Kraftwerk braucht auch Kühlwasser und Fachkräfte.</p></details>
   </section>
 
-  <p class="rt-stand" id="rtStand" aria-live="polite"></p>
+  <p class="rt-stand" id="rtStand"></p>
   <details class="abs-hinkt"><summary><span class="abs-band" aria-hidden="true"></span>Wo das Bild hinkt</summary><p>Eine Zelle hat viele Kraftwerke, ein Archiv ohne Archivar, eine Wache ohne Leitstelle. Die Bilder zeigen nicht den genauen Ablauf.</p></details>
 
   <p>Mehr: <a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a>, <a href="glossar.html">Glossar</a>.</p>
@@ -209,21 +234,46 @@
   'use strict';
   var karten = document.querySelectorAll('.rt');
   if (!karten.length) return;
-  var gewaehlt = {};
+  var gewaehlt = {}, gesamt = karten.length;
+  var fort = document.getElementById('rtFort'), fortT = document.getElementById('rtFortT');
+  var punkte = fort ? fort.querySelectorAll('.rt-punkte li') : [];
+  fort.hidden = false;
+  function anzahl() { return Object.keys(gewaehlt).filter(function (j) { return gewaehlt[j]; }).length; }
+  function fortschritt(aktuell) {
+    Array.prototype.forEach.call(punkte, function (p, j) { p.classList.toggle('ok', !!gewaehlt[j]); p.classList.toggle('jetzt', j === aktuell); });
+    fortT.textContent = 'Rätsel ' + (aktuell + 1) + ' von ' + gesamt;
+    return 'Rätsel ' + (aktuell + 1) + ' von ' + gesamt + '.';
+  }
+  fortschritt(0);
   Array.prototype.forEach.call(karten, function (k, i) {
     k.classList.add('js');
-    var hs = k.querySelectorAll('.rt-h'), n = 1, mehr = k.querySelector('.rt-mehr');
+    var hs = k.querySelectorAll('.rt-h'), n = 1, mehr = k.querySelector('.rt-mehr'), weiter = k.querySelector('.rt-weiter'), fb = k.querySelector('.rt-fb');
     hs[0].classList.add('zeige');
-    mehr.addEventListener('click', function () { if (n < hs.length) { hs[n].classList.add('zeige'); n++; } if (n >= hs.length) mehr.hidden = true; });
+    function naechster() { if (n < hs.length) { hs[n].classList.add('zeige'); n++; } if (n >= hs.length) mehr.hidden = true; return n < hs.length; }
+    mehr.addEventListener('click', function () { naechster(); });
+    weiter.addEventListener('click', function () {
+      var ziel = karten[i + 1] ? karten[i + 1].querySelector('h2') : document.querySelector('#baukasten h2');
+      ziel.setAttribute('tabindex', '-1'); ziel.focus();
+      fortschritt(Math.min(i + 1, gesamt - 1));
+    });
     Array.prototype.forEach.call(k.querySelectorAll('.rt-a'), function (b) {
       b.addEventListener('click', function () {
+        if (k.classList.contains('fertig')) return;
         var ok = b.textContent === k.getAttribute('data-loesung');
-        Array.prototype.forEach.call(k.querySelectorAll('.rt-a'), function (x) { x.classList.remove('richtig', 'falsch'); });
-        b.classList.add(ok ? 'richtig' : 'falsch');
-        gewaehlt[i] = ok; k.classList.toggle('fertig', ok); k.querySelector('.rt-loesung').open = ok;
-        k.querySelector('.rt-fb').textContent = ok ? 'Richtig. Hier ist das Lösungsbild.' : 'Das war es nicht. Probiere eine andere Antwort oder lies den nächsten Hinweis.';
-        var richtig = Object.keys(gewaehlt).filter(function (j) { return gewaehlt[j]; }).length;
-        document.getElementById('rtStand').textContent = richtig === karten.length ? 'Alle fünf gelöst. Das war ein Anstoß, kein Test.' : richtig + ' von ' + karten.length + ' gelöst.';
+        if (ok) {
+          Array.prototype.forEach.call(k.querySelectorAll('.rt-a'), function (x) { x.classList.remove('falsch'); });
+          b.classList.add('richtig');
+          gewaehlt[i] = true; k.classList.add('fertig'); k.querySelector('.rt-loesung').open = true;
+          weiter.hidden = false; weiter.focus();
+          fb.textContent = 'Richtig. Hier ist das Lösungsbild. ' + anzahl() + ' von ' + gesamt + ' Rätseln gelöst.';
+        } else {
+          b.classList.add('falsch');
+          var weitere = n < hs.length; naechster();
+          fb.textContent = weitere ? 'Noch nicht. Nächster Hinweis folgt. ' + fortschritt(i) : 'Noch nicht. Alle Hinweise sind sichtbar. ' + fortschritt(i);
+          b.focus();
+        }
+        fortschritt(i);
+        document.getElementById('rtStand').textContent = anzahl() === gesamt ? 'Alle fünf gelöst. Das war ein Anstoß, kein Test.' : anzahl() + ' von ' + gesamt + ' gelöst.';
       });
     });
   });
