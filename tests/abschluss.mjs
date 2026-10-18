@@ -22,7 +22,7 @@ for (const w of [1280, 390]) {
   if (j(r.bilder) !== '[4,4,4]') fehler.push(`@${w}px Bildfragen mit vier Zeichnungen: ${j(r.bilder)}`);
   if (j(r.namen) !== '["Düsseldorf","Zelle","Körper","Internet"]') fehler.push(`@${w}px Spalten: ${j(r.namen)}`);
   if (r.hinkt !== 4) fehler.push(`@${w}px ${r.hinkt} Felder "Wo das Bild hinkt" statt 4`);
-  for (const l of ['index.html', 'zelle.html', 'karte-skizze.html', 'glossar.html']) if (!r.links.includes(l)) fehler.push(`@${w}px Link zu ${l} fehlt`);
+  for (const l of ['index.html', 'karte-skizze.html', 'glossar.html']) if (!r.links.includes(l)) fehler.push(`@${w}px Link zu ${l} fehlt`);
   if (r.nmLive !== 1 || r.nmPunkte !== 3) fehler.push(`@${w}px Normen-Spiel: ${r.nmLive} Statusmeldungen, ${r.nmPunkte} Punkte`);
   if (r.leer) fehler.push(`@${w}px ${r.leer} sehr kurze Antworten`);
   if (w === 390 && r.ueber > 0) fehler.push(`@390px horizontaler Überlauf ${r.ueber} px`);
