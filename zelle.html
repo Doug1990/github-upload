@@ -1183,6 +1183,7 @@
   .hinkt[open] > summary::after { transform: rotate(-135deg); }
   .hinkt summary:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
   .hinkt-band { flex: none; width: 22px; height: 12px; border-radius: 2px; border: 1px solid rgba(242,196,107,0.75); background: repeating-linear-gradient(135deg, #F2C46B 0 4px, #1A1A14 4px 8px); }
+  .kurz-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .hinkt-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .hinkt-body { padding: 12px 14px 4px; font-size: 13px; line-height: 1.65; color: #C7CAD6; overflow-wrap: break-word; }
   .hinkt-body p { margin: 0 0 10px; }
@@ -2890,7 +2891,23 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   }, { threshold: 0.12 }) : null;
   document.querySelectorAll('.reveal').forEach(function (n) { io ? io.observe(n) : n.classList.add('in'); });
 
+  // Sichtbar der kurze Satz, für Screenreader der volle Satz (versteckt, im selben Element)
+  window.kurzSatz = function (el, kurz, voll) {
+    el.textContent = '';
+    var a = document.createElement('span'); a.setAttribute('aria-hidden', 'true'); a.textContent = kurz;
+    var b = document.createElement('span'); b.className = 'kurz-sr'; b.textContent = voll;
+    el.appendChild(a); el.appendChild(b);
+  };
+
   // --- 1. Zelle als Stadt ---
+  var LIVE_KURZ = {
+    membran: ['Blasen verschmelzen mit der Membran.', 'Lieferwagen verlassen die Stadt durch Tore.'],
+    kern: ['Abschriften wandern zu den Ribosomen.', 'Kopien gehen vom Archiv an die Werkstätten.'],
+    mito: ['ATP geht an Kern und Ribosomen.', 'Strom geht an Archiv und Werkstätten.'],
+    ribosom: ['Ribosomen lesen Abschriften, Eiweiße gehen weiter.', 'Pläne rein, Teile raus ans Paketzentrum.'],
+    golgi: ['Der Golgi sortiert und adressiert.', 'Das Paketzentrum schickt Wagen zu den Toren.'],
+    lyso: ['Zellmüll wird im Lysosom zerlegt.', 'Die Müllabfuhr liefert am Recyclinghof an.']
+  };
   var PARTS = {
     membran: {
       bio: 'Zellmembran', city: 'Stadtgrenze mit Zoll', color: '#7FD9A8',
@@ -3178,7 +3195,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     add('div', 'col city', '<b>In der Stadt</b>' + p.town);
     add('div', 'aha', '→ ' + p.aha);
     document.querySelectorAll('#csvg .part').forEach(function (g) { g.classList.toggle('sel', g.getAttribute('data-part') === curPart); });
-    $('liveCap').textContent = city ? p.liveCity : p.liveBio;
+    window.kurzSatz($('liveCap'), LIVE_KURZ[curPart][city ? 1 : 0], city ? p.liveCity : p.liveBio);
     lblObjs.forEach(function (o) { o.g.classList.toggle('cur', o.part === curPart); });
     ort();
   }
@@ -5114,6 +5131,22 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   var cas = 'in', city = false, step = 0, evN = 0, portrait = false, scale = 1;
 
   // ---- Texte ----
+  var AHA_KURZ = {
+    'in': [
+      ['Eine Wunde lässt einen Eindringling durch.', 'Eine Lücke lässt einen Einbrecher durch.'],
+      ['Die Fresszelle hat geschluckt, ein Ring zeigt Alarm.', 'Die Streife hat zugegriffen, ein Ring zeigt Alarm.'],
+      ['Rauten (Botenstoffe) laufen zum Lymphknoten.', 'Rauten (Funksprüche) laufen zum Treffpunkt.'],
+      ['Y markiert den Eindringling, der Stern bleibt.', 'Y markiert die Einbrecher, der Stern bleibt.'],
+      ['Die Wunde ist zu, nur der Stern bleibt.', 'Die Lücke ist zu, nur der Stern bleibt.']
+    ],
+    self: [
+      ['Alles dicht, kein Eindringling zu sehen.', 'Alles dicht, kein Einbrecher zu sehen.'],
+      ['Eine eigene Zelle ist fälschlich markiert.', 'Ein eigenes Haus ist fälschlich markiert.'],
+      ['Rauten laufen wie bei echtem Alarm.', 'Rauten laufen wie bei echtem Alarm.'],
+      ['Y haftet an eigenen Zellen, der Stern bleibt.', 'Y haftet an eigenen Häusern, der Stern bleibt.'],
+      ['Kreuze markieren beschädigte eigene Zellen.', 'Kreuze markieren beschädigte Häuser.']
+    ]
+  };
   var STEP_NAMES = ['Barriere', 'Alarm', 'Meldung', 'Spezialeinheit', 'Entwarnung'];
   var TXT = {
     'in': [
@@ -5402,7 +5435,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     q('immTitle').textContent = t.title[c];
     q('immCell').textContent = t.cell; q('immTown').textContent = t.town;
     q('immCellMore').textContent = t.cellMore || ''; q('immTownMore').textContent = t.townMore || '';
-    q('immCellMoreBox').hidden = !t.cellMore; q('immTownMoreBox').hidden = !t.townMore; q('immAha').textContent = '→ ' + t.aha[c];
+    q('immCellMoreBox').hidden = !t.cellMore; q('immTownMoreBox').hidden = !t.townMore; window.kurzSatz(q('immAha'), '→ ' + AHA_KURZ[cas][step][c], '→ ' + t.aha[c]);
     q('immStatus').textContent = t.status[c];
     q('immStepN').textContent = (step + 1) + ' von ' + N;
     q('immTarget').textContent = t.target[c];
