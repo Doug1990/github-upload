@@ -879,6 +879,7 @@
   .bild .b-dot { fill: var(--c, #F2C46B); }
   .bild .b-ebene { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-linecap: round; opacity: 0.85; }
   .bild .b-bsp { font-weight: 600; fill: #E8E6E0; }
+  .bild .ld-t { font-size: 14.6px; }
   .bild .b-lbl-fail { fill: #FF8A65; }
   .bild .b-lbl-alt { fill: #4FA9B1; }
   .bild .b-fluss { animation: b-fluss 4.2s linear infinite; }
@@ -897,7 +898,7 @@
   @keyframes b-fluss { 0% { transform: translateX(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateX(var(--w, 200px)); opacity: 0; } }
   @keyframes b-umweg { 0% { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
   @keyframes b-zeit { 0%, 20% { fill: #8FD9A8; } 50% { fill: #F2C46B; } 80%, 100% { fill: #FF8A65; } }
-  @media (prefers-reduced-motion: reduce) { .hero-bild .b-fluss, .now-bild .b-fluss { transform: translateX(var(--w)); } .bild .b-fluss, .bild .kp-fluss, .bild .kost-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
+  @media (prefers-reduced-motion: reduce) { .hero-bild .b-fluss, .now-bild .b-fluss, .landing-bild .b-fluss { transform: translateX(var(--w)); } .bild .b-fluss, .bild .kp-fluss, .bild .kost-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
 
   /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
   .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
@@ -1316,11 +1317,15 @@
 
 <section class="landing" id="landing">
   <svg class="landing-roots" id="landingRoots" viewBox="0 0 400 160" aria-hidden="true"></svg>
-  <svg class="bild" viewBox="0 0 320 60" role="img" aria-label="Eine Linie, auf der Punkte von mehreren unbekannten Menschen zu dir laufen. Von dir geht eine gestrichelte Linie zu jemand anderem.">
-    <path class="b-line" d="M20 30H190"/><path class="b-alt" d="M190 30H300"/>
-    <circle class="b-node" cx="30" cy="12" r="6"/><circle class="b-node" cx="30" cy="30" r="6"/><circle class="b-node" cx="30" cy="48" r="6"/>
-    <circle class="b-node" cx="190" cy="30" r="9"/><circle class="b-node" cx="304" cy="30" r="6"/>
-    <circle class="b-dot b-fluss" style="--w:150px;--c:#F2C46B" cx="36" cy="30" r="4"/><circle class="b-dot b-fluss l2" style="--w:150px;--c:#F2C46B" cx="36" cy="30" r="4"/>
+  <svg class="bild landing-bild" viewBox="0 0 320 100" role="img" aria-label="Links drei Beispielpunkte für die mindestens zehn Leute, die du nicht kennst. Von ihnen laufen Punkte auf einer Linie zu dir, dem großen Kreis. Von dir führt eine gestrichelte Linie zu jemand, der sich auf dich verlässt.">
+    <path class="b-line" d="M20 42H138"/><path class="b-alt" d="M162 42H300"/>
+    <circle class="b-node" cx="14" cy="26" r="6"/><circle class="b-node" cx="14" cy="42" r="6"/><circle class="b-node" cx="14" cy="58" r="6"/>
+    <circle class="b-node" cx="150" cy="42" r="12"/><circle class="b-node" cx="306" cy="42" r="6"/>
+    <circle class="b-dot b-fluss" style="--w:110px;--c:#F2C46B" cx="26" cy="42" r="4"/><circle class="b-dot b-fluss l2" style="--w:110px;--c:#F2C46B" cx="26" cy="42" r="4"/>
+    <text x="150" y="47" text-anchor="middle" class="ld-t" style="font-weight:600;fill:#F3EFE6">Du</text>
+    <text x="231" y="28" text-anchor="middle" class="ld-t">verlässt sich auf dich</text>
+    <text x="320" y="72" text-anchor="end" class="ld-t">jemand</text>
+    <text x="0" y="94" class="ld-t">Leute, die du nicht kennst</text>
   </svg>
   <p class="landing-eyebrow sans" id="landingEyebrow">Bevor du gehst</p>
   <p class="landing-line" id="landingLine1">Heute haben mindestens zehn Leute, die du nicht kennst, dafür gesorgt, dass du das hier lesen kannst.</p>

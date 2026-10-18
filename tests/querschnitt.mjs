@@ -123,6 +123,33 @@ for (const [w, reduce] of [[1280, false], [390, false], [360, false], [390, true
   console.log(`Hero-Grafik ${w} px${reduce ? ' (Reduced Motion)' : ''}: ${r.out.length} Fehler`);
   for (const f of r.out) fehler.push(`Hero-Grafik ${w} px${reduce ? ' reduziert' : ''}: ${f}`);
 }
+
+// Schlussgrafik (#landing): Beschriftungen vorhanden, wirksam mindestens 14 px, ragen nicht heraus und liegen nicht über Linien
+for (const [w, reduce] of [[1280, false], [390, false], [390, true]]) {
+  await b.open('index.html', w, { reduce });
+  await b.ev(`document.querySelector('.landing-bild').scrollIntoView({ behavior: 'instant', block: 'center' })`);
+  await sleep(600);
+  const r = await b.ev(`(() => {
+    const svg = document.querySelector('.landing-bild'); const sr = svg.getBoundingClientRect(); const out = [];
+    const t = [...svg.querySelectorAll('text')]; const s = sr.width / 320;
+    for (const w of ['Du', 'verlässt sich auf dich', 'jemand', 'Leute, die du nicht kennst']) if (!t.some((e) => e.textContent === w)) out.push('Beschriftung fehlt: ' + w);
+    const lin = [...svg.querySelectorAll('path, circle')];
+    for (const e of t) {
+      const q = e.getBoundingClientRect();
+      if (parseFloat(getComputedStyle(e).fontSize) * s < 14) out.push('Schrift unter 14 px wirksam: ' + e.textContent);
+      if (q.left < sr.left - 1 || q.right > sr.right + 1) out.push('Text ragt heraus: ' + e.textContent);
+      if (e.textContent === 'Du') continue;
+      for (const l of lin) { if (l.classList.contains('b-dot')) continue; const o = l.getBoundingClientRect(); if (o.width > 0 && q.right > o.left + 1 && q.left < o.right - 1 && q.bottom > o.top + 1 && q.top < o.bottom - 1) out.push('Text über Linie oder Kreis: ' + e.textContent); }
+    }
+    const d = [...svg.querySelectorAll('.b-fluss')].map((c) => { const q = c.getBoundingClientRect(); return (q.left + q.right) / 2 - sr.left; });
+    return { out, d, s, label: svg.getAttribute('aria-label') };
+  })()`);
+  if (reduce && r.d.some((x) => x < 100 * r.s)) r.out.push('Reduced Motion: Punkte stehen nicht an der Endstelle ' + r.d.map(Math.round));
+  if (!/Beispielpunkte/.test(r.label)) r.out.push('aria-label nennt die Beispielpunkte nicht');
+  console.log(`Schlussgrafik ${w} px${reduce ? ' (Reduced Motion)' : ''}: ${r.out.length} Fehler`);
+  for (const f of r.out) fehler.push(`Schlussgrafik ${w} px${reduce ? ' reduziert' : ''}: ${f}`);
+}
+
 b.close();
 if (fehler.length) { console.error('\nFehler (' + fehler.length + '):\n' + fehler.map((f) => '  X ' + f).join('\n')); process.exit(1); }
 console.log('\nQuerschnitt: keine Fehler.');
