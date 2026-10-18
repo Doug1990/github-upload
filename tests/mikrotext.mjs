@@ -1,12 +1,12 @@
 // Mikrotexte in SVG-Schemata: misst die wirksame Schriftgröße jedes sichtbaren SVG-Textes bei schmaler Breite
 // (Schriftgröße im Bild mal Skalierung der Zeichenfläche), auch nach Klicks (Zustände aus chrome.mjs).
-// Grenze: 11 px. Altlasten stehen in tests/mikrotext-basis.json (je Seite und Zeichenfläche: Anzahl der Texte
+// Grenze: 11,5 px. Altlasten stehen in tests/mikrotext-basis.json (je Seite und Zeichenfläche: Anzahl der Texte
 // unter der Grenze und kleinster Wert). Fehler (Exit-Code 1) gibt es nur, wenn eine Zeichenfläche mehr Texte
 // unter der Grenze hat oder einen kleineren Wert als in der Basis. Wer Altlasten behebt, schreibt die Basis
 // mit --basis-schreiben neu, so wird die Liste Schritt für Schritt kürzer. Ziel ist eine leere Basis.
 // Flächen mit zeitabhängigen Texten (zum Beispiel wechselnde Sätze) bekommen in der Basis einen "spielraum":
 // so viele Texte mehr sind erlaubt, solange der kleinste Wert nicht sinkt.
-// Aufruf: node tests/mikrotext.mjs [--breite=390] [--grenze=11] [--seite=zelle.html] [--ohne-zustaende]
+// Aufruf: node tests/mikrotext.mjs [--breite=390] [--grenze=11.5] [--seite=zelle.html] [--ohne-zustaende]
 //         [--basis-schreiben] [--liste] [--chrome=<pfad>]
 import fs from 'node:fs';
 import path from 'node:path';
@@ -15,7 +15,7 @@ import { start, arg, sleep, zustandsSchritte } from './chrome.mjs';
 
 const BASIS = path.join(path.dirname(fileURLToPath(import.meta.url)), 'mikrotext-basis.json');
 const width = Number(arg('breite') || 390);
-const limit = Number(arg('grenze') || 11);
+const limit = Number(arg('grenze') || 11.5);
 const only = arg('seite');
 const schreiben = process.argv.includes('--basis-schreiben');
 const basis = fs.existsSync(BASIS) ? JSON.parse(fs.readFileSync(BASIS, 'utf8')) : {};

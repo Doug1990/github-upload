@@ -137,7 +137,7 @@
   .cellsvg .part:not(.sel) { opacity: 0.9; }
   /* Nur eine Hervorhebung: ohne :has-Unterstützung bleibt alles voll sichtbar */
   @supports selector(:has(a)) { .cellsvg:has(.part:hover) .part:not(:hover) { opacity: 0.38; } }
-  .cellsvg .lbl { font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; fill: #E4ECE6; stroke: none; }
+  .cellsvg .lbl { font-family: 'IBM Plex Sans', sans-serif; font-size: 16.6px; fill: #E4ECE6; stroke: none; }
   .cellsvg .lblg { transition: opacity 0.3s ease; }
   .cellsvg.zoomed .lblg:not(.cur) { opacity: 0; }
   .cellsvg .pb { display: inline; } .cellsvg .pc { display: none; }
@@ -809,7 +809,7 @@
   .bau-svg.paused .bau-pulse { animation-play-state: paused; }
   @keyframes bauPulse { 0%,100% { transform: scale(0.85); opacity: 0.2; } 50% { transform: scale(1.12); opacity: 0.8; } }
   .bau-svg .bau-pill rect { fill: rgba(10,19,16,0.8); stroke: #3A4A42; transition: stroke 0.3s ease; }
-  .bau-svg .bau-pill text { font-family: 'IBM Plex Sans', sans-serif; font-size: 21px; fill: #E4ECE6; }
+  .bau-svg .bau-pill text { font-family: 'IBM Plex Sans', sans-serif; font-size: 23.2px; fill: #E4ECE6; }
   .bau-svg .is-cur .bau-pill rect { stroke: #7FD9A8; }
   .bau-svg .is-cur .bau-pill text { fill: #7FD9A8; }
   .bau-svg .bau-out { opacity: 0; transition: opacity 0.4s ease; }
@@ -932,9 +932,9 @@
   .fb-svg .fb-st.s-b rect { fill: #4A2F28; stroke: #FF8A65; }
   .fb-svg .fb-st.s-h rect { fill: #2B303A; stroke: #8791A6; stroke-dasharray: 6 5; }
   .fb-svg .fb-t, .fb-svg .fb-d { font-family: 'IBM Plex Sans', sans-serif; text-anchor: middle; }
-  .fb-svg .fb-t { font-size: 22px; fill: #E4ECE6; }
+  .fb-svg .fb-t { font-size: 24.2px; fill: #E4ECE6; }
   .fb-svg .fb-n { font-family: 'IBM Plex Sans', sans-serif; font-size: 30px; font-weight: 600; fill: #E4ECE6; text-anchor: middle; }
-  .fb-svg .fb-d { font-size: 22px; fill: #A9AFC0; }
+  .fb-svg .fb-d { font-size: 24.2px; fill: #A9AFC0; }
   .fb-svg .fb-d.s-b { fill: #FF8A65; }
   .fb-svg .fb-d.s-w { fill: #7FD9A8; }
   .fb-svg .fb-tap { fill: #3A2F18; stroke: #F2C46B; stroke-width: 3; transition: stroke 0.3s ease, fill 0.3s ease; }
@@ -942,7 +942,7 @@
   .fb-svg .fb-tank { fill: none; stroke: #8E7FD6; stroke-width: 3; }
   .fb-svg .fb-fill { fill: #B79CFF; }
   .fb-svg .fb-fbarrow { fill: none; stroke: #F2C46B; stroke-width: 3; stroke-dasharray: 8 7; transition: opacity 0.3s ease; }
-  .fb-svg .fb-fbtxt { font-family: 'IBM Plex Sans', sans-serif; font-size: 22px; fill: #F2C46B; text-anchor: middle; transition: opacity 0.3s ease; }
+  .fb-svg .fb-fbtxt { font-family: 'IBM Plex Sans', sans-serif; font-size: 24.2px; fill: #F2C46B; text-anchor: middle; transition: opacity 0.3s ease; }
   .fb-controls label { min-height: 44px; }
   .fb-controls input[type=range] { min-height: 44px; }
   .fb-controls .btn { min-height: 44px; }
@@ -969,8 +969,8 @@
   .zoll-svg .zoll-leakedge { display: none; }
   .zoll-svg.w-pump .zoll-leakedge { display: inline; }
   .zoll-svg.w-pump .zoll-plug { display: none; }
-  .zoll-svg .zoll-zl { font-family: 'IBM Plex Sans', sans-serif; font-size: 22px; fill: #A9AFC0; }
-  .zoll-svg .zoll-bl { font-family: 'IBM Plex Sans', sans-serif; font-size: 22px; fill: #E4ECE6; }
+  .zoll-svg .zoll-zl { font-family: 'IBM Plex Sans', sans-serif; font-size: 23.2px; fill: #A9AFC0; }
+  .zoll-svg .zoll-bl { font-family: 'IBM Plex Sans', sans-serif; font-size: 23.2px; fill: #E4ECE6; }
   .zoll-svg .zm, .zoll-svg .zoll-badge { display: none; }
   .zoll-svg.w-pore.v-bio .zm-pore-bio, .zoll-svg.w-pump.v-bio .zm-pump-bio, .zoll-svg.w-gate.v-bio .zm-gate-bio,
   .zoll-svg.w-pore.v-city .zm-pore-city, .zoll-svg.w-pump.v-city .zm-pump-city, .zoll-svg.w-gate.v-city .zm-gate-city { display: inline; }
@@ -1093,7 +1093,7 @@
   .aus-svg .s-jam .n-pile { transform: scale(1.25); }
   .aus-svg .s-jam .n-pile rect { fill: #FF8A65; }
   .aus-svg .n-pill rect { fill: rgba(10,19,16,0.82); stroke: #3A4A42; transition: stroke 0.4s ease; }
-  .aus-svg .n-pill text { font-family: 'IBM Plex Sans', sans-serif; font-size: 21px; fill: #E4ECE6; transition: fill 0.4s ease; }
+  .aus-svg .n-pill text { font-family: 'IBM Plex Sans', sans-serif; font-size: 23.2px; fill: #E4ECE6; transition: fill 0.4s ease; }
   .aus-svg .s-out .n-pill rect, .aus-svg .s-jam .n-pill rect { stroke: #FF8A65; }
   .aus-svg .s-out .n-pill text, .aus-svg .s-jam .n-pill text { fill: #FF8A65; }
   .aus-svg .s-low .n-pill text { fill: #A9AFC0; }
@@ -1545,9 +1545,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       <rect id="zUp" x="12" y="30" width="776" height="188" rx="10" fill="#4FC3D9" opacity="0.1"/>
       <rect id="zLow" x="12" y="254" width="776" height="188" rx="10" fill="#4FC3D9" opacity="0.1"/>
       <rect x="16" y="32" width="340" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
-      <text x="28" y="62" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Stausee: viel Gedränge</text>
+      <text x="28" y="62" font-size="30.2" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Stausee: viel Gedränge</text>
       <rect x="16" y="404" width="340" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
-      <text x="28" y="434" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Keller: wenig Gedränge</text>
+      <text x="28" y="434" font-size="30.2" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Keller: wenig Gedränge</text>
       <g id="membrane"></g>
 
       <!-- Pumpe -->
@@ -1555,9 +1555,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
         <rect x="170" y="208" width="60" height="52" rx="12" fill="#6B3F2A" stroke="#F2C46B" stroke-width="3"/>
         <path class="pumparrow" d="M200,252 V218 M188,230 L200,217 L212,230" fill="none" stroke="#F2C46B" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
         <rect x="140" y="166" width="120" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
-        <text x="200" y="196" text-anchor="middle" font-size="28" fill="#F2C46B" font-family="IBM Plex Sans, sans-serif">Pumpe</text>
+        <text x="200" y="196" text-anchor="middle" font-size="30.2" fill="#F2C46B" font-family="IBM Plex Sans, sans-serif">Pumpe</text>
         <rect x="96" y="276" width="208" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
-        <text x="200" y="304" text-anchor="middle" font-size="28" fill="#C9A878" font-family="IBM Plex Sans, sans-serif">Nahrung + O₂</text>
+        <text x="200" y="304" text-anchor="middle" font-size="30.2" fill="#C9A878" font-family="IBM Plex Sans, sans-serif">Nahrung + O₂</text>
         <path d="M200,284 V264" stroke="#C9A878" stroke-width="2" stroke-dasharray="3 4" fill="none"/>
       </g>
 
@@ -1576,9 +1576,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
           <line id="rotbar" x1="-26" y1="0" x2="26" y2="0" stroke="#E8E6E0" stroke-width="5" stroke-linecap="round"/>
         </g>
         <rect x="480" y="344" width="160" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
-        <text x="560" y="372" text-anchor="middle" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">ATP-Fabrik</text>
+        <text x="560" y="372" text-anchor="middle" font-size="30.2" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">ATP-Fabrik</text>
         <rect x="500" y="166" width="120" height="40" rx="8" fill="#0F1A1A" opacity="0.88"/>
-        <text x="560" y="196" text-anchor="middle" font-size="28" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Turbine</text>
+        <text x="560" y="196" text-anchor="middle" font-size="30.2" fill="#9FD8E6" font-family="IBM Plex Sans, sans-serif">Turbine</text>
       </g>
       <g id="floaters"></g>
       <g id="protons"></g>
@@ -1633,23 +1633,23 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
       <g id="fbStacks"></g>
       <rect class="fb-tap" id="fbTap" x="2" y="172" width="64" height="56" rx="10"/>
       <text class="fb-t" x="34" y="196">Roh-</text>
-      <text class="fb-t" x="34" y="219">stoff</text>
-      <text class="fb-d" id="fbTapS" x="34" y="252">läuft</text>
+      <text class="fb-t" x="34" y="222">stoff</text>
+      <text class="fb-d" id="fbTapS" x="34" y="254">läuft</text>
       <g id="fbStations">
-        <g class="fb-st s-s" id="fbSt0"><rect x="110" y="170" width="72" height="60" rx="10"/><text class="fb-t" x="146" y="193">Enzym</text><text class="fb-n" x="146" y="220">1</text></g>
-        <g class="fb-st s-s" id="fbSt1"><rect x="228" y="170" width="72" height="60" rx="10"/><text class="fb-t" x="264" y="193">Enzym</text><text class="fb-n" x="264" y="220">2</text></g>
-        <g class="fb-st s-s" id="fbSt2"><rect x="346" y="170" width="72" height="60" rx="10"/><text class="fb-t" x="382" y="193">Enzym</text><text class="fb-n" x="382" y="220">3</text></g>
-        <g class="fb-st s-s" id="fbSt3"><rect x="464" y="170" width="72" height="60" rx="10"/><text class="fb-t" x="500" y="193">Enzym</text><text class="fb-n" x="500" y="220">4</text></g>
+        <g class="fb-st s-s" id="fbSt0"><rect x="104" y="170" width="84" height="60" rx="10"/><text class="fb-t" x="146" y="190">Enzym</text><text class="fb-n" x="146" y="223">1</text></g>
+        <g class="fb-st s-s" id="fbSt1"><rect x="222" y="170" width="84" height="60" rx="10"/><text class="fb-t" x="264" y="190">Enzym</text><text class="fb-n" x="264" y="223">2</text></g>
+        <g class="fb-st s-s" id="fbSt2"><rect x="340" y="170" width="84" height="60" rx="10"/><text class="fb-t" x="382" y="190">Enzym</text><text class="fb-n" x="382" y="223">3</text></g>
+        <g class="fb-st s-s" id="fbSt3"><rect x="458" y="170" width="84" height="60" rx="10"/><text class="fb-t" x="500" y="190">Enzym</text><text class="fb-n" x="500" y="223">4</text></g>
       </g>
-      <text class="fb-d" id="fbD0" x="146" y="252"></text><text class="fb-d" id="fbR0" x="146" y="274"></text>
-      <text class="fb-d" id="fbD1" x="264" y="252"></text><text class="fb-d" id="fbR1" x="264" y="274"></text>
-      <text class="fb-d" id="fbD2" x="382" y="252"></text><text class="fb-d" id="fbR2" x="382" y="274"></text>
-      <text class="fb-d" id="fbD3" x="500" y="252"></text><text class="fb-d" id="fbR3" x="500" y="274"></text>
+      <text class="fb-d" id="fbD0" x="146" y="252"></text><text class="fb-d" id="fbR0" x="146" y="277"></text>
+      <text class="fb-d" id="fbD1" x="264" y="252"></text><text class="fb-d" id="fbR1" x="264" y="277"></text>
+      <text class="fb-d" id="fbD2" x="382" y="252"></text><text class="fb-d" id="fbR2" x="382" y="277"></text>
+      <text class="fb-d" id="fbD3" x="500" y="252"></text><text class="fb-d" id="fbR3" x="500" y="277"></text>
       <g id="fbTrav"></g>
       <rect class="fb-tank" x="560" y="110" width="64" height="120" rx="8"/>
       <rect class="fb-fill" id="fbFill" x="564" y="226" width="56" height="0" rx="4"/>
       <text class="fb-d" x="592" y="252">End-</text>
-      <text class="fb-d" x="592" y="274">produkt</text>
+      <text class="fb-d" x="592" y="277">produkt</text>
     </svg>
   </div>
   <div class="stats" aria-live="off">
@@ -1678,7 +1678,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     <rect class="kz-tank" x="318" y="96" width="30" height="28" rx="5"/>
     <text class="kz-s" x="202" y="154" text-anchor="middle">langsamste Station</text><text class="kz-s" x="202" y="170" text-anchor="middle">gibt den Takt</text>
     <text class="kz-s kz-gold" x="200" y="26" text-anchor="middle">Endprodukt bremst Station 1</text>
-    <text class="kz-s" x="40" y="190"><tspan class="kz-tz">Zelle:</tspan> Enzym 1 gebremst</text><text class="kz-s" x="220" y="190"><tspan class="kz-ts">Stadt:</tspan> Lager meldet voll</text>
+    <text class="kz-s" x="6" y="190"><tspan class="kz-tz">Zelle:</tspan> Enzym 1 gebremst</text><text class="kz-s" x="354" y="190" text-anchor="end"><tspan class="kz-ts">Stadt:</tspan> Lager meldet voll</text>
   </svg>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Fließband</span></summary><div class="hinkt-body"><p>Ein Fließband hat eine feste Reihenfolge und jemanden, der es plant. In der Zelle bilden die Wege ein Netz, und viele Stoffe gehören zu mehreren Wegen. Ein Enzym reicht keine Teile weiter, es beschleunigt eine Reaktion. Die Kästchen stehen für Milliarden Moleküle, die sich zufällig bewegen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was passiert, wenn zwei Wege dasselbe Enzym brauchen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Sie konkurrieren um das Enzym. Der Weg, der es dringender braucht oder schneller bekommt, setzt sich durch, der andere staut sich.</p></div></details>
   <p class="note">Stark vereinfacht: Die Zahlen sind frei gewählt. Echte Wege haben mehr Stationen und Verzweigungen. Die Warteschlange steht für die Menge an Zwischenprodukt.</p>
@@ -2030,7 +2030,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     </div>
     <p class="status" id="muellStatus" aria-live="polite"></p>
     <svg class="mu-bild" viewBox="0 0 360 230" role="img" aria-labelledby="muBildT"><title id="muBildT">Zeichnung: Oben die Zelle. Abfall fließt zu Lysosomen, Bläschen mit Verdauungsstoffen (Enzymen), und zum Proteasom, das beschädigte Eiweiße einzeln abbaut. Heraus kommen Aminosäuren, die Bausteine der Eiweiße, und werden auf einem gestrichelten Weg neu verbaut. Unten die Stadt: Müll fließt zur Müllabfuhr und zum Recyclinghof, von dort gehen Stoffe zurück in die Nutzung. Steht die Abfuhr still, staut sich der Müll davor.</title>
-<text x="6" y="14" class="mu-z">In der Zelle</text><path d="M44 70 H110 M230 70 H298" class="mu-l mu-lz"/><path d="M320 56 C320 24 30 24 30 56" class="mu-l mu-um mu-lz"/><circle cx="30" cy="70" r="14" class="mu-n"/><rect x="110" y="48" width="120" height="44" rx="9" class="mu-b"/><text x="170" y="68" text-anchor="middle">Lysosom</text><text x="170" y="84" text-anchor="middle">Proteasom</text><circle cx="320" cy="70" r="14" class="mu-n mu-nz"/><circle r="4.5" class="mu-p mu-pz" cx="44" cy="70"/><circle r="4.5" class="mu-p mu-pz p2" cx="44" cy="70"/><text x="30" y="104" text-anchor="middle">Abfall</text><text x="170" y="108" text-anchor="middle">Enzyme zerlegen</text><text x="358" y="104" text-anchor="end">Bausteine,</text><text x="358" y="118" text-anchor="end">etwa Aminosäuren</text><text x="190" y="20" text-anchor="middle">neu verbaut</text>
+<text x="6" y="14" class="mu-z">In der Zelle</text><path d="M44 70 H110 M230 70 H298" class="mu-l mu-lz"/><path d="M320 56 C320 24 30 24 30 56" class="mu-l mu-um mu-lz"/><circle cx="30" cy="70" r="14" class="mu-n"/><rect x="110" y="48" width="120" height="44" rx="9" class="mu-b"/><text x="170" y="68" text-anchor="middle">Lysosom</text><text x="170" y="84" text-anchor="middle">Proteasom</text><circle cx="320" cy="70" r="14" class="mu-n mu-nz"/><circle r="4.5" class="mu-p mu-pz" cx="44" cy="70"/><circle r="4.5" class="mu-p mu-pz p2" cx="44" cy="70"/><text x="30" y="104" text-anchor="middle">Abfall</text><text x="170" y="108" text-anchor="middle">Enzyme zerlegen</text><text x="358" y="104" text-anchor="end">Bausteine,</text><text x="358" y="119.5" text-anchor="end">etwa Aminosäuren</text><text x="190" y="20" text-anchor="middle">neu verbaut</text>
 <text x="6" y="134" class="mu-s">In der Stadt</text><path d="M44 190 H110 M230 190 H298" class="mu-l mu-ls"/><path d="M320 176 C320 144 30 144 30 176" class="mu-l mu-um mu-ls"/><circle cx="30" cy="190" r="14" class="mu-n mu-ns"/><rect x="110" y="168" width="120" height="44" rx="9" class="mu-b mu-bs"/><text x="170" y="195" text-anchor="middle">Müllabfuhr</text><circle cx="320" cy="190" r="14" class="mu-n mu-ns"/><circle r="4.5" class="mu-p mu-ps" cx="44" cy="190"/><circle r="4.5" class="mu-p mu-ps p2" cx="44" cy="190"/><g class="mu-stau"><circle cx="72" cy="190" r="7"/><circle cx="88" cy="190" r="7"/><circle cx="80" cy="177" r="7"/></g><text x="30" y="224" text-anchor="middle">Müll</text><text x="320" y="224" text-anchor="middle">Recyclinghof</text><text x="190" y="140" text-anchor="middle">neu genutzt</text><text x="62" y="224" class="mu-bad">Stau bei Streik</text></svg>
     <p class="bruecke">Auch in der Stadt altert alles: <a href="index.html#instand">Was alt wird, muss erneuert werden</a>.</p>
   </div>
@@ -2055,9 +2055,9 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     <circle class="kz-c1" cx="268" cy="50" r="10"/><path class="kz-fl" d="M282 50 H296"/><circle class="kz-c1" cx="312" cy="38" r="8"/><circle class="kz-c3" cx="332" cy="62" r="8"/>
     <path class="kz-um" d="M346 82 V142 H14 V86"/><path class="kz-pf kz-gold" d="M8 92 L14 84 L20 92"/>
     <text class="kz-t" x="60" y="94" text-anchor="middle">Variation</text><text class="kz-t" x="184" y="94" text-anchor="middle">Auswahl</text><text class="kz-t" x="304" y="94" text-anchor="middle">Vererbung</text>
-    <text class="kz-s" x="60" y="111" text-anchor="middle">Mutation:</text><text class="kz-s" x="60" y="126" text-anchor="middle">Kopierfehler</text>
-    <text class="kz-s" x="184" y="111" text-anchor="middle">wer schlecht</text><text class="kz-s" x="184" y="126" text-anchor="middle">passt, stirbt</text>
-    <text class="kz-s" x="304" y="111" text-anchor="middle">Bauplan</text><text class="kz-s" x="304" y="126" text-anchor="middle">geht weiter</text>
+    <text class="kz-s" x="60" y="111" text-anchor="middle">Mutation:</text><text class="kz-s" x="60" y="127.5" text-anchor="middle">Kopierfehler</text>
+    <text class="kz-s" x="184" y="111" text-anchor="middle">wer schlecht</text><text class="kz-s" x="184" y="127.5" text-anchor="middle">passt, stirbt</text>
+    <text class="kz-s" x="304" y="111" text-anchor="middle">Bauplan</text><text class="kz-s" x="304" y="127.5" text-anchor="middle">geht weiter</text>
     <text class="kz-s kz-dim" x="180" y="160" text-anchor="middle">nächste Generation</text>
     <text class="kz-s" x="180" y="182" text-anchor="middle"><tspan class="kz-ts">Stadt:</tspan> Viertel gebaut, aufgegeben, nachgebaut</text>
   </svg>
@@ -2698,7 +2698,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 
 <style>
   .alt-bild { display: block; width: 100%; max-width: 460px; height: auto; margin: 0 0 10px; }
-  .alt-bild text { font: 13px 'IBM Plex Sans', sans-serif; fill: #C7CAD6; }
+  .alt-bild text { font: 13.6px 'IBM Plex Sans', sans-serif; fill: #C7CAD6; }
   .alt-bild .ab-n { fill: rgba(125,187,99,0.2); stroke: #7DBB63; stroke-width: 2; }
   .alt-bild .ab-l { fill: none; stroke: #7DBB63; stroke-width: 2.5; }
   .alt-bild .ab-um { stroke-dasharray: 6 6; stroke: #D9A64A; }
@@ -2706,7 +2706,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   .alt-bild .ab-p.p2 { animation-delay: -1.6s; }
   @keyframes abFlow { from { transform: translateX(0); opacity: 1; } 85% { opacity: 1; } to { transform: translateX(180px); opacity: 0; } }
   .mu-bild { display: block; width: 100%; max-width: 460px; height: auto; margin: 4px auto 12px; }
-  .mu-bild text { font: 13px 'IBM Plex Sans', sans-serif; fill: #C7CAD6; }
+  .mu-bild text { font: 13.6px 'IBM Plex Sans', sans-serif; fill: #C7CAD6; }
   .mu-bild .mu-z, .mu-bild .mu-s { font: 600 14px 'IBM Plex Sans', sans-serif; letter-spacing: 0.04em; }
   .mu-bild .mu-z { fill: #7DBB63; } .mu-bild .mu-s { fill: #D9A64A; }
   .mu-bild .mu-bad { fill: #FF8A65; }
@@ -2725,7 +2725,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   @media (prefers-reduced-motion: reduce) { .alt-bild .ab-p, .mu-bild .mu-p { animation: none; } .alt-bild .ab-p { transform: translateX(60px); } .alt-bild .ab-p.p2 { transform: translateX(240px); } .mu-bild .mu-p { transform: translateX(22px); } .mu-bild .mu-p.p2 { transform: translateX(210px); } }
   .gen-bild { display: block; width: 100%; max-width: 560px; height: auto; margin: 6px auto 14px; }
   .sb { display: block; width: 100%; max-width: 420px; height: auto; margin: 12px auto 4px; }
-  .sb text { font: 13px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #C7CAD6; }
+  .sb text { font: 13.6px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #C7CAD6; }
   .sb .tag-z { fill: #7DBB63; font-weight: 600; } .sb .tag-s { fill: #D9A64A; font-weight: 600; }
   .sb .l { fill: none; stroke-width: 2.5; stroke-linecap: round; } .sb .z { stroke: #7DBB63; } .sb .s { stroke: #D9A64A; }
   .sb .um { stroke-dasharray: 7 6; } .sb .dim { opacity: 0.4; }
@@ -2759,8 +2759,8 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
   .zb-bild.zb-kopf { max-width: 460px; margin: 4px auto 6px; }
   .zb-bild .zb-t { font: 600 16px 'Fraunces', serif; fill: #E8EAF2; }
   .zb-bild .zb-t.zb-klein { font-size: 14px; }
-  .zb-bild .zb-s, .zb-bild .zb-st { font: 13px 'IBM Plex Sans', sans-serif; fill: #C7CAD6; }
-  .zb-bild .zb-st { font-size: 12px; fill: #E8EAF2; }
+  .zb-bild .zb-s, .zb-bild .zb-st { font: 13.6px 'IBM Plex Sans', sans-serif; fill: #C7CAD6; }
+  .zb-bild .zb-st { font-size: 12.6px; fill: #E8EAF2; }
   .zb-bild .zb-st.zb-dim { fill: #A9AFC0; }
   .zb-bild .zb-bt { font: 600 14px 'IBM Plex Sans', sans-serif; fill: #E8EAF2; }
   .zb-bild .zb-b { stroke-width: 1.5; }
@@ -2817,7 +2817,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
 <style>
   /* Zeichnungen Kraftwerk, Fließband, Evolution, Eiweiß (Präfix kz-) */
   .kz { display: block; width: 100%; max-width: 560px; height: auto; margin: 12px auto; overflow: visible; }
-  .kz text { font: 13px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #C7CAD6; }
+  .kz text { font: 13.6px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; fill: #C7CAD6; }
   .kz .kz-t { font: 600 14px 'IBM Plex Sans', sans-serif; fill: #E8EAF2; } .kz .kz-z { font: 600 15px 'IBM Plex Sans', sans-serif; fill: #E8EAF2; }
   .kz .kz-dim { fill: #A9AFC0; } .kz .kz-gold { fill: #D9A64A; } .kz .kz-tz { fill: #7DBB63; font-weight: 600; } .kz .kz-ts { fill: #D9A64A; font-weight: 600; }
   .kz .kz-ob { fill: rgba(79,169,177,0.2); } .kz .kz-un { fill: rgba(79,169,177,0.07); }
@@ -4767,7 +4767,7 @@ details.wort-vorab > p { margin: 10px 4px 4px; font-size: 13px; line-height: 1.6
     return base.join('');
   }
   function placeLabels() {
-    var fs = 11.5 / scale, h = fs * 1.75, padX = fs * 0.7, vbW = portrait ? 420 : 640;
+    var fs = 12.2 / scale, h = fs * 1.75, padX = fs * 0.7, vbW = portrait ? 420 : 640;
     LBL.forEach(function (l) {
       var txt = lblText(l), on = l.id !== 'send' && l.id !== 'trunk' && txt.indexOf(':') > 0;
       l.text.setAttribute('font-size', fs);
