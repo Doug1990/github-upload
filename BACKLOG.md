@@ -240,6 +240,25 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 - Bauamt mit Kontrollpunkten (#23)
 - Barrierefreiheit (#21): Kontraste, Skip-Link, Tastatur, Tippflächen, Reduced Motion, Fallbacks, Skripte `tests/kontrast.mjs` und `tests/tastatur.mjs`
 
+## Nachtbericht 18. Oktober 2026
+
+**Gemerged (alle nach grüner Prüfung):** #162 Gegenlesen Runde 2 (20 fachliche Befunde in Rätsel, Zelle, Tagesverlauf, Glossar, Karte), #163 Backlog, #164 Skript-Texte (32 Sätze kurz sichtbar, voller Satz für Screenreader), #165 `GESTALTUNG-NEXT.md` (Konzept K2), #166 Nebenseiten mit Fuß, Kopfleiste und og-Tags, #167 Mobil (Ton und Farbschema scrollen mit, Zahlenkacheln zweispaltig, neuer Test `verdeckung`, vorher 130 Verdeckungen, nachher 0), #168 Mikrotexte (247 SVG-Texte unter 12 px bei 390 px auf 0, Testgrenze 11,5 px), #169 Glossar mit Suche und Ebenenfilter (Test `glossar`), #170 Glossar-Legende gleich benannt, #171 Zell-Hero mit sofort sichtbarer Linie und Test `layoutsprung`, #172 Rätsel und Normen mit sichtbarer Rückmeldung. Dazu #160 Tab-Symbol auf allen Seiten.
+
+**Fehler von mir:** In #160 kam der Ordner `the-fixer` versehentlich mit ins Repo (Pfadmuster beim `git add`) und war rund 45 Minuten auf GitHub Pages erreichbar. #161 hat ihn wieder entfernt, jetzt 404. Die Dateien stehen noch in der Git-Historie. Wenn der Inhalt vertraulich ist, bräuchte es ein Neuschreiben der Historie mit Force-Push, das entscheidest du.
+
+**Gemessen, nichts gebaut:** Ladezeit (Punkt 17): alle Seiten unter 150 ms bis zum ersten Bild, kein Auslagern nötig. `visuell` in die CI: lokal 54 Sekunden, aber die Referenzen stammen vom Mac, auf dem Linux-Runner gäbe es Fehlalarme. Links und Anker: alle neun Seiten ohne Fehler. Live-Seite: keine Konsolenfehler, kein Überlauf bei 390 px. Layoutsprung beim Laden: 0,000.
+
+**The Fixer (lokal committet, NICHT gepusht, Repo `Doug1990/the-fixer`):** Level-Durchlauf alle 10 Welten ok (191 Schritte). Fixerin-Zustände: technisch sauber, aber Blick immer nach vorne, sitzt nicht beim Zocken, keine Geste bei Fang und Reparatur (`recherche/qa_fixerin_zustaende.md`). Musik offline gerendert: Spitze höchstens -1,2 dBFS, kein Clipping, Stufen steigen nur flach, Stufe 1 kaum hörbar, Stufe 3 und 4 identisch (`recherche/qa_musik_offline.md`). Grafikkonzept `KONZEPT_GRAFIK.md` mit 12 Punkten. Umgesetzt hinter Flag: `SHOW_HUD_COMPACT` (an), `SHOW_CABLES_BEHIND` (an), `SHOW_FIXER_RIM` (aus), `SHOW_ZOCK_HUD_CLEAR` (an), `SHOW_MAP_COMPACT` (an). Bildrate bei allen unverändert 60 bis 61 fps.
+
+**Offen für Björn (Entscheidungen):**
+- Branch-Schutz für main (Settings, Branches, Pflicht-Check "Prüfen"), Hörprobe der Musik (W3), Geräte-Durchlauf (Punkt 42), Fachtexte gegenlesen.
+- Fixer veröffentlichen? Und das Fixer-Repo pushen?
+- Lichtsaum um die Figur: cremeweiß, Goldton oder gar nicht (einschalten mit `?rim=cream` oder `?rim=gold`). Fixerin: nur spiegeln oder eigene Posen für Sitzen und Reparieren (Vetorecht des Ton-Wächters bei Gesicht und Stereotypen). Seitenband der Plattformen aufhellen oder als Kontrast lassen. Handy-Szene zentrieren. Farbringe an den Abzeichen. Eigene Sonne je Welt.
+- Infra-Konzept: feste Reihenfolge der Reihe und "Weiter" auf allen Seiten; Kopfleiste um Abschluss und Rätsel erweitern; Satz "Diese Seite ist KI-generiert" auch in den Fuß der Nebenseiten; bildhafterer Querschnitt der Startseite; starker Schluss der Reihe; Zelle-Teilleiste; Hell-Schalter; Ton-Knopf am Handy nur oben erreichbar (Alternative: Knopf im Fuß).
+- Zell-Hero: Linie sitzt unter dem Link, die Mitte wirkt leer, Geschmack.
+
+**Merke:** Beim `git add` nur explizite Dateinamen, nie Muster. Ein einmaliger Treffer von `mikrotext` ("Archiv kopiert Pläne", 11,2 px) ließ sich nicht wiederholen.
+
 ## Nachtbericht 17. Oktober 2026
 
 Gemerged (alle nach grüner Prüfung): #145 Backlog-Stand CI, #156 Prüfskripte schneller (Gesamtlauf `--schnell` 1192 auf 808 Sekunden: nicht gelöschter 15-Sekunden-Timer in `chrome.mjs` und feste 2,2 Sekunden in `b.open`), #157 `assets/shared.css` (19 wortgleiche Regeln der sechs kleinen Seiten, berechnete Stile vorher und nachher gleich), #158 visuelle Referenzbilder erneuert (14 Bilder waren rot, weil sich die Seiten gewollt geändert hatten, `visuell` läuft nicht in der CI) und Einschätzung zu Punkt 5 und 17.
