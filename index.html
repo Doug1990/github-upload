@@ -327,7 +327,7 @@
   @keyframes cubeFlowDown { to { stroke-dashoffset: -600; } }
 
   .landing {
-    max-width: min(94vw, 640px); width: 100%; margin: 60px auto 40px; padding: 70px 24px 90px;
+    max-width: min(94vw, 640px); width: 100%; margin: 16px auto 0; padding: 24px 24px 16px;
     text-align: center; position: relative; overflow: visible;
   }
   .landing-roots { display: block; width: 100%; max-width: 340px; height: auto; margin: 0 auto 26px; opacity: 0.55; }
@@ -375,7 +375,8 @@
   .pfad-kurz li a:hover { color: #fff; }
   .pfad-kurz li b { display: block; margin-bottom: 1px; font-weight: 500; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent, #7FD9A8); }
 
-  .pfad-weiter { width: 100%; max-width: 640px; margin: 0 auto; padding: 36px 24px 28px; text-align: center; }
+  .pfad-weiter { width: 100%; max-width: 640px; margin: 0 auto; padding: 28px 24px 28px; text-align: center; }
+  @media (max-width: 560px) { .landing { padding: 16px 24px 8px; } .pfad-weiter { padding-top: 20px; } }
   .pfad-weiter .pfad-weiter-eb { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #929CB0; }
   .pfad-weiter .pfad-weiter-frage { margin: 0 auto 16px; max-width: 460px; font-family: 'Fraunces', Georgia, serif; font-size: clamp(18px, 3vw, 22px); line-height: 1.4; color: #E8E6E0; text-wrap: balance; }
   .pfad-weiter a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid var(--accent, #7FD9A8); border-radius: 999px; color: #E8E6E0; text-decoration: none; font-size: 13.5px; }
@@ -1301,8 +1302,7 @@
 
   <svg class="bild now-bild" id="nowPeople" viewBox="0 0 320 196" role="img" aria-label=""></svg>
   <p class="bruecke sans"><a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a></p>
-  <p class="now-note sans">Hochgerechnet aus Tagesdurchschnitten, keine Live-Daten.</p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, die echte Nutzung schwankt. Eine Zahl für genau diesen Moment oder für dich lässt sich nicht ablesen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wann laufen die Zähler schneller?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Strom und Wasser morgens und abends, Bahnen in Stoßzeiten. Nachts langsamer.</p></div></details>
+  <p class="now-note sans">Hochgerechnet aus Tagesdurchschnitten, keine Live-Daten. Die echte Nutzung schwankt.</p>
 </section>
 
 <section class="cube-section" id="cubeSection">
