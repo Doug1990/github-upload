@@ -15,7 +15,7 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 
 ## Offen, Priorität hoch
 
-2. **CI-Workflow (läuft seit 10. Oktober 2026, `.github/workflows/pruefen.yml`).** Läuft bei Pull Request und Push auf main. Offen nur der Branch-Schutz, siehe Entscheidung 14. Aufwand S.
+2. **CI-Workflow: erledigt (`.github/workflows/pruefen.yml`).** Läuft bei Pull Request und Push auf main. Branch-Schutz seit 18. Oktober 2026 gesetzt: PR-Pflicht ohne Freigabe, Pflicht-Check `pruefen`, Admins nicht gezwungen.
 53. **Prüfskripte schneller und ruhiger machen, Rest 3.** Stand 17. Oktober 2026: Gesamtlauf `--schnell` von 1192 auf 808 Sekunden gesenkt. Ursachen: ein nicht gelöschter 15-Sekunden-Timer in `chrome.mjs` hielt jeden Prozess nach dem Ende noch rund 10 Sekunden am Leben (in jedem der 39 Skripte), und `b.open` wartete fest 2,2 Sekunden (jetzt: auf geladene Seite und Schriften warten, dann 0,5 s). Gemessen auf freiem Rechner, bei Last durch andere Läufe sind die Zeiten wertlos (`ordnung` 600 statt 36 Sekunden). Rest: `check` 180 s, `fliessband` 81, `mikrotext` 77. Das Ziel unter 3 Minuten ist mit Einzeltuning nicht erreichbar, parallele Läufe helfen nicht. Aufwand für den Rest M, Nutzen klein.
 
 ## Offen, Priorität mittel
@@ -40,7 +40,6 @@ Nur diese Punkte kann nur Björn klären. Die Nummern verweisen auf die Details 
 
 | Dringlichkeit | Frage | Details |
 | --- | --- | --- |
-| hoch | Branch-Schutz für main setzen (GitHub, Settings, Branches, Pflicht-Check "Prüfen"). Der Workflow läuft seit 10. Oktober, die Freigabe des Tokens ist erledigt. | 14 |
 | vor Veröffentlichung | Datenschutztexte rechtlich gegenlesen (Schriften, Eingaben bleiben im Browser). Von Björn zurückgestellt, bis die Seite öffentlich geht. | 1, 13 |
 | mittel | Fachtexte gegenlesen: Krankheitsbeispiele im Ausfall-Abschnitt, Zoll, Gene, Immunsystem, Fließband, Dein Tag, "Wo das Bild hinkt". | 17, 22, 24, 28, 31, 33, 37 |
 | mittel | Fachcheck "Dorf oder Stadt": Größenbeispiele, Rechnung, Endosymbiose, Riesenbakterien und kleine Zellen mit Kern. | 46 |
