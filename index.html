@@ -716,6 +716,7 @@
     filter: drop-shadow(0 0 6px #FFE3B099);
   }
   .descent-figure.visible { opacity: 0.85; }
+  @media (prefers-reduced-motion: reduce) { .descent-figure { transition: none; } }
   @media (max-width: 720px) { .descent-figure { display: none; } }
   .hud-btn.muted { color: #8E98AC; }
 
@@ -4733,7 +4734,6 @@ function personalStrand(label) {
   const fig = document.getElementById('descentFigure');
   if (fig) {
     fig.appendChild(makeFigure('#FFE3B0', 26));
-    fig.classList.add('visible');
   }
 
   // Vier Haltepunkte, an der Scroll-Tiefe des jeweiligen Bandes orientiert — dazwischen
@@ -4758,12 +4758,20 @@ function personalStrand(label) {
     return `rgb(${last[0]},${last[1]},${last[2]})`;
   }
 
+  const toolSec = document.getElementById('tool');
   let ticking = false;
   function update() {
     ticking = false;
     const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const frac = Math.max(0, Math.min(1, window.scrollY / max));
-    if (fig) fig.style.top = `calc(14vh + ${frac * 62}vh)`;
+    if (fig && toolSec) {
+      // Die Begleiterin gehört zum Querschnitt: Fortschritt = Position im Abschnitt tool (0 am Anfang, 1 am Ende).
+      const r = toolSec.getBoundingClientRect(), vh = window.innerHeight;
+      const drin = r.top <= vh * 0.5 && r.bottom >= vh * 0.5;
+      const p = Math.max(0, Math.min(1, -r.top / Math.max(1, r.height - vh)));
+      fig.style.top = `calc(14vh + ${p * 62}vh)`;
+      fig.classList.toggle('visible', drin);
+    }
     document.body.style.background = mixAt(frac);
     window.__scrollFrac = frac;
   }
