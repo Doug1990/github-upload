@@ -469,7 +469,13 @@
   .journey-tab:hover { background: #ffffff0a; }
   .journey-tab.active { border-color: currentColor; font-weight: 600; background: #ffffff0d; }
   .journey-scene { width: 100%; max-width: min(92vw, 880px); height: auto; display: block; margin: 0 auto; }
-  .journey-station { margin: 18px 0 8px; min-height: 30px; }
+  .journey-station { margin: 18px 0 8px; min-height: 76px; }
+  .journey-station-was { display: block; margin-top: 4px; font-size: 14px; line-height: 1.5; color: #C7CAD6; transition: opacity 0.4s; max-width: 460px; margin-left: auto; margin-right: auto; }
+  .journey-chain .jc-was { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .journey-chain.voll { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .journey-chain.voll .jc-link { display: none; }
+  .journey-chain.voll .jc-was { position: static; width: auto; height: auto; clip-path: none; white-space: normal; display: block; font-size: 12.5px; color: #C7CAD6; font-weight: 400; }
+  .journey-chain.voll .jc-item { text-align: center; }
   .journey-station-name { font-family: 'Fraunces', serif; font-size: 19px; color: #FFE3B0; letter-spacing: 0.01em; transition: opacity 0.4s; }
   .journey-chain { min-height: 20px; font-size: 12.5px; color: #8E98AC; margin: 0 0 22px; line-height: 1.6; max-width: 520px; margin-left: auto; margin-right: auto; }
   .journey-chain .jc-link { color: #8E98AC; margin: 0 6px; }
@@ -500,20 +506,29 @@
   .shelf-checkout:hover:not(:disabled) { background: #B39DDB1a; }
   .shelf-checkout:disabled { opacity: 0.35; cursor: default; }
   .shelf-receipt { min-height: 20px; font-size: 12.5px; color: #C9784A; margin: 14px 0 0; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto; }
-  .shelf-whispers { position: relative; height: 52px; margin-top: 4px; }
-  .shelf-whisper {
-    position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
-    font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #9C93B8; white-space: nowrap;
-    opacity: 0; animation: whisperDrift 4.5s ease-out forwards;
-  }
-  @keyframes whisperDrift {
-    0% { opacity: 0; transform: translate(-50%, 8px); }
-    12% { opacity: 0.85; }
-    78% { opacity: 0.7; }
-    100% { opacity: 0; transform: translate(-50%, -30px); }
-  }
+  .shelf-kette-wrap { max-width: 760px; margin: 22px auto 0; text-align: center; }
+  .shelf-kette-t { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; color: #F0EEF4; margin: 0 0 14px; }
+  .shelf-kette { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); row-gap: 14px; position: relative; font-family: 'IBM Plex Sans', sans-serif; }
+  .shelf-kette li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 2px; --c: #8E98AC; }
+  .shelf-kette li.sk-kult { --c: #D9A64A; } .shelf-kette li.sk-digi { --c: #8590E6; } .shelf-kette li.sk-phys { --c: #4FA9B1; } .shelf-kette li.sk-bio { --c: #7DBB63; }
+  .shelf-kette li:not(:last-of-type)::before { content: ""; position: absolute; top: 21px; left: 50%; width: 100%; height: 2px; background: #4A5270; }
+  .sk-ico { position: relative; z-index: 1; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--c); background: #1B1630; display: grid; place-items: center; color: var(--c); transition: background .25s, box-shadow .25s, transform .25s; }
+  .sk-ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .sk-name { font-size: 14px; line-height: 1.3; color: #C7CAD6; font-weight: 500; overflow-wrap: anywhere; }
+  .sk-satz { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .shelf-kette li.an .sk-ico { background: var(--c); color: #0B1220; box-shadow: 0 0 0 4px #FFFFFF22, 0 0 16px var(--c); transform: scale(1.12); }
+  .shelf-kette li.an .sk-name { color: #fff; }
+  .sk-punkt { position: absolute; left: 0; top: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #F2C46B; box-shadow: 0 0 0 3px #1B1630, 0 0 10px #F2C46B; opacity: 0; z-index: 2; pointer-events: none; transition: transform .35s ease, opacity .2s; }
+  .sk-punkt.an { opacity: 1; } .sk-punkt.sprung { transition: opacity .2s; }
+  .shelf-kette-satz { min-height: 3.4em; margin: 14px auto 0; max-width: 600px; padding: 10px 16px; border-radius: 12px; background: #120E24; border: 1px solid #3A3452; font-size: 16px; line-height: 1.5; color: #F0EEF4; display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
+  .shelf-kette.alle { grid-template-columns: 1fr; text-align: left; row-gap: 12px; }
+  .shelf-kette.alle li { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 0; }
+  .shelf-kette.alle li:not(:last-of-type)::before { top: 44px; left: 21px; width: 2px; height: calc(100% - 20px); }
+  .shelf-kette.alle .sk-name { font-weight: 600; font-size: 16px; color: #F0EEF4; }
+  .shelf-kette.alle .sk-satz { position: static; width: auto; height: auto; clip-path: none; white-space: normal; flex-basis: calc(100% - 58px); margin-left: 58px; font-size: 16px; line-height: 1.5; color: #F0EEF4; }
+  .shelf-kette-satz.leer { display: none; }
+  @media (max-width: 560px) { .shelf-kette { grid-template-columns: repeat(3, 1fr); } .shelf-kette li:nth-of-type(3)::before { display: none; } .shelf-kette.alle { grid-template-columns: 1fr; } .shelf-kette.alle li:nth-of-type(3)::before { display: block; } }
   @media (max-width: 560px) { .shelf { padding: 34px 16px 26px; border-radius: 18px; } .shelf-title { font-size: 20px; } }
-  @media (max-width: 560px) { .shelf-whisper { left: 50% !important; width: max-content; max-width: 86%; white-space: normal; text-align: center; } }
 
   /* --- Verbindungspfad zwischen den Kacheln: deutlich sichtbare Brücke --- */
   .path-link { display: block; width: 120px; height: 110px; margin: -30px auto -6px; position: relative; z-index: 2; overflow: visible; }
@@ -585,6 +600,14 @@
   .cg-slot.correct { border-color: #8FD9A8; background: #8FD9A814; }
   .cg-slot.wrong { border-color: #E88A8A; background: #E88A8A14; }
   .cg-slot-txt { flex: 1; }
+  .bild.cg-bsp text { font-size: 14.5px; }
+  .cg-legende { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: -10px auto 16px; max-width: 560px; font-size: 13px; line-height: 1.5; color: #B7C4BA; }
+  .cg-lg { display: inline-block; min-width: 22px; padding: 0 4px; margin-right: 4px; border: 2px solid currentColor; border-radius: 6px; text-align: center; font-weight: 700; }
+  .cg-lg.ok { color: #8FD9A8; } .cg-lg.falsch { color: #E88A8A; } .cg-lg.sym { color: #F2C46B; }
+  .cg-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .cg-mark { flex-shrink: 0; align-self: center; min-width: 26px; font-weight: 700; font-size: 16px; text-align: center; }
+  .cg-slot.correct .cg-mark { color: #8FD9A8; } .cg-slot.wrong .cg-mark { color: #E88A8A; }
+  .cg-warum { max-width: 520px; margin: 0 auto 14px; font-size: 14px; line-height: 1.55; color: #E3EAE5; text-wrap: pretty; }
   .cg-slot-zahl { font-size: 11px; color: #8FA895; display: block; margin-top: 1px; }
   .cg-pool { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; max-width: 560px; margin: 0 auto; }
   .cg-chip {
@@ -786,8 +809,6 @@
   .st-card[data-status="out"] .st-state, .st-card[data-status="src"] .st-state { color: #FF8A65; }
   .st-card[data-status="out"] h3, .st-card[data-status="src"] h3 { text-decoration: line-through; text-decoration-color: #FF8A65aa; }
   .stoer-status { min-height: 44px; margin: 0 auto 6px; max-width: 560px; font-family: 'IBM Plex Sans', sans-serif; font-size: 13px; line-height: 1.6; color: #F2C46B; }
-  .stoer-link { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: #A9AFC0; margin: 10px auto 0; max-width: 520px; line-height: 1.7; }
-  .stoer-link a { color: #8FC9D4; }
   @media (max-width: 560px) { .stoer { padding: 34px 16px 30px; border-radius: 18px; } .stoer-title { font-size: 20px; } .stoer-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 380px) { .stoer-grid { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .st-card, .stoer-btn { transition: none; } }
@@ -800,8 +821,6 @@
   .kost-bar { height: 12px; border-radius: 6px; background: #25332C; overflow: hidden; }
   .kost-bar i { display: block; height: 100%; width: 0; background: #F2C46B; transition: width 0.3s; }
   @media (prefers-reduced-motion: reduce) { .kost-bar i { transition: none; } }
-  .bruecke { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: #A9AFC0; margin: 14px auto 0; max-width: 520px; line-height: 1.7; text-align: center; }
-  .bruecke a { color: #8FC9D4; }
   .instand { max-width: min(94vw, 900px); width: 100%; margin: 0 auto; padding: 18px 24px 20px; text-align: center; position: relative; }
   .inst-eyebrow { font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #C9B88A; margin: 0 0 8px; }
   .inst-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 25px; color: #F3EFE6; margin: 0 0 10px; }
@@ -827,8 +846,6 @@
   .inst-status { min-height: 48px; margin: 12px auto 0; max-width: 560px; font-size: 13px; line-height: 1.6; color: #F2C46B; text-align: center; font-family: 'IBM Plex Sans', sans-serif; }
   .inst-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 10px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #A9AFC0; }
   .inst-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -2px; }
-  .inst-link { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: #A9AFC0; margin: 10px auto 0; max-width: 520px; line-height: 1.7; }
-  .inst-link a { color: #8FC9D4; }
   @media (max-width: 560px) { .instand { padding: 34px 16px 30px; border-radius: 18px; } .inst-title { font-size: 20px; } }
   @media (prefers-reduced-motion: reduce) { .inst-cell, .inst-btn { transition: none; } }
 
@@ -851,9 +868,9 @@
   .bild .kost-fluss { animation: kp-fluss 2.2s linear infinite; }
   .bild .kp-fluss { animation: kp-fluss 5s linear infinite; } .bild .kp-fluss.l2 { animation-delay: -2.5s; }
   .bild a { cursor: pointer; outline: none; } .bild .kp-hit { fill: transparent; } .bild .kp-dot { fill: #1B2740; stroke: #F2C46B; stroke-width: 2; }
-  .bild a text { font-size: 14px; fill: #E8E6E0; } .bild a:hover text { fill: #fff; text-decoration: underline; }
+  .bild a text { font-size: 14px; fill: #E8E6E0; } .bild a text.kp-t { font-weight: 600; } .bild a text.kp-k { font-size: 12px; fill: #C7CAD6; } .bild a:hover text { fill: #fff; text-decoration: underline; }
   .bild a:focus-visible .kp-hit { stroke: #F2C46B; stroke-width: 2; } .bild .kp-opt { font-size: 11.5px; fill: #A9AFC0; }
-  @media (max-width: 560px) { .bild text { font-size: 12.7px; } .bild a text { font-size: 14px; } .bild .kp-opt { font-size: 12.6px; } }
+  @media (max-width: 560px) { .bild text { font-size: 12.7px; } .bild a text { font-size: 14px; } .bild a text.kp-k { font-size: 12.7px; } .bild .kp-opt { font-size: 12.6px; } }
   @keyframes kp-fluss { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(var(--h)); opacity: 0; } }
   .bild .b-umweg { animation: b-umweg 4.2s linear infinite; offset-rotate: 0deg; }
   .bild .b-zeit { animation: b-zeit 8s ease-in-out infinite; }
@@ -871,6 +888,20 @@
   .hinkt summary:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
   .hinkt-band { flex: none; width: 22px; height: 12px; border-radius: 2px; border: 1px solid rgba(242,196,107,0.75); background: repeating-linear-gradient(135deg, #F2C46B 0 4px, #1A1A14 4px 8px); }
   .hinkt-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .bruecke { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: #A9AFC0; margin: 14px auto 0; max-width: 520px; line-height: 1.7; text-align: center; }
+  .bruecke a { color: #8FC9D4; }
+  .kost-fest { margin: 4px 0 16px; font-size: 18px; color: #F3EFE6; font-family: 'IBM Plex Sans', sans-serif; }
+  .kost-fest b { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; color: #F2C46B; }
+  .kost-vgl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0 6px; text-align: left; font-family: 'IBM Plex Sans', sans-serif; }
+  .kost-c { border: 1px solid #4A4F5E; border-radius: 12px; padding: 10px 12px; background: #ffffff05; }
+  .kost-c.an { border: 3px solid #F2C46B; padding: 8px 10px; background: #F2C46B14; }
+  .kost-cn { display: block; font-size: 14px; color: #C9CCD6; }
+  .kost-c output { display: block; margin: 2px 0 6px; font-family: 'Fraunces', serif; font-size: 20px; color: #F3EFE6; font-variant-numeric: tabular-nums; }
+  .kost-c .kost-bar { height: 12px; }
+  .kost-sel { display: block; margin-top: 6px; min-height: 20px; font-size: 14px; font-weight: 600; color: #F2C46B; }
+  .kost-vgl-t { margin: 0 0 4px; font-size: 14px; color: #A9AFC0; }
+  @media (max-width: 560px) { .kost-vgl { grid-template-columns: 1fr; } }
+  .inst-cap { font-size: 12.5px; color: #A9AFC0; margin: 14px 0 6px; text-align: center; }
   .hinkt-body { padding: 12px 14px 4px; font-size: 13px; line-height: 1.65; color: #C7CAD6; overflow-wrap: break-word; }
   .hinkt-body p { margin: 0 0 10px; }
   .hinkt-body .hinkt-frage { margin-top: 12px; padding-left: 10px; border-left: 2px solid rgba(242,196,107,0.6); color: #F2C46B; font-weight: 500; }
@@ -900,7 +931,7 @@
   }
   /* Zeilenlänge: Fließtext höchstens etwa 70 Zeichen je Zeile */
   p.note, p.aha, #melStatus, p.alt-txt, p.quorum-txt, p.dorf-calc, p.panel-text, p.now-people, p.now-note, .dorf-ort p, .bau-ort p, .frage-body p, .hinkt-body p, dd, main > p { max-width: 58ch; }
-  p.lead, p.cg-hint, p.inst-lead, p.inst-link, p.bruecke, p.dna-sum, p.pfad-zeile, p.hero-thesis, main > p.note { max-width: 54ch; margin-left: auto; margin-right: auto; }
+  p.lead, p.cg-hint, p.inst-lead, p.bruecke, p.dna-sum, p.pfad-zeile, p.hero-thesis, main > p.note { max-width: 54ch; margin-left: auto; margin-right: auto; }
   @media (max-width: 560px) {
     body p, body li, body dd { font-size: 16px !important; }
     body li { line-height: 1.55; }
@@ -954,7 +985,6 @@
   <nav class="pfad-weg" aria-label="Seiten dieser Reihe">
     <a href="index.html" aria-current="page">Düsseldorf</a>
     <a href="karte-skizze.html">Karte</a>
-    <a href="zelle.html">Zelle</a>
   </nav>
   <p class="pfad-wahl"><span>Wie viel Zeit?</span>
     <a class="pfad-knopf" href="#kurz">In 2 Minuten</a>
@@ -992,17 +1022,16 @@
 
 <aside class="pfad-kurz" id="kurz" aria-labelledby="kurzT">
   <h2 id="kurzT">Das Wichtigste in Kürze</h2>
-  <svg class="bild kp-bild" viewBox="0 0 320 322" role="group" aria-label="Der Weg durch die Seite in sieben Stationen, jede ein Link. Die letzte ist ein Abstecher.">
-    <path class="b-line" d="M24 26V256"/><path class="b-alt" d="M24 256V302"/>
-    <circle class="b-dot kp-fluss" style="--h:230px;--c:#F2C46B" cx="24" cy="26" r="4"/><circle class="b-dot kp-fluss l2" style="--h:230px;--c:#F2C46B" cx="24" cy="26" r="4"/>
-    <a href="#tool" role="link" aria-label="Was hast du heute gemacht?"><rect class="kp-hit" x="0" y="3" width="320" height="46"/><circle class="kp-dot" cx="24" cy="26" r="7"/><text x="48" y="31">Was hast du heute gemacht?</text></a>
-    <a href="#journey" role="link" aria-label="Deine Reise"><rect class="kp-hit" x="0" y="49" width="320" height="46"/><circle class="kp-dot" cx="24" cy="72" r="7"/><text x="48" y="77">Deine Reise</text></a>
-    <a href="#shelfScene" role="link" aria-label="Du gehst einkaufen"><rect class="kp-hit" x="0" y="95" width="320" height="46"/><circle class="kp-dot" cx="24" cy="118" r="7"/><text x="48" y="123">Du gehst einkaufen</text></a>
-    <a href="#chainGame" role="link" aria-label="Was kommt vor was?"><rect class="kp-hit" x="0" y="141" width="320" height="46"/><circle class="kp-dot" cx="24" cy="164" r="7"/><text x="48" y="169">Was kommt vor was?</text></a>
-    <a href="#belonging" role="link" aria-label="Du gehörst dazu"><rect class="kp-hit" x="0" y="187" width="320" height="46"/><circle class="kp-dot" cx="24" cy="210" r="7"/><text x="48" y="215">Du gehörst dazu</text></a>
-    <a href="#now" role="link" aria-label="Es läuft weiter"><rect class="kp-hit" x="0" y="233" width="320" height="46"/><circle class="kp-dot" cx="24" cy="256" r="7"/><text x="48" y="261">Es läuft weiter</text></a>
-    <a href="#cubeSection" role="link" aria-label="Wie Energie unterwegs entsteht"><rect class="kp-hit" x="0" y="279" width="320" height="46"/><circle class="kp-dot" cx="24" cy="302" r="7"/><text x="48" y="307">Wie Energie unterwegs entsteht</text></a>
-    <text class="kp-opt" x="296" y="302" text-anchor="end">optional</text>
+  <svg class="bild kp-bild" viewBox="0 0 320 522" role="group" aria-label="Das Wichtigste in Kürze: sieben Stationen mit je einer Kernaussage, jede ein Link. Die letzte ist ein Abstecher.">
+    <path class="b-line" d="M24 19V389"/><path class="b-alt" d="M24 389V463"/>
+    <circle class="b-dot kp-fluss" style="--h:370px;--c:#F2C46B" cx="24" cy="19" r="4"/><circle class="b-dot kp-fluss l2" style="--h:370px;--c:#F2C46B" cx="24" cy="19" r="4"/>
+    <a href="#tool" role="link" aria-label="Was hast du heute gemacht? Dein Tag hängt an vier Ebenen: Regeln, Daten, Rohre, Körper."><rect class="kp-hit" x="0" y="2" width="320" height="72"/><circle class="kp-dot" cx="24" cy="19" r="7"/><text class="kp-t" x="48" y="24">Was hast du heute gemacht?</text><text class="kp-k" x="48" y="42">Dein Tag hängt an vier Ebenen:</text><text class="kp-k" x="48" y="57">Regeln, Daten, Rohre, Körper.</text></a>
+    <a href="#journey" role="link" aria-label="Deine Reise Wasser, Strom, Bahn, Kita und KI erreichen dich über je fünf Stationen."><rect class="kp-hit" x="0" y="76" width="320" height="72"/><circle class="kp-dot" cx="24" cy="93" r="7"/><text class="kp-t" x="48" y="98">Deine Reise</text><text class="kp-k" x="48" y="116">Wasser, Strom, Bahn, Kita und KI</text><text class="kp-k" x="48" y="131">erreichen dich über je fünf Stationen.</text></a>
+    <a href="#shelfScene" role="link" aria-label="Du gehst einkaufen Hinter jedem Produkt im Regal steht ein Netz von Betrieben."><rect class="kp-hit" x="0" y="150" width="320" height="72"/><circle class="kp-dot" cx="24" cy="167" r="7"/><text class="kp-t" x="48" y="172">Du gehst einkaufen</text><text class="kp-k" x="48" y="190">Hinter jedem Produkt im Regal</text><text class="kp-k" x="48" y="205">steht ein Netz von Betrieben.</text></a>
+    <a href="#chainGame" role="link" aria-label="Was kommt vor was? Alles braucht etwas, das schon da sein muss. Du baust die Kette."><rect class="kp-hit" x="0" y="224" width="320" height="72"/><circle class="kp-dot" cx="24" cy="241" r="7"/><text class="kp-t" x="48" y="246">Was kommt vor was?</text><text class="kp-k" x="48" y="264">Alles braucht etwas, das schon da sein</text><text class="kp-k" x="48" y="279">muss. Du baust die Kette.</text></a>
+    <a href="#belonging" role="link" aria-label="Du gehörst dazu Du wirst von Leitungen getragen und trägst selbst welche mit."><rect class="kp-hit" x="0" y="298" width="320" height="72"/><circle class="kp-dot" cx="24" cy="315" r="7"/><text class="kp-t" x="48" y="320">Du gehörst dazu</text><text class="kp-k" x="48" y="338">Du wirst von Leitungen getragen</text><text class="kp-k" x="48" y="353">und trägst selbst welche mit.</text></a>
+    <a href="#now" role="link" aria-label="Es läuft weiter Während du liest, läuft das Netz weiter, hochgerechnet aus Tagesdurchschnitten."><rect class="kp-hit" x="0" y="372" width="320" height="72"/><circle class="kp-dot" cx="24" cy="389" r="7"/><text class="kp-t" x="48" y="394">Es läuft weiter</text><text class="kp-k" x="48" y="412">Während du liest, läuft das Netz weiter,</text><text class="kp-k" x="48" y="427">hochgerechnet aus Tagesdurchschnitten.</text></a>
+    <a href="#cubeSection" role="link" aria-label="Wie Energie unterwegs entsteht Auf dem Weg kommt Energie an fünf Stationen auf verschiedene Weise dazu."><rect class="kp-hit" x="0" y="446" width="320" height="72"/><circle class="kp-dot" cx="24" cy="463" r="7"/><text class="kp-t" x="48" y="468">Wie Energie unterwegs entsteht</text><text class="kp-k" x="48" y="486">Auf dem Weg kommt Energie an fünf</text><text class="kp-k" x="48" y="501">Stationen auf verschiedene Weise dazu.</text></a>
   </svg>
 </aside>
 
@@ -1071,8 +1100,9 @@
 
   <svg class="journey-scene" id="journeyScene" viewBox="0 0 640 300" role="img" aria-label="Der Weg zu dir, je nach gewählter Kategorie"></svg>
 
-  <div class="journey-station" id="journeyStation">
+  <div class="journey-station" id="journeyStation" aria-live="polite" aria-atomic="true">
     <span class="journey-station-name" id="journeyStationName">Rhein</span>
+    <span class="journey-station-was sans" id="journeyStationWas">Liefert das Rohwasser.</span>
   </div>
   <p class="journey-chain sans" id="journeyChain"></p>
 
@@ -1092,25 +1122,35 @@
   </div>
   <p class="shelf-receipt sans" id="shelfReceipt"></p>
 
-  <div class="shelf-whispers" id="shelfWhispers" aria-hidden="true"></div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehst einkaufen</span></summary><div class="hinkt-body"><p>Der Zettel zeigt Beispiele und keine Rechnung deines Einkaufs. Die leisen Zeilen im Regal sind ausgedacht. Hinter jedem Produkt steht ein Netz von Betrieben.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Was steht hinter deinem letzten Einkauf?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Anbau, Lager, Kühlung, Verpackung, Zahlungstechnik.</p></div></details>
+  <section class="shelf-kette-wrap" aria-labelledby="shelfKetteT">
+    <h3 class="shelf-kette-t" id="shelfKetteT">Was dahinter passiert</h3>
+    <ol class="shelf-kette" id="shelfKette"><li class="sk-digi"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l2-5h10l2 5M3 9h18v10H3zM8 14h8"/></svg></span><span class="sk-name">Kasse</span><span class="sk-satz">Kassensystem lief die ganze Nacht. Strom lief durch, ohne Unterbrechung.</span></li><li class="sk-digi"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 12a8 8 0 0 1-14 5M4 12a8 8 0 0 1 14-5M18 3v4h-4M6 21v-4h4"/></svg></span><span class="sk-name">Nachbestellung</span><span class="sk-satz">Bestand automatisch nachbestellt.</span></li><li class="sk-bio"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-14 14zM5 19l8-8"/></svg></span><span class="sk-name">Hersteller</span><span class="sk-satz">Ware kam aus drei verschiedenen Ländern.</span></li><li class="sk-phys"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 6h12v10H2zM14 9h4l3 3v4h-7"/><circle cx="6.5" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg></span><span class="sk-name">LKW</span><span class="sk-satz">LKW kam um 4:20 Uhr. Die Route der letzten Meile war fertig geplant.</span></li><li class="sk-phys"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v18M4 7.5l16 9M4 16.5l16-9"/></svg></span><span class="sk-name">Lager</span><span class="sk-satz">Jemand hat die Lieferung angenommen, bevor der Laden öffnete. Kühlkette gehalten.</span></li><li class="sk-kult"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4v16M20 4v16M4 9h16M4 15h16"/></svg></span><span class="sk-name">Regal</span><span class="sk-satz">Regal wurde vor Öffnung aufgefüllt. Dafür musste heute niemand extra losfahren.</span></li><span class="sk-punkt" aria-hidden="true"></span></ol>
+    <p class="shelf-kette-satz sans" id="shelfKetteSatz" aria-hidden="true"></p>
+  </section>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehst einkaufen</span></summary><div class="hinkt-body"><p>Der Zettel zeigt Beispiele und keine Rechnung deines Einkaufs. Die Sätze unter dem Regal sind ausgedacht. Hinter jedem Produkt steht ein Netz von Betrieben.</p></div></details>
 </section>
 
 <section class="chaingame" id="chainGame">
   <p class="cg-eyebrow sans">Baue die Kette</p>
   <h2 class="cg-title" id="cgTitle">Was kommt vor was?</h2>
-  <p class="cg-lead sans">Glieder antippen, von oben nach unten.</p>
+  <p class="cg-lead sans">Oben steht, was du direkt nutzt. Je weiter unten, desto weiter liegt es dahinter, bis zum Ursprung oder Grund. Tippe die Glieder in dieser Reihenfolge.</p>
+  <p class="cg-legende sans" aria-label="Legende"><span><b class="cg-lg ok">✓</b> richtiger Platz</span><span><b class="cg-lg falsch">≠</b> falscher Platz</span><span><b class="cg-lg sym">● ■</b> gleiches Symbol: beide gleichzeitig nötig, Reihenfolge egal</span></p>
 
   <div class="cg-slots" id="cgSlots"></div>
-  <svg class="bild" viewBox="0 0 320 84" role="img" aria-label="Regel: Gleiches Symbol (Kreis, Quadrat, Dreieck, Raute) heißt gleichzeitig. Zuerst ein Glied, danach zwei Glieder mit demselben Symbol nebeneinander.">
-    <path class="b-line" d="M40 30H110"/><path class="b-line" d="M110 30C150 30 150 14 190 14"/><path class="b-line" d="M110 30C150 30 150 46 190 46"/>
-    <rect class="b-node" x="28" y="22" width="16" height="16" rx="3"/><rect class="b-node" x="102" y="22" width="16" height="16" rx="3"/><rect class="b-node" x="190" y="6" width="16" height="16" rx="3"/><rect class="b-node" x="190" y="38" width="16" height="16" rx="3"/>
-    <circle class="b-dot b-fluss" style="--w:70px;--c:#F2C46B" cx="46" cy="30" r="4"/><circle class="b-dot b-fluss l2" style="--w:70px;--c:#F2C46B" cx="46" cy="30" r="4"/>
-    <text x="36" y="72" text-anchor="middle">zuerst</text><text x="110" y="72" text-anchor="middle">danach</text><text x="222" y="34">gleiches Symbol:</text><text x="222" y="50">gleichzeitig</text>
+  <svg class="bild cg-bsp" viewBox="0 0 320 140" role="img" aria-label="Beispiel Kaffee kochen: Zuerst stehen Wasser und Strom, beide mit dem Symbol Kreis. Sie sind gleichzeitig nötig, ihre Reihenfolge ist egal. Danach folgt die Bohne, zuletzt Koffein.">
+    <text x="42" y="14" text-anchor="middle">zuerst</text><text x="152" y="14" text-anchor="middle">danach</text><text x="266" y="14" text-anchor="middle">zuletzt</text>
+    <rect class="b-node" x="2" y="22" width="80" height="28" rx="6"/><text x="12" y="41">● Wasser</text>
+    <rect class="b-node" x="2" y="56" width="80" height="28" rx="6"/><text x="12" y="75">● Strom</text>
+    <rect class="b-node" x="114" y="39" width="76" height="28" rx="6"/><text x="152" y="58" text-anchor="middle">Bohne</text>
+    <rect class="b-node" x="228" y="39" width="76" height="28" rx="6"/><text x="266" y="58" text-anchor="middle">Koffein</text>
+    <path class="b-line" d="M84 53H110M104 48L110 53L104 58"/><path class="b-line" d="M192 53H224M218 48L224 53L218 58"/>
+    <path class="b-alt" d="M88 30V76"/>
+    <text x="0" y="108">● gleiches Symbol: Wasser und Strom</text><text x="0" y="126">sind gleichzeitig nötig, Reihenfolge egal.</text>
   </svg>
   <div class="cg-pool" id="cgPool"></div>
 
   <p class="cg-feedback sans" id="cgFeedback"></p>
+  <p class="cg-warum sans" id="cgWarum" hidden></p>
   <p class="cg-hint sans">Platz erneut antippen: zurück.</p>
   <div class="cg-actions">
     <button class="cg-btn" id="cgRetry">↺ Nochmal versuchen</button>
@@ -1169,7 +1209,6 @@
   <div class="stoer-bar" id="stoerBar" role="group" aria-label="Leitung abschalten"></div>
   <div class="stoer-grid" id="stoerGrid"></div>
   <p class="stoer-status" id="stoerStatus" aria-live="polite"></p>
-  <p class="stoer-link sans">Auch in der Zelle, ohne Leitstelle: <a href="zelle.html#ausfall">Fällt eine Stelle aus, merkt es der Rest</a>.</p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Wenn es hakt</span></summary><div class="hinkt-body"><p>Echte Netze sind vielfach abgesichert, und Menschen schalten um und priorisieren. Der Dominoeffekt ist zugespitzt, die Karten zeigen keinen Zustand echter Anlagen. Krankenhäuser sind besonders gut abgesichert.</p><p>Die Abhängigkeiten sind Beispiele ohne Betriebsdaten aus Düsseldorf. Wie lange Ersatz trägt, hängt von Vorrat, Wetter und Einsatz ab. Nach Tagen reicht er irgendwann nicht mehr.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet, wer zuerst wieder Strom bekommt?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Notfallpläne der Netzbetreiber und der Stadt. Krankenhäuser stehen meist vorn.</p></div></details>
 </section>
 
@@ -1204,21 +1243,16 @@
   </div>
   <div class="inst-legend"><span><i style="background:#8FD9A8"></i>in Ordnung</span><span><i style="background:#F2C46B"></i>fast am Ende</span><span><i style="background:repeating-linear-gradient(135deg,#FF8A65 0 3px,#2A1814 3px 6px)"></i>überfällig, ausgefallen</span></div>
   <p class="inst-status" id="instStatus" aria-live="polite"></p>
-  <p class="inst-link sans">Die Zelle baut ständig um, ohne Plan: <a href="zelle.html#muell">Was liegen bleibt, stört</a>.</p>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer. In Zellen läuft der Umbau ständig, ohne Plan und ohne Kasse: Eiweiße werden nach Minuten bis Wochen abgebaut und neu gebaut.</p><p>Echte Netze werden nach Zustand und Risiko erneuert. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt. Es gibt zwanzig Abschnitte je Netz, das älteste Stück kommt zuerst dran.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet, welches Rohr zuerst dran ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Betreiber, nach Alter, Zustand und Schäden.</p></div></details>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer.</p><p>Echte Netze werden nach Zustand und Risiko erneuert. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt. Es gibt zwanzig Abschnitte je Netz, das älteste Stück kommt zuerst dran.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet, welches Rohr zuerst dran ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Betreiber, nach Alter, Zustand und Schäden.</p></div></details>
 </section>
 
 <section class="instand kosten" id="kosten">
   <p class="inst-eyebrow sans">Kosten</p>
   <h2 class="inst-title">Jemand muss es bezahlen.</h2>
-  <p class="inst-lead sans">Feste Kosten. Nutzende schieben, Zahler wählen.</p>
-  <svg class="bild" viewBox="0 0 320 88" role="img" aria-label="Eine feste Summe pro Jahr fließt in fünf Leitungen zu den Nutzenden und teilt sich auf.">
-    <rect class="b-node" x="8" y="26" width="96" height="36" rx="8"/><text x="56" y="48" text-anchor="middle">Jahreskosten</text>
-    <path class="b-line" opacity="0.55" d="M104 44C170 44 170 12 238 12"/><path class="b-line" opacity="0.55" d="M104 44C170 44 170 28 238 28"/><path class="b-line" opacity="0.55" d="M104 44C170 44 170 44 238 44"/><path class="b-line" opacity="0.55" d="M104 44C170 44 170 60 238 60"/><path class="b-line" opacity="0.55" d="M104 44C170 44 170 76 238 76"/><circle class="b-node" cx="248" cy="12" r="6"/><circle class="b-node" cx="248" cy="28" r="6"/><circle class="b-node" cx="248" cy="44" r="6"/><circle class="b-node" cx="248" cy="60" r="6"/><circle class="b-node" cx="248" cy="76" r="6"/><circle class="b-dot b-umweg" style="--c:#F2C46B;animation-duration:3.6s;animation-delay:-0s;offset-path:path('M104 44C170 44 170 12 238 12')" cx="0" cy="0" r="3.5"/><circle class="b-dot b-umweg" style="--c:#F2C46B;animation-duration:4s;animation-delay:-0.7s;offset-path:path('M104 44C170 44 170 28 238 28')" cx="0" cy="0" r="3.5"/><circle class="b-dot b-umweg" style="--c:#F2C46B;animation-duration:4.4s;animation-delay:-1.4s;offset-path:path('M104 44C170 44 170 44 238 44')" cx="0" cy="0" r="3.5"/><circle class="b-dot b-umweg" style="--c:#F2C46B;animation-duration:4.800000000000001s;animation-delay:-2.0999999999999996s;offset-path:path('M104 44C170 44 170 60 238 60')" cx="0" cy="0" r="3.5"/><circle class="b-dot b-umweg" style="--c:#F2C46B;animation-duration:5.2s;animation-delay:-2.8s;offset-path:path('M104 44C170 44 170 76 238 76')" cx="0" cy="0" r="3.5"/>
-    <text x="262" y="48">Nutzende</text>
-  </svg>
-  <div class="inst-seg" id="kostSeg" role="group" aria-label="Wie wird bezahlt?"></div>
-  <svg class="bild" id="kostViz" viewBox="0 0 320 112" role="img" aria-label=""></svg>
+  <p class="kost-fest" id="kostFest"><span>Feste Kosten:</span> <b id="kostSumme">480 Mio. € im Jahr</b></p>
+  <p class="inst-cap sans" id="kostSegT">Wer zahlt?</p>
+  <div class="inst-seg" id="kostSeg" role="group" aria-labelledby="kostSegT"></div>
+  <svg class="bild" id="kostViz" viewBox="0 0 320 124" role="img" aria-label=""></svg>
   <div class="inst-panel" id="kostPanel">
     <div id="kostRows"></div>
     <div class="inst-time">
@@ -1226,6 +1260,8 @@
       <span class="inst-year" id="kostNO">60 %</span>
     </div>
   </div>
+  <div class="kost-vgl" id="kostVgl" role="group" aria-label="Die drei Zahlwege im Vergleich bei dem eingestellten Anteil"></div>
+  <p class="kost-vgl-t sans">je zahlender Person im Jahr, alle drei Netze zusammen</p>
   <p class="inst-status" id="kostStatus" aria-live="polite"></p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Kosten</span></summary><div class="hinkt-body"><p>Echte Kosten hängen an Gelände, Alter, Bauweise und Politik. Die Beträge sind frei gewählte Beispielwerte für 620.000 Einwohner, keine Gebühren oder Preise aus Düsseldorf.</p><p>Die drei Zahlungswege mischen sich in der Praxis: Eine Straßenbahn zahlen Fahrkarten und Steuern.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer zahlt, wenn kaum jemand etwas nutzt, das alle brauchen?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Meist alle über Steuern, etwa bei der Feuerwehr.</p></div></details>
 </section>
@@ -1243,7 +1279,6 @@
   </div>
 
   <svg class="bild" id="nowPeople" viewBox="0 0 320 84" role="img" aria-label=""></svg>
-  <p class="bruecke sans"><a href="zelle.html#alt">Wer prüft die Rohre, wer die DNA?</a></p>
   <p class="bruecke sans"><a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a></p>
   <p class="now-note sans">Hochgerechnet aus Tagesdurchschnitten, keine Live-Daten.</p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, die echte Nutzung schwankt. Eine Zahl für genau diesen Moment oder für dich lässt sich nicht ablesen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wann laufen die Zähler schneller?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Strom und Wasser morgens und abends, Bahnen in Stoßzeiten. Nachts langsamer.</p></div></details>
@@ -1447,7 +1482,7 @@ const ACTIVITIES = [
       { ebene: "phys", ding: "Der LKW, der nachts geliefert hat", zahl: "Vor Ladenöffnung, während du geschlafen hast", tier: 0 },
       { ebene: "phys", ding: "Die Kühlkette davor", zahl: "Lückenlos, vom Erzeuger bis ins Regal", tier: 0 },
       { ebene: "digi", ding: "Das Bezahlsystem an der Kasse", zahl: "Sekunden zwischen Karte und Freigabe" },
-      { ebene: "bio", ding: "Was davon dein Körper braucht", zahl: "Der älteste Grund für die Kette" },
+      { ebene: "bio", ding: "Was davon dein Körper braucht", zahl: "Hunger ist der Grund für die ganze Kette" },
     ] },
   { id: 'radfahren', label: 'Radfahren', accent: '#8FD9A8', connects: ['phys', 'bio', 'kult'],
     text: 'Straßen und Radwege sind die physische Grundlage, biologisch geht es um Bewegung und Gesundheit. Kulturell zeigt der Radverkehr, wem eine Stadt wie viel Platz gibt.',
@@ -1492,7 +1527,7 @@ const ACTIVITIES = [
       { ebene: "phys", ding: "Das Wasser aus dem Hahn", zahl: "Zu großen Teilen gefiltertes Rheinwasser", traeger: "Stadtwerke Düsseldorf", quelleUrl: "https://www.swd-ag.de/magazin/der-weg-des-trinkwassers/", tier: 1 },
       { ebene: "phys", ding: "Der Strom für die Maschine", zahl: "Aus einem Netz, das sekundengenau ausbalanciert wird", traeger: "Stadtwerke Düsseldorf", tier: 1 },
       { ebene: "digi", ding: "Die Lieferkette der Bohne", zahl: "Von einem anderen Kontinent, digital abgewickelt", tier: 2 },
-      { ebene: "bio", ding: "Was Koffein in dir tut", zahl: "Der biologische Grund für alles davor", tier: 3 },
+      { ebene: "bio", ding: "Was Koffein in dir tut", zahl: "Es macht dich wach, dafür kochst du Kaffee", tier: 3 },
     ] },
   { id: 'kita', label: 'Kind in die Kita bringen', accent: '#E0A458', connects: ['kult', 'phys', 'digi', 'bio'],
     typ: 'gefuege',
@@ -3214,7 +3249,7 @@ function playDayChord(counts) {
     wasser: ['betreuung'],
     netz: [],
     betreuung: [],
-    gebuehren: [], steuern: ['wege'], umlage: ['betreuung'], arbeit: [], mitmachen: [],
+    gebuehren: ['wasser', 'energie', 'netz'], steuern: ['wege'], umlage: ['betreuung'], arbeit: [], mitmachen: [],
   };
 
   const cascadedBy = {}; // id -> Set der Ursachen-IDs, die diese Leitung gerade mit ausfallen lassen
@@ -3563,13 +3598,15 @@ document.getElementById('packApply').addEventListener('click', () => {
 (function journeyScene() {
   const svg = document.getElementById('journeyScene');
   const nameEl = document.getElementById('journeyStationName');
+  const wasEl = document.getElementById('journeyStationWas');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const chainEl = document.getElementById('journeyChain');
   const btn = document.getElementById('journeyBtn');
   const tabsEl = document.getElementById('journeyTabs');
   if (!svg || !btn || !tabsEl) return;
 
   // Baut die Kette unten Station für Station auf — am Ende steht der ganze Weg da.
-  function addToChain(name, isLast) {
+  function addToChain(name, isLast, was) {
     if (!chainEl) return;
     const cur = chainEl.querySelector('.jc-cur');
     if (cur) cur.classList.remove('jc-cur');
@@ -3581,46 +3618,56 @@ document.getElementById('packApply').addEventListener('click', () => {
       chainEl.appendChild(sep);
     }
     const span = document.createElement('span');
-    span.textContent = name;
-    span.className = isLast ? 'jc-cur' : '';
+    span.className = 'jc-item' + (isLast ? ' jc-cur' : '');
+    if (was) span.title = name + ': ' + was;
+    span.appendChild(document.createTextNode(name));
+    if (was) { const w = document.createElement('span'); w.className = 'jc-was'; w.textContent = ': ' + was; span.appendChild(w); }
     chainEl.appendChild(span);
+  }
+  // Ganze Kette mit allen Erläuterungen auf einmal (Reduced Motion und nach dem Durchlauf)
+  function fillChain() {
+    if (!chainEl) return;
+    chainEl.textContent = '';
+    const ST = ROUTES[current].stations;
+    ST.forEach((st, i) => addToChain(st.name, i === ST.length - 1, st.was));
+    chainEl.classList.toggle('voll', reduce);
   }
 
   const ROUTES = {
     wasser: { label: 'Wasser', endIcon: 'hahn', stations: [
-      { name: 'Rhein',            x: 50,  y: 200, col: '#92BA92', ebene: 'bio'  },
-      { name: 'Kies & Sand',      x: 155, y: 120, col: '#8B6844', ebene: 'phys' },
-      { name: 'Wasserwerk Flehe', x: 270, y: 200, col: '#C9A878', ebene: 'phys' },
-      { name: 'Leitungsnetz',     x: 390, y: 120, col: '#7FCFCF', ebene: 'digi' },
-      { name: 'Dein Hahn',        x: 500, y: 200, col: '#FFE3B0', ebene: 'kult' },
+      { name: 'Rhein',            x: 50,  y: 200, col: '#92BA92', ebene: 'bio' , was: 'Liefert das Rohwasser.' },
+      { name: 'Kies & Sand',      x: 155, y: 120, col: '#8B6844', ebene: 'phys', was: 'Filtern das Wasser auf natürliche Weise.' },
+      { name: 'Wasserwerk Flehe', x: 270, y: 200, col: '#C9A878', ebene: 'phys', was: 'Bereitet das Wasser zu Trinkwasser auf.' },
+      { name: 'Leitungsnetz',     x: 390, y: 120, col: '#7FCFCF', ebene: 'digi', was: 'Verteilt das Wasser mit Druck zu den Häusern.' },
+      { name: 'Dein Hahn',        x: 500, y: 200, col: '#FFE3B0', ebene: 'kult', was: 'Hier kommt es bei dir an.' },
     ] },
     strom: { label: 'Strom & Zocken', endIcon: 'gaming', stations: [
-      { name: 'Kraftwerk',        x: 50,  y: 200, col: '#C9784A', ebene: 'phys' },
-      { name: 'Stromnetz',        x: 155, y: 120, col: '#E0A458', ebene: 'phys' },
-      { name: 'Rechenzentrum',    x: 270, y: 200, col: '#7FCFCF', ebene: 'digi' },
-      { name: 'Deine Steckdose',  x: 390, y: 120, col: '#F2C48D', ebene: 'phys' },
-      { name: 'Dein Bildschirm',  x: 500, y: 200, col: '#9B7FD4', ebene: 'kult' },
+      { name: 'Kraftwerk',        x: 50,  y: 200, col: '#C9784A', ebene: 'phys', was: 'Erzeugt den Strom.' },
+      { name: 'Stromnetz',        x: 155, y: 120, col: '#E0A458', ebene: 'phys', was: 'Verteilt den Strom bis in die Stadtteile.' },
+      { name: 'Rechenzentrum',    x: 270, y: 200, col: '#7FCFCF', ebene: 'digi', was: 'Verarbeitet die Daten deines Spiels.' },
+      { name: 'Deine Steckdose',  x: 390, y: 120, col: '#F2C48D', ebene: 'phys', was: 'Hier kommt der Strom bei dir an.' },
+      { name: 'Dein Bildschirm',  x: 500, y: 200, col: '#9B7FD4', ebene: 'kult', was: 'Hier wird aus Strom und Daten dein Spiel.' },
     ] },
     bahn: { label: 'Nahverkehr', endIcon: 'bahn', stations: [
-      { name: 'Betriebshof',      x: 50,  y: 200, col: '#8B6844', ebene: 'phys' },
-      { name: 'Leitstelle',       x: 155, y: 120, col: '#7FCFCF', ebene: 'digi' },
-      { name: 'Das Gleis',        x: 270, y: 200, col: '#C9A878', ebene: 'phys' },
-      { name: 'Deine Haltestelle',x: 390, y: 120, col: '#8FC9D4', ebene: 'kult' },
-      { name: 'Du steigst ein',   x: 500, y: 200, col: '#FFE3B0', ebene: 'kult' },
+      { name: 'Betriebshof',      x: 50,  y: 200, col: '#8B6844', ebene: 'phys', was: 'Hier werden die Bahnen bereitgestellt und gewartet.' },
+      { name: 'Leitstelle',       x: 155, y: 120, col: '#7FCFCF', ebene: 'digi', was: 'Steuert Takt und Fahrten der Bahnen.' },
+      { name: 'Das Gleis',        x: 270, y: 200, col: '#C9A878', ebene: 'phys', was: 'Trägt und führt die Bahn.' },
+      { name: 'Deine Haltestelle',x: 390, y: 120, col: '#8FC9D4', ebene: 'kult', was: 'Hier hält die Bahn für dich.' },
+      { name: 'Du steigst ein',   x: 500, y: 200, col: '#FFE3B0', ebene: 'kult', was: 'Hier beginnt deine Fahrt.' },
     ] },
     kita: { label: 'Kita & Bildung', endIcon: 'kita', stations: [
-      { name: 'Landesjugendamt',  x: 50,  y: 200, col: '#9B7FD4', ebene: 'kult' },
-      { name: 'Das KiBiz',        x: 155, y: 120, col: '#B39DDB', ebene: 'kult' },
-      { name: 'Die Kita',         x: 270, y: 200, col: '#E0A458', ebene: 'phys' },
-      { name: 'Die Fachkraft',    x: 390, y: 120, col: '#F2C48D', ebene: 'kult' },
-      { name: 'Dein Kind',        x: 500, y: 200, col: '#FFE3B0', ebene: 'bio'  },
+      { name: 'Landesjugendamt',  x: 50,  y: 200, col: '#9B7FD4', ebene: 'kult', was: 'Erteilt die Betriebserlaubnis und beaufsichtigt Kitas.' },
+      { name: 'Das KiBiz',        x: 155, y: 120, col: '#B39DDB', ebene: 'kult', was: 'Regelt Finanzierung und Personal der Kitas.' },
+      { name: 'Die Kita',         x: 270, y: 200, col: '#E0A458', ebene: 'phys', was: 'Bietet den Ort und die Räume.' },
+      { name: 'Die Fachkraft',    x: 390, y: 120, col: '#F2C48D', ebene: 'kult', was: 'Betreut und fördert dein Kind.' },
+      { name: 'Dein Kind',        x: 500, y: 200, col: '#FFE3B0', ebene: 'bio' , was: 'Hier kommt alles zusammen.' },
     ] },
     ki: { label: 'KI', endIcon: 'ki', stations: [
-      { name: 'Trainingsdaten',   x: 50,  y: 200, col: '#9B7FD4', ebene: 'kult' },
-      { name: 'Rechenzentrum',    x: 155, y: 120, col: '#7FCFCF', ebene: 'digi' },
-      { name: 'Kühlung',          x: 270, y: 200, col: '#8FC9D4', ebene: 'bio'  },
-      { name: 'Das Netz',         x: 390, y: 120, col: '#7FCFCF', ebene: 'digi' },
-      { name: 'Deine Frage',      x: 500, y: 200, col: '#FFE3B0', ebene: 'kult' },
+      { name: 'Trainingsdaten',   x: 50,  y: 200, col: '#9B7FD4', ebene: 'kult', was: 'Sind die Grundlage, aus der das Modell lernt.' },
+      { name: 'Rechenzentrum',    x: 155, y: 120, col: '#7FCFCF', ebene: 'digi', was: 'Rechnet die Antwort aus.' },
+      { name: 'Kühlung',          x: 270, y: 200, col: '#8FC9D4', ebene: 'bio' , was: 'Führt die Wärme der Rechner ab.' },
+      { name: 'Das Netz',         x: 390, y: 120, col: '#7FCFCF', ebene: 'digi', was: 'Transportiert Frage und Antwort.' },
+      { name: 'Deine Frage',      x: 500, y: 200, col: '#FFE3B0', ebene: 'kult', was: 'Hier kommt die Antwort bei dir an.' },
     ] },
   };
 
@@ -3662,7 +3709,9 @@ document.getElementById('packApply').addEventListener('click', () => {
     btn.disabled = false;
     btn.textContent = '▸ Start';
     nameEl.textContent = ROUTES[current].stations[0].name;
-    if (chainEl) chainEl.textContent = '';
+    wasEl.textContent = ROUTES[current].stations[0].was;
+    if (chainEl) { chainEl.textContent = ''; chainEl.classList.remove('voll'); }
+    if (reduce) fillChain();
 
     const STATIONS = ROUTES[current].stations;
     STATIONS.forEach((st, i) => {
@@ -3695,10 +3744,10 @@ document.getElementById('packApply').addEventListener('click', () => {
     const STATIONS = ROUTES[current].stations;
     const st = STATIONS[i];
     const figG = buildScene._fig;
-    nameEl.style.opacity = 0;
-    setTimeout(() => { nameEl.textContent = st.name; nameEl.style.opacity = 1; }, 220);
+    nameEl.style.opacity = 0; wasEl.style.opacity = 0;
+    setTimeout(() => { nameEl.textContent = st.name; wasEl.textContent = st.was; nameEl.style.opacity = 1; wasEl.style.opacity = 1; }, 220);
     playLayerTone(st.ebene);
-    addToChain(st.name, i === STATIONS.length - 1);
+    addToChain(st.name, i === STATIONS.length - 1, st.was);
 
     if (i === 0) {
       figG.setAttribute('transform', `translate(${st.x} ${st.y - 12})`);
@@ -3738,6 +3787,7 @@ document.getElementById('packApply').addEventListener('click', () => {
       running = false;
       btn.disabled = false;
       btn.textContent = '↺ Nochmal';
+      if (reduce) fillChain();
       return;
     }
     moveAlong(i, () => setTimeout(() => run(i + 1), 550));
@@ -3748,7 +3798,7 @@ document.getElementById('packApply').addEventListener('click', () => {
     running = true;
     btn.disabled = true;
     btn.textContent = '▸ unterwegs …';
-    if (chainEl) chainEl.textContent = '';
+    if (chainEl) { chainEl.textContent = ''; chainEl.classList.remove('voll'); }
     run(0);
   });
 
@@ -3787,6 +3837,18 @@ document.getElementById('packApply').addEventListener('click', () => {
   }
 
   // Nur kuratierte, mit echten Zahlen geprüfte Ketten — keine automatisch generierten.
+  // Begründung der Reihenfolge je Kette, erscheint nach dem Lösen. Regel: oben steht, was du direkt nutzt, unten, was am weitesten dahinter liegt.
+  const WARUM = {
+    gaming: 'Anschluss, Rechenzentrum und Strom brauchst du sofort und gleichzeitig, darum stehen sie oben. Ganz unten steht die Gruppe, mit der du spielst, der Grund für das Ganze.',
+    musik: 'Plattform und Netz müssen gleichzeitig da sein, damit der Song bei dir ankommt. Die Szene steht unten, weil aus ihr die Musik stammt.',
+    einkauf: 'Zuerst muss die Ware im Regal liegen, dafür arbeiten LKW und Kühlkette zusammen. Dann folgt die Kasse, und unten steht dein Körper, der Grund für die ganze Kette.',
+    radfahren: 'Radweg und Radhauptnetz tragen dich direkt und ergänzen sich. Dahinter regelt die Ampel den Verkehr, der Ratsbeschluss von 2000 hat das Konzept angestoßen, und ganz unten steht dein Kreislauf.',
+    duschen: 'Oben steht, was bei dir ankommt: Leitungsnetz und Energie arbeiten gleichzeitig. Dahinter folgen Wasserwerk, Kies und Sand, und ganz unten der Rhein als Ursprung des Wassers.',
+    bahn: 'Das Gleis trägt die Bahn, Fahrdienst und Leitstelle müssen gleichzeitig arbeiten, damit sie fährt. Ganz unten steht das Vertrauen, dass alle sich darauf verlassen.',
+    kaffee: 'Wasser und Strom brauchst du gleichzeitig, sie liegen direkt an deiner Maschine. Dahinter liegt die Lieferkette der Bohne, und ganz unten steht Koffein, der Grund für alles davor.',
+  };
+  ACTIVITIES.forEach(a => { if (WARUM[a.id]) a.warum = WARUM[a.id]; });
+  const warumEl = document.getElementById('cgWarum');
   const POOL = ACTIVITIES.filter(a => Array.isArray(a.kette) && a.kette.length >= 3 && !a.generated);
   let order = [];      // die korrekte Reihenfolge (Original-Indices)
   let placed = [];     // aktuell befüllte Slots, in Reihenfolge des Tippens (Original-Indices)
@@ -3832,6 +3894,7 @@ document.getElementById('packApply').addEventListener('click', () => {
     placed = [];
     fbEl.textContent = '';
     fbEl.className = 'cg-feedback sans';
+    if (warumEl) warumEl.hidden = true;
     titleEl.textContent = `Wie hängt „${act.label}“ zusammen?`;
     if (badgeEl) badgeEl.hidden = true;
     updateProgress();
@@ -3902,6 +3965,7 @@ document.getElementById('packApply').addEventListener('click', () => {
     slotEls.forEach((slot, i) => {
       const txt = slot.querySelector('.cg-slot-txt');
       slot.classList.remove('correct', 'wrong');
+      slot.querySelectorAll('.cg-mark').forEach(m => m.remove());
       // Nur ein belegtes Fach lässt sich anklicken (zurück in die Auswahl), nur dann ist es ein Tastaturziel
       if (placed[i] !== undefined && !solved) { slot.tabIndex = 0; slot.setAttribute('role', 'button'); slot.setAttribute('aria-label', act.kette[placed[i]].ding + ' zurücklegen'); }
       else { slot.removeAttribute('tabindex'); slot.removeAttribute('role'); slot.removeAttribute('aria-label'); }
@@ -3926,6 +3990,13 @@ document.getElementById('packApply').addEventListener('click', () => {
         const sortedTiers = act.kette.map((_, k) => tierOf(k)).slice().sort((a, b) => a - b);
         const posOk = tierOf(placed[i]) === sortedTiers[i];
         slot.classList.add(posOk ? 'correct' : 'wrong');
+        const mk = document.createElement('span');
+        mk.className = 'cg-mark';
+        mk.textContent = posOk ? '✓' : '≠';
+        const sr = document.createElement('span');
+        sr.className = 'cg-sr'; sr.textContent = posOk ? ' richtiger Platz' : ' falscher Platz';
+        txt.appendChild(sr);
+        slot.appendChild(mk);
       }
     });
   }
@@ -3951,6 +4022,7 @@ document.getElementById('packApply').addEventListener('click', () => {
     // Richtig ist jede Reihenfolge, deren Tiefenangaben nie abnehmen — gleiche Tiefe darf beliebig stehen.
     const correct = placed.every((v, i) => i === 0 || tierOf(placed[i - 1]) <= tierOf(v));
     renderSlots();
+    if (warumEl && act.warum) { warumEl.textContent = 'Darum diese Reihenfolge: ' + act.warum; warumEl.hidden = false; }
     if (correct) {
       fbEl.textContent = 'Passt! So stimmt die Reihenfolge von oben nach unten (Glieder auf gleicher Tiefe darfst du auch tauschen).';
       fbEl.className = 'cg-feedback sans';
@@ -3972,11 +4044,12 @@ document.getElementById('packApply').addEventListener('click', () => {
   else if (titleEl) titleEl.textContent = 'Noch keine passenden Ketten geladen.';
 })();
 
-// --- Es ist einfach voll: Regal + leise, vorbeiziehende Zeilen ------------
+// --- Es ist einfach voll: Regal + Leiste "Was dahinter passiert" ---------
 (function shelfScene() {
   const svg = document.getElementById('shelfSvg');
-  const whispers = document.getElementById('shelfWhispers');
-  if (!svg || !whispers) return;
+  const kette = document.getElementById('shelfKette');
+  if (!svg || !kette) return;
+  let shelfKetteLauf = () => {};
 
   // Gangboden mit Perspektive und Gangnummer-Schild — macht "Supermarkt" auf einen Blick erkennbar,
   // ganz ohne erklärenden Text.
@@ -4045,6 +4118,7 @@ document.getElementById('packApply').addEventListener('click', () => {
         rectEl.style.transform = 'translateY(-10px) scale(0.35)';
         cart++;
         updateCartBar();
+        shelfKetteLauf();
         if (typeof playLayerTone === 'function') playLayerTone('phys');
         // nach kurzer Zeit füllt sich das Fach wieder — Nachbestellung, keine Lücke für immer
         setTimeout(() => {
@@ -4104,52 +4178,35 @@ document.getElementById('packApply').addEventListener('click', () => {
     })(0);
   }
 
-  // Leise Zeilen, die auftauchen und wieder verschwinden — kein Klick, kein Lesen-Müssen
-  const WHISPERS = [
-    'Kühlkette gehalten',
-    'LKW kam um 4:20 Uhr',
-    'Kassensystem lief die ganze Nacht',
-    'Jemand hat die Lieferung angenommen, bevor der Laden öffnete',
-    'Bestand automatisch nachbestellt',
-    'Ware kam aus drei verschiedenen Ländern',
-    'Dafür musste heute niemand extra losfahren',
-    'Strom lief durch, ohne Unterbrechung',
-    'Regal wurde vor Öffnung aufgefüllt',
-    'Route der letzten Meile, fertig geplant',
-  ];
-
-  let lastWhisper = -1;
-  function spawnWhisper() {
-    // Aktuell sichtbare Texte nie doppelt zeigen, und nicht zweimal hintereinander denselben ziehen.
-    const visible = new Set([...whispers.querySelectorAll('.shelf-whisper')].map(el => el.dataset.idx));
-    let idx;
-    let tries = 0;
-    do {
-      idx = Math.floor(Math.random() * WHISPERS.length);
-      tries++;
-    } while ((idx === lastWhisper || visible.has(String(idx))) && tries < 12);
-    lastWhisper = idx;
-
-    const p = document.createElement('p');
-    p.className = 'shelf-whisper sans';
-    p.textContent = WHISPERS[idx];
-    p.dataset.idx = String(idx);
-    p.style.left = (18 + Math.random() * 64) + '%';
-    whispers.appendChild(p);
-    setTimeout(() => p.remove(), 4700);
+  // Was dahinter passiert: feste Reihenfolge von der Kasse bis zum Regal. Jeder Kauf schickt einen Punkt hindurch.
+  const lis = [...kette.querySelectorAll('li')];
+  const punkt = kette.querySelector('.sk-punkt');
+  const satzEl = document.getElementById('shelfKetteSatz');
+  let lauf = 0;
+  const warte = (ms) => new Promise(r => setTimeout(r, ms));
+  function mitte(li) { const k = li.querySelector('.sk-ico'); return { x: li.offsetLeft + k.offsetLeft + k.offsetWidth / 2, y: li.offsetTop + k.offsetTop + k.offsetHeight / 2 }; }
+  function aus() { lis.forEach(l => l.classList.remove('an')); punkt.classList.remove('an'); }
+  async function laufe() {
+    const mein = ++lauf;
+    aus();
+    let vorher = null;
+    for (const li of lis) {
+      if (mein !== lauf) return;
+      const m = mitte(li);
+      punkt.classList.toggle('sprung', !vorher || Math.abs(vorher.y - m.y) > 4);
+      punkt.style.transform = `translate(${m.x}px, ${m.y}px)`;
+      punkt.classList.add('an');
+      lis.forEach(l => l.classList.toggle('an', l === li));
+      satzEl.classList.remove('leer');
+      satzEl.textContent = li.querySelector('.sk-satz').textContent;
+      vorher = m;
+      await warte(900);
+    }
+    if (mein === lauf) { aus(); satzEl.textContent = 'Nach jedem Kauf läuft diese Kette von links nach rechts.'; }
   }
-
-  if (!reduce) {
-    spawnWhisper();
-    setInterval(spawnWhisper, 4200 + Math.random() * 1600);
-  } else {
-    // Statischer Ersatz bei reduzierter Bewegung
-    const p = document.createElement('p');
-    p.className = 'shelf-whisper sans';
-    p.style.opacity = 0.7;
-    p.textContent = WHISPERS[0];
-    whispers.appendChild(p);
-  }
+  if (reduce) { kette.classList.add('alle'); satzEl.classList.add('leer'); }
+  else satzEl.textContent = 'Tippe ein Produkt: Ein Punkt läuft von der Kasse bis zum Regal.';
+  shelfKetteLauf = reduce ? () => {} : laufe;
 })();
 
 // --- Theme-Schalter: Akzentfarbe der Seite, blau / grün / gelb --------------
@@ -4986,13 +5043,20 @@ setTimeout(() => {
     var b = document.createElement('button'); b.type = 'button'; b.className = 'inst-btn'; b.textContent = m.n;
     b.addEventListener('click', function () { cur = i; render(); }); $('kostSeg').appendChild(b); btns.push(b);
   });
+  var SUMME = NETZE.reduce(function (a, n) { return a + n.mio; }, 0);
+  $('kostSumme').textContent = SUMME + ' Mio. € im Jahr';
+  var vgl = MODI.map(function (m) {
+    var c = document.createElement('div'); c.className = 'kost-c';
+    c.innerHTML = '<span class="kost-cn">' + m.n + '</span><output></output><div class="kost-bar"><i></i></div><span class="kost-sel"></span>';
+    $('kostVgl').appendChild(c); return { c: c, o: c.querySelector('output'), i: c.querySelector('i'), s: c.querySelector('.kost-sel') };
+  });
   NETZE.forEach(function (n) {
     var d = document.createElement('div'); d.className = 'kost-row';
     d.innerHTML = '<h3><span>' + n.n + '</span><output></output></h3><p class="kost-eg">' + n.eg + ', ' + n.mio + ' Mio. € im Jahr</p><div class="kost-bar"><i></i></div>';
     $('kostRows').appendChild(d); rows.push({ o: d.querySelector('output'), i: d.querySelector('i') });
   });
-  function betrag(n, pct) {
-    var users = EW * pct / 100, m = MODI[cur].id;
+  function betrag(n, pct, mm) {
+    var users = EW * pct / 100, m = mm || MODI[cur].id;
     if (m === 'steuer') return n.mio * 1e6 / EW;
     if (m === 'preis') return n.mio * 1e6 * 1.15 / users;
     return n.mio * 1e6 / users;
@@ -5003,17 +5067,26 @@ setTimeout(() => {
     var np = Math.round(pct / 10), alle = MODI[cur].id === 'steuer', v = '';
     for (var k = 0; k < 10; k++) {
       var x = 20 + k * 31, zahlt = alle || k < np;
-      v += zahlt ? '<path class="b-line" d="M' + x + ' 34V70"/><circle class="b-dot kost-fluss" style="--h:30px;--c:#F2C46B;animation-delay:-' + (k * 0.45).toFixed(2) + 's" cx="' + x + '" cy="36" r="3.5"/>' : '';
+      v += zahlt ? '<path class="b-line" d="M' + x + ' 52V84"/><circle class="b-dot kost-fluss" style="--h:30px;--c:#F2C46B;animation-delay:-' + (k * 0.45).toFixed(2) + 's" cx="' + x + '" cy="54" r="3.5"/>' : '';
       v += '<circle class="b-node" ' + (zahlt ? 'style="fill:#F2C46B"' : 'style="stroke-dasharray:3 3"') + ' cx="' + x + '" cy="24" r="8"/>';
     }
-    v += '<path class="b-line" d="M20 70H299"/><path class="b-line" d="M160 70V82"/><rect class="b-node" x="100" y="84" width="120" height="24" rx="8"/><text x="160" y="100" text-anchor="middle">Jahreskosten</text>';
-    v += '<text x="0" y="10" style="font-size:11.8px">Einwohner</text><text x="316" y="10" text-anchor="end" style="font-size:11.8px">' + (alle ? 'alle zahlen' : MODI[cur].id === 'preis' ? 'Nutzende, plus 15 % Aufschlag' : 'nur Nutzende zahlen') + '</text>';
-    if (MODI[cur].id === 'preis') v += '<path class="b-alt" d="M236 96H290"/><text x="296" y="100" style="font-size:11.8px">+ 15 %</text>';
+    v += '<path class="b-line" d="M20 84H299"/><path class="b-line" d="M160 84V94"/><rect class="b-node" x="100" y="96" width="120" height="24" rx="8"/><text x="160" y="112" text-anchor="middle">Jahreskosten</text>';
+    v += '<text x="160" y="46" text-anchor="middle" style="font-size:11.8px">Einwohner: gefüllt zahlt, gestrichelt zahlt nicht</text><text x="316" y="10" text-anchor="end" style="font-size:11.8px">' + (alle ? 'alle zahlen' : MODI[cur].id === 'preis' ? 'Nutzende, plus 15 % Aufschlag' : 'nur Nutzende zahlen') + '</text>';
+    if (MODI[cur].id === 'preis') v += '<path class="b-alt" d="M236 108H290"/><text x="296" y="112" style="font-size:11.8px">+ 15 %</text>';
     $('kostViz').innerHTML = v; $('kostViz').setAttribute('aria-label', MODI[cur].d + ' Gefüllte Punkte zahlen.');
     $('kostNO').textContent = pct + ' %';
     var w = NETZE.map(function (n) { return betrag(n, pct); });
     var max = Math.max.apply(null, NETZE.map(function (n) { return n.mio * 1e6 * 1.15 / (EW * 0.1); }));
     rows.forEach(function (r, i) { r.o.textContent = Math.round(w[i]).toLocaleString('de-DE') + ' € im Jahr'; r.i.style.width = Math.min(100, w[i] / max * 100) + '%'; });
+    var sums = MODI.map(function (m) { return NETZE.reduce(function (a, n) { return a + betrag(n, pct, m.id); }, 0); });
+    var smax = Math.max.apply(null, sums);
+    vgl.forEach(function (c, i) {
+      c.o.textContent = Math.round(sums[i]).toLocaleString('de-DE') + ' €';
+      c.i.style.width = (sums[i] / smax * 100) + '%';
+      c.c.classList.toggle('an', i === cur);
+      if (i === cur) c.c.setAttribute('aria-current', 'true'); else c.c.removeAttribute('aria-current');
+      c.s.textContent = i === cur ? '✓ gewählt' : '';
+    });
     var sum = w.reduce(function (a, b) { return a + b; }, 0);
     var tx = 'Alle drei zusammen: ' + Math.round(sum).toLocaleString('de-DE') + ' € im Jahr je Kopf.';
     if (MODI[cur].id === 'steuer') tx += ' Der Betrag ist für alle gleich.';
