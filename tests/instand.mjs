@@ -11,6 +11,7 @@ const fehler = [];
 const check = (ok, msg) => { if (!ok) fehler.push(msg); };
 const klick = (id) => b.ev(`document.getElementById('${id}').click()`);
 const jahr = (y) => b.ev(`(() => { const e = document.getElementById('instJahr'); e.value = ${y}; e.dispatchEvent(new Event('input')); })()`);
+const neu = () => b.ev(`[...document.querySelectorAll('#instNets .inst-net')].map((n) => n.querySelectorAll('.inst-cell[data-s="neu"]').length)`);
 const werte = async () => { const [y, def, alt, aus, ern] = (await b.ev(`document.getElementById('instPanel').getAttribute('data-inst')`)).split('|').map(Number); return { y, def, alt, aus, ern }; };
 const zeige = () => b.ev(`(() => { document.documentElement.style.scrollBehavior = 'auto'; document.getElementById('instand').scrollIntoView({ block: 'start' }); })()`);
 const shot = async (name) => {
@@ -43,6 +44,21 @@ await shot('aufschieben-10-1280');
 await jahr(40); w = await werte();
 check(w.aus >= 30, `Aufschieben, Jahr 40: ${w.aus} Ausfälle, erwartet mindestens 30`);
 
+// B nach Jahr 20: erneuerte Abschnitte (Rohre 3, Gleise 6, Kabel 5) mit Kennzeichnung und Zählung
+await jahr(20);
+check((await neu()).join() === '3,6,5', 'Aufschieben, Jahr 20: erneuert ' + (await neu()).join() + ', erwartet 3,6,5');
+check((await b.ev(`getComputedStyle(document.querySelector('#instNets .inst-cell[data-s="neu"]'), '::after').content`)).includes('↻'), 'Erneuerte Kästchen ohne Kreispfeil');
+check((await b.ev(`document.querySelector('#instN-rohre .inst-count').textContent`)).includes('erneuert 3'), 'Zählung "erneuert 3" fehlt bei den Rohren');
+check((await b.ev(`document.querySelector('#instN-rohre .inst-count').textContent`)).endsWith('zusammen 20'), 'Zählung nennt die Summe nicht');
+await klick('instA'); await jahr(20);
+const na = await neu(); check(na.every((n, i) => n > [3, 6, 5][i]), 'Laufend, Jahr 20: mehr erneuert als beim Aufschieben erwartet, ist ' + na.join());
+await klick('instC'); await jahr(20);
+const nc = await neu(); check(nc.every((n) => n >= 0) && nc.join() !== '0,0,0', 'Bei Schaden, Jahr 20: erneuert ' + nc.join());
+await klick('instB');
+check(await b.ev(`document.querySelectorAll('.inst-legend-bild span').length`) === 5 && (await b.ev(`document.querySelector('.inst-legend-bild').textContent`)).includes('erneuert, wieder neu'), 'Legende unter dem Bild unvollständig');
+check((await b.ev(`document.querySelector('.inst-lese').textContent`)).startsWith('Links die jüngsten'), 'Erklärzeile über den Netzen fehlt');
+check(!(await b.ev(`document.querySelector('.inst-bild').textContent`)).includes('Lücke') && (await b.ev(`document.querySelector('.inst-bild').textContent`)).includes('altert im Zeitraffer'), 'Bild: Beschriftung altert im Zeitraffer fehlt');
+await jahr(10);
 // C: erst bei Schaden, nie überfällig am Jahresende, aber die meisten Ausfälle
 await klick('instC'); await jahr(20); w = await werte();
 check(w.def === 0, `Bei Schaden, Jahr 20: ${w.def} überfällig`);
