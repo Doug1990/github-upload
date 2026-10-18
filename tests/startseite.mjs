@@ -1,7 +1,9 @@
 // Prüft Inhalt und Verweise der Startseite (index.html).
 // Aufruf: node tests/startseite.mjs [--chrome=<pfad>]
+// Außerdem: index.html enthält keinen Link auf zelle.html.
 // Kurzpfad ("Das Wichtigste in Kürze"): sieben Stationen mit Kernaussage (höchstens 14 Wörter), aria-label mit Kernaussage,
 // Tippfläche mindestens 44 px, Text liegt im Bild, Schrift wirksam mindestens 12 px, das Wort optional ist weg, kein Querscroll.
+import fs from 'node:fs';
 import { start, sleep } from './chrome.mjs';
 
 const b = await start();
@@ -30,6 +32,13 @@ for (const w of [1280, 390]) {
   for (const f of r) fehler.push(`Kurzpfad ${w} px: ${f}`);
 }
 
+// Die Startseite verlinkt nicht auf die Zell-Seite
+{
+  const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const treffer = html.match(/href=["']zelle\.html[^"']*["']/g) || [];
+  console.log(`Links zur Zell-Seite in index.html: ${treffer.length}`);
+  if (treffer.length) fehler.push('index.html enthält Links zu zelle.html: ' + treffer.join(', '));
+}
 b.close();
 if (fehler.length) { console.error('\nFehler (' + fehler.length + '):\n' + fehler.map((f) => '  X ' + f).join('\n')); process.exit(1); }
 console.log('\nStartseite: keine Fehler.');

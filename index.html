@@ -7,7 +7,7 @@
 <title>Was trägt deinen Tag? · Infrastruktur in Düsseldorf</title>
   <meta name="description" content="Hinter fast allem, was du machst, steckt Infrastruktur. Am Beispiel Düsseldorf: woran ein normaler Tag hängt.">
   <link rel="canonical" href="https://doug1990.github.io/github-upload/">
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Was trägt deinen Tag?","url":"https://doug1990.github.io/github-upload/","inLanguage":"de","description":"Hinter fast allem, was du machst, steckt Infrastruktur. Am Beispiel Düsseldorf und am Beispiel einer Zelle."}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Was trägt deinen Tag?","url":"https://doug1990.github.io/github-upload/","inLanguage":"de","description":"Hinter fast allem, was du machst, steckt Infrastruktur. Am Beispiel Düsseldorf."}</script>
   <meta property="og:type" content="website">
   <meta property="og:locale" content="de_DE">
   <meta property="og:site_name" content="Was trägt deinen Tag?">
@@ -809,8 +809,6 @@
   .kost-bar { height: 12px; border-radius: 6px; background: #25332C; overflow: hidden; }
   .kost-bar i { display: block; height: 100%; width: 0; background: #F2C46B; transition: width 0.3s; }
   @media (prefers-reduced-motion: reduce) { .kost-bar i { transition: none; } }
-  .bruecke { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: #A9AFC0; margin: 14px auto 0; max-width: 520px; line-height: 1.7; text-align: center; }
-  .bruecke a { color: #8FC9D4; }
   .instand { max-width: min(94vw, 900px); width: 100%; margin: 0 auto; padding: 18px 24px 20px; text-align: center; position: relative; }
   .inst-eyebrow { font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #C9B88A; margin: 0 0 8px; }
   .inst-title { font-family: 'Fraunces', serif; font-weight: 500; font-size: 25px; color: #F3EFE6; margin: 0 0 10px; }
@@ -836,8 +834,6 @@
   .inst-status { min-height: 48px; margin: 12px auto 0; max-width: 560px; font-size: 13px; line-height: 1.6; color: #F2C46B; text-align: center; font-family: 'IBM Plex Sans', sans-serif; }
   .inst-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 10px 0 0; font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #A9AFC0; }
   .inst-legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -2px; }
-  .inst-link { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: #A9AFC0; margin: 10px auto 0; max-width: 520px; line-height: 1.7; }
-  .inst-link a { color: #8FC9D4; }
   @media (max-width: 560px) { .instand { padding: 34px 16px 30px; border-radius: 18px; } .inst-title { font-size: 20px; } }
   @media (prefers-reduced-motion: reduce) { .inst-cell, .inst-btn { transition: none; } }
 
@@ -880,6 +876,8 @@
   .hinkt summary:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
   .hinkt-band { flex: none; width: 22px; height: 12px; border-radius: 2px; border: 1px solid rgba(242,196,107,0.75); background: repeating-linear-gradient(135deg, #F2C46B 0 4px, #1A1A14 4px 8px); }
   .hinkt-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .bruecke { font-family: 'IBM Plex Sans', sans-serif; font-size: 12.5px; color: #A9AFC0; margin: 14px auto 0; max-width: 520px; line-height: 1.7; text-align: center; }
+  .bruecke a { color: #8FC9D4; }
   .hinkt-body { padding: 12px 14px 4px; font-size: 13px; line-height: 1.65; color: #C7CAD6; overflow-wrap: break-word; }
   .hinkt-body p { margin: 0 0 10px; }
   .hinkt-body .hinkt-frage { margin-top: 12px; padding-left: 10px; border-left: 2px solid rgba(242,196,107,0.6); color: #F2C46B; font-weight: 500; }
@@ -909,7 +907,7 @@
   }
   /* Zeilenlänge: Fließtext höchstens etwa 70 Zeichen je Zeile */
   p.note, p.aha, #melStatus, p.alt-txt, p.quorum-txt, p.dorf-calc, p.panel-text, p.now-people, p.now-note, .dorf-ort p, .bau-ort p, .frage-body p, .hinkt-body p, dd, main > p { max-width: 58ch; }
-  p.lead, p.cg-hint, p.inst-lead, p.inst-link, p.bruecke, p.dna-sum, p.pfad-zeile, p.hero-thesis, main > p.note { max-width: 54ch; margin-left: auto; margin-right: auto; }
+  p.lead, p.cg-hint, p.inst-lead, p.bruecke, p.dna-sum, p.pfad-zeile, p.hero-thesis, main > p.note { max-width: 54ch; margin-left: auto; margin-right: auto; }
   @media (max-width: 560px) {
     body p, body li, body dd { font-size: 16px !important; }
     body li { line-height: 1.55; }
@@ -963,7 +961,6 @@
   <nav class="pfad-weg" aria-label="Seiten dieser Reihe">
     <a href="index.html" aria-current="page">Düsseldorf</a>
     <a href="karte-skizze.html">Karte</a>
-    <a href="zelle.html">Zelle</a>
   </nav>
   <p class="pfad-wahl"><span>Wie viel Zeit?</span>
     <a class="pfad-knopf" href="#kurz">In 2 Minuten</a>
@@ -1216,7 +1213,6 @@
   </div>
   <div class="inst-legend"><span><i style="background:#8FD9A8"></i>in Ordnung</span><span><i style="background:#F2C46B"></i>fast am Ende</span><span><i style="background:repeating-linear-gradient(135deg,#FF8A65 0 3px,#2A1814 3px 6px)"></i>überfällig, ausgefallen</span></div>
   <p class="inst-status" id="instStatus" aria-live="polite"></p>
-  <p class="inst-link sans">Die Zelle baut ständig um, ohne Plan: <a href="zelle.html#muell">Was liegen bleibt, stört</a>.</p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Instandhaltung</span></summary><div class="hinkt-body"><p>Städte planen Wartung, und sie ist teuer. In Zellen läuft der Umbau ständig, ohne Plan und ohne Kasse: Eiweiße werden nach Minuten bis Wochen abgebaut und neu gebaut.</p><p>Echte Netze werden nach Zustand und Risiko erneuert. Die Lebensdauern hier (60, 30 und 40 Jahre) sind frei gewählt. Es gibt zwanzig Abschnitte je Netz, das älteste Stück kommt zuerst dran.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wer entscheidet, welches Rohr zuerst dran ist?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Die Betreiber, nach Alter, Zustand und Schäden.</p></div></details>
 </section>
 
@@ -1255,7 +1251,6 @@
   </div>
 
   <svg class="bild" id="nowPeople" viewBox="0 0 320 84" role="img" aria-label=""></svg>
-  <p class="bruecke sans"><a href="zelle.html#alt">Wer prüft die Rohre, wer die DNA?</a></p>
   <p class="bruecke sans"><a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a></p>
   <p class="now-note sans">Hochgerechnet aus Tagesdurchschnitten, keine Live-Daten.</p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, die echte Nutzung schwankt. Eine Zahl für genau diesen Moment oder für dich lässt sich nicht ablesen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wann laufen die Zähler schneller?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Strom und Wasser morgens und abends, Bahnen in Stoßzeiten. Nachts langsamer.</p></div></details>
