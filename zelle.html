@@ -1153,6 +1153,12 @@
     .aus-steps li { animation: none; }
   }
 
+  /* Schmale Bildschirme: Zahlenkacheln zweispaltig, eine einzelne letzte Kachel über die ganze Breite */
+  @media (max-width: 560px) {
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stats > .stat:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  }
+
   /* --- Sound --- */
   .sound-toggle {
     position: fixed; top: 14px; right: 16px; z-index: 5;
@@ -1165,7 +1171,7 @@
   }
   @media (max-width: 760px), (pointer: coarse) { .sound-toggle, .dna-in { min-height: 44px; } }
   @media (max-width: 520px) {
-    .sound-toggle { top: 8px; right: 8px; width: 44px; padding: 0; justify-content: center; }
+    .sound-toggle { position: absolute; top: 8px; right: 8px; width: 44px; padding: 0; justify-content: center; }
     .sound-toggle > span { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   }
   .sound-toggle:hover { border-color: var(--accent); color: var(--ink); }
