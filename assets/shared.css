@@ -42,3 +42,20 @@ p.lead, p.cg-hint, p.inst-lead, p.inst-link, p.dna-sum, p.pfad-zeile, p.hero-the
   }
 .reveal { opacity: 1 !important; transform: none !important; }
 .nojs-note { margin: 0; padding: 14px 18px; background: #2A2A1E; color: #F2E3B3; font: 15px/1.5 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; text-align: center; border-bottom: 1px solid #F2C46B; }
+
+/* Rahmen der Nebenseiten: Kopfleiste, Weiter, Fuß (wie auf index und karte-skizze) */
+.pfad-kopf { margin: -12px 0 24px -12px; font-size: 12.5px; }
+.pfad-weg { display: flex; flex-wrap: wrap; align-items: center; }
+.pfad-weg a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; color: #929CB0; text-decoration: none; }
+.pfad-weg a:hover { color: var(--accent); }
+.pfad-weg a[aria-current="page"] { color: #E8E6E0; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 6px; text-decoration-thickness: 1px; }
+.pfad-kopf a:focus-visible, .pfad-weiter a:focus-visible, .site-footer a:focus-visible, .back:focus-visible { outline: 2px solid #F2C46B; outline-offset: 2px; }
+.pfad-weiter { width: 100%; max-width: 640px; margin: 0 auto; padding: 36px 0 0; text-align: center; }
+.pfad-weiter .pfad-weiter-eb { margin: 0 0 8px; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #929CB0; }
+.pfad-weiter .pfad-weiter-frage { margin: 0 auto 16px; max-width: 460px; font-family: 'Fraunces', Georgia, serif; font-size: clamp(18px, 3vw, 22px); line-height: 1.4; color: #E8E6E0; text-wrap: balance; }
+.pfad-weiter a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border: 1px solid var(--accent); border-radius: 999px; color: #E8E6E0; text-decoration: none; font-size: 13.5px; }
+.pfad-weiter a:hover { color: var(--accent); }
+.site-footer { max-width: 640px; margin: 56px auto 0; padding: 0; text-align: center; font-size: 11.5px; color: #8E98AC; }
+.site-footer a { display: inline-flex; align-items: center; min-height: 44px; color: #929CB0; text-decoration: underline; text-underline-offset: 2px; }
+.site-footer a:hover { color: var(--accent); }
+.site-footer .sep { margin: 0 10px; color: #8E98AC; }
