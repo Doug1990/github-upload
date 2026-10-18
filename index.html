@@ -149,12 +149,12 @@
   .band-gloss { font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; pointer-events: none; }
   .graph-scroll { width: 100%; max-width: min(94vw, 900px); }
   .graph-hint { display: none; margin: 2px 0 -6px; }
-  /* Schmale Ansicht: Das Schema bekommt eine Mindestbreite von 720 px (Maßstab etwa 0,8) und lässt sich seitlich wischen.
-     Die Beschriftung ist so groß, dass sie wirksam mindestens 11 px erreicht. */
+  /* Schmale Ansicht: Das Schema bekommt eine Mindestbreite von 800 px (Maßstab etwa 0,89) und lässt sich seitlich wischen.
+     Die Beschriftung ist so groß, dass sie wirksam mindestens 12 px erreicht. */
   @media (max-width: 560px) {
     .graph-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -3vw; max-width: none; width: 100vw; }
     .graph-hint { display: block; }
-    #graph { width: 720px; max-width: none; min-width: 720px; }
+    #graph { width: 800px; max-width: none; min-width: 800px; }
     #graph .band-label, #graph .band-bolt, #graph .bubble-txt { font-size: 14px; }
     #graph .band-gloss { font-size: 13.8px; }
   }
@@ -314,7 +314,7 @@
   .cube-node-ring { transition: opacity 0.6s ease, stroke-width 0.6s ease; }
   @media (max-width: 560px) { .cube-scene-wrap { height: 1100px; } .cube-title { font-size: 21px; } }
   /* Schmale Ansicht: Szene ist auf etwa 0,8 verkleinert, Beschriftung wird so vergrößert, dass sie mindestens 11 px erreicht. */
-  @media (max-width: 560px) { .cube-level-label { font-size: 14px; } .cube-role-label { font-size: 13.5px; } }
+  @media (max-width: 560px) { .cube-level-label { font-size: 15.2px; } .cube-role-label { font-size: 15.2px; } }
 
   /* --- Ambient-Füllung im Turm: Leerraum soll gefüllte Stille sein, nicht Leere --- */
   .cube-mote { fill: #8FA8E0; animation: moteTwinkle ease-in-out infinite; }
@@ -423,8 +423,8 @@
     paint-order: stroke fill; stroke: #0B1220; stroke-width: 5px; stroke-linejoin: round;
   }
   .knoten .k-head { font-family: 'IBM Plex Sans', sans-serif; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; fill: #8E98AC; }
-  /* Schmale Ansicht: Die Zeichnung wird auf etwa 0,75 verkleinert, darum größere Schrift im Bild (wirksam mindestens 11 px) */
-  @media (max-width: 560px) { .knoten .k-label, .knoten .k-head, .knoten .k-bubble, .knoten .k-zaehler { font-size: 14.8px; } .knoten .k-head { letter-spacing: 0.1em; } }
+  /* Schmale Ansicht: Die Zeichnung wird auf etwa 0,75 verkleinert, darum größere Schrift im Bild (wirksam mindestens 12 px) */
+  @media (max-width: 560px) { .knoten .k-label, .knoten .k-head, .knoten .k-bubble, .knoten .k-zaehler { font-size: 16.2px; } .knoten .k-head { letter-spacing: 0.1em; } }
   .knoten g.on .k-line { opacity: 1; stroke-width: 2.2; }
   .knoten g.on .k-label { font-weight: 600; }
   .knoten-actions { text-align: center; min-height: 40px; margin-top: 4px; }
@@ -853,6 +853,7 @@
   .bild a { cursor: pointer; outline: none; } .bild .kp-hit { fill: transparent; } .bild .kp-dot { fill: #1B2740; stroke: #F2C46B; stroke-width: 2; }
   .bild a text { font-size: 14px; fill: #E8E6E0; } .bild a:hover text { fill: #fff; text-decoration: underline; }
   .bild a:focus-visible .kp-hit { stroke: #F2C46B; stroke-width: 2; } .bild .kp-opt { font-size: 11.5px; fill: #A9AFC0; }
+  @media (max-width: 560px) { .bild text { font-size: 12.7px; } .bild a text { font-size: 14px; } .bild .kp-opt { font-size: 12.6px; } }
   @keyframes kp-fluss { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(var(--h)); opacity: 0; } }
   .bild .b-umweg { animation: b-umweg 4.2s linear infinite; offset-rotate: 0deg; }
   .bild .b-zeit { animation: b-zeit 8s ease-in-out infinite; }
@@ -3988,7 +3989,7 @@ document.getElementById('packApply').addEventListener('click', () => {
   const sign = el('g');
   sign.appendChild(el('line', { x1: 320, y1: -72, x2: 320, y2: -12, stroke: '#5E6579', 'stroke-width': 2 }));
   sign.appendChild(el('rect', { x: 295, y: -106, width: 50, height: 34, rx: 6, fill: '#2B2440', stroke: '#8FC9D4', 'stroke-width': 1.3 }));
-  const signTxt = el('text', { x: 320, y: -81, 'text-anchor': 'middle', fill: '#8FC9D4', 'font-size': 22, 'font-weight': 700, 'font-family': "'IBM Plex Sans', sans-serif" });
+  const signTxt = el('text', { x: 320, y: -81, 'text-anchor': 'middle', fill: '#8FC9D4', 'font-size': 24, 'font-weight': 700, 'font-family': "'IBM Plex Sans', sans-serif" });
   signTxt.textContent = '7';
   sign.appendChild(signTxt);
   svg.appendChild(sign);
@@ -4360,7 +4361,7 @@ function personalStrand(label) {
     n.role.forEach((line, li) => {
       const tspan = document.createElementNS(NS, 'tspan');
       tspan.setAttribute('x', roleX);
-      tspan.setAttribute('dy', li === 0 ? '0' : '13');
+      tspan.setAttribute('dy', li === 0 ? '0' : '15.5');
       tspan.textContent = line;
       roleTxt.appendChild(tspan);
     });
@@ -5006,8 +5007,8 @@ setTimeout(() => {
       v += '<circle class="b-node" ' + (zahlt ? 'style="fill:#F2C46B"' : 'style="stroke-dasharray:3 3"') + ' cx="' + x + '" cy="24" r="8"/>';
     }
     v += '<path class="b-line" d="M20 70H299"/><path class="b-line" d="M160 70V82"/><rect class="b-node" x="100" y="84" width="120" height="24" rx="8"/><text x="160" y="100" text-anchor="middle">Jahreskosten</text>';
-    v += '<text x="0" y="10" style="font-size:11px">Einwohner</text><text x="316" y="10" text-anchor="end" style="font-size:11px">' + (alle ? 'alle zahlen' : MODI[cur].id === 'preis' ? 'Nutzende, plus 15 % Aufschlag' : 'nur Nutzende zahlen') + '</text>';
-    if (MODI[cur].id === 'preis') v += '<path class="b-alt" d="M236 96H290"/><text x="296" y="100" style="font-size:11px">+ 15 %</text>';
+    v += '<text x="0" y="10" style="font-size:11.8px">Einwohner</text><text x="316" y="10" text-anchor="end" style="font-size:11.8px">' + (alle ? 'alle zahlen' : MODI[cur].id === 'preis' ? 'Nutzende, plus 15 % Aufschlag' : 'nur Nutzende zahlen') + '</text>';
+    if (MODI[cur].id === 'preis') v += '<path class="b-alt" d="M236 96H290"/><text x="296" y="100" style="font-size:11.8px">+ 15 %</text>';
     $('kostViz').innerHTML = v; $('kostViz').setAttribute('aria-label', MODI[cur].d + ' Gefüllte Punkte zahlen.');
     $('kostNO').textContent = pct + ' %';
     var w = NETZE.map(function (n) { return betrag(n, pct); });
