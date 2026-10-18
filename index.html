@@ -500,20 +500,29 @@
   .shelf-checkout:hover:not(:disabled) { background: #B39DDB1a; }
   .shelf-checkout:disabled { opacity: 0.35; cursor: default; }
   .shelf-receipt { min-height: 20px; font-size: 12.5px; color: #C9784A; margin: 14px 0 0; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto; }
-  .shelf-whispers { position: relative; height: 52px; margin-top: 4px; }
-  .shelf-whisper {
-    position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
-    font-family: 'IBM Plex Sans', sans-serif; font-size: 11.5px; color: #9C93B8; white-space: nowrap;
-    opacity: 0; animation: whisperDrift 4.5s ease-out forwards;
-  }
-  @keyframes whisperDrift {
-    0% { opacity: 0; transform: translate(-50%, 8px); }
-    12% { opacity: 0.85; }
-    78% { opacity: 0.7; }
-    100% { opacity: 0; transform: translate(-50%, -30px); }
-  }
+  .shelf-kette-wrap { max-width: 760px; margin: 22px auto 0; text-align: center; }
+  .shelf-kette-t { font-family: 'Fraunces', serif; font-weight: 500; font-size: 18px; color: #F0EEF4; margin: 0 0 14px; }
+  .shelf-kette { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); row-gap: 14px; position: relative; font-family: 'IBM Plex Sans', sans-serif; }
+  .shelf-kette li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 2px; --c: #8E98AC; }
+  .shelf-kette li.sk-kult { --c: #D9A64A; } .shelf-kette li.sk-digi { --c: #8590E6; } .shelf-kette li.sk-phys { --c: #4FA9B1; } .shelf-kette li.sk-bio { --c: #7DBB63; }
+  .shelf-kette li:not(:last-of-type)::before { content: ""; position: absolute; top: 21px; left: 50%; width: 100%; height: 2px; background: #4A5270; }
+  .sk-ico { position: relative; z-index: 1; width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--c); background: #1B1630; display: grid; place-items: center; color: var(--c); transition: background .25s, box-shadow .25s, transform .25s; }
+  .sk-ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .sk-name { font-size: 14px; line-height: 1.3; color: #C7CAD6; font-weight: 500; overflow-wrap: anywhere; }
+  .sk-satz { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .shelf-kette li.an .sk-ico { background: var(--c); color: #0B1220; box-shadow: 0 0 0 4px #FFFFFF22, 0 0 16px var(--c); transform: scale(1.12); }
+  .shelf-kette li.an .sk-name { color: #fff; }
+  .sk-punkt { position: absolute; left: 0; top: 0; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: #F2C46B; box-shadow: 0 0 0 3px #1B1630, 0 0 10px #F2C46B; opacity: 0; z-index: 2; pointer-events: none; transition: transform .35s ease, opacity .2s; }
+  .sk-punkt.an { opacity: 1; } .sk-punkt.sprung { transition: opacity .2s; }
+  .shelf-kette-satz { min-height: 3.4em; margin: 14px auto 0; max-width: 600px; padding: 10px 16px; border-radius: 12px; background: #120E24; border: 1px solid #3A3452; font-size: 16px; line-height: 1.5; color: #F0EEF4; display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
+  .shelf-kette.alle { grid-template-columns: 1fr; text-align: left; row-gap: 12px; }
+  .shelf-kette.alle li { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px 12px; padding: 0; }
+  .shelf-kette.alle li:not(:last-of-type)::before { top: 44px; left: 21px; width: 2px; height: calc(100% - 20px); }
+  .shelf-kette.alle .sk-name { font-weight: 600; font-size: 16px; color: #F0EEF4; }
+  .shelf-kette.alle .sk-satz { position: static; width: auto; height: auto; clip-path: none; white-space: normal; flex-basis: calc(100% - 58px); margin-left: 58px; font-size: 16px; line-height: 1.5; color: #F0EEF4; }
+  .shelf-kette-satz.leer { display: none; }
+  @media (max-width: 560px) { .shelf-kette { grid-template-columns: repeat(3, 1fr); } .shelf-kette li:nth-of-type(3)::before { display: none; } .shelf-kette.alle { grid-template-columns: 1fr; } .shelf-kette.alle li:nth-of-type(3)::before { display: block; } }
   @media (max-width: 560px) { .shelf { padding: 34px 16px 26px; border-radius: 18px; } .shelf-title { font-size: 20px; } }
-  @media (max-width: 560px) { .shelf-whisper { left: 50% !important; width: max-content; max-width: 86%; white-space: normal; text-align: center; } }
 
   /* --- Verbindungspfad zwischen den Kacheln: deutlich sichtbare Brücke --- */
   .path-link { display: block; width: 120px; height: 110px; margin: -30px auto -6px; position: relative; z-index: 2; overflow: visible; }
@@ -1091,8 +1100,12 @@
   </div>
   <p class="shelf-receipt sans" id="shelfReceipt"></p>
 
-  <div class="shelf-whispers" id="shelfWhispers" aria-hidden="true"></div>
-  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehst einkaufen</span></summary><div class="hinkt-body"><p>Der Zettel zeigt Beispiele und keine Rechnung deines Einkaufs. Die leisen Zeilen im Regal sind ausgedacht. Hinter jedem Produkt steht ein Netz von Betrieben.</p></div></details>
+  <section class="shelf-kette-wrap" aria-labelledby="shelfKetteT">
+    <h3 class="shelf-kette-t" id="shelfKetteT">Was dahinter passiert</h3>
+    <ol class="shelf-kette" id="shelfKette"><li class="sk-digi"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 9l2-5h10l2 5M3 9h18v10H3zM8 14h8"/></svg></span><span class="sk-name">Kasse</span><span class="sk-satz">Kassensystem lief die ganze Nacht. Strom lief durch, ohne Unterbrechung.</span></li><li class="sk-digi"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 12a8 8 0 0 1-14 5M4 12a8 8 0 0 1 14-5M18 3v4h-4M6 21v-4h4"/></svg></span><span class="sk-name">Nachbestellung</span><span class="sk-satz">Bestand automatisch nachbestellt.</span></li><li class="sk-bio"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-14 14zM5 19l8-8"/></svg></span><span class="sk-name">Hersteller</span><span class="sk-satz">Ware kam aus drei verschiedenen Ländern.</span></li><li class="sk-phys"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2 6h12v10H2zM14 9h4l3 3v4h-7"/><circle cx="6.5" cy="18.5" r="1.8"/><circle cx="17.5" cy="18.5" r="1.8"/></svg></span><span class="sk-name">LKW</span><span class="sk-satz">LKW kam um 4:20 Uhr. Die Route der letzten Meile war fertig geplant.</span></li><li class="sk-phys"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3v18M4 7.5l16 9M4 16.5l16-9"/></svg></span><span class="sk-name">Lager</span><span class="sk-satz">Jemand hat die Lieferung angenommen, bevor der Laden öffnete. Kühlkette gehalten.</span></li><li class="sk-kult"><span class="sk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 4v16M20 4v16M4 9h16M4 15h16"/></svg></span><span class="sk-name">Regal</span><span class="sk-satz">Regal wurde vor Öffnung aufgefüllt. Dafür musste heute niemand extra losfahren.</span></li><span class="sk-punkt" aria-hidden="true"></span></ol>
+    <p class="shelf-kette-satz sans" id="shelfKetteSatz" aria-hidden="true"></p>
+  </section>
+  <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Du gehst einkaufen</span></summary><div class="hinkt-body"><p>Der Zettel zeigt Beispiele und keine Rechnung deines Einkaufs. Die Sätze unter dem Regal sind ausgedacht. Hinter jedem Produkt steht ein Netz von Betrieben.</p></div></details>
 </section>
 
 <section class="chaingame" id="chainGame">
@@ -3971,11 +3984,12 @@ document.getElementById('packApply').addEventListener('click', () => {
   else if (titleEl) titleEl.textContent = 'Noch keine passenden Ketten geladen.';
 })();
 
-// --- Es ist einfach voll: Regal + leise, vorbeiziehende Zeilen ------------
+// --- Es ist einfach voll: Regal + Leiste "Was dahinter passiert" ---------
 (function shelfScene() {
   const svg = document.getElementById('shelfSvg');
-  const whispers = document.getElementById('shelfWhispers');
-  if (!svg || !whispers) return;
+  const kette = document.getElementById('shelfKette');
+  if (!svg || !kette) return;
+  let shelfKetteLauf = () => {};
 
   // Gangboden mit Perspektive und Gangnummer-Schild — macht "Supermarkt" auf einen Blick erkennbar,
   // ganz ohne erklärenden Text.
@@ -4044,6 +4058,7 @@ document.getElementById('packApply').addEventListener('click', () => {
         rectEl.style.transform = 'translateY(-10px) scale(0.35)';
         cart++;
         updateCartBar();
+        shelfKetteLauf();
         if (typeof playLayerTone === 'function') playLayerTone('phys');
         // nach kurzer Zeit füllt sich das Fach wieder — Nachbestellung, keine Lücke für immer
         setTimeout(() => {
@@ -4103,52 +4118,35 @@ document.getElementById('packApply').addEventListener('click', () => {
     })(0);
   }
 
-  // Leise Zeilen, die auftauchen und wieder verschwinden — kein Klick, kein Lesen-Müssen
-  const WHISPERS = [
-    'Kühlkette gehalten',
-    'LKW kam um 4:20 Uhr',
-    'Kassensystem lief die ganze Nacht',
-    'Jemand hat die Lieferung angenommen, bevor der Laden öffnete',
-    'Bestand automatisch nachbestellt',
-    'Ware kam aus drei verschiedenen Ländern',
-    'Dafür musste heute niemand extra losfahren',
-    'Strom lief durch, ohne Unterbrechung',
-    'Regal wurde vor Öffnung aufgefüllt',
-    'Route der letzten Meile, fertig geplant',
-  ];
-
-  let lastWhisper = -1;
-  function spawnWhisper() {
-    // Aktuell sichtbare Texte nie doppelt zeigen, und nicht zweimal hintereinander denselben ziehen.
-    const visible = new Set([...whispers.querySelectorAll('.shelf-whisper')].map(el => el.dataset.idx));
-    let idx;
-    let tries = 0;
-    do {
-      idx = Math.floor(Math.random() * WHISPERS.length);
-      tries++;
-    } while ((idx === lastWhisper || visible.has(String(idx))) && tries < 12);
-    lastWhisper = idx;
-
-    const p = document.createElement('p');
-    p.className = 'shelf-whisper sans';
-    p.textContent = WHISPERS[idx];
-    p.dataset.idx = String(idx);
-    p.style.left = (18 + Math.random() * 64) + '%';
-    whispers.appendChild(p);
-    setTimeout(() => p.remove(), 4700);
+  // Was dahinter passiert: feste Reihenfolge von der Kasse bis zum Regal. Jeder Kauf schickt einen Punkt hindurch.
+  const lis = [...kette.querySelectorAll('li')];
+  const punkt = kette.querySelector('.sk-punkt');
+  const satzEl = document.getElementById('shelfKetteSatz');
+  let lauf = 0;
+  const warte = (ms) => new Promise(r => setTimeout(r, ms));
+  function mitte(li) { const k = li.querySelector('.sk-ico'); return { x: li.offsetLeft + k.offsetLeft + k.offsetWidth / 2, y: li.offsetTop + k.offsetTop + k.offsetHeight / 2 }; }
+  function aus() { lis.forEach(l => l.classList.remove('an')); punkt.classList.remove('an'); }
+  async function laufe() {
+    const mein = ++lauf;
+    aus();
+    let vorher = null;
+    for (const li of lis) {
+      if (mein !== lauf) return;
+      const m = mitte(li);
+      punkt.classList.toggle('sprung', !vorher || Math.abs(vorher.y - m.y) > 4);
+      punkt.style.transform = `translate(${m.x}px, ${m.y}px)`;
+      punkt.classList.add('an');
+      lis.forEach(l => l.classList.toggle('an', l === li));
+      satzEl.classList.remove('leer');
+      satzEl.textContent = li.querySelector('.sk-satz').textContent;
+      vorher = m;
+      await warte(900);
+    }
+    if (mein === lauf) { aus(); satzEl.textContent = 'Nach jedem Kauf läuft diese Kette von links nach rechts.'; }
   }
-
-  if (!reduce) {
-    spawnWhisper();
-    setInterval(spawnWhisper, 4200 + Math.random() * 1600);
-  } else {
-    // Statischer Ersatz bei reduzierter Bewegung
-    const p = document.createElement('p');
-    p.className = 'shelf-whisper sans';
-    p.style.opacity = 0.7;
-    p.textContent = WHISPERS[0];
-    whispers.appendChild(p);
-  }
+  if (reduce) { kette.classList.add('alle'); satzEl.classList.add('leer'); }
+  else satzEl.textContent = 'Tippe ein Produkt: Ein Punkt läuft von der Kasse bis zum Regal.';
+  shelfKetteLauf = reduce ? () => {} : laufe;
 })();
 
 // --- Theme-Schalter: Akzentfarbe der Seite, blau / grün / gelb --------------
