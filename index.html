@@ -896,7 +896,7 @@
   @keyframes b-fluss { 0% { transform: translateX(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateX(var(--w, 200px)); opacity: 0; } }
   @keyframes b-umweg { 0% { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
   @keyframes b-zeit { 0%, 20% { fill: #8FD9A8; } 50% { fill: #F2C46B; } 80%, 100% { fill: #FF8A65; } }
-  @media (prefers-reduced-motion: reduce) { .hero-bild .b-fluss { transform: translateX(var(--w)); } .bild .b-fluss, .bild .kp-fluss, .bild .kost-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
+  @media (prefers-reduced-motion: reduce) { .hero-bild .b-fluss, .now-bild .b-fluss { transform: translateX(var(--w)); } .bild .b-fluss, .bild .kp-fluss, .bild .kost-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
 
   /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
   .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
@@ -1299,7 +1299,7 @@
     <p class="now-you-reply sans" id="nowYouReply"></p>
   </div>
 
-  <svg class="bild" id="nowPeople" viewBox="0 0 320 84" role="img" aria-label=""></svg>
+  <svg class="bild now-bild" id="nowPeople" viewBox="0 0 320 196" role="img" aria-label=""></svg>
   <p class="bruecke sans"><a href="abschluss.html">Eine Stadt, ein Körper, ein Netz</a></p>
   <p class="now-note sans">Hochgerechnet aus Tagesdurchschnitten, keine Live-Daten.</p>
   <details class="hinkt"><summary><span class="hinkt-band" aria-hidden="true"></span>Wo das Bild hinkt<span class="hinkt-sr">: Es läuft weiter</span></summary><div class="hinkt-body"><p>Die Zähler laufen gleichmäßig. Dahinter steckt eine Rechnung aus Tagesdurchschnitten, die echte Nutzung schwankt. Eine Zahl für genau diesen Moment oder für dich lässt sich nicht ablesen.</p><p class="hinkt-frage"><span class="weiter-eb">Zum Weiterdenken</span>Wann laufen die Zähler schneller?</p><p class="weiter-antwort"><b>Mögliche Antwort:</b> Strom und Wasser morgens und abends, Bahnen in Stoßzeiten. Nachts langsamer.</p></div></details>
@@ -3203,21 +3203,45 @@ function playDayChord(counts) {
   tick();
   setInterval(tick, 200);
 
-  // Wer gerade arbeitet — richtet sich nach der echten Uhrzeit
+  // Wer gerade Dienst hat: Beispiel mit drei Schichten auf einer Achse von 0 bis 24 Uhr, richtet sich nach der echten Uhrzeit
+  const SCHICHTEN = [
+    { n: 'Nachtschicht', z: '22 bis 6', von: 22, bis: 6, c: '#8590E6' },
+    { n: 'Frühschicht', z: '6 bis 14', von: 6, bis: 14, c: '#4FA9B1' },
+    { n: 'Spätschicht', z: '14 bis 22', von: 14, bis: 22, c: '#D9A64A' },
+  ];
   function werArbeitet() {
     const d = new Date(), h = d.getHours() + d.getMinutes() / 60;
-    const zeit = d.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
-    const sch = h < 6 || h >= 22 ? 'Nachtschicht' : h < 14 ? 'Frühschicht' : 'Spätschicht';
-    const X = (t) => (10 + t * 12.5).toFixed(1);
-    let v = '<path class="b-ebene b-bio" d="M10 40H310"/>';
-    [6, 14, 22].forEach(t => { v += '<path class="b-alt" d="M' + X(t) + ' 28V52"/>'; });
-    v += '<circle class="b-dot b-bio b-fluss" style="--w:140px" cx="10" cy="40" r="4"/><circle class="b-dot b-bio b-fluss l2" style="--w:140px" cx="170" cy="40" r="4"/>';
-    v += '<text x="' + X(3) + '" y="68" text-anchor="middle">Nacht</text><text x="' + X(10) + '" y="68" text-anchor="middle">Früh</text><text x="' + X(18) + '" y="68" text-anchor="middle">Spät</text>';
-    v += '<circle class="b-node" style="fill:#F2C46B" cx="' + X(h) + '" cy="40" r="7"/><text x="' + X(h) + '" y="18" text-anchor="' + (h > 18 ? 'end' : h < 3 ? 'start' : 'middle') + '">jetzt ' + zeit + '</text>';
+    const zeit = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    const aktiv = SCHICHTEN.find(x => (x.von > x.bis ? (h >= x.von || h < x.bis) : (h >= x.von && h < x.bis)));
+    const X = (t) => 10 + t * 12.5;
+    const band = (x1, x2, sc, text) => {
+      const an = sc === aktiv;
+      let r = '<rect x="' + X(x1) + '" y="26" width="' + (X(x2) - X(x1)) + '" height="44" rx="4" fill="' + sc.c + '" fill-opacity="' + (an ? 0.6 : 0.25) + '" stroke="' + sc.c + '" stroke-width="' + (an ? 3 : 1.5) + '"/>';
+      if (text) r += '<text x="' + ((X(x1) + X(x2)) / 2) + '" y="52" text-anchor="middle" style="font-weight:500;font-size:12.6px;fill:#F3EFE6">' + sc.n + '</text><text x="' + ((X(x1) + X(x2)) / 2) + '" y="66" text-anchor="middle" style="fill:#E3E6EE">' + sc.z + '</text>';
+      return r;
+    };
+    let v = '';
+    v += band(0, 6, SCHICHTEN[0], true) + band(22, 24, SCHICHTEN[0], false) + band(6, 14, SCHICHTEN[1], true) + band(14, 22, SCHICHTEN[2], true);
+    // Achse 0 bis 24 Uhr
+    v += '<path d="M10 22H310" stroke="#C9CCD6" stroke-width="1.6"/>';
+    [0, 6, 12, 18, 24].forEach(t => { v += '<path d="M' + X(t) + ' 18V26" stroke="#C9CCD6" stroke-width="1.6"/><text x="' + X(t) + '" y="12" text-anchor="' + (t === 24 ? 'end' : t === 0 ? 'start' : 'middle') + '">' + (t === 24 ? '24 Uhr' : t) + '</text>'; });
+    // Übergaben: gestrichelt, mit wandernden Punkten
+    [6, 14, 22].forEach(t => { v += '<path d="M' + X(t) + ' 24V76" stroke="#F3EFE6" stroke-width="1.8" stroke-dasharray="4 3"/><circle class="b-dot b-fluss iz-uebergabe" style="--c:#F3EFE6;--w:24px" cx="' + (X(t) - 12) + '" cy="35" r="3.5"/>'; });
+    // Beschriftung "Übergabe" an der Grenze, die am weitesten von jetzt entfernt liegt
+    const fern = [6, 14, 22].reduce((a, t) => Math.abs(t - h) > Math.abs(a - h) ? t : a, 6);
+    v += '<text x="' + X(fern) + '" y="92" text-anchor="middle">Übergabe</text>';
+    // Marker jetzt
+    const mx = X(h);
+    v += '<path d="M' + mx.toFixed(1) + ' 22V76" stroke="#F2C46B" stroke-width="2.4"/><circle cx="' + mx.toFixed(1) + '" cy="22" r="4.5" fill="#F2C46B"/>';
+    v += '<text x="' + mx.toFixed(1) + '" y="92" text-anchor="' + (h > 20 ? 'end' : h < 3 ? 'start' : 'middle') + '" style="font-weight:600;fill:#F2C46B">jetzt ' + zeit + '</text>';
+    v += '<text x="160" y="116" text-anchor="middle" style="font-size:13.5px;font-weight:600;fill:#F3EFE6">' + aktiv.n + ' hat Dienst</text>';
+    v += '<text x="160" y="134" text-anchor="middle">Dienst haben zum Beispiel</text><text x="160" y="150" text-anchor="middle">Wasserwerk, Leitstelle, Bahn und Pflege.</text>';
+    v += '<path d="M10 166H34" stroke="#F3EFE6" stroke-width="1.8" stroke-dasharray="4 3"/><text x="40" y="170">gestrichelt: Übergabe an die nächste Schicht</text>';
+    v += '<text x="10" y="188">Beispiel: Schichtzeiten sind angenommen.</text>';
     peopleEl.innerHTML = v;
-    peopleEl.setAttribute('aria-label', 'Es ist ' + zeit + ', die ' + sch + ' ist im Dienst. Die Schichten gehen ohne Lücke ineinander über, bei Infrastruktur gibt es keinen Feierabend.');
+    peopleEl.setAttribute('aria-label', 'Beispiel für drei Schichten auf einer Achse von 0 bis 24 Uhr: Nachtschicht von 22 bis 6, Frühschicht von 6 bis 14, Spätschicht von 14 bis 22. An den Grenzen, gestrichelt dargestellt, wird an die nächste Schicht übergeben. Jetzt ist es ' + zeit + ', die ' + aktiv.n + ' hat Dienst. Dienst haben zum Beispiel Wasserwerk, Leitstelle, Bahn und Pflege. Zu jeder Uhrzeit hat jemand Dienst, deshalb läuft es ohne Pause weiter.');
   }
-  if (peopleEl) werArbeitet();
+  if (peopleEl) { werArbeitet(); setInterval(werArbeitet, 60000); }
 
   // Und du, gerade eben? — keine Wertung, kein Zähler. Nur ein Satz, der sich einreiht.
   const YOU_OPTIONS = [
