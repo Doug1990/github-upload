@@ -37,6 +37,25 @@
   @keyframes gbfl { to { stroke-dashoffset: -18; } }
   @media (prefers-reduced-motion: reduce) { .gb .fl { animation: none; } }
   .gl-link { position: absolute; top: 4px; right: 4px; display: inline-flex; align-items: center; justify-content: center; min-width: 48px; min-height: 44px; font-size: 14px; }
+  .gl-tools { margin: 0 0 18px; }
+  .gl-tools label { display: block; font-size: 14px; color: #E8E6E0; margin: 0 0 6px; }
+  .gl-feld { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .gl-tools input[type=search] { flex: 1 1 220px; min-width: 0; box-sizing: border-box; min-height: 44px; padding: 8px 12px; font: 16px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; color: #E8E6E0; background: rgba(255,255,255,0.07); border: 2px solid #8A93A8; border-radius: 10px; }
+  .gl-tools input[type=search]:focus-visible, .gl-chip:focus-visible, .gl-reset:focus-visible { outline: 3px solid #F2C46B; outline-offset: 2px; }
+  .gl-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 0; }
+  .gl-chip, .gl-reset { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px; font: 500 14px 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; color: #E8E6E0; background: transparent; border: 2px solid var(--c, #8A93A8); border-radius: 22px; cursor: pointer; }
+  .gl-chip[aria-pressed=true] { background: color-mix(in srgb, var(--c, #8A93A8) 30%, #0B1220); }
+  .gl-chip[aria-pressed=true]::after { content: "\2713"; font-weight: 700; }
+  .gl-form { flex: none; width: 12px; height: 12px; background: var(--c); }
+  .gl-form.f-kult { transform: rotate(45deg) scale(.85); }
+  .gl-form.f-digi { border-radius: 2px; }
+  .gl-form.f-phys { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+  .gl-form.f-bio { border-radius: 50%; }
+  .gl-treffer { margin: 10px 0 0; font-size: 14px; color: #C7CAD6; }
+  .gl-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .gl-leer { margin: 0 0 18px; padding: 14px; border-radius: 12px; background: rgba(255,255,255,0.04); display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+  .gl-leer p { margin: 0; }
+  .g[hidden], .gl-leer[hidden] { display: none; }
   .l-kult { --c: #D9A64A; } .l-digi { --c: #8590E6; } .l-phys { --c: #4FA9B1; } .l-bio { --c: #7DBB63; }
   @media (max-width: 700px) { .gloss { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: no-preference) { .g .ic { transition: transform .2s; } .g:hover .ic { transform: scale(1.06); } }
@@ -108,5 +127,69 @@
     <a href="impressum.html">Impressum</a><span class="sep">·</span><a href="datenschutz.html">Datenschutz</a><span class="sep">·</span><a href="index.html">Zur Startseite</a>
   </footer>
 </main>
+<script>
+(function () {
+  var dl = document.querySelector('dl.gloss');
+  if (!dl) return;
+  var karten = Array.prototype.slice.call(dl.querySelectorAll('.g'));
+  var gesamt = karten.length;
+  var norm = function (t) {
+    return t.toLowerCase().replace(/\u00df/g, 'ss').replace(/\u00e4/g, 'ae').replace(/\u00f6/g, 'oe').replace(/\u00fc/g, 'ue')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ae/g, 'a').replace(/oe/g, 'o').replace(/ue/g, 'u').replace(/\s+/g, ' ').trim();
+  };
+  var ebenen = [['kult', 'Kulturell'], ['digi', 'Digital'], ['phys', 'Physisch'], ['bio', 'Biologisch']];
+  var farbe = { kult: '#D9A64A', digi: '#8590E6', phys: '#4FA9B1', bio: '#7DBB63' };
+  karten.forEach(function (k) {
+    var dd = k.querySelector('dd').cloneNode(true);
+    var gl = dd.querySelector('.gl-link'); if (gl) gl.remove();
+    var gb = dd.querySelector('svg'); if (gb) gb.remove();
+    k._text = norm(k.querySelector('dt').textContent + ' ' + dd.textContent);
+    k._ebene = (k.className.match(/l-(kult|digi|phys|bio)/) || [])[1];
+  });
+  var wahl = {};
+  var box = document.createElement('div');
+  box.className = 'gl-tools';
+  box.innerHTML = '<label for="gl-suche">Begriff suchen</label><div class="gl-feld"><input type="search" id="gl-suche" autocomplete="off" spellcheck="false" enterkeyhint="search"></div>' +
+    '<div class="gl-chips" role="group" aria-label="Nach Ebene filtern"></div>' +
+    '<p class="gl-treffer" aria-hidden="true"></p><p class="gl-sr" role="status" aria-live="polite"></p>';
+  var chips = box.querySelector('.gl-chips');
+  var mk = function (txt, form, c) {
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'gl-chip';
+    if (c) b.style.setProperty('--c', c);
+    b.innerHTML = (form ? '<span class="gl-form f-' + form + '" aria-hidden="true"></span>' : '') + '<span></span>';
+    b.lastChild.textContent = txt; return b;
+  };
+  var alle = mk('Alle'); chips.appendChild(alle);
+  var knoepfe = {};
+  ebenen.forEach(function (e) { var b = mk(e[1], e[0], farbe[e[0]]); b.setAttribute('aria-pressed', 'false'); b.dataset.ebene = e[0]; knoepfe[e[0]] = b; chips.appendChild(b); });
+  var leer = document.createElement('div');
+  leer.className = 'gl-leer'; leer.hidden = true;
+  leer.innerHTML = '<p>Kein Begriff gefunden.</p><button type="button" class="gl-reset">Zurücksetzen</button>';
+  dl.parentNode.insertBefore(box, dl); dl.parentNode.insertBefore(leer, dl);
+  var suche = box.querySelector('#gl-suche'), sicht = box.querySelector('.gl-treffer'), live = box.querySelector('.gl-sr');
+  var timer;
+  var anzeigen = function (still) {
+    var q = norm(suche.value), n = 0;
+    var aktiv = ebenen.filter(function (e) { return wahl[e[0]]; });
+    karten.forEach(function (k) {
+      var ok = k._text.indexOf(q) !== -1 && (!aktiv.length || wahl[k._ebene]);
+      k.hidden = !ok; if (ok) n++;
+    });
+    alle.setAttribute('aria-pressed', aktiv.length ? 'false' : 'true');
+    ebenen.forEach(function (e) { knoepfe[e[0]].setAttribute('aria-pressed', wahl[e[0]] ? 'true' : 'false'); });
+    var t = n + ' von ' + gesamt + ' Begriffen';
+    sicht.textContent = n + ' von ' + gesamt;
+    leer.hidden = n > 0;
+    clearTimeout(timer); if (still !== true) timer = setTimeout(function () { live.textContent = t; }, 300);
+  };
+  var zuruecksetzen = function () { wahl = {}; suche.value = ''; anzeigen(); suche.focus(); };
+  suche.addEventListener('input', function () { anzeigen(); });
+  suche.addEventListener('keydown', function (e) { if (e.key === 'Escape' && suche.value) { suche.value = ''; anzeigen(); } });
+  alle.addEventListener('click', function () { wahl = {}; anzeigen(); });
+  chips.addEventListener('click', function (e) { var b = e.target.closest('button[data-ebene]'); if (!b) return; wahl[b.dataset.ebene] = !wahl[b.dataset.ebene]; anzeigen(); });
+  leer.querySelector('.gl-reset').addEventListener('click', zuruecksetzen);
+  anzeigen(true);
+})();
+</script>
 </body>
 </html>
