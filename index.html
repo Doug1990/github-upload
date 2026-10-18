@@ -600,6 +600,14 @@
   .cg-slot.correct { border-color: #8FD9A8; background: #8FD9A814; }
   .cg-slot.wrong { border-color: #E88A8A; background: #E88A8A14; }
   .cg-slot-txt { flex: 1; }
+  .bild.cg-bsp text { font-size: 14.5px; }
+  .cg-legende { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: -10px auto 16px; max-width: 560px; font-size: 13px; line-height: 1.5; color: #B7C4BA; }
+  .cg-lg { display: inline-block; min-width: 22px; padding: 0 4px; margin-right: 4px; border: 2px solid currentColor; border-radius: 6px; text-align: center; font-weight: 700; }
+  .cg-lg.ok { color: #8FD9A8; } .cg-lg.falsch { color: #E88A8A; } .cg-lg.sym { color: #F2C46B; }
+  .cg-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .cg-mark { flex-shrink: 0; align-self: center; min-width: 26px; font-weight: 700; font-size: 16px; text-align: center; }
+  .cg-slot.correct .cg-mark { color: #8FD9A8; } .cg-slot.wrong .cg-mark { color: #E88A8A; }
+  .cg-warum { max-width: 520px; margin: 0 auto 14px; font-size: 14px; line-height: 1.55; color: #E3EAE5; text-wrap: pretty; }
   .cg-slot-zahl { font-size: 11px; color: #8FA895; display: block; margin-top: 1px; }
   .cg-pool { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; max-width: 560px; margin: 0 auto; }
   .cg-chip {
@@ -1125,18 +1133,24 @@
 <section class="chaingame" id="chainGame">
   <p class="cg-eyebrow sans">Baue die Kette</p>
   <h2 class="cg-title" id="cgTitle">Was kommt vor was?</h2>
-  <p class="cg-lead sans">Glieder antippen, von oben nach unten.</p>
+  <p class="cg-lead sans">Oben steht, was du direkt nutzt. Je weiter unten, desto weiter liegt es dahinter, bis zum Ursprung oder Grund. Tippe die Glieder in dieser Reihenfolge.</p>
+  <p class="cg-legende sans" aria-label="Legende"><span><b class="cg-lg ok">✓</b> richtiger Platz</span><span><b class="cg-lg falsch">≠</b> falscher Platz</span><span><b class="cg-lg sym">● ■</b> gleiches Symbol: beide gleichzeitig nötig, Reihenfolge egal</span></p>
 
   <div class="cg-slots" id="cgSlots"></div>
-  <svg class="bild" viewBox="0 0 320 84" role="img" aria-label="Regel: Gleiches Symbol (Kreis, Quadrat, Dreieck, Raute) heißt gleichzeitig. Zuerst ein Glied, danach zwei Glieder mit demselben Symbol nebeneinander.">
-    <path class="b-line" d="M40 30H110"/><path class="b-line" d="M110 30C150 30 150 14 190 14"/><path class="b-line" d="M110 30C150 30 150 46 190 46"/>
-    <rect class="b-node" x="28" y="22" width="16" height="16" rx="3"/><rect class="b-node" x="102" y="22" width="16" height="16" rx="3"/><rect class="b-node" x="190" y="6" width="16" height="16" rx="3"/><rect class="b-node" x="190" y="38" width="16" height="16" rx="3"/>
-    <circle class="b-dot b-fluss" style="--w:70px;--c:#F2C46B" cx="46" cy="30" r="4"/><circle class="b-dot b-fluss l2" style="--w:70px;--c:#F2C46B" cx="46" cy="30" r="4"/>
-    <text x="36" y="72" text-anchor="middle">zuerst</text><text x="110" y="72" text-anchor="middle">danach</text><text x="222" y="34">gleiches Symbol:</text><text x="222" y="50">gleichzeitig</text>
+  <svg class="bild cg-bsp" viewBox="0 0 320 140" role="img" aria-label="Beispiel Kaffee kochen: Zuerst stehen Wasser und Strom, beide mit dem Symbol Kreis. Sie sind gleichzeitig nötig, ihre Reihenfolge ist egal. Danach folgt die Bohne, zuletzt Koffein.">
+    <text x="42" y="14" text-anchor="middle">zuerst</text><text x="152" y="14" text-anchor="middle">danach</text><text x="266" y="14" text-anchor="middle">zuletzt</text>
+    <rect class="b-node" x="2" y="22" width="80" height="28" rx="6"/><text x="12" y="41">● Wasser</text>
+    <rect class="b-node" x="2" y="56" width="80" height="28" rx="6"/><text x="12" y="75">● Strom</text>
+    <rect class="b-node" x="114" y="39" width="76" height="28" rx="6"/><text x="152" y="58" text-anchor="middle">Bohne</text>
+    <rect class="b-node" x="228" y="39" width="76" height="28" rx="6"/><text x="266" y="58" text-anchor="middle">Koffein</text>
+    <path class="b-line" d="M84 53H110M104 48L110 53L104 58"/><path class="b-line" d="M192 53H224M218 48L224 53L218 58"/>
+    <path class="b-alt" d="M88 30V76"/>
+    <text x="0" y="108">● gleiches Symbol: Wasser und Strom</text><text x="0" y="126">sind gleichzeitig nötig, Reihenfolge egal.</text>
   </svg>
   <div class="cg-pool" id="cgPool"></div>
 
   <p class="cg-feedback sans" id="cgFeedback"></p>
+  <p class="cg-warum sans" id="cgWarum" hidden></p>
   <p class="cg-hint sans">Platz erneut antippen: zurück.</p>
   <div class="cg-actions">
     <button class="cg-btn" id="cgRetry">↺ Nochmal versuchen</button>
@@ -1468,7 +1482,7 @@ const ACTIVITIES = [
       { ebene: "phys", ding: "Der LKW, der nachts geliefert hat", zahl: "Vor Ladenöffnung, während du geschlafen hast", tier: 0 },
       { ebene: "phys", ding: "Die Kühlkette davor", zahl: "Lückenlos, vom Erzeuger bis ins Regal", tier: 0 },
       { ebene: "digi", ding: "Das Bezahlsystem an der Kasse", zahl: "Sekunden zwischen Karte und Freigabe" },
-      { ebene: "bio", ding: "Was davon dein Körper braucht", zahl: "Der älteste Grund für die Kette" },
+      { ebene: "bio", ding: "Was davon dein Körper braucht", zahl: "Hunger ist der Grund für die ganze Kette" },
     ] },
   { id: 'radfahren', label: 'Radfahren', accent: '#8FD9A8', connects: ['phys', 'bio', 'kult'],
     text: 'Straßen und Radwege sind die physische Grundlage, biologisch geht es um Bewegung und Gesundheit. Kulturell zeigt der Radverkehr, wem eine Stadt wie viel Platz gibt.',
@@ -1513,7 +1527,7 @@ const ACTIVITIES = [
       { ebene: "phys", ding: "Das Wasser aus dem Hahn", zahl: "Zu großen Teilen gefiltertes Rheinwasser", traeger: "Stadtwerke Düsseldorf", quelleUrl: "https://www.swd-ag.de/magazin/der-weg-des-trinkwassers/", tier: 1 },
       { ebene: "phys", ding: "Der Strom für die Maschine", zahl: "Aus einem Netz, das sekundengenau ausbalanciert wird", traeger: "Stadtwerke Düsseldorf", tier: 1 },
       { ebene: "digi", ding: "Die Lieferkette der Bohne", zahl: "Von einem anderen Kontinent, digital abgewickelt", tier: 2 },
-      { ebene: "bio", ding: "Was Koffein in dir tut", zahl: "Der biologische Grund für alles davor", tier: 3 },
+      { ebene: "bio", ding: "Was Koffein in dir tut", zahl: "Es macht dich wach, dafür kochst du Kaffee", tier: 3 },
     ] },
   { id: 'kita', label: 'Kind in die Kita bringen', accent: '#E0A458', connects: ['kult', 'phys', 'digi', 'bio'],
     typ: 'gefuege',
@@ -3823,6 +3837,18 @@ document.getElementById('packApply').addEventListener('click', () => {
   }
 
   // Nur kuratierte, mit echten Zahlen geprüfte Ketten — keine automatisch generierten.
+  // Begründung der Reihenfolge je Kette, erscheint nach dem Lösen. Regel: oben steht, was du direkt nutzt, unten, was am weitesten dahinter liegt.
+  const WARUM = {
+    gaming: 'Anschluss, Rechenzentrum und Strom brauchst du sofort und gleichzeitig, darum stehen sie oben. Ganz unten steht die Gruppe, mit der du spielst, der Grund für das Ganze.',
+    musik: 'Plattform und Netz müssen gleichzeitig da sein, damit der Song bei dir ankommt. Die Szene steht unten, weil aus ihr die Musik stammt.',
+    einkauf: 'Zuerst muss die Ware im Regal liegen, dafür arbeiten LKW und Kühlkette zusammen. Dann folgt die Kasse, und unten steht dein Körper, der Grund für die ganze Kette.',
+    radfahren: 'Radweg und Radhauptnetz tragen dich direkt und ergänzen sich. Dahinter regelt die Ampel den Verkehr, der Ratsbeschluss von 2000 hat das Konzept angestoßen, und ganz unten steht dein Kreislauf.',
+    duschen: 'Oben steht, was bei dir ankommt: Leitungsnetz und Energie arbeiten gleichzeitig. Dahinter folgen Wasserwerk, Kies und Sand, und ganz unten der Rhein als Ursprung des Wassers.',
+    bahn: 'Das Gleis trägt die Bahn, Fahrdienst und Leitstelle müssen gleichzeitig arbeiten, damit sie fährt. Ganz unten steht das Vertrauen, dass alle sich darauf verlassen.',
+    kaffee: 'Wasser und Strom brauchst du gleichzeitig, sie liegen direkt an deiner Maschine. Dahinter liegt die Lieferkette der Bohne, und ganz unten steht Koffein, der Grund für alles davor.',
+  };
+  ACTIVITIES.forEach(a => { if (WARUM[a.id]) a.warum = WARUM[a.id]; });
+  const warumEl = document.getElementById('cgWarum');
   const POOL = ACTIVITIES.filter(a => Array.isArray(a.kette) && a.kette.length >= 3 && !a.generated);
   let order = [];      // die korrekte Reihenfolge (Original-Indices)
   let placed = [];     // aktuell befüllte Slots, in Reihenfolge des Tippens (Original-Indices)
@@ -3868,6 +3894,7 @@ document.getElementById('packApply').addEventListener('click', () => {
     placed = [];
     fbEl.textContent = '';
     fbEl.className = 'cg-feedback sans';
+    if (warumEl) warumEl.hidden = true;
     titleEl.textContent = `Wie hängt „${act.label}“ zusammen?`;
     if (badgeEl) badgeEl.hidden = true;
     updateProgress();
@@ -3938,6 +3965,7 @@ document.getElementById('packApply').addEventListener('click', () => {
     slotEls.forEach((slot, i) => {
       const txt = slot.querySelector('.cg-slot-txt');
       slot.classList.remove('correct', 'wrong');
+      slot.querySelectorAll('.cg-mark').forEach(m => m.remove());
       // Nur ein belegtes Fach lässt sich anklicken (zurück in die Auswahl), nur dann ist es ein Tastaturziel
       if (placed[i] !== undefined && !solved) { slot.tabIndex = 0; slot.setAttribute('role', 'button'); slot.setAttribute('aria-label', act.kette[placed[i]].ding + ' zurücklegen'); }
       else { slot.removeAttribute('tabindex'); slot.removeAttribute('role'); slot.removeAttribute('aria-label'); }
@@ -3962,6 +3990,13 @@ document.getElementById('packApply').addEventListener('click', () => {
         const sortedTiers = act.kette.map((_, k) => tierOf(k)).slice().sort((a, b) => a - b);
         const posOk = tierOf(placed[i]) === sortedTiers[i];
         slot.classList.add(posOk ? 'correct' : 'wrong');
+        const mk = document.createElement('span');
+        mk.className = 'cg-mark';
+        mk.textContent = posOk ? '✓' : '≠';
+        const sr = document.createElement('span');
+        sr.className = 'cg-sr'; sr.textContent = posOk ? ' richtiger Platz' : ' falscher Platz';
+        txt.appendChild(sr);
+        slot.appendChild(mk);
       }
     });
   }
@@ -3987,6 +4022,7 @@ document.getElementById('packApply').addEventListener('click', () => {
     // Richtig ist jede Reihenfolge, deren Tiefenangaben nie abnehmen — gleiche Tiefe darf beliebig stehen.
     const correct = placed.every((v, i) => i === 0 || tierOf(placed[i - 1]) <= tierOf(v));
     renderSlots();
+    if (warumEl && act.warum) { warumEl.textContent = 'Darum diese Reihenfolge: ' + act.warum; warumEl.hidden = false; }
     if (correct) {
       fbEl.textContent = 'Passt! So stimmt die Reihenfolge von oben nach unten (Glieder auf gleicher Tiefe darfst du auch tauschen).';
       fbEl.className = 'cg-feedback sans';
