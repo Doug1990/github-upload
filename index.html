@@ -679,7 +679,12 @@
   @media (max-width: 760px), (pointer: coarse) {
     .hud-btn, .activity-input, .submit-btn, .toggle-btn, .journey-tab, .chain-future-toggle, .journey-btn, .shelf-checkout, .cg-chip, .cg-btn, .now-you-chip { min-height: 44px; }
   }
-  @media (max-width: 560px) { .side-hud { flex-direction: column; align-items: flex-end; } }
+  /* Schmale Bildschirme: Ton und Farbschema liegen oben rechts in einer eigenen Zeile und scrollen mit. Sie schweben nicht über Eingabefeldern, Chips und Feldern. */
+  @media (max-width: 560px) {
+    .side-hud { position: absolute; top: 4px; right: 8px; bottom: auto; flex-direction: row; align-items: center; gap: 6px; z-index: 60; }
+    .side-hud .tone-hint { display: none; }
+    .pfad-kopf { padding-top: 52px; }
+  }
 
   /* --- Begleiterin: bewegt sich mit dem Scrollen tiefer in die Erde -------- */
   .descent-figure {
