@@ -3,7 +3,7 @@
 // --langsam: Ladezeit bei gedrosseltem Netz (3G). Externe Links werden per HEAD geprüft (nur Warnung), --ohne-extern überspringt das.
 // Keine Abhängigkeiten, nur Node 22 (eingebauter WebSocket) und ein lokales Chrome.
 // Fehler (Exit-Code 1): Konsolenfehler, Ausnahmen, fehlgeschlagene Requests, horizontaler Überlauf,
-// tote interne Links und Anker, fehlender title, fehlende Beschreibung, falsches oder fehlendes canonical, og:title ohne og:image,
+// tote interne Links und Anker, fehlender title, fehlende Beschreibung, falsches oder fehlendes canonical, og:image (falls gesetzt) nicht lokal,
 // ungültiges JSON-LD, tote Adressen in der sitemap.xml. Warnungen (Exit-Code 0): Tippflächen unter 44 px bei schmaler Breite.
 import http from 'node:http';
 import fs from 'node:fs';
@@ -126,7 +126,7 @@ for (const page of pages) {
   const soll = PAGES_URL + (page === 'index.html' ? '' : page);
   if (meta.can.length !== 1) err(page, '-', `canonical: ${meta.can.length} Angaben, erwartet genau eine`);
   else if (meta.can[0] !== soll) err(page, '-', `canonical zeigt auf ${meta.can[0]}, erwartet ${soll}`);
-  if (meta.ogt && !meta.img) err(page, '-', 'og:title ohne og:image');
+  // og:image ist freiwillig: Seiten ohne Vorschaubild (die vier Nebenseiten) tragen og:title und og:description ohne Bild.
   for (const j of meta.ld) { try { JSON.parse(j); } catch { err(page, '-', 'JSON-LD ist kein gültiges JSON'); } }
   if (meta.img) {
     const local = meta.img.startsWith(PAGES_URL) ? meta.img.slice(PAGES_URL.length) : null;
