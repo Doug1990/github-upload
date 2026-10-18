@@ -1850,16 +1850,33 @@ function walkRootFigure(svg, path, color, bandId) {
   }, 980);
 }
 
+// Beschriftungsstreifen: links bleibt Platz für Ebenenname und Unterzeile. Linien laufen immer rechts davon,
+// liegt eine Blase weiter links, biegt die Wurzel gleich unter dem Horizont aus (dort steht noch keine Beschriftung).
+let STRIP = 250;
+function labelStripEnd() {
+  const mobil = window.matchMedia && window.matchMedia('(max-width: 560px)').matches;
+  const fam = "'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif";
+  const fl = mobil ? 14 : 12.5, fg = mobil ? 13.8 : 10.5;
+  let ende = 0;
+  BANDS.forEach(b => {
+    ende = Math.max(ende, 52 + measureWidth(b.label, `${fl}px ${fam}`) + b.label.length * fl * 0.04);
+    if (b.gloss) ende = Math.max(ende, 52 + measureWidth(b.gloss, `${fg}px ${fam}`));
+  });
+  return Math.ceil(ende + 18);
+}
 function rootPath(x, band, wiggle) {
   const yMid = (band.yTop + band.yBot) / 2;
-  const c1x = x + wiggle, c1y = HORIZON + (yMid - HORIZON) * 0.35;
-  const c2x = x - wiggle, c2y = HORIZON + (yMid - HORIZON) * 0.7;
-  return `M ${x} ${HORIZON} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${x + wiggle * 0.4} ${yMid}`;
+  const sx = Math.max(x, STRIP + 4), yA = HORIZON + 34;
+  const kl = (v) => Math.max(v, STRIP + 4);
+  const c1x = kl(sx + wiggle), c1y = yA + (yMid - yA) * 0.35;
+  const c2x = kl(sx - wiggle), c2y = yA + (yMid - yA) * 0.7;
+  return `M ${x} ${HORIZON} C ${x} ${HORIZON + 18}, ${sx} ${HORIZON + 18}, ${sx} ${yA} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${kl(sx + wiggle * 0.4)} ${yMid}`;
 }
 
 function crackPath(band) {
   const midY = (band.yTop + band.yBot) / 2;
-  return `M0 ${midY - 10} L120 ${midY + 8} L260 ${midY - 14} L400 ${midY + 10} L560 ${midY - 6} L720 ${midY + 12} L900 ${midY - 8}`;
+  const X = (v) => (STRIP + (v / 900) * (WIDTH - STRIP)).toFixed(1);
+  return `M${X(0)} ${midY - 10} L${X(120)} ${midY + 8} L${X(260)} ${midY - 14} L${X(400)} ${midY + 10} L${X(560)} ${midY - 6} L${X(720)} ${midY + 12} L${X(900)} ${midY - 8}`;
 }
 
 // --- Klick-Logik -------------------------------------------------------
@@ -1961,6 +1978,8 @@ function render() {
   svg.innerHTML = '';
 
   const emphasized = currentEmphasizedBands();
+  STRIP = labelStripEnd();
+  const spaeter = []; // Beschriftungen: werden zuletzt unter den Linien-Ebenen angehängt, damit nichts sie überdeckt
 
   // SVG-Filter für organische Textur
   const defs = el('defs', {});
@@ -1995,7 +2014,7 @@ function render() {
       bIco.setAttribute('x', 28);
       bIco.setAttribute('y', (b.yTop + b.yBot) / 2 - 8.5);
       bIco.setAttribute('opacity', dim ? 0.3 : 0.85);
-      svg.appendChild(bIco);
+      spaeter.push(bIco);
     }
     const label = el('text', { class: 'band-label', x: 52, y: (b.yTop + b.yBot) / 2 + 4, fill: b.glow, 'font-size': 12.5, 'letter-spacing': '0.04em', opacity: dim ? 0.3 : 0.9 });
     label.textContent = b.label;
@@ -2007,7 +2026,7 @@ function render() {
     }
     labelGroup.addEventListener('click', () => selectBand(b.id));
     labelGroup.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectBand(b.id); } });
-    svg.appendChild(labelGroup);
+    spaeter.push(labelGroup);
 
     // Störfall-Schalter (Blitz-Icon)
     const failG = el('g', { class: 'crack-icon', tabindex: 0, role: 'button', 'aria-label': `${b.label} Störfall umschalten` });
@@ -2018,7 +2037,7 @@ function render() {
     failG.appendChild(bolt);
     failG.addEventListener('click', (e) => toggleFailed(b.id, e));
     failG.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') toggleFailed(b.id, e); });
-    svg.appendChild(failG);
+    spaeter.push(failG);
   });
 
   svg.appendChild(el('line', { x1: 0, y1: HORIZON, x2: WIDTH, y2: HORIZON, stroke: '#E8E6E0', 'stroke-width': 1.5, opacity: 0.5 }));
@@ -2034,9 +2053,9 @@ function render() {
     water.connects.forEach((bandId, i) => {
       const band = bandFor(bandId);
       const bandMidY = (band.yTop + band.yBot) / 2;
-      const xOff = 34 - i * 7;
+      const xOff = 34 - i * 2;
       svg.appendChild(el('path', {
-        d: `M 34 ${bandMidY} C ${xOff - 10} ${bandMidY + 40}, ${xOff - 6} ${midY - 60}, 34 ${midY}`,
+        d: `M 27 ${bandMidY} C ${xOff - 24} ${bandMidY + 40}, ${xOff - 24} ${midY - 60}, 27 ${midY}`,
         fill: 'none', stroke: water.glow, 'stroke-width': 1.6, opacity: 0.55,
       }));
       // kleiner Marker an der verbundenen Ebene selbst
@@ -2054,7 +2073,7 @@ function render() {
     gGroup.appendChild(gLabel);
     gGroup.addEventListener('click', selectGroundwater);
     gGroup.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') selectGroundwater(); });
-    svg.appendChild(gGroup);
+    spaeter.push(gGroup);
   }
 
   // Wurzeln — und sie geht tatsächlich einmal daran entlang, statt dass nur eine Linie erscheint.
@@ -2077,6 +2096,8 @@ function render() {
       if (i === 0 && !failed) walkRootFigure(svg, path, act.accent, bandId);
     });
   });
+
+  spaeter.forEach(n => svg.appendChild(n));
 
   // Stämme
   ACTIVITIES.forEach(a => {
@@ -2136,6 +2157,9 @@ function render() {
   updateAmbient();
   if (fokusName) { const n = [...svg.querySelectorAll('[tabindex]')].find((e) => e.getAttribute('aria-label') === fokusName); if (n) n.focus({ preventScroll: true }); }
 }
+
+// Nach dem Laden der Schrift stimmt die Breite des Beschriftungsstreifens, bei Abweichung einmal neu zeichnen.
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (labelStripEnd() !== STRIP) render(); });
 
 function renderPanel() {
   const wrap = document.getElementById('panelWrap');
