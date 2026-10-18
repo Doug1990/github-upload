@@ -851,9 +851,9 @@
   .bild .kost-fluss { animation: kp-fluss 2.2s linear infinite; }
   .bild .kp-fluss { animation: kp-fluss 5s linear infinite; } .bild .kp-fluss.l2 { animation-delay: -2.5s; }
   .bild a { cursor: pointer; outline: none; } .bild .kp-hit { fill: transparent; } .bild .kp-dot { fill: #1B2740; stroke: #F2C46B; stroke-width: 2; }
-  .bild a text { font-size: 14px; fill: #E8E6E0; } .bild a:hover text { fill: #fff; text-decoration: underline; }
+  .bild a text { font-size: 14px; fill: #E8E6E0; } .bild a text.kp-t { font-weight: 600; } .bild a text.kp-k { font-size: 12px; fill: #C7CAD6; } .bild a:hover text { fill: #fff; text-decoration: underline; }
   .bild a:focus-visible .kp-hit { stroke: #F2C46B; stroke-width: 2; } .bild .kp-opt { font-size: 11.5px; fill: #A9AFC0; }
-  @media (max-width: 560px) { .bild text { font-size: 12.7px; } .bild a text { font-size: 14px; } .bild .kp-opt { font-size: 12.6px; } }
+  @media (max-width: 560px) { .bild text { font-size: 12.7px; } .bild a text { font-size: 14px; } .bild a text.kp-k { font-size: 12.7px; } .bild .kp-opt { font-size: 12.6px; } }
   @keyframes kp-fluss { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(var(--h)); opacity: 0; } }
   .bild .b-umweg { animation: b-umweg 4.2s linear infinite; offset-rotate: 0deg; }
   .bild .b-zeit { animation: b-zeit 8s ease-in-out infinite; }
@@ -992,17 +992,16 @@
 
 <aside class="pfad-kurz" id="kurz" aria-labelledby="kurzT">
   <h2 id="kurzT">Das Wichtigste in Kürze</h2>
-  <svg class="bild kp-bild" viewBox="0 0 320 322" role="group" aria-label="Der Weg durch die Seite in sieben Stationen, jede ein Link. Die letzte ist ein Abstecher.">
-    <path class="b-line" d="M24 26V256"/><path class="b-alt" d="M24 256V302"/>
-    <circle class="b-dot kp-fluss" style="--h:230px;--c:#F2C46B" cx="24" cy="26" r="4"/><circle class="b-dot kp-fluss l2" style="--h:230px;--c:#F2C46B" cx="24" cy="26" r="4"/>
-    <a href="#tool" role="link" aria-label="Was hast du heute gemacht?"><rect class="kp-hit" x="0" y="3" width="320" height="46"/><circle class="kp-dot" cx="24" cy="26" r="7"/><text x="48" y="31">Was hast du heute gemacht?</text></a>
-    <a href="#journey" role="link" aria-label="Deine Reise"><rect class="kp-hit" x="0" y="49" width="320" height="46"/><circle class="kp-dot" cx="24" cy="72" r="7"/><text x="48" y="77">Deine Reise</text></a>
-    <a href="#shelfScene" role="link" aria-label="Du gehst einkaufen"><rect class="kp-hit" x="0" y="95" width="320" height="46"/><circle class="kp-dot" cx="24" cy="118" r="7"/><text x="48" y="123">Du gehst einkaufen</text></a>
-    <a href="#chainGame" role="link" aria-label="Was kommt vor was?"><rect class="kp-hit" x="0" y="141" width="320" height="46"/><circle class="kp-dot" cx="24" cy="164" r="7"/><text x="48" y="169">Was kommt vor was?</text></a>
-    <a href="#belonging" role="link" aria-label="Du gehörst dazu"><rect class="kp-hit" x="0" y="187" width="320" height="46"/><circle class="kp-dot" cx="24" cy="210" r="7"/><text x="48" y="215">Du gehörst dazu</text></a>
-    <a href="#now" role="link" aria-label="Es läuft weiter"><rect class="kp-hit" x="0" y="233" width="320" height="46"/><circle class="kp-dot" cx="24" cy="256" r="7"/><text x="48" y="261">Es läuft weiter</text></a>
-    <a href="#cubeSection" role="link" aria-label="Wie Energie unterwegs entsteht"><rect class="kp-hit" x="0" y="279" width="320" height="46"/><circle class="kp-dot" cx="24" cy="302" r="7"/><text x="48" y="307">Wie Energie unterwegs entsteht</text></a>
-    <text class="kp-opt" x="296" y="302" text-anchor="end">optional</text>
+  <svg class="bild kp-bild" viewBox="0 0 320 522" role="group" aria-label="Das Wichtigste in Kürze: sieben Stationen mit je einer Kernaussage, jede ein Link. Die letzte ist ein Abstecher.">
+    <path class="b-line" d="M24 19V389"/><path class="b-alt" d="M24 389V463"/>
+    <circle class="b-dot kp-fluss" style="--h:370px;--c:#F2C46B" cx="24" cy="19" r="4"/><circle class="b-dot kp-fluss l2" style="--h:370px;--c:#F2C46B" cx="24" cy="19" r="4"/>
+    <a href="#tool" role="link" aria-label="Was hast du heute gemacht? Dein Tag hängt an vier Ebenen: Regeln, Daten, Rohre, Körper."><rect class="kp-hit" x="0" y="2" width="320" height="72"/><circle class="kp-dot" cx="24" cy="19" r="7"/><text class="kp-t" x="48" y="24">Was hast du heute gemacht?</text><text class="kp-k" x="48" y="42">Dein Tag hängt an vier Ebenen:</text><text class="kp-k" x="48" y="57">Regeln, Daten, Rohre, Körper.</text></a>
+    <a href="#journey" role="link" aria-label="Deine Reise Wasser, Strom, Bahn, Kita und KI erreichen dich über je fünf Stationen."><rect class="kp-hit" x="0" y="76" width="320" height="72"/><circle class="kp-dot" cx="24" cy="93" r="7"/><text class="kp-t" x="48" y="98">Deine Reise</text><text class="kp-k" x="48" y="116">Wasser, Strom, Bahn, Kita und KI</text><text class="kp-k" x="48" y="131">erreichen dich über je fünf Stationen.</text></a>
+    <a href="#shelfScene" role="link" aria-label="Du gehst einkaufen Hinter jedem Produkt im Regal steht ein Netz von Betrieben."><rect class="kp-hit" x="0" y="150" width="320" height="72"/><circle class="kp-dot" cx="24" cy="167" r="7"/><text class="kp-t" x="48" y="172">Du gehst einkaufen</text><text class="kp-k" x="48" y="190">Hinter jedem Produkt im Regal</text><text class="kp-k" x="48" y="205">steht ein Netz von Betrieben.</text></a>
+    <a href="#chainGame" role="link" aria-label="Was kommt vor was? Alles braucht etwas, das schon da sein muss. Du baust die Kette."><rect class="kp-hit" x="0" y="224" width="320" height="72"/><circle class="kp-dot" cx="24" cy="241" r="7"/><text class="kp-t" x="48" y="246">Was kommt vor was?</text><text class="kp-k" x="48" y="264">Alles braucht etwas, das schon da sein</text><text class="kp-k" x="48" y="279">muss. Du baust die Kette.</text></a>
+    <a href="#belonging" role="link" aria-label="Du gehörst dazu Du wirst von Leitungen getragen und trägst selbst welche mit."><rect class="kp-hit" x="0" y="298" width="320" height="72"/><circle class="kp-dot" cx="24" cy="315" r="7"/><text class="kp-t" x="48" y="320">Du gehörst dazu</text><text class="kp-k" x="48" y="338">Du wirst von Leitungen getragen</text><text class="kp-k" x="48" y="353">und trägst selbst welche mit.</text></a>
+    <a href="#now" role="link" aria-label="Es läuft weiter Während du liest, läuft das Netz weiter, hochgerechnet aus Tagesdurchschnitten."><rect class="kp-hit" x="0" y="372" width="320" height="72"/><circle class="kp-dot" cx="24" cy="389" r="7"/><text class="kp-t" x="48" y="394">Es läuft weiter</text><text class="kp-k" x="48" y="412">Während du liest, läuft das Netz weiter,</text><text class="kp-k" x="48" y="427">hochgerechnet aus Tagesdurchschnitten.</text></a>
+    <a href="#cubeSection" role="link" aria-label="Wie Energie unterwegs entsteht Auf dem Weg kommt Energie an fünf Stationen auf verschiedene Weise dazu."><rect class="kp-hit" x="0" y="446" width="320" height="72"/><circle class="kp-dot" cx="24" cy="463" r="7"/><text class="kp-t" x="48" y="468">Wie Energie unterwegs entsteht</text><text class="kp-k" x="48" y="486">Auf dem Weg kommt Energie an fünf</text><text class="kp-k" x="48" y="501">Stationen auf verschiedene Weise dazu.</text></a>
   </svg>
 </aside>
 
