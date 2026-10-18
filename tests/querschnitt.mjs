@@ -85,6 +85,44 @@ for (const w of [1280, 1024]) {
     if (!ok) fehler.push(`Sprung zu ${id} (${w} px): Figur ${r.sichtbar ? 'steht bei ' + Math.round(r.top / r.vh * 100) + ' vh' : 'unerwartet'}`);
   }
 }
+
+// Hero-Grafik: vier Beispiele, Schrift wirksam mindestens 12 px, Überschriften bleiben frei, Reduced Motion zeigt die Endstelle
+const HERO = `(() => {
+  const svg = document.querySelector('.hero-bild'); const sr = svg.getBoundingClientRect(); const out = [];
+  const gs = [...svg.querySelectorAll('g')];
+  if (gs.length !== 4) out.push('Linien: ' + gs.length);
+  const starts = gs.map((g) => g.querySelector('path').getAttribute('d').split('H')[0].split(' ')[0]);
+  if (new Set(starts).size !== 1) out.push('Linien beginnen verschieden: ' + starts.join(' '));
+  const ende = gs.map((g) => g.querySelector('path').getAttribute('d').split('H')[1]);
+  if (new Set(ende).size !== 1) out.push('Linien enden verschieden');
+  const label = svg.getAttribute('aria-label');
+  const heads = [];
+  for (const g of gs) {
+    const ts = [...g.querySelectorAll('text')]; const bsp = g.querySelector('.b-bsp');
+    if (!bsp || bsp.textContent.trim().split(/\\s+/).length > 2) out.push('Beispiel fehlt oder mehr als zwei Wörter');
+    else if (!label.includes(bsp.textContent.trim().replace('-App', '').toLowerCase().replace(/^./, (c) => c) ) && !label.toLowerCase().includes(bsp.textContent.trim().toLowerCase())) out.push('aria-label ohne ' + bsp.textContent);
+    for (const t of ts) { const q = t.getBoundingClientRect(); if (parseFloat(getComputedStyle(t).fontSize) * (sr.width / 320) < 12) out.push('Schrift unter 12 px wirksam: ' + t.textContent); if (q.left < sr.left - 0.5 || q.right > sr.right + 0.5) out.push('Text ragt aus dem Bild: ' + t.textContent); }
+    heads.push({ n: ts[0].textContent, r: ts[0].getBoundingClientRect() });
+  }
+  const treffer = (a, b) => a.right > b.left && a.left < b.right && a.bottom > b.top && a.top < b.bottom;
+  for (const h of heads) {
+    for (const g of gs) {
+      for (const e of g.querySelectorAll('path, circle, text.b-bsp')) if (treffer(h.r, e.getBoundingClientRect())) out.push('Überschrift "' + h.n + '" überdeckt');
+    }
+  }
+  const dots = [...svg.querySelectorAll('.b-fluss')].map((c) => { const q = c.getBoundingClientRect(); return (q.left + q.right) / 2; });
+  const stand = [...svg.querySelectorAll('g')].map((g) => { const q = [...g.querySelectorAll('circle')][1].getBoundingClientRect(); return (q.left + q.right) / 2; });
+  return { out, dots, stand };
+})()`;
+for (const [w, reduce] of [[1280, false], [390, false], [360, false], [390, true]]) {
+  await b.open('index.html', w, { reduce });
+  await b.ev(`document.querySelector('.hero-bild').scrollIntoView({ behavior: 'instant', block: 'center' })`);
+  await sleep(800);
+  const r = await b.ev(HERO);
+  if (reduce) r.dots.forEach((d, i) => { if (Math.abs(d - r.stand[i]) > 1.5) r.out.push('Reduced Motion: laufender Punkt ' + (i + 1) + ' steht nicht an der Endstelle'); });
+  console.log(`Hero-Grafik ${w} px${reduce ? ' (Reduced Motion)' : ''}: ${r.out.length} Fehler`);
+  for (const f of r.out) fehler.push(`Hero-Grafik ${w} px${reduce ? ' reduziert' : ''}: ${f}`);
+}
 b.close();
 if (fehler.length) { console.error('\nFehler (' + fehler.length + '):\n' + fehler.map((f) => '  X ' + f).join('\n')); process.exit(1); }
 console.log('\nQuerschnitt: keine Fehler.');

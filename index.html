@@ -860,6 +860,7 @@
   .bild .b-kult { --c: #D9A64A; } .bild .b-digi { --c: #8590E6; } .bild .b-phys { --c: #4FA9B1; } .bild .b-bio { --c: #7DBB63; }
   .bild .b-dot { fill: var(--c, #F2C46B); }
   .bild .b-ebene { fill: none; stroke: var(--c); stroke-width: 2.4; stroke-linecap: round; opacity: 0.85; }
+  .bild .b-bsp { font-weight: 600; fill: #E8E6E0; }
   .bild .b-lbl-fail { fill: #FF8A65; }
   .bild .b-lbl-alt { fill: #4FA9B1; }
   .bild .b-fluss { animation: b-fluss 4.2s linear infinite; }
@@ -878,7 +879,7 @@
   @keyframes b-fluss { 0% { transform: translateX(0); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateX(var(--w, 200px)); opacity: 0; } }
   @keyframes b-umweg { 0% { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
   @keyframes b-zeit { 0%, 20% { fill: #8FD9A8; } 50% { fill: #F2C46B; } 80%, 100% { fill: #FF8A65; } }
-  @media (prefers-reduced-motion: reduce) { .bild .b-fluss, .bild .kp-fluss, .bild .kost-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
+  @media (prefers-reduced-motion: reduce) { .hero-bild .b-fluss { transform: translateX(var(--w)); } .bild .b-fluss, .bild .kp-fluss, .bild .kost-fluss, .bild .b-umweg, .bild .b-zeit { animation: none; opacity: 1; } .bild .b-zeit { fill: #FF8A65; } }
 
   /* Wo das Bild hinkt: aufklappbares Feld je Abschnitt (gleich auf allen Seiten) */
   .hinkt { width: 100%; max-width: min(94vw, 560px); margin: 26px auto 0; text-align: left; font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif; position: relative; z-index: 1; }
@@ -999,11 +1000,11 @@
   <p class="hero-eyebrow">Düsseldorf · in Arbeit</p>
   <h1 class="hero-title">Hinter fast allem, was du machst, steckt Infrastruktur.</h1>
   <p class="hero-thesis">Woran ein Tag in Düsseldorf hängt.</p>
-  <svg class="bild" viewBox="0 0 320 112" role="img" aria-label="Vier Leitungen übereinander, auf jeder laufen Punkte: kulturell (Regeln), digital (Daten), physisch (Rohre), biologisch (Zellen). Zusammen tragen sie einen Tag.">
-    <g class="b-kult"><text x="0" y="18">Kulturell · Regeln</text><path class="b-ebene" d="M135 14H316"/><circle class="b-dot b-fluss" style="--w:150px" cx="135" cy="14" r="4"/><circle class="b-dot" cx="250" cy="14" r="4"/></g>
-    <g class="b-digi"><text x="0" y="46">Digital · Daten</text><path class="b-ebene" d="M135 42H316"/><circle class="b-dot b-fluss l2" style="--w:160px" cx="135" cy="42" r="4"/><circle class="b-dot" cx="210" cy="42" r="4"/></g>
-    <g class="b-phys"><text x="0" y="74">Physisch · Rohre</text><path class="b-ebene" d="M135 70H316"/><circle class="b-dot b-fluss l3" style="--w:170px" cx="135" cy="70" r="4"/><circle class="b-dot" cx="180" cy="70" r="4"/></g>
-    <g class="b-bio"><text x="0" y="102">Biologisch · Körper und Zellen</text><path class="b-ebene" d="M195 98H316"/><circle class="b-dot b-fluss l4" style="--w:115px" cx="195" cy="98" r="4"/><circle class="b-dot" cx="290" cy="98" r="4"/></g>
+  <svg class="bild hero-bild" viewBox="0 0 320 142" role="img" aria-label="Vier Leitungen übereinander, jede mit einem Alltagsbeispiel am Ende. Kulturell (Regeln): die Ampel. Digital (Daten): die Fahrplan-App. Physisch (Rohre): das Wasserrohr. Biologisch (Körper und Zellen): der Muskel. Auf jeder Leitung läuft ein Punkt zum Beispiel hin. Zusammen tragen sie einen Tag.">
+    <g class="b-kult"><text x="0" y="34">Kulturell · Regeln</text><path class="b-ebene" d="M135 30H316"/><circle class="b-dot b-fluss" style="--w:135px" cx="135" cy="30" r="4"/><circle class="b-dot" cx="270" cy="30" r="4"/><text class="b-bsp" x="270" y="21" text-anchor="middle">Ampel</text></g>
+    <g class="b-digi"><text x="0" y="68">Digital · Daten</text><path class="b-ebene" d="M135 64H316"/><circle class="b-dot b-fluss l2" style="--w:135px" cx="135" cy="64" r="4"/><circle class="b-dot" cx="270" cy="64" r="4"/><text class="b-bsp" x="270" y="55" text-anchor="middle">Fahrplan-App</text></g>
+    <g class="b-phys"><text x="0" y="102">Physisch · Rohre</text><path class="b-ebene" d="M135 98H316"/><circle class="b-dot b-fluss l3" style="--w:135px" cx="135" cy="98" r="4"/><circle class="b-dot" cx="270" cy="98" r="4"/><text class="b-bsp" x="270" y="89" text-anchor="middle">Wasserrohr</text></g>
+    <g class="b-bio"><text x="0" y="136">Biologisch · Körper</text><path class="b-ebene" d="M135 132H316"/><circle class="b-dot b-fluss l4" style="--w:135px" cx="135" cy="132" r="4"/><circle class="b-dot" cx="270" cy="132" r="4"/><text class="b-bsp" x="270" y="123" text-anchor="middle">Muskel</text></g>
   </svg>
   <div class="hero-journey-badge" id="heroJourneyBadge">
     <svg viewBox="0 0 90 26" aria-hidden="true">
