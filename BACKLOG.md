@@ -24,7 +24,6 @@ Aufgabenliste für die autonome Arbeit an der Infrastruktur-Seite. Claude arbeit
 6. **Performance, Rest.** Messung steht (`node tests/leerlauf.mjs`, Hauptthread im Leerlauf bei 390 px). Stand: Startseite rund 10 Prozent (davon Skript 2,5), Karte rund 5, Zell-Seite 0 bis 3,5, alle übrigen Seiten 0. Offen nur bei Bedarf: Schleifen und Animationen anhalten, wenn Element oder Tab nicht sichtbar sind, Canvas-Auflösung deckeln. Vorher und nachher mit `leerlauf.mjs` messen. Aufwand M.
 7. **Lernpfad.** Schmale Abschnittsleiste mit Fortschritt und "schon gesehen" in localStorage, Zurücksetzen im Fuß, Datenschutztext anpassen. Aufwand M.
 8. **Ton-Feinschliff.** Lautstärke-Regler, Stummschaltung pro Klangquelle, ein gemeinsamer Zustand, Rücksprung aus dem Seitencache. Sinnvoll nach den gemeinsamen Bausteinen. Aufwand M.
-17. **Skripte auslagern und Ladezeit messen.** Einschätzung 17. Oktober 2026: die Seiten haben kein gemeinsames Skript, Auslagern nach `assets/*.js` spart daher keine Bytes und kein Caching zwischen Seiten, nur bei `defer` ein früheres erstes Bild. Erst messen (Zeit bis zum ersten Bild, `index` 288 KB, `zelle` 559 KB), nur bei echtem Befund umbauen. Aufwand M, Nutzen unklar.
 42. **Prüfliste für echte Geräte, Durchlauf.** Liste steht in `tests/geraete.md` (20 Prüfpunkte, drei Geräteklassen). Offen: ein Durchlauf auf iPhone Safari, Android Chrome und Firefox, Fehler als eigene Punkte hier eintragen. Das kann nur Björn mit echten Geräten tun. Aufwand S.
 
 ## Offen, Priorität niedrig
@@ -41,7 +40,7 @@ Nur diese Punkte kann nur Björn klären. Die Nummern verweisen auf die Details 
 
 | Dringlichkeit | Frage | Details |
 | --- | --- | --- |
-| hoch | CI freigeben: im Terminal `! gh auth refresh -h github.com -s workflow`, danach "Require status checks" für main setzen. Ohne das laufen die Prüfskripte nur lokal. | 20, 14 |
+| hoch | Branch-Schutz für main setzen (GitHub, Settings, Branches, Pflicht-Check "Prüfen"). Der Workflow läuft seit 10. Oktober, die Freigabe des Tokens ist erledigt. | 14 |
 | vor Veröffentlichung | Datenschutztexte rechtlich gegenlesen (Schriften, Eingaben bleiben im Browser). Von Björn zurückgestellt, bis die Seite öffentlich geht. | 1, 13 |
 | mittel | Fachtexte gegenlesen: Krankheitsbeispiele im Ausfall-Abschnitt, Zoll, Gene, Immunsystem, Fließband, Dein Tag, "Wo das Bild hinkt". | 17, 22, 24, 28, 31, 33, 37 |
 | mittel | Fachcheck "Dorf oder Stadt": Größenbeispiele, Rechnung, Endosymbiose, Riesenbakterien und kleine Zellen mit Kern. | 46 |
@@ -155,6 +154,8 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 
 ## Erledigt
 
+- Punkt 17, Ladezeit gemessen (18. Oktober 2026, headless Chrome lokal, Median aus drei Läufen): erstes Bild `zelle` rund 100 ms, `index` rund 60 ms, alle anderen Seiten unter 50 ms, Ladeende unter 90 ms, Gewicht 128 bis 160 KB (`index` 390, `zelle` 654 KB, davon rund 100 KB je Schrift), DOM `zelle` 4300 Elemente. Ergebnis: Auslagern nach `assets/*.js` bringt nichts, es gibt kein gemeinsames Skript. Punkt erledigt, kein Umbau.
+- `visuell` in die CI holen (18. Oktober 2026 geprüft, nicht gebaut): lokal nur 54 Sekunden, aber die Referenzbilder stammen vom Mac, Schrift und Kanten rendern auf dem Linux-Runner anders, der Vergleich würde Fehlalarme geben. Erst sinnvoll mit eigenen Linux-Referenzen.
 - Plan 90, Schritt G: `tests/ordnung.mjs` prüft jede Schlussfrage (Kennzeichnung und Antwort), Abschnitte im Verzeichnis, fünf Teilköpfe in Reihenfolge, keine Gedankenstriche und kein "nicht, sondern" im Text, berichtet Fachwörter ohne Erklärung bei der ersten Nennung (Hinweis)
 - Plan 90, Schritt F: Zell-Ansicht zeigt "Du bist hier: Ganze Zelle › Bestandteil" (Name je nach Zelle/Stadt-Schalter) mit Hinweis auf den Rückweg und zählt, wie viele der sechs Bestandteile angesehen wurden, Skript `tests/zoomort.mjs`
 - Plan 90, Schritt E: Kraftwerk mit Erklärung in vier Schritten (Zwei Räume, Pumpe, Stau, Turbine) mit Zurück, Weiter und "Alles zeigen", Standard ohne Hervorhebung, kein Autoplay, Simulation unverändert, Skript `tests/kraftwerk.mjs`
