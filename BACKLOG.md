@@ -239,6 +239,20 @@ Hier steht alles im Wortlaut, auch das, was ohne Antwort so bleibt (Annahme). Di
 - Bauamt mit Kontrollpunkten (#23)
 - Barrierefreiheit (#21): Kontraste, Skip-Link, Tastatur, Tippflächen, Reduced Motion, Fallbacks, Skripte `tests/kontrast.mjs` und `tests/tastatur.mjs`
 
+## Nachtbericht 18. Oktober 2026, Teil 2 (Startseite)
+
+**Gemergt:** #175 Hero-Zeile ohne Zelle, #176 Startseite Inhalt und Bedienung (Kurzpfad mit Kernaussagen, Journey-Erläuterung je Station, Einkaufsleiste "Was dahinter passiert", Kettenspiel mit klarer Anweisung und Hilfsbild, Knoten-Graph mit Folgen für Gebühren, Kosten mit Summe und Vergleich der drei Modi). Als Nächstes in Arbeit: Startseite Optik und Abstände (Querschnitt, Begleiterin, Hero-Beispiele, Instandhaltung, Schichtbild, Schlussgrafik), Zell-Links auf den anderen Seiten entfernen, einmalige Verständlichkeitsprüfung der Startseite mit einem größeren Modell.
+
+**Regel von Björn:** Das Düsseldorf-Projekt verlinkt nicht auf die Zell-Seite (getrenntes Projekt). Zelle und Biologie als Thema bleiben erlaubt.
+
+**Offen für Björn (Entscheidungen):**
+- Knoten-Graph "Du gehörst dazu": "Mitmachen" und "Deine Arbeit" haben keine Folgen auf andere Leitungen, obwohl ihre Texte welche andeuten. Was soll beim Ausfall passieren?
+- Kopfleiste der Nebenseiten um Abschluss und Rätsel erweitern?
+- Satz "Diese Seite ist KI-generiert" auch in den Fuß der Nebenseiten?
+- Ton-Knopf am Handy ist nur oben erreichbar (Alternative: Knopf im Fuß).
+- Fixer: Lichtsaum (Farbe oder aus), Fixerin spiegeln oder eigene Posen, Seitenband der Plattformen, Fixer-Repo pushen und Map veröffentlichen.
+- Branch-Schutz für main ist gesetzt (erledigt).
+
 ## Nachtbericht 18. Oktober 2026
 
 **Gemerged (alle nach grüner Prüfung):** #162 Gegenlesen Runde 2 (20 fachliche Befunde in Rätsel, Zelle, Tagesverlauf, Glossar, Karte), #163 Backlog, #164 Skript-Texte (32 Sätze kurz sichtbar, voller Satz für Screenreader), #165 `GESTALTUNG-NEXT.md` (Konzept K2), #166 Nebenseiten mit Fuß, Kopfleiste und og-Tags, #167 Mobil (Ton und Farbschema scrollen mit, Zahlenkacheln zweispaltig, neuer Test `verdeckung`, vorher 130 Verdeckungen, nachher 0), #168 Mikrotexte (247 SVG-Texte unter 12 px bei 390 px auf 0, Testgrenze 11,5 px), #169 Glossar mit Suche und Ebenenfilter (Test `glossar`), #170 Glossar-Legende gleich benannt, #171 Zell-Hero mit sofort sichtbarer Linie und Test `layoutsprung`, #172 Rätsel und Normen mit sichtbarer Rückmeldung. Dazu #160 Tab-Symbol auf allen Seiten.
